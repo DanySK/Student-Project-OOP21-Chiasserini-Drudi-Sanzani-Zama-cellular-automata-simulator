@@ -35,3 +35,6 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: test
+      - uses: jwgmeligmeyling/checkstyle-github-action@master
+        with:
+          path: '**/reports/checkstyle/main.xml'
