@@ -9,7 +9,9 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
-    
+    pmd
+    checkstyle
+    id("com.github.spotbugs") version "5.0.5"
     // Adds task 'shadowJar ' to export a runnable jar .
     // The runnable jar will be found in build / libs / projectname - all . jar
     id ("com.github.johnrengelman.shadow") version "7.1.2"
@@ -25,6 +27,9 @@ val supportedPlatforms = listOf("linux", "mac", "win")
 val javaFXVersion = 15
 
 dependencies {
+    spotbugs("com.github.spotbugs:spotbugs:4.5.3")
+    spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.11.0")
+    
     for (platform in supportedPlatforms) {
         for (module in javaFXModules) {
             implementation("org.openjfx:javafx-$module:$javaFXVersion:$platform")
@@ -42,4 +47,21 @@ dependencies {
 application {
     // Define the main class for the application.
     mainClass.set("casim.App")
+}
+
+pmd {
+    isConsoleOutput = true
+    toolVersion = "6.21.0"
+    rulesMinimumPriority.set(5)
+    ruleSets = listOf("config/pmd/pmd.xml")
+}
+
+spotbugs {
+    ignoreFailures.set(false)
+    showStackTraces.set(true)
+    showProgress.set(true)
+    effort.set(com.github.spotbugs.snom.Effort.DEFAULT)
+    reportLevel.set(com.github.spotbugs.snom.Confidence.LOW)
+    reportsDir.set(file("$buildDir/spotbugs"))
+    excludeFilter.set(file("../config/spotbugs/excludes.xml"))
 }
