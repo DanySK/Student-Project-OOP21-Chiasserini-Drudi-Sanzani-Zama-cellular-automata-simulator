@@ -3,12 +3,21 @@
  */
 package casim;
 
+/**
+ *
+ */
 public class App {
+    /**
+     * @return greetings
+     */
     public String getGreeting() {
         return "Hello World!";
     }
 
-    public static void main(String[] args) {
+    /**
+     * @param args ignored
+     */
+    public static void main(final String[] args) {
         System.out.println(new App().getGreeting());
     }
 }

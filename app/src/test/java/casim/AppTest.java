@@ -4,12 +4,18 @@
 package casim;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+/**
+ * Example test class
+ */
 public class AppTest {
+    /**
+     * Example test
+     */
     @Test
     public void appHasAGreeting() {
-        App classUnderTest = new App();
+        final App classUnderTest = new App();
         assertNotNull("app should have a greeting", classUnderTest.getGreeting());
     }
 }
