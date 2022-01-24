@@ -50,14 +50,19 @@ application {
 }
 
 pmd {
+    ignoreFailures.set(true)
     isConsoleOutput = true
     toolVersion = "6.21.0"
     rulesMinimumPriority.set(5)
     ruleSets = listOf("config/pmd/pmd.xml")
 }
 
+checkstyle {
+    ignoreFailures.set(true)
+}
+
 spotbugs {
-    ignoreFailures.set(false)
+    ignoreFailures.set(true)
     showStackTraces.set(true)
     showProgress.set(true)
     effort.set(com.github.spotbugs.snom.Effort.DEFAULT)
