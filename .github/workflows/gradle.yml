@@ -31,6 +31,10 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build --warning-mode all
+      - name: Checkstyle, PMD & SpotBugs with Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: check
       - name: Test with Gradle
         uses: gradle/gradle-build-action@v2
         with:
