@@ -3,24 +3,25 @@
  */
 package casim;
 
-import javax.annotation.Nullable;
-
+/**
+ * App class.
+ */
 public class App {
     /**
+     * Greetings function.
+     * 
      * @return greetings
      */
     public String getGreeting() {
         return "Hello World!";
     }
 
-    public String test(@Nullable final String name) {
-        return "Test" + name.length();
-    }
-
-
+    /**
+     * Entry Point.
+     * 
+     * @param args args
+     */
     public static void main(final String[] args) {
-        System.out.println(new App().test(null));
-
         System.out.println(new App().getGreeting());
     }
 }

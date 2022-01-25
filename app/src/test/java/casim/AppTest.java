@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
- * Example test class
+ * Example test class.
  */
 public class AppTest {
     /**
-     * Example test
+     * Example test.
      */
     @Test
     public void appHasAGreeting() {
