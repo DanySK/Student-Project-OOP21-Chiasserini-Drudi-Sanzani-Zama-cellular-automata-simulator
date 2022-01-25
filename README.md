@@ -2,6 +2,8 @@
 
 [![Build](https://github.com/FiloSanza/ca-sim/actions/workflows/gradle.yml/badge.svg)](https://github.com/FiloSanza/ca-sim/actions/workflows/gradle.yml)
 
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
 ca-sim is a cellular automaton simulator, it supports:
 - [ ] [Conway's Game Of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
 - [ ] [Rule 110](https://en.wikipedia.org/wiki/Rule_110)
@@ -63,5 +65,3 @@ If you are on Windows you can use:
 gradlew.bat build -x check       #to disable all the checks
 gradlew.bat build -x [checkName] #checkName can be checkstyle[Main|Test] pmd[Main|Test] spotbugs[Main|Test]
 ```
-
-## License
