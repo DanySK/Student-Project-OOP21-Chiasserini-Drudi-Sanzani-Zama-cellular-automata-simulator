@@ -8,6 +8,25 @@ ca-sim is a cellular automaton simulator, it supports:
 - [ ] [CoDi](https://en.wikipedia.org/wiki/CoDi)
 - [ ] [Langton's Ant](https://en.wikipedia.org/wiki/Langton%27s_ant)
 - [ ] [Predators and Prey](https://en.wikipedia.org/wiki/Wa-Tor)
+- [ ] [Empire](https://github.com/Hopson97/Empire)
+- [ ] [WireWorld](https://en.wikipedia.org/wiki/Wireworld)
+
+The following features will be implemented:
+- [ ] Automatic simulation
+- [ ] Manual simulation (the user will decide when to show the next iteration)
+- [ ] Stats about the simulation (i.e. FPS, number of iterations)
+- [ ] Random generated initial grid
+- [ ] User generated initial grid
+- [ ] Save/Load initial state from file
+- [ ] Zoom
+
+This software is developed by:
+- @RaulChiasso
+- @LorenzoDrudi
+- @FiloSanza
+- @TorioCrema
+
+For the university course in OOP.
 
 ## Build
 
@@ -26,8 +45,8 @@ cd ca-sim
 
 If you are on Windows you can use:
 
-```cmd
-cd ca-sim
+```ps
+cd "ca-sim"
 gradlew.bat build
 ```
 
@@ -40,9 +59,9 @@ The gradle scripts automatically executes additional checks using PMD, SpotBugs 
 
 If you are on Windows you can use:
 
-```cmd
-rem to disable all the checks
-gradlew.bat build -x check
-rem checkName can be checkstyle[Main|Test] pmd[Main|Test] spotbugs[Main|Test]
-gradlew.bat build -x [checkName] 
+```ps
+gradlew.bat build -x check       #to disable all the checks
+gradlew.bat build -x [checkName] #checkName can be checkstyle[Main|Test] pmd[Main|Test] spotbugs[Main|Test]
 ```
+
+## License
