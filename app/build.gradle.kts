@@ -53,11 +53,12 @@ pmd {
     isConsoleOutput = true
     toolVersion = "6.21.0"
     rulesMinimumPriority.set(5)
-    ruleSets = listOf("config/pmd/pmd.xml")
+    ruleSetFiles = files("../config/pmd/pmd.xml")
+    ruleSets = listOf()
 }
 
 checkstyle {
-    maxErrors = 100
+    
 }
 
 spotbugs {
