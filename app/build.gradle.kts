@@ -50,7 +50,6 @@ application {
 }
 
 pmd {
-    ignoreFailures.set(true)
     isConsoleOutput = true
     toolVersion = "6.21.0"
     rulesMinimumPriority.set(5)
@@ -58,7 +57,6 @@ pmd {
 }
 
 checkstyle {
-    ignoreFailures.set(true)
 }
 
 spotbugs {
