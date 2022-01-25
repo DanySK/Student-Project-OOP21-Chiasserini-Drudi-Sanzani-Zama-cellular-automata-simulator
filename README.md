@@ -1,7 +1,6 @@
 # Cellular Automaton Simulator
 
 [![Build](https://github.com/FiloSanza/ca-sim/actions/workflows/gradle.yml/badge.svg)](https://github.com/FiloSanza/ca-sim/actions/workflows/gradle.yml)
-
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ca-sim is a cellular automaton simulator, it supports:
