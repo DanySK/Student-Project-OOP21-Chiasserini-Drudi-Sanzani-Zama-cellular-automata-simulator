@@ -38,4 +38,4 @@ jobs:
       - name: Checkstyle Report
         uses: jwgmeligmeyling/checkstyle-github-action@master
         with:
-          path: '**/reports/checkstyle/main.xml'
+          path: '**/reports/checkstyle/*.xml'

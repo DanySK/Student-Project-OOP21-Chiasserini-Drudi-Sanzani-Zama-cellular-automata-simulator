@@ -3,9 +3,6 @@
  */
 package casim;
 
-/**
- *
- */
 public class App {
     /**
      * @return greetings

@@ -57,6 +57,7 @@ pmd {
 }
 
 checkstyle {
+    maxErrors = 100
 }
 
 spotbugs {
