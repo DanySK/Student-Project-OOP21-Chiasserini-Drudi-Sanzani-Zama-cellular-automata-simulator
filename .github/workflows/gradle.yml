@@ -39,3 +39,11 @@ jobs:
         uses: jwgmeligmeyling/checkstyle-github-action@master
         with:
           path: '**/reports/checkstyle/*.xml'
+      - name: PMD Report
+        uses: jwgmeligmeyling/pmd-github-action@master
+        with:
+          path: '**/reports/pmd/*.xml'
+      - name: SpotBugs Report
+        uses: jwgmeligmeyling/spotbugs-github-action@master
+        with:
+          path: '**/reports/spotbugs/*.xml'

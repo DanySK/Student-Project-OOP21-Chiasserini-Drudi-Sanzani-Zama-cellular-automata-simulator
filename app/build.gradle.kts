@@ -67,6 +67,13 @@ spotbugs {
     showProgress.set(true)
     effort.set(com.github.spotbugs.snom.Effort.DEFAULT)
     reportLevel.set(com.github.spotbugs.snom.Confidence.LOW)
-    reportsDir.set(file("$buildDir/spotbugs"))
+    reportsDir.set(file("$buildDir/reports/spotbugs"))
     excludeFilter.set(file("../config/spotbugs/excludes.xml"))
+}
+
+tasks.spotbugsMain {
+    reports.create("xml") {
+        required.set(true)
+        outputLocation.set(file("$buildDir/reports/spotbugs/spotbugs.xml"))
+    }
 }

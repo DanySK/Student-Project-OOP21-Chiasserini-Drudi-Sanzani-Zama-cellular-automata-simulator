@@ -3,6 +3,8 @@
  */
 package casim;
 
+import javax.annotation.Nullable;
+
 public class App {
     /**
      * @return greetings
@@ -11,8 +13,14 @@ public class App {
         return "Hello World!";
     }
 
+    public String test(@Nullable final String name) {
+        return "Test" + name.length();
+    }
+
 
     public static void main(final String[] args) {
+        System.out.println(new App().test(null));
+
         System.out.println(new App().getGreeting());
     }
 }
