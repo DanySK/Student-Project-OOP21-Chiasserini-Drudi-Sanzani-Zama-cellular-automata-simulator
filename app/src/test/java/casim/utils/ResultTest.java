@@ -12,8 +12,7 @@ import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Function;
-
-import com.google.common.base.Supplier;
+import java.util.function.Supplier;
 
 /**
  * Test class for {@link Result}.
