@@ -37,8 +37,13 @@ dependencies {
     }
 
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.5.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.5.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
+    testImplementation("org.junit.platform:junit-platform-runner:1.8.2")
+    // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-commons
+    implementation("org.junit.platform:junit-platform-commons:1.8.2")
+    // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher
+    testImplementation("org.junit.platform:junit-platform-launcher:1.8.2")
 
     // This dependency is used by the application.
     implementation("com.google.guava:guava:30.1.1-jre")
@@ -53,8 +58,8 @@ pmd {
     isConsoleOutput = true
     toolVersion = "6.21.0"
     rulesMinimumPriority.set(5)
-    ruleSetFiles = files("../config/pmd/pmd.xml")
-    ruleSets = listOf()
+    ruleSetFiles = files("../config/pmd/pmd.xml") //load the rules from the config file
+    ruleSets = listOf() //do not add other rules
 }
 
 checkstyle {
@@ -71,9 +76,29 @@ spotbugs {
     excludeFilter.set(file("../config/spotbugs/excludes.xml"))
 }
 
+//Configure Spotbugs Report
 tasks.spotbugsMain {
     reports.create("xml") {
         required.set(true)
         outputLocation.set(file("$buildDir/reports/spotbugs/spotbugs.xml"))
     }
+}
+
+//Java version
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
+}
+
+//Configure JUnit
+tasks.named<Test>("test") {
+    useJUnitPlatform()
+    testLogging {
+		events("passed", "skipped", "failed")
+	}
+}
+
+tasks.named("check") {
+    dependsOn("javadoc")
 }
