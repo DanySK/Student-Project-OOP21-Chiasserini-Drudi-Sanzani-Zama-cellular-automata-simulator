@@ -9,12 +9,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 /**
  * Example test class.
  */
-public class AppTest {
+class AppTest {
     /**
      * Example test.
      */
     @Test
-    public void appHasAGreeting() {
+    void appHasAGreeting() {
         final App classUnderTest = new App();
         assertNotNull("app should have a greeting", classUnderTest.getGreeting());
     }

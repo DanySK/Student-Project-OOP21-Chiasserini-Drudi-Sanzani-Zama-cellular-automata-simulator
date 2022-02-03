@@ -18,7 +18,7 @@ import com.google.common.base.Supplier;
 /**
  * Test class for {@link Result}.
  */
-public class ResultTest {
+class ResultTest {
 
     private static final String TEXT = "TEXT";
     private static final UnsupportedOperationException EXCEPTION 
@@ -28,7 +28,7 @@ public class ResultTest {
      * Test {@link Result#equals()} method.
      */
     @Test
-    public void testEquals() {
+    void testEquals() {
         final String text1 = "Test1";
         final String text2 = "Test2";
         final Exception ex1 = new IllegalArgumentException();
@@ -53,7 +53,7 @@ public class ResultTest {
      * Test {@link Result#error()} method.
      */
     @Test
-    public void testError() {
+    void testError() {
         final var r = Result.error(EXCEPTION);
         assertEquals(EXCEPTION, r.getError());
         assertTrue(r::isError);
@@ -64,7 +64,7 @@ public class ResultTest {
      * Test {@link Result#flatMap()} method.
      */
     @Test
-    public void testFlatMap() {
+    void testFlatMap() {
         final var value = 1;
         final Function<Integer, Result<Integer>> function = (x) -> Result.of(x * 2);
         final var r1 = Result.of(value);
@@ -81,7 +81,7 @@ public class ResultTest {
      * Test {@link Result#flatMap()} method.
      */
     @Test
-    public void testFlatMapSupplier() {
+    void testFlatMapSupplier() {
         final var value = 1;
         final Supplier<Result<String>> supplier = () -> Result.of(TEXT);
         final var r1 = Result.of(value);
@@ -98,7 +98,7 @@ public class ResultTest {
      * Test {@link Result#getError()} method.
      */
     @Test
-    public void testGetError() {
+    void testGetError() {
         final var r1 = Result.of(TEXT);
         final var r2 = Result.error(EXCEPTION);
         assertThrows(NoSuchElementException.class, r1::getError);
@@ -109,7 +109,7 @@ public class ResultTest {
      * Test {@link Result#getValue()} method.
      */
     @Test
-    public void testGetValue() {
+    void testGetValue() {
         final var r1 = Result.of(TEXT);
         final var r2 = Result.error(EXCEPTION);
         assertEquals(TEXT, r1.getValue());
@@ -120,7 +120,7 @@ public class ResultTest {
      * Test {@link Result#hashCode()} method.
      */
     @Test
-    public void testHashCode() {
+    void testHashCode() {
         final var r1 = Result.of(TEXT);
         final var r2 = Result.error(EXCEPTION);
         assertEquals(TEXT.hashCode(), r1.hashCode());
@@ -131,7 +131,7 @@ public class ResultTest {
      * Test {@link Result#isError()} method.
      */
     @Test
-    public void testIsError() {
+    void testIsError() {
         final var r1 = Result.of(1);
         final var r2 = Result.error(EXCEPTION);
         final var r3 = Result.ofEmpty();
@@ -144,7 +144,7 @@ public class ResultTest {
      * Test {@link Result#isPresent()} method.
      */
     @Test
-    public void testIsPresent() {
+    void testIsPresent() {
         final var r1 = Result.of(TEXT);
         final var r2 = Result.error(EXCEPTION);
         final var r3 = Result.ofEmpty();
@@ -157,7 +157,7 @@ public class ResultTest {
      * Test {@link Result#map()} method.
      */
     @Test
-    public void testMap() {
+    void testMap() {
         final var value = 1;
         final Function<Integer, Integer> function = (x) -> x * 2;
         final var r1 = Result.of(value);
@@ -174,7 +174,7 @@ public class ResultTest {
      * Test {@link Result#mapError()} method.
      */
     @Test
-    public void testMapError() {
+    void testMapError() {
         final String newErrorMsg = "NewErrorMsg";
         final Function<Exception, UnsupportedOperationException> function
              = x -> new UnsupportedOperationException(newErrorMsg);
@@ -192,7 +192,7 @@ public class ResultTest {
      * Test {@link Result#of()} method.
      */
     @Test
-    public void testOf() {
+    void testOf() {
         final var r = Result.of(TEXT);
         assertTrue(r::isPresent);
         assertFalse(r::isError);
@@ -203,7 +203,7 @@ public class ResultTest {
      * Test {@link Result#ofEmpty()} method.
      */
     @Test
-    public void testOfEmpty() {
+    void testOfEmpty() {
         final var r = Result.ofEmpty();
         assertTrue(r::isPresent);
         assertTrue(Arrays.asList(
@@ -217,7 +217,7 @@ public class ResultTest {
      * Test {@link Result#orElse()} method.
      */
     @Test
-    public void testOrElse() {
+    void testOrElse() {
         final var elseValue = "Else";
         final var r1 = Result.of(TEXT);
         final var r2 = Result.error(EXCEPTION);
@@ -229,12 +229,12 @@ public class ResultTest {
      * Test {@link Result#require()} method.
      */
     @Test
-    public void testRequire() {
+    void testRequire() {
         final var r1 = Result.of(TEXT);
         final var r2 = Result.error(EXCEPTION);
-        final var require1 = r1.require(str -> str.equals(TEXT));
-        final var require2 = r1.require(str -> !str.equals(TEXT));
-        final var require3 = r2.require(str -> str.equals(TEXT));
+        final var require1 = r1.require(str -> TEXT.equals(str));
+        final var require2 = r1.require(str -> !TEXT.equals(str));
+        final var require3 = r2.require(str -> TEXT.equals(str));
         assertEquals(r1, require1);
         assertEquals(r2, require3);
         assertNotEquals(r1, require2);
@@ -246,13 +246,13 @@ public class ResultTest {
      * Test {@link Result#require()} method.
      */
     @Test
-    public void testRequireCustomException() {
+    void testRequireCustomException() {
         final var customEx = new IndexOutOfBoundsException();
         final var r1 = Result.of(TEXT);
         final var r2 = Result.error(EXCEPTION);
-        final var require1 = r1.require(str -> str.equals(TEXT), customEx);
-        final var require2 = r1.require(str -> !str.equals(TEXT), customEx);
-        final var require3 = r2.require(str -> str.equals(TEXT), customEx);
+        final var require1 = r1.require(str -> TEXT.equals(str), customEx);
+        final var require2 = r1.require(str -> !TEXT.equals(str), customEx);
+        final var require3 = r2.require(str -> TEXT.equals(str), customEx);
         assertEquals(r1, require1);
         assertEquals(r2, require3);
         assertNotEquals(r1, require2);
@@ -264,13 +264,13 @@ public class ResultTest {
      * Test {@link Result#require()} method.
      */
     @Test
-    public void testRequireExceptionSupplier() {
+    void testRequireExceptionSupplier() {
         final Supplier<Exception> customEx = () -> new IndexOutOfBoundsException();
         final var r1 = Result.of(TEXT);
         final var r2 = Result.error(EXCEPTION);
-        final var require1 = r1.require(str -> str.equals(TEXT), customEx);
-        final var require2 = r1.require(str -> !str.equals(TEXT), customEx);
-        final var require3 = r2.require(str -> str.equals(TEXT), customEx);
+        final var require1 = r1.require(str -> TEXT.equals(str), customEx);
+        final var require2 = r1.require(str -> !TEXT.equals(str), customEx);
+        final var require3 = r2.require(str -> TEXT.equals(str), customEx);
         assertEquals(r1, require1);
         assertEquals(r2, require3);
         assertNotEquals(r1, require2);
@@ -282,7 +282,7 @@ public class ResultTest {
      * Test {@link Result#stream()} method.
      */
     @Test
-    public void testStream() {
+    void testStream() {
         final var r1 = Result.of(TEXT);
         assertEquals(1, r1.stream().count());
         assertEquals(TEXT, r1.stream().findFirst().get().getValue());
@@ -292,7 +292,7 @@ public class ResultTest {
      * Test {@link Result#toEmpty()} method.
      */
     @Test
-    public void testToEmpty() {
+    void testToEmpty() {
         final var r1 = Result.of(TEXT);
         final var r2 = Result.error(EXCEPTION);
         final var toEmpty1 = r1.toEmpty();
@@ -314,7 +314,7 @@ public class ResultTest {
      * Test {@link Result#toOptional()} method.
      */
     @Test
-    public void testToOptional() {
+    void testToOptional() {
         final var r1 = Result.of(TEXT);
         final var r2 = Result.error(EXCEPTION);
         assertEquals(Optional.of(TEXT), r1.toOptional());
@@ -325,7 +325,7 @@ public class ResultTest {
      * Test {@link Result#toString()} method.
      */
     @Test
-    public void testToString() {
+    void testToString() {
         final var r1 = Result.of(TEXT);
         final var r2 = Result.error(EXCEPTION);
         assertEquals(TEXT, r1.toString());
