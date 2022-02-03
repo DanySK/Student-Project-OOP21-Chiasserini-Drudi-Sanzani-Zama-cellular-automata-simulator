@@ -34,7 +34,7 @@ public interface Grid<T> {
     /**
      * Return a {@link Result} containing:
      *  - {@link Empty} if row and column are valid,
-     *  - an {@link IndexOutOfBoundException} otherwise.
+     *  - an {@link IndexOutOfBoundsException} otherwise.
      * 
      * @param row of the element to set.
      * @param column of the element to set.

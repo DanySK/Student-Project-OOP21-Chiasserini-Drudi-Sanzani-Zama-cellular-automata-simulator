@@ -73,7 +73,7 @@ public final class Result<T> {
     }
 
     /** 
-     * Return the value contained in {@link Result} if any, otherwise throws a {@link NoSuchElementException}.
+     * Return the value contained in {@link Result} if any, otherwise throws a NoSuchElementException.
      * 
      * @return the value contained in {@link Result}.
      */
@@ -82,7 +82,7 @@ public final class Result<T> {
     }
 
     /** 
-     * Return the exception contained in {@link Result} if any, otherwise throws a {@link NoSuchElementException}.
+     * Return the exception contained in {@link Result} if any, otherwise throws a NoSuchElementException.
      * 
      * @return the exception contained in {@link Result}
      */
