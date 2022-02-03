@@ -9,7 +9,6 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
-    pmd
     checkstyle
     id("com.github.spotbugs") version "5.0.5"
     // Adds task 'shadowJar ' to export a runnable jar .
@@ -52,14 +51,6 @@ dependencies {
 application {
     // Define the main class for the application.
     mainClass.set("casim.App")
-}
-
-pmd {
-    isConsoleOutput = true
-    toolVersion = "6.21.0"
-    rulesMinimumPriority.set(5)
-    ruleSetFiles = files("../config/pmd/pmd.xml") //load the rules from the config file
-    ruleSets = listOf() //do not add other rules
 }
 
 checkstyle {
