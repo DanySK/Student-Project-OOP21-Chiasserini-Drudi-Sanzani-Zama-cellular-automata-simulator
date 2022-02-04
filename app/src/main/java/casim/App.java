@@ -3,25 +3,23 @@
  */
 package casim;
 
-/**
- * App class.
- */
-public class App {
-    /**
-     * Greetings function.
-     * 
-     * @return greetings
-     */
-    public String getGreeting() {
-        return "Hello World!";
-    }
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-    /**
-     * Entry Point.
-     * 
-     * @param args args
-     */
-    public static void main(final String[] args) {
-        System.out.println(new App().getGreeting());
+public class App extends Application {
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("view/grid_test.fxml"));
+        primaryStage.setTitle("Grid Test");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
+    
+    public static void main(String[] args) {
+        launch(args);
     }
 }
