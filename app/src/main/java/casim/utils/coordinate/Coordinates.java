@@ -4,6 +4,11 @@ package casim.utils.coordinate;
  * Utility class that defines methods for the Coordinate type.
  */
 public final class Coordinates {
+
+    private Coordinates() {
+
+    }
+
     /**
      * Sum two {@link Coordinate} objects returning a new {@link Coordinate}.
      * 
@@ -16,7 +21,7 @@ public final class Coordinates {
      * @param b second element of the sum.
      * @return a new {@link Coordinate} object representing the sum of a and b.
      */
-    public static <T extends Number> Coordinate<T> sum(Coordinate<T> a, Coordinate<T> b) {
+    public static <T extends Number> Coordinate<T> sum(final Coordinate<T> a, final Coordinate<T> b) {
         //TODO
         return null;
     }

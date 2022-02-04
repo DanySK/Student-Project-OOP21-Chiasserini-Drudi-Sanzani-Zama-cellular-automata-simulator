@@ -96,7 +96,7 @@ public final class Result<T> {
      * 
      * @param consumer function to call with value as parameter.
      */
-    public void ifPresent(Consumer<? super T> consumer) {
+    public void ifPresent(final Consumer<? super T> consumer) {
         this.value.ifPresent(consumer);
     }
 

@@ -9,17 +9,28 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Main project class.
+ */
 public class App extends Application {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(final Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("view/grid_test.fxml"));
         primaryStage.setTitle("Grid Test");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
-    
-    public static void main(String[] args) {
+
+    /**
+     * Entry point.
+     * 
+     * @param args command line args.
+     */
+    public static void main(final String[] args) {
         launch(args);
     }
 }

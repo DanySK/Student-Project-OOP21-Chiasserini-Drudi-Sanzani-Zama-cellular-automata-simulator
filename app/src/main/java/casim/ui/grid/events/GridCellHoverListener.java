@@ -23,7 +23,7 @@ public class GridCellHoverListener extends AbstractMouseEventHandler {
     @Override
     public void handle(final MouseEvent event) {
         final var coord = this.getCoordinatesFromEvent(event);
-        this.grid.getCell(coord)
-            .ifPresent(cell -> this.grid.onCellHover(cell, coord));
+        this.getCanvasGrid().getCell(coord)
+            .ifPresent(cell -> this.getCanvasGrid().onCellHover(cell, coord));
     }
 }

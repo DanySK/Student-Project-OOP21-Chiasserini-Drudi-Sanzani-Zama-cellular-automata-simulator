@@ -10,18 +10,33 @@ import javafx.scene.input.MouseEvent;
  */
 public abstract class AbstractMouseEventHandler implements EventHandler<MouseEvent> {
 
-    protected final CanvasGrid grid;
+    private final CanvasGrid grid;
 
     /**
-     * Construct a new {@link AbstractMouseEventHandler} for {@link CanvasGrid}
+     * Construct a new {@link AbstractMouseEventHandler} for {@link CanvasGrid}.
      * 
      * @param grid the {@link CanvasGrid} the event has to work on.
      */
-    public AbstractMouseEventHandler(CanvasGrid grid) {
+    public AbstractMouseEventHandler(final CanvasGrid grid) {
         this.grid = grid;
     }
 
+    /**
+     * Get the cell {@link Coordinate} from the mouse event.
+     * 
+     * @param event the mouse event.
+     * @return a {@link Coordinate} contaning the cell coordinates.
+     */
     protected Coordinate<Integer> getCoordinatesFromEvent(final MouseEvent event) {
         return null; //TODO: new CoordinateImpl<>((int)event.getX() / this.grid.getCellSize(), (int)event.getY() / this.grid.getCellSize());
+    }
+
+    /**
+     * Get the canvas grid.
+     * 
+     * @return the {@link CanvasGrid} related to the {@link AbstractMouseEventHandler}.
+     */
+    protected CanvasGrid getCanvasGrid() {
+        return this.grid;
     }
 }

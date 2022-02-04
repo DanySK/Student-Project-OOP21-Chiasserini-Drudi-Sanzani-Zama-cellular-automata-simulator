@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
  * Test class for {@link Grid}.
  */
 class GridTest {
-    
+
     private static final int DEFAULT_VALUE = 1;
     private static final int ROWS = 3;
     private static final int COLS = 2;
