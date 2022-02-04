@@ -2,6 +2,7 @@ package casim.utils;
 
 import java.util.Optional;
 import java.util.stream.Stream;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.Predicate;
@@ -88,6 +89,15 @@ public final class Result<T> {
      */
     public Exception getError() {
         return this.exception.get();
+    }
+
+    /**
+     * If the value is present call consumer with value as parameter, otherwise do nothing.
+     * 
+     * @param consumer function to call with value as parameter.
+     */
+    public void ifPresent(Consumer<? super T> consumer) {
+        this.value.ifPresent(consumer);
     }
 
     /** 
