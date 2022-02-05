@@ -47,9 +47,9 @@ public interface CanvasGrid {
     void populate();
 
     /**
-     * Draw the grid lines.
+     * Draw the grid.
      */
-    void drawLines();
+    void draw();
 
     /**
      * Return the cell size.
