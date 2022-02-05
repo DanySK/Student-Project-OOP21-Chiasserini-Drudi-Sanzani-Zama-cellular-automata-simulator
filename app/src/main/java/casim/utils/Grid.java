@@ -1,5 +1,8 @@
 package casim.utils;
 
+import java.util.List;
+import java.util.stream.Stream;
+
 /**
  * An N x M {@link Grid} of elements of type T.
  * 
@@ -42,4 +45,18 @@ public interface Grid<T> {
      * @return @return {@link Result} containing {@link Empty} if row and column are valid, {@link IndexOutOfBoundsException} otherwise.
      */
     Result<Empty> set(int row, int column, T value);
+
+    /**
+     * Return a Stream of the {@link Grid}'s rows.
+     * 
+     * @return Stream of the rows.
+     */
+    Stream<List<T>> stream();
+
+    /**
+     * Return a Stream of the elements in {@link Grid}.
+     * 
+     * @return a Stream of the elements in {@link Grid}.
+     */
+    Stream<T> flatStream();
 }
