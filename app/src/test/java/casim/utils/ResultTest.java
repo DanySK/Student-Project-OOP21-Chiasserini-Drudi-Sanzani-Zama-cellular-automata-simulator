@@ -24,7 +24,7 @@ class ResultTest {
         = new UnsupportedOperationException("Test");
 
     /**
-     * Test {@link Result#equals()} method.
+     * Test {@link Result#equals(Object)} method.
      */
     @Test
     void testEquals() {
@@ -60,7 +60,7 @@ class ResultTest {
     }
 
     /**
-     * Test {@link Result#flatMap()} method.
+     * Test {@link Result#flatMap(Function)} method.
      */
     @Test
     void testFlatMap() {
@@ -77,7 +77,7 @@ class ResultTest {
     }
 
     /**
-     * Test {@link Result#flatMap()} method.
+     * Test {@link Result#flatMap(Supplier)} method.
      */
     @Test
     void testFlatMapSupplier() {
@@ -153,7 +153,7 @@ class ResultTest {
     }
 
     /**
-     * Test {@link Result#map()} method.
+     * Test {@link Result#map(Function)} method.
      */
     @Test
     void testMap() {
@@ -170,7 +170,7 @@ class ResultTest {
     }
 
     /**
-     * Test {@link Result#mapError()} method.
+     * Test {@link Result#mapError(Function)} method.
      */
     @Test
     void testMapError() {
@@ -188,7 +188,7 @@ class ResultTest {
     }
 
     /**
-     * Test {@link Result#of()} method.
+     * Test {@link Result#of(Object)} method.
      */
     @Test
     void testOf() {
@@ -213,7 +213,7 @@ class ResultTest {
     }
 
     /**
-     * Test {@link Result#orElse()} method.
+     * Test {@link Result#orElse(Object)} method.
      */
     @Test
     void testOrElse() {
@@ -225,7 +225,7 @@ class ResultTest {
     }
 
     /**
-     * Test {@link Result#require()} method.
+     * Test {@link Result#require(java.util.function.Predicate)} method.
      */
     @Test
     void testRequire() {
@@ -242,7 +242,7 @@ class ResultTest {
     }
 
     /**
-     * Test {@link Result#require()} method.
+     * Test {@link Result#require(java.util.function.Predicate, Exception)} method.
      */
     @Test
     void testRequireCustomException() {
@@ -260,7 +260,7 @@ class ResultTest {
     }
 
     /**
-     * Test {@link Result#require()} method.
+     * Test {@link Result#require(java.util.function.Predicate, Supplier)} method.
      */
     @Test
     void testRequireExceptionSupplier() {
