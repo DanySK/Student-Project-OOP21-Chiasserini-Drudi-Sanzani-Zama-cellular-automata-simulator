@@ -1,28 +1,36 @@
 package casim.utils.coordinate;
 
 /**
- * Utility class that defines methods for the Coordinate type.
+ * Represent a 2D Coordinate.
+ * 
+ * @param <T> the type of the coordinate system.
  */
-public final class Coordinates {
-
-    private Coordinates() {
-
-    }
+public interface Coordinates<T extends Number> {
+    /**
+     * Set the X coordinate value.
+     * 
+     * @param value the value to be assigned to the X.
+     */
+    void setX(T value);
 
     /**
-     * Sum two {@link Coordinate} objects returning a new {@link Coordinate}.
+     * Set the Y coordinate value.
      * 
-     * The sum operation generates a {@link Coordinate} that has:
-     *  - X equals to the sum of the X values of a and b
-     *  - Y equals to the sum of the Y values of a and b
+     * @param value the value to be assigned to the Y.
+    */
+    void setY(T value);
+
+    /**
+     * Get the X coordinate value.
      * 
-     * @param <T> type of the {@link Coordinate} involved.
-     * @param a first element of the sum.
-     * @param b second element of the sum.
-     * @return a new {@link Coordinate} object representing the sum of a and b.
+     * @return the X coordinate value.
      */
-    public static <T extends Number> Coordinate<T> sum(final Coordinate<T> a, final Coordinate<T> b) {
-        //TODO
-        return null;
-    }
+    T getX();
+
+    /**
+     * Get the Y coordinate value.
+     * 
+     * @return the Y coordinate value.
+     */
+    T getY();
 }

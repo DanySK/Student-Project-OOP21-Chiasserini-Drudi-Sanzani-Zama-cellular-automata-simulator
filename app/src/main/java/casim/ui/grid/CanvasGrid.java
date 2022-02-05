@@ -1,8 +1,8 @@
 package casim.ui.grid;
 
-import casim.utils.Grid;
 import casim.utils.Result;
-import casim.utils.coordinate.Coordinate;
+import casim.utils.coordinate.Coordinates;
+import casim.utils.grid.Grid;
 import javafx.scene.input.MouseButton;
 
 /**
@@ -17,7 +17,7 @@ public interface CanvasGrid {
      * @param cell the cell the mouse has clicked.
      * @param coord the coordinates of the cell.
      */
-    void onCellClick(MouseButton button, CanvasGridCell cell, Coordinate<Integer> coord);
+    void onCellClick(MouseButton button, CanvasGridCell cell, Coordinates<Integer> coord);
 
     /**
      * Function called when the mouse hovers the {@link CanvasGrid}.
@@ -25,7 +25,7 @@ public interface CanvasGrid {
      * @param cell the cell the mouse is hovering.
      * @param coord the coordinates of the cell.
      */
-    void onCellHover(CanvasGridCell cell, Coordinate<Integer> coord);
+    void onCellHover(CanvasGridCell cell, Coordinates<Integer> coord);
 
     /**
      * Get the number of columns in the grid.
@@ -77,8 +77,8 @@ public interface CanvasGrid {
      *  - a {@link CanvasGridCell} if the coordinated are valid,
      *  - an IndexOutOfBoundException otherwise.
      * 
-     * @param coord the {@link Coordinate} of the cell to get.
+     * @param coord the {@link Coordinates} of the cell to get.
      * @return {@link Result} with the {@link CanvasGridCell} if coord is valid, IndexOutOfBoundException otherwise.
      */
-    Result<CanvasGridCell> getCell(Coordinate<Integer> coord);
+    Result<CanvasGridCell> getCell(Coordinates<Integer> coord);
 }

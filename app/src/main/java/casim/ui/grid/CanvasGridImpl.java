@@ -4,9 +4,9 @@ import java.util.stream.Stream;
 
 import casim.ui.grid.events.GridCellClickListener;
 import casim.ui.grid.events.GridCellHoverListener;
-import casim.utils.Grid;
 import casim.utils.Result;
-import casim.utils.coordinate.Coordinate;
+import casim.utils.coordinate.Coordinates;
+import casim.utils.grid.Grid;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseButton;
@@ -63,7 +63,7 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
      * {@inheritDoc}
      */
     @Override
-    public void onCellClick(final MouseButton button, final CanvasGridCell cell, final Coordinate<Integer> coord) {
+    public void onCellClick(final MouseButton button, final CanvasGridCell cell, final Coordinates<Integer> coord) {
         if (!button.equals(MouseButton.PRIMARY)) {
             return;
         }
@@ -74,7 +74,7 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
      * {@inheritDoc}
      */
     @Override
-    public void onCellHover(final CanvasGridCell cell, final Coordinate<Integer> coord) {
+    public void onCellHover(final CanvasGridCell cell, final Coordinates<Integer> coord) {
 
     }
 
@@ -141,7 +141,7 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
      * {@inheritDoc}
      */
     @Override
-    public Result<CanvasGridCell> getCell(final Coordinate<Integer> coord) {
+    public Result<CanvasGridCell> getCell(final Coordinates<Integer> coord) {
         return this.cells.get(coord.getX(), coord.getY());
     }
 

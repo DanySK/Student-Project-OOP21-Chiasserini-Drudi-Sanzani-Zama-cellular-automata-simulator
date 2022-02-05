@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import casim.utils.grid.Grid;
+
 /**
  * Test class for {@link Grid}.
  */

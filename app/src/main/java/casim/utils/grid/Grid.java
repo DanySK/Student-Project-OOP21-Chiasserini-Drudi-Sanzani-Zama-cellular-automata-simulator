@@ -1,7 +1,10 @@
-package casim.utils;
+package casim.utils.grid;
 
 import java.util.List;
 import java.util.stream.Stream;
+
+import casim.utils.Empty;
+import casim.utils.Result;
 
 /**
  * An N x M {@link Grid} of elements of type T.
