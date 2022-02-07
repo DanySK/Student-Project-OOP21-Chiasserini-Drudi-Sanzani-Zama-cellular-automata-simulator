@@ -2,6 +2,7 @@ package casim.utils.coordinate;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -14,7 +15,8 @@ class CoordinatesTest {
      */
     @Test
     void testGetX() {
-        fail();
+        final Coordinates<Integer> coord = new CoordinatesImpl<>(5, 10);
+        Assert.assertEquals((int)coord.getX(), 5);
     }
 
     /**
@@ -22,7 +24,8 @@ class CoordinatesTest {
      */
     @Test
     void testGetY() {
-        fail();
+    	final Coordinates<Integer> coord = new CoordinatesImpl<>(5, 10);
+        Assert.assertEquals((int)coord.getY(), 10);
     }
 
     /**
@@ -30,7 +33,9 @@ class CoordinatesTest {
      */
     @Test
     void testSetX() {
-        fail();
+    	final Coordinates<Integer> coord = new CoordinatesImpl<>(5, 10);
+    	coord.setX(15);
+    	Assert.assertEquals((int)coord.getX(), 15);
     }
 
     /**
@@ -38,6 +43,8 @@ class CoordinatesTest {
      */
     @Test
     void testSetY() {
-        fail();
+    	final Coordinates<Integer> coord = new CoordinatesImpl<>(5, 10);
+    	coord.setY(15);
+    	Assert.assertEquals((int)coord.getY(), 15);
     }
 }
