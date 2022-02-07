@@ -69,4 +69,17 @@ public final class CoordinatesUtil {
     	final var bottomRightD = CoordinatesUtil.of(bottomRight.getX().doubleValue(), bottomRight.getY().doubleValue());
     	return isValid(coordD, CoordinatesUtil.of(0.0, 0.0), bottomRightD);
     }
+    
+    /**
+     * Checks if the {@link Coordinates} given as argument are less than the values of maxX and maxY.
+     * 
+     * @param <T> type of the {@link Coordinates} involved.
+     * @param coord the {@link Coordinates} to be checked against the other parameters.
+     * @param maxX the value that the X coordinate of coord cannot be greater of.
+     * @param maxY the value that the Y coordinate of coord cannot be greator of.
+     * @return True if both the X and Y values of coord are smaller than maxX and maxY respectively.
+     */
+    public static <T extends Number> boolean isValid(final Coordinates<T> coord, final T maxX, final T maxY) {
+    	return isValid(coord, CoordinatesUtil.of(maxX, maxY));
+    }
 }
