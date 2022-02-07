@@ -52,7 +52,21 @@ public final class CoordinatesUtil {
     	final var topLeftD = CoordinatesUtil.of(topLeft.getX().doubleValue(), topLeft.getY().doubleValue());
     	final var bottomRightD = CoordinatesUtil.of(bottomRight.getX().doubleValue(), bottomRight.getY().doubleValue());
     	
-    	return coordD.getX() >= topLeftD.getX() && coordD.getY() <= topLeftD.getY() 
-				&& coordD.getX() < bottomRightD.getX() && coordD.getY() > bottomRightD.getY();
+    	return coordD.getX() >= topLeftD.getX() && coordD.getY() >= topLeftD.getY() 
+				&& coordD.getX() < bottomRightD.getX() && coordD.getY() < bottomRightD.getY();
+    }
+    
+    /**
+     * Checks if the {@link Coordinates} given as argument is inside the rectangle formed by (0, 0) as topLeft and bottomRight.
+     * 
+     * @param <T> type of the {@link Coordinates} involved.
+     * @param coord the {@link Coordinates} to be checked against the rectangle.
+     * @param bottomRight the {@link Coordinates} representing the point at the bottom right of the rectangle that coord has to be inside of.
+     * @return True if coord is inside the rectangle, false otherwise.
+     */
+    public static <T extends Number> boolean isValid(final Coordinates<T> coord, final Coordinates<T> bottomRight) {
+    	final var coordD = CoordinatesUtil.of(coord.getX().doubleValue(), coord.getY().doubleValue());
+    	final var bottomRightD = CoordinatesUtil.of(bottomRight.getX().doubleValue(), bottomRight.getY().doubleValue());
+    	return isValid(coordD, CoordinatesUtil.of(0.0, 0.0), bottomRightD);
     }
 }
