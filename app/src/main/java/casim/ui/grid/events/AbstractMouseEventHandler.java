@@ -28,7 +28,10 @@ public abstract class AbstractMouseEventHandler implements EventHandler<MouseEve
      * @return a {@link Coordinates} contaning the cell coordinates.
      */
     protected Coordinates<Integer> getCoordinatesFromEvent(final MouseEvent event) {
-        return null; //TODO: new CoordinateImpl<>((int)event.getX() / this.grid.getCellSize(), (int)event.getY() / this.grid.getCellSize());
+        return null; /*new CoordinatesImpl<Integer>(
+            (int)(event.getX() / this.grid.getCellSize()), 
+            (int)(event.getY() / this.grid.getCellSize())
+        );*/
     }
 
     /**

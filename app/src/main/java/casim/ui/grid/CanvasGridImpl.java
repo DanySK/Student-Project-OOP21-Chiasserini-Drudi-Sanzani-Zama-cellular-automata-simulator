@@ -7,6 +7,7 @@ import casim.ui.grid.events.GridCellHoverListener;
 import casim.utils.Result;
 import casim.utils.coordinate.Coordinates;
 import casim.utils.grid.Grid;
+import casim.utils.grid.Grids;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseButton;
@@ -52,8 +53,10 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
 
         this.width = columns * cellSize;
         this.height = rows * cellSize;
+            
+        this.cells =  null; //new GridImpl<CanvasGridCell>(columns, rows, () -> null); //TODO
 
-        this.cells = null; //TODO
+        this.populate();
 
         this.setOnMouseClicked(new GridCellClickListener(this));
         this.setOnMouseDragOver(new GridCellHoverListener(this));
@@ -99,7 +102,19 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
      */
     @Override
     public void populate() {
-        // TODO Auto-generated method stub
+        /*Stream.iterate(0, row -> row + 1)
+            .limit(this.getRows())
+            .forEach(
+                row -> Stream.iterate(0, col -> col + 1)
+                    .limit(this.getColumns())
+                    .forEach(col -> {
+                        this.cells.set(row, col, new CanvasGridCellImpl(
+                            DEFAULT,
+                            new CoordinatesImpl<>(row * (int)this.getCellSize(), col * (int)this.getCellSize()),
+                            new CoordinatesImpl<>((row + 1) * (int)this.getCellSize() , (col + 1) * (int)this.getCellSize())));
+                        })
+            );
+        */
     }
 
     /**
@@ -125,8 +140,7 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
      */
     @Override
     public Grid<CanvasGridCell> getCells() {
-        // TODO: defensive copy
-        return null;
+        return Grids.getUnmodifiableCopy(this.cells);
     }
 
     /**
@@ -134,7 +148,7 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
      */
     @Override
     public void setCells(final Grid<CanvasGridCell> cells) {
-        //TODO: defensive copy
+        //TODO
     }
 
     /**
