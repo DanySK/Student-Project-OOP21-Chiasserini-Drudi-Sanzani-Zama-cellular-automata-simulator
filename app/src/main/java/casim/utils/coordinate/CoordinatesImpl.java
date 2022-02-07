@@ -1,29 +1,34 @@
 package casim.utils.coordinate;
 
-public class CoordinatesImpl<T extends Number> implements Coordinates<T> {
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
+public class CoordinatesImpl<T extends Number> implements Coordinates<T> {
+	
+	private Pair<T,T> coords;
+	
+	public CoordinatesImpl(final T x, final T y) {
+		this.coords = new ImmutablePair<>(x, y);
+	}
+	
 	@Override
-	public void setX(T value) {
-		// TODO Auto-generated method stub
-		
+	public void setX(final T value) {
+		this.coords = new ImmutablePair<>(value, this.coords.getRight());
 	}
 
 	@Override
-	public void setY(T value) {
-		// TODO Auto-generated method stub
-		
+	public void setY(final T value) {
+		this.coords = new ImmutablePair<>(this.coords.getLeft(), value);
 	}
 
 	@Override
 	public T getX() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.coords.getLeft();
 	}
 
 	@Override
 	public T getY() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.coords.getRight();
 	}
 
 }
