@@ -26,6 +26,7 @@ class GridTest {
     @Test
     void testGet() {
         final var grid = getGrid();
+        assertEquals(Result.ofEmpty(), grid.set(0, 1, DEFAULT_VALUE));
         assertEquals(DEFAULT_VALUE, grid.get(0, 1));
         assertThrows(IndexOutOfBoundsException.class, () -> grid.get(0, COLS));
         assertThrows(IndexOutOfBoundsException.class, () -> grid.get(ROWS, 0));
@@ -56,8 +57,8 @@ class GridTest {
     void testSet() {
         final int newVal = 2;
         final var grid = getGrid();
-        grid.set(0, 1, newVal);
-        assertEquals(newVal, grid.get(0, 1));
+        assertEquals(Result.ofEmpty(), grid.set(0, 1, DEFAULT_VALUE));
+        assertEquals(Result.of(newVal), grid.get(0, 1));
         assertThrows(IndexOutOfBoundsException.class, () -> grid.set(0, COLS, newVal));
         assertThrows(IndexOutOfBoundsException.class, () -> grid.set(ROWS, 0, newVal));
     }

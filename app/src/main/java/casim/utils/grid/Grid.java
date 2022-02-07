@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 
 import casim.utils.Empty;
 import casim.utils.Result;
+import casim.utils.coordinate.Coordinates;
 
 /**
  * An N x M {@link Grid} of elements of type T.
@@ -36,6 +37,16 @@ public interface Grid<T> {
      * @return {@link Result} containing the requested element if present, {@link IndexOutOfBoundsException} otherwise.
      */
     Result<T> get(int row, int column);
+
+    /**
+     * Return a {@link Result} containing:
+     *  - the value contained in {@link Grid} if the {@link Coordinates} are valid; 
+     *  - an {@link IndexOutOfBoundsException} otherwise.
+     * 
+     * @param coord the coordinates of the point.
+     * @return {@link Result} containing the requested element if present, {@link IndexOutOfBoundsException} otherwise.
+     */
+    Result<T> get(Coordinates<Integer> coord);
 
     /**
      * Return a {@link Result} containing:

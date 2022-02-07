@@ -16,7 +16,7 @@ public final class Grids {
      * @param source the source {@link Grid}.
      * @return a {@link Grid}, an unmodifiable copy of source.
      */
-    public <T> Grid<T> getUnmodifiableCopy(final Grid<T> source) {
+    public static <T> Grid<T> getUnmodifiableCopy(final Grid<T> source) {
         return null; //TODO
     }
 }

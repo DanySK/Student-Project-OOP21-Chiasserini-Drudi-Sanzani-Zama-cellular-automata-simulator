@@ -44,6 +44,9 @@ dependencies {
     // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher
     testImplementation("org.junit.platform:junit-platform-launcher:1.8.2")
 
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    implementation("org.apache.commons:commons-lang3:3.12.0")
+
     // This dependency is used by the application.
     implementation("com.google.guava:guava:30.1.1-jre")
 }
