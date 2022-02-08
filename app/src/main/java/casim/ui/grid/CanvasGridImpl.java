@@ -1,9 +1,9 @@
 package casim.ui.grid;
 
 import java.util.stream.Stream;
-
 import casim.ui.grid.events.GridCellClickListener;
 import casim.ui.grid.events.GridCellHoverListener;
+import casim.utils.Colors;
 import casim.utils.Result;
 import casim.utils.coordinate.Coordinates;
 import casim.utils.grid.Grid;
@@ -18,8 +18,8 @@ import javafx.scene.paint.Color;
  */
 public class CanvasGridImpl extends Canvas implements CanvasGrid {
 
-    private static final Color DEFAULT = new Color(1.0, 1.0, 1.0, 1.0);
-    private static final Color SELECTED = new Color(0.0, 0.0, 0.0, 1.0);
+    private static final Color DEFAULT = Colors.WHITE;
+    private static final Color SELECTED = Colors.RED;
 
     private final int rows;
     private final int columns;
@@ -43,7 +43,8 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
      * @param separatorOffset separator offset.
      */
     public CanvasGridImpl(final int rows, final int columns, final double cellSize, 
-        final Color separatorColor, final double separatorWidth, final double separatorOffset) {
+        final Color separatorColor, final double separatorWidth, final double separatorOffset) {      
+
         this.rows = rows;
         this.columns = columns;
         this.cellSize = cellSize;
@@ -53,13 +54,16 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
 
         this.width = columns * cellSize;
         this.height = rows * cellSize;
-            
-        this.cells =  null; //new GridImpl<CanvasGridCell>(columns, rows, () -> null); //TODO
+
+        super.setWidth(width);
+        super.setHeight(height);
+
+        this.cells = null; //new GridImpl<CanvasGridCell>(columns, rows, () -> null); //TODO
 
         this.populate();
 
         this.setOnMouseClicked(new GridCellClickListener(this));
-        this.setOnMouseDragOver(new GridCellHoverListener(this));
+        this.setOnMouseMoved(new GridCellHoverListener(this));
     }
 
     /**
@@ -67,10 +71,11 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
      */
     @Override
     public void onCellClick(final MouseButton button, final CanvasGridCell cell, final Coordinates<Integer> coord) {
-        if (!button.equals(MouseButton.PRIMARY)) {
-            return;
-        }
-        cell.setColor(cell.getColor().equals(DEFAULT) ? SELECTED : DEFAULT);
+        System.out.println(coord.getX() + " " + coord.getY());
+        // if (!button.equals(MouseButton.PRIMARY)) {
+        //     return;
+        // }
+        // cell.setColor(cell.getColor().equals(DEFAULT) ? SELECTED : DEFAULT);
     }
 
     /**
@@ -78,7 +83,7 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
      */
     @Override
     public void onCellHover(final CanvasGridCell cell, final Coordinates<Integer> coord) {
-
+        System.out.println(coord.getX() + " " + coord.getY());
     }
 
     /**
@@ -156,10 +161,13 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
      */
     @Override
     public Result<CanvasGridCell> getCell(final Coordinates<Integer> coord) {
-        return this.cells.get(coord.getX(), coord.getY());
+        return Result.error(new Exception());
+        // return this.cells.get(coord.getX(), coord.getY());
     }
 
     private void drawCells(final GraphicsContext graphics) {
+        return;
+        /*
         this.cells.flatStream()
             .forEach(cell -> {
                 graphics.setFill(cell.getColor());
@@ -169,16 +177,16 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
                     cell.getBottomRight().getX(),
                     cell.getBottomRight().getY()
                 );
-            });
+            });*/
     }
 
     private void drawGrid(final GraphicsContext graphics) {
         graphics.setStroke(this.separatorColor);
         graphics.setLineWidth(this.separatorWidth);
-        Stream.iterate(0, x -> x + 1)
+        Stream.iterate(0.0, x -> x + this.getCellSize())
             .takeWhile(x -> x <= this.width)
             .forEach(x -> graphics.strokeLine(x + this.separatorOffset, 0, x + this.separatorOffset, height));
-        Stream.iterate(0, y -> y + 1)
+        Stream.iterate(0.0, y -> y + this.getCellSize())
             .takeWhile(y -> y <= this.height)
             .forEach(y -> graphics.strokeLine(0, y + this.separatorOffset, width, y + this.separatorOffset));
     }
