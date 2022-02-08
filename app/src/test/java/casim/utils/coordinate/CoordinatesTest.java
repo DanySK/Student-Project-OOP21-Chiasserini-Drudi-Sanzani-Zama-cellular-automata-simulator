@@ -1,7 +1,5 @@
 package casim.utils.coordinate;
 
-import static org.junit.jupiter.api.Assertions.fail;
-
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
