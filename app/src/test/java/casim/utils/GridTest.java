@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import casim.utils.grid.Grid;
+import casim.utils.grid.Grids;
 
 /**
  * Test class for {@link Grid}.
@@ -17,7 +18,7 @@ class GridTest {
     private static final int COLS = 2;
 
     private Grid<Integer> getGrid() {
-        return null;
+        return new Grids<>();
     }
 
     /**

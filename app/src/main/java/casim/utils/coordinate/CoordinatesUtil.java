@@ -34,7 +34,7 @@ public final class CoordinatesUtil {
      * @return a {@link Coordinates} with the x and y values given as arguments.
      */
     public static <T extends Number> Coordinates<T> of(final T x, final T y) {
-    	return new CoordinatesImpl<T>(x, y);
+        return new CoordinatesImpl<T>(x, y);
     }
 
     /**
@@ -48,14 +48,14 @@ public final class CoordinatesUtil {
      * @return True if coord is inside the rectangle, false otherwise.
      */
     public static <T extends Number> boolean  isValid(final Coordinates<T> coord, final Coordinates<T> topLeft, final Coordinates<T> bottomRight) {
-    	final var coordD = CoordinatesUtil.of(coord.getX().doubleValue(), coord.getY().doubleValue());
-    	final var topLeftD = CoordinatesUtil.of(topLeft.getX().doubleValue(), topLeft.getY().doubleValue());
-    	final var bottomRightD = CoordinatesUtil.of(bottomRight.getX().doubleValue(), bottomRight.getY().doubleValue());
-    	
-    	return coordD.getX() >= topLeftD.getX() && coordD.getY() >= topLeftD.getY() 
-				&& coordD.getX() < bottomRightD.getX() && coordD.getY() < bottomRightD.getY();
+        final var coordD = CoordinatesUtil.of(coord.getX().doubleValue(), coord.getY().doubleValue());
+        final var topLeftD = CoordinatesUtil.of(topLeft.getX().doubleValue(), topLeft.getY().doubleValue());
+        final var bottomRightD = CoordinatesUtil.of(bottomRight.getX().doubleValue(), bottomRight.getY().doubleValue());
+
+        return coordD.getX() >= topLeftD.getX() && coordD.getY() >= topLeftD.getY() 
+                && coordD.getX() < bottomRightD.getX() && coordD.getY() < bottomRightD.getY();
     }
-    
+
     /**
      * Checks if the {@link Coordinates} given as argument is inside the rectangle formed by (0, 0) as topLeft and bottomRight.
      * 
@@ -65,11 +65,11 @@ public final class CoordinatesUtil {
      * @return True if coord is inside the rectangle, false otherwise.
      */
     public static <T extends Number> boolean isValid(final Coordinates<T> coord, final Coordinates<T> bottomRight) {
-    	final var coordD = CoordinatesUtil.of(coord.getX().doubleValue(), coord.getY().doubleValue());
-    	final var bottomRightD = CoordinatesUtil.of(bottomRight.getX().doubleValue(), bottomRight.getY().doubleValue());
-    	return isValid(coordD, CoordinatesUtil.of(0.0, 0.0), bottomRightD);
+        final var coordD = CoordinatesUtil.of(coord.getX().doubleValue(), coord.getY().doubleValue());
+        final var bottomRightD = CoordinatesUtil.of(bottomRight.getX().doubleValue(), bottomRight.getY().doubleValue());
+        return isValid(coordD, CoordinatesUtil.of(0.0, 0.0), bottomRightD);
     }
-    
+
     /**
      * Checks if the {@link Coordinates} given as argument are less than the values of maxX and maxY.
      * 
@@ -80,6 +80,6 @@ public final class CoordinatesUtil {
      * @return True if both the X and Y values of coord are smaller than maxX and maxY respectively.
      */
     public static <T extends Number> boolean isValid(final Coordinates<T> coord, final T maxX, final T maxY) {
-    	return isValid(coord, CoordinatesUtil.of(maxX, maxY));
+        return isValid(coord, CoordinatesUtil.of(maxX, maxY));
     }
 }
