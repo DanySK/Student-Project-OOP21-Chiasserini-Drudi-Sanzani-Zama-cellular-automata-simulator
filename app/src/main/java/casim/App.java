@@ -3,10 +3,12 @@
  */
 package casim;
 
+import casim.ui.grid.CanvasGridBuilder;
+import casim.ui.grid.CanvasGridImpl;
+import casim.utils.Colors;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -19,10 +21,19 @@ public class App extends Application {
      */
     @Override
     public void start(final Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("view/grid_test.fxml"));
-        primaryStage.setTitle("Grid Test");
-        primaryStage.setScene(new Scene(root));
+        final var gridBuilder = new CanvasGridBuilder();
+        gridBuilder.setRow(50)
+            .setColumns(50)
+            .setCellSize(20)
+            .setSeparatorColor(Colors.BLACK)
+            .setSeparatorWidth(0.4);
+        final var grid = gridBuilder.build().getValue();
+        final var root = new StackPane();
+        root.getChildren().add((CanvasGridImpl)grid);
+        final var scene = new Scene(root);
+        primaryStage.setScene(scene);
         primaryStage.show();
+        grid.draw();
     }
 
     /**
