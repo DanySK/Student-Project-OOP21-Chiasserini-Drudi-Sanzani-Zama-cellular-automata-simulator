@@ -2,7 +2,7 @@ package casim.ui.grid.events;
 
 import casim.ui.grid.CanvasGrid;
 import casim.utils.coordinate.Coordinates;
-import casim.utils.coordinate.CoordinatesImpl;
+import casim.utils.coordinate.CoordinatesUtil;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
@@ -29,10 +29,8 @@ public abstract class AbstractMouseEventHandler implements EventHandler<MouseEve
      * @return a {@link Coordinates} contaning the cell coordinates.
      */
     protected Coordinates<Integer> getCoordinatesFromEvent(final MouseEvent event) {
-        return new CoordinatesImpl<Integer>(
-            (int)(event.getX() / this.grid.getCellSize()), 
-            (int)(event.getY() / this.grid.getCellSize())
-        );
+        return CoordinatesUtil.of(
+            (int)(event.getX() / this.grid.getCellSize()), (int)(event.getY() / this.grid.getCellSize()));
     }
 
     /**

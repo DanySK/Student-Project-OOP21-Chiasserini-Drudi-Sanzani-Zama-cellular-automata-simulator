@@ -8,7 +8,7 @@ import casim.ui.grid.events.GridCellHoverListener;
 import casim.utils.Colors;
 import casim.utils.Result;
 import casim.utils.coordinate.Coordinates;
-import casim.utils.coordinate.CoordinatesImpl;
+import casim.utils.coordinate.CoordinatesUtil;
 import casim.utils.grid.Grid;
 import casim.utils.grid.GridImpl;
 import casim.utils.grid.Grids;
@@ -57,18 +57,13 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
         this.separatorColor = separatorColor;
         this.separatorWidth = separatorWidth;
         this.separatorOffset = separatorOffset;
-
         this.width = columns * cellSize;
         this.height = rows * cellSize;
-        
         super.setWidth(width);
         super.setHeight(height);
-        
         this.cells = new GridImpl<>(rows, columns);
         this.lastHoveredCell = Optional.empty();
-        
         this.populate();
-
         this.setOnMouseClicked(new GridCellClickListener(this));
         this.setOnMouseMoved(new GridCellHoverListener(this));
     }
@@ -83,10 +78,6 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
         }
         cell.setColor(cell.getColor().equals(DEFAULT) ? SELECTED : DEFAULT);
         this.draw();
-
-        final var graphics = super.getGraphicsContext2D();
-        this.drawCell(graphics, cell);
-        this.drawGrid(graphics);
     }
 
     /**
@@ -94,16 +85,17 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
      */
     @Override
     public void onCellHover(final CanvasGridCell cell, final Coordinates<Integer> coord) {
-        if (this.lastHoveredCell.equals(Optional.of(coord))) {
+        if (this.lastHoveredCell.isPresent() && coord.getX() == this.lastHoveredCell.get().getX() && coord.getY() == this.lastHoveredCell.get().getY() /*this.lastHoveredCell.equals(Optional.of(coord))*/) {
             return;
         }
 
-        cell.setColor(cell.getColor().equals(DEFAULT) ? SELECTED : DEFAULT);
+        this.lastHoveredCell.ifPresent(
+            lastCoord -> this.getCell(lastCoord).getValue().setColor(DEFAULT));
+
+        cell.setColor(new Color(0.4, 0.4, 0.4, 1));
         this.lastHoveredCell = Optional.of(coord);
         
-        final var graphics = super.getGraphicsContext2D();
-        this.drawCell(graphics, cell);
-        this.drawGrid(graphics);
+        this.draw();
     }
 
     /**
@@ -135,8 +127,10 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
                     .forEach(col -> {
                         this.cells.set(row, col, new CanvasGridCellImpl(
                             DEFAULT,
-                            new CoordinatesImpl<>(row * (int)this.getCellSize(), col * (int)this.getCellSize()),
-                            new CoordinatesImpl<>((row + 1) * (int)this.getCellSize() , (col + 1) * (int)this.getCellSize())));
+                            CoordinatesUtil.of(
+                                row * (int)this.getCellSize(), col * (int)this.getCellSize()),
+                            CoordinatesUtil.of(
+                                (row + 1) * (int)this.getCellSize() , (col + 1) * (int)this.getCellSize())));
                         })
             );
     }
@@ -199,6 +193,9 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
     }
 
     private void drawGrid(final GraphicsContext graphics) {
+        if (this.separatorWidth == 0) {
+            return;
+        }
         graphics.setStroke(this.separatorColor);
         graphics.setLineWidth(this.separatorWidth);
         Stream.iterate(0.0, x -> x + this.getCellSize())

@@ -5,7 +5,6 @@ package casim;
 
 import casim.ui.grid.CanvasGridBuilder;
 import casim.ui.grid.CanvasGridImpl;
-import casim.utils.Colors;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
@@ -22,11 +21,9 @@ public class App extends Application {
     @Override
     public void start(final Stage primaryStage) throws Exception {
         final var gridBuilder = new CanvasGridBuilder();
-        gridBuilder.setRow(50)
+        gridBuilder.setRows(50)
             .setColumns(50)
-            .setCellSize(20)
-            .setSeparatorColor(Colors.BLACK)
-            .setSeparatorWidth(0.4);
+            .setCellSize(20);
         final var grid = gridBuilder.build().getValue();
         final var root = new StackPane();
         root.getChildren().add((CanvasGridImpl)grid);
