@@ -10,7 +10,7 @@ public interface Automaton {
     /**
      * Method called to let the {@link Automaton} to do the next step.
      */
-    void step();
+    void doStep();
 
     /**
      * Get the {@link Grid} represents the current {@link Automaton}'s state.
