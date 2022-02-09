@@ -1,10 +1,10 @@
-package casim.ui.grid;
+package casim.ui.components.grid;
 
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import casim.ui.grid.events.GridCellClickListener;
-import casim.ui.grid.events.GridCellHoverListener;
+import casim.ui.components.grid.events.GridCellClickListener;
+import casim.ui.components.grid.events.GridCellHoverListener;
 import casim.utils.Colors;
 import casim.utils.Result;
 import casim.utils.coordinate.Coordinates;

@@ -3,8 +3,8 @@
  */
 package casim;
 
-import casim.ui.grid.CanvasGridBuilder;
-import casim.ui.grid.CanvasGridImpl;
+import casim.ui.components.grid.CanvasGridBuilder;
+import casim.ui.components.grid.CanvasGridImpl;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;

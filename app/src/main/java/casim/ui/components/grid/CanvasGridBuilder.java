@@ -1,4 +1,4 @@
-package casim.ui.grid;
+package casim.ui.components.grid;
 
 import java.util.Objects;
 

@@ -1,6 +1,6 @@
-package casim.ui.grid.events;
+package casim.ui.components.grid.events;
 
-import casim.ui.grid.CanvasGrid;
+import casim.ui.components.grid.CanvasGrid;
 import casim.utils.coordinate.Coordinates;
 import casim.utils.coordinate.CoordinatesUtil;
 import javafx.event.EventHandler;
