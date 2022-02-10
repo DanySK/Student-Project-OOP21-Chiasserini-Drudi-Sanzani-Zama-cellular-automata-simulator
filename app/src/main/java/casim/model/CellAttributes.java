@@ -7,7 +7,7 @@ package casim.model;
  * - One of the finite states a {@link Cell} can assume;
  * - eventually other attributes as the life-time.
  * 
- * @param <T> the type of the finite states a cell can assume (usually they're represented by an enumeration).
+ * @param <T> the type of the finite states a {@link Cell} can assume (usually they're represented by an enumeration).
  */
 public interface CellAttributes<T> {
 
