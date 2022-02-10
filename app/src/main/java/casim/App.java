@@ -5,9 +5,9 @@ package casim;
 
 import casim.ui.components.grid.CanvasGridBuilder;
 import casim.ui.components.grid.CanvasGridImpl;
+import casim.ui.components.page.PageContainer;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -25,8 +25,8 @@ public class App extends Application {
             .setColumns(50)
             .setCellSize(20);
         final var grid = gridBuilder.build().getValue();
-        final var root = new StackPane();
-        root.getChildren().add((CanvasGridImpl)grid);
+        final var root = new PageContainer();
+        root.addPage((CanvasGridImpl)grid);
         final var scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
