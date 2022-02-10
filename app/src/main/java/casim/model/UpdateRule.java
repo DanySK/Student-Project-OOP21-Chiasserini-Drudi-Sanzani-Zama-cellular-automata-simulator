@@ -8,12 +8,12 @@ import java.util.Iterator;
 public interface UpdateRule {
 
      /**
-     * Return the updated {@link CellState} for the {@link Cell} take as parameter.
+     * Return the updated {@link CellAttributes} for the {@link Cell} take as parameter.
      * 
      * @param cell to update.
      * @param neighbors iterator of the cell's neighbors.
-     * @return the updated cell's {@link CellState}.
+     * @return the updated cell's {@link CellAttributes}.
      */
-    CellState getNext(Cell cell, Iterator<Cell> neighbors);
+    CellAttributes getNext(Cell cell, Iterator<Cell> neighbors);
 
 }

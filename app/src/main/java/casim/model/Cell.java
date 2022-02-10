@@ -16,10 +16,10 @@ public interface Cell {
     <T extends Number> Coordinates<T> getCoord();
 
     /** 
-     * Return the current {@link CellState} of the {@link Cell}.
+     * Return the current {@link CellAttributes} of the {@link Cell}.
      * 
-     * @return {@link CellState} the state of the {@link Cell}.
+     * @return {@link CellAttributes} the state of the {@link Cell}.
      */
-    CellState getState();
+    CellAttributes getAttributes();
 
 }
