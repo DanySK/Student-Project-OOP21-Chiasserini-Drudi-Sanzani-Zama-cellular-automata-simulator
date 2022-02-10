@@ -19,8 +19,7 @@ public class CanvasGridCellImpl implements CanvasGridCell {
      * @param topLeft the top left corner of the cell.
      * @param bottomRight the bottom right corner of the cell.
      */
-    public CanvasGridCellImpl(final Color color, final Coordinates<Integer> topLeft,
-        final double size) {
+    public CanvasGridCellImpl(final Color color, final Coordinates<Integer> topLeft, final double size) {
         this.color = color;
         this.topLeft = topLeft;
         this.size = size;
@@ -56,5 +55,13 @@ public class CanvasGridCellImpl implements CanvasGridCell {
     @Override
     public double getSize() {
         return this.size;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return "CanvasGridCellImpl [color=" + color + ", size=" + size + ", topLeft=" + topLeft + "]";
     }
 }
