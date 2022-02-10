@@ -19,6 +19,6 @@ public interface Automaton<T> {
      * 
      * @return {@link Grid} A {@link Grid} of {@link CellAttributes}
      */
-    Grid<CellAttributes<T>> getGrid();
+    Grid<CellAttributes<T>> getAttributesGrid();
 
 }
