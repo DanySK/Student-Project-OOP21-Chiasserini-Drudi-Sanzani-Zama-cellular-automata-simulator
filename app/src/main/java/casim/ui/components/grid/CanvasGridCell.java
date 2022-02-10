@@ -23,16 +23,16 @@ public interface CanvasGridCell {
     void setColor(Color color);
 
     /**
-     * Return the {@link CanvasGridCell}' top left point as {@link Coordinates}.
+     * Return the {@link CanvasGridCell}'s top left point as {@link Coordinates}.
      * 
      * @return a {@link Coordinates} representing the top left point of the {@link CanvasGridCell}.
      */
     Coordinates<Integer> getTopLeft();
 
     /**
-     * Return the {@link CanvasGridCell}' bottom right point as {@link Coordinates}.
+     * Return the {@link CanvasGridCell}'s size.
      * 
-     * @return a {@link Coordinates} representing the bottom right point of the {@link CanvasGridCell}.
+     * @return a double representing the size of the {@link CanvasGridCell}.
      */
-    Coordinates<Integer> getBottomRight();
+    double getSize();
 }

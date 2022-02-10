@@ -1,7 +1,6 @@
 package casim.ui.components.grid;
 
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import casim.ui.components.grid.events.GridCellClickListener;
 import casim.ui.components.grid.events.GridCellHoverListener;
@@ -12,6 +11,7 @@ import casim.utils.coordinate.CoordinatesUtil;
 import casim.utils.grid.Grid;
 import casim.utils.grid.GridImpl;
 import casim.utils.grid.Grids;
+import casim.utils.range.Ranges;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseButton;
@@ -119,20 +119,15 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
      */
     @Override
     public void populate() {
-        Stream.iterate(0, row -> row + 1)
-            .limit(this.getRows())
-            .forEach(
-                row -> Stream.iterate(0, col -> col + 1)
-                    .limit(this.getColumns())
-                    .forEach(col -> {
-                        this.cells.set(row, col, new CanvasGridCellImpl(
-                            DEFAULT,
-                            CoordinatesUtil.of(
-                                row * (int)this.getCellSize(), col * (int)this.getCellSize()),
-                            CoordinatesUtil.of(
-                                (row + 1) * (int)this.getCellSize() , (col + 1) * (int)this.getCellSize())));
-                        })
-            );
+        for (final var row : Ranges.of(0, this.getRows())) {
+            for (final var column : Ranges.of(0, this.getColumns())) {
+                this.cells.set(row, column, new CanvasGridCellImpl(
+                    DEFAULT,
+                    CoordinatesUtil.of(row * (int)this.getCellSize(), column * (int)this.getCellSize()),
+                    this.getCellSize())
+                );
+            }
+        }
     }
 
     /**
@@ -198,11 +193,11 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
         }
         graphics.setStroke(this.separatorColor);
         graphics.setLineWidth(this.separatorWidth);
-        Stream.iterate(0.0, x -> x + this.getCellSize())
-            .takeWhile(x -> x <= this.width)
-            .forEach(x -> graphics.strokeLine(x + this.separatorOffset, 0, x + this.separatorOffset, height));
-        Stream.iterate(0.0, y -> y + this.getCellSize())
-            .takeWhile(y -> y <= this.height)
-            .forEach(y -> graphics.strokeLine(0, y + this.separatorOffset, width, y + this.separatorOffset));
+        for (final var x : Ranges.of(0.0, this.width, this.getCellSize())) {
+            graphics.strokeLine(x + this.separatorOffset, 0, x + this.separatorOffset, height);
+        }
+        for (final var y : Ranges.of(0.0, this.height, this.getCellSize())) {
+            graphics.strokeLine(0, y + this.separatorOffset, width, y + this.separatorOffset);
+        }
     }
 }
