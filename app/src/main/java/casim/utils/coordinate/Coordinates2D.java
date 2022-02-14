@@ -21,7 +21,7 @@ public class Coordinates2D<T extends Number> implements Coordinates<T> {
      * 
      * @return the X coordinate value.
      */
-    T getX() {
+    public T getX() {
         return this.coords.getLeft();
     }
 
@@ -30,7 +30,7 @@ public class Coordinates2D<T extends Number> implements Coordinates<T> {
      * 
      * @return the Y coordinate value.
      */
-    T getY() {
+    public T getY() {
         return this.coords.getRight();
     }
 
