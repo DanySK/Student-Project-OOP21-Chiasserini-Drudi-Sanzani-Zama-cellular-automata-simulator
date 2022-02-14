@@ -21,8 +21,8 @@ public final class CoordinatesUtil {
      * @param b second element of the sum.
      * @return a new {@link Coordinates} object representing the sum of a and b.
      */
-    public static <T extends Number> Coordinates<T> sum(final Coordinates<T> a, final Coordinates<T> b) {
-        return null;
+    public static <T extends Number> Coordinates2D<Integer> sum(final Coordinates2D<T> a, final Coordinates2D<T> b) {
+        return CoordinatesUtil.of(a.getX().intValue() + b.getX().intValue(), a.getY().intValue() + b.getY().intValue());
     }
 
     /**
@@ -33,8 +33,8 @@ public final class CoordinatesUtil {
      * @param y value to be used as coordinate y.
      * @return a {@link Coordinates} with the x and y values given as arguments.
      */
-    public static <T extends Number> Coordinates<T> of(final T x, final T y) {
-        return new CoordinatesImpl<T>(x, y);
+    public static <T extends Number> Coordinates2D<T> of(final T x, final T y) {
+        return new Coordinates2D<T>(x, y);
     }
 
     /**
