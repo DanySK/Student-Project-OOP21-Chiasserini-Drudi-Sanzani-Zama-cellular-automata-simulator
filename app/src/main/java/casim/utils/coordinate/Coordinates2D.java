@@ -1,5 +1,6 @@
 package casim.utils.coordinate;
 
+
 import org.apache.commons.lang3.tuple.Pair;
 
 /**
@@ -10,7 +11,7 @@ import org.apache.commons.lang3.tuple.Pair;
 public class Coordinates2D<T extends Number> implements Coordinates<T> {
 
     private final Pair<T, T> coords;
-    
+
     Coordinates2D(final T x, final T y) {
         this.coords = Pair.of(x, y);
     }
@@ -32,5 +33,40 @@ public class Coordinates2D<T extends Number> implements Coordinates<T> {
     T getY() {
         return this.coords.getRight();
     }
-    
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return "X: " + this.getX() + ", Y: " + this.getY();
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return this.coords.hashCode();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Coordinates2D<T> other = (Coordinates2D<T>) obj;
+        return this.getX().equals(other.getX()) && this.getY().equals(other.getY());
+    }
+
 }
