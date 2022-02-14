@@ -10,76 +10,72 @@ public final class CoordinatesUtil {
     }
 
     /**
-     * Sum two {@link Coordinates} objects returning a new {@link Coordinates}.
+     * Sum two {@link Coordinates2D} objects returning a new {@link Coordinates2D} with Integer values.
      * 
-     * The sum operation generates a {@link Coordinates} that has:
+     * The sum operation generates a {@link Coordinates2D} that has:
      *  - X equals to the sum of the X values of a and b
      *  - Y equals to the sum of the Y values of a and b
      * 
-     * @param <T> type of the {@link Coordinates} involved.
+     * @param <T> type of the {@link Coordinates2D} involved.
      * @param a first element of the sum.
      * @param b second element of the sum.
-     * @return a new {@link Coordinates} object representing the sum of a and b.
+     * @return a new {@link Coordinates2D} object representing the sum of a and b.
      */
     public static <T extends Number> Coordinates2D<Integer> sum(final Coordinates2D<T> a, final Coordinates2D<T> b) {
         return CoordinatesUtil.of(a.getX().intValue() + b.getX().intValue(), a.getY().intValue() + b.getY().intValue());
     }
 
     /**
-     * Create a new {@link Coordinates} object from the values given as arguments.
+     * Create a new {@link Coordinates2D} object from the values given as arguments.
      * 
-     * @param <T> type of the {@link Coordinates} involved.
+     * @param <T> type of the {@link Coordinates2D} involved.
      * @param x value to be used as coordinate x.
      * @param y value to be used as coordinate y.
-     * @return a {@link Coordinates} with the x and y values given as arguments.
+     * @return a {@link Coordinates2D} with the x and y values given as arguments.
      */
     public static <T extends Number> Coordinates2D<T> of(final T x, final T y) {
         return new Coordinates2D<T>(x, y);
     }
 
     /**
-     * Checks if the {@link Coordinates} given as argument is inside the rectangle formed by the {@link Coordinates} topLeft and bottomRight.
-     * The check is inclusive for the topLeft {@link Coordinates} but not for bottomRight.
+     * Checks if the {@link Coordinates2D} given as argument is inside the rectangle formed by the {@link Coordinates2D} topLeft and bottomRight.
+     * The check is inclusive for the topLeft {@link Coordinates2D} but not for bottomRight.
      * 
-     * @param <T> type of the {@link Coordinates} involved.
-     * @param coord the {@link Coordinates} to be checked against topLeft and bottomRight.
-     * @param topLeft the {@link Coordinates} representing the point at the top left of the rectangle that coord has to be inside of.
-     * @param bottomRight the {@link Coordinates} representing the point at the bottom right of the rectangle that coord has to be inside of.
+     * @param <T> type of the {@link Coordinates2D} involved.
+     * @param coord the {@link Coordinates2D} to be checked against topLeft and bottomRight.
+     * @param topLeft the {@link Coordinates2D} representing the point at the top left of the rectangle that coord has to be inside of.
+     * @param bottomRight the {@link Coordinates2D} representing the point at the bottom right of the rectangle that coord has to be inside of.
      * @return True if coord is inside the rectangle, false otherwise.
      */
-    public static <T extends Number> boolean  isValid(final Coordinates<T> coord, final Coordinates<T> topLeft, final Coordinates<T> bottomRight) {
-        final var coordD = CoordinatesUtil.of(coord.getX().doubleValue(), coord.getY().doubleValue());
-        final var topLeftD = CoordinatesUtil.of(topLeft.getX().doubleValue(), topLeft.getY().doubleValue());
-        final var bottomRightD = CoordinatesUtil.of(bottomRight.getX().doubleValue(), bottomRight.getY().doubleValue());
-
-        return coordD.getX() >= topLeftD.getX() && coordD.getY() >= topLeftD.getY() 
-                && coordD.getX() < bottomRightD.getX() && coordD.getY() < bottomRightD.getY();
+    public static <T extends Number & Comparable<T>> boolean  isValid(final Coordinates2D<T> coord, final Coordinates2D<T> topLeft, final Coordinates2D<T> bottomRight) {
+        return coord.getX().compareTo(topLeft.getX()) >= 0 && coord.getY().compareTo(topLeft.getY()) >= 0 
+                && coord.getX().compareTo(bottomRight.getX()) < 0 && coord.getY().compareTo(bottomRight.getY()) < 0;
     }
 
     /**
-     * Checks if the {@link Coordinates} given as argument is inside the rectangle formed by (0, 0) as topLeft and bottomRight.
+     * Checks if the {@link Coordinates2D} given as argument is inside the rectangle formed by (0, 0) as topLeft and bottomRight.
      * 
-     * @param <T> type of the {@link Coordinates} involved.
-     * @param coord the {@link Coordinates} to be checked against the rectangle.
-     * @param bottomRight the {@link Coordinates} representing the point at the bottom right of the rectangle that coord has to be inside of.
+     * @param <T> type of the {@link Coordinates2D} involved.
+     * @param coord the {@link Coordinates2D} to be checked against the rectangle.
+     * @param bottomRight the {@link Coordinates2D} representing the point at the bottom right of the rectangle that coord has to be inside of.
      * @return True if coord is inside the rectangle, false otherwise.
      */
-    public static <T extends Number> boolean isValid(final Coordinates<T> coord, final Coordinates<T> bottomRight) {
-        final var coordD = CoordinatesUtil.of(coord.getX().doubleValue(), coord.getY().doubleValue());
-        final var bottomRightD = CoordinatesUtil.of(bottomRight.getX().doubleValue(), bottomRight.getY().doubleValue());
-        return isValid(coordD, CoordinatesUtil.of(0.0, 0.0), bottomRightD);
+    public static <T extends Number & Comparable<T>> boolean isValid(final Coordinates2D<T> coord, final Coordinates2D<T> bottomRight) {
+        final var coordI = CoordinatesUtil.of(coord.getX().intValue(), coord.getY().intValue());
+        final var bottomRightI = CoordinatesUtil.of(bottomRight.getX().intValue(), bottomRight.getY().intValue());
+        return isValid(coordI, CoordinatesUtil.of(0, 0), bottomRightI);
     }
 
     /**
-     * Checks if the {@link Coordinates} given as argument are less than the values of maxX and maxY.
+     * Checks if the {@link Coordinates2D} given as argument are less than the values of maxX and maxY.
      * 
-     * @param <T> type of the {@link Coordinates} involved.
-     * @param coord the {@link Coordinates} to be checked against the other parameters.
+     * @param <T> type of the {@link Coordinates2D} involved.
+     * @param coord the {@link Coordinates2D} to be checked against the other parameters.
      * @param maxX the value that the X coordinate of coord cannot be greater of.
      * @param maxY the value that the Y coordinate of coord cannot be greator of.
      * @return True if both the X and Y values of coord are smaller than maxX and maxY respectively.
      */
-    public static <T extends Number> boolean isValid(final Coordinates<T> coord, final T maxX, final T maxY) {
+    public static <T extends Number & Comparable<T>> boolean isValid(final Coordinates2D<T> coord, final T maxX, final T maxY) {
         return isValid(coord, CoordinatesUtil.of(maxX, maxY));
     }
 }
