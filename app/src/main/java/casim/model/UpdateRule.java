@@ -3,7 +3,6 @@ package casim.model;
 import java.util.Iterator;
 
 import casim.model.cell.interfaces.Cell;
-import casim.model.cell.interfaces.CellAttributes;
 
 /**
  * The {@link Automaton}'s rule used to update the {@link Cell}'s state.
@@ -13,12 +12,12 @@ import casim.model.cell.interfaces.CellAttributes;
 public interface UpdateRule<T> {
 
      /**
-     * Return the updated {@link CellAttributes} for the {@link Cell} take as parameter.
+     * Return the updated {@link Cell}.
      * 
      * @param cell to update.
      * @param neighbors iterator of the cell's neighbors.
-     * @return the updated cell's {@link CellAttributes}.
+     * @return the updated {@link Cell}.
      */
-    CellAttributes<T> getNext(Cell<T> cell, Iterator<Cell<T>> neighbors);
+    Cell<T> getNext(Cell<T> cell, Iterator<Cell<T>> neighbors);
 
 }
