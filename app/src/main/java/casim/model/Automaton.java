@@ -1,6 +1,6 @@
 package casim.model;
 
-import casim.model.cell.interfaces.CellAttributes;
+import casim.model.cell.interfaces.Cell;
 import casim.utils.grid.Grid;
 
 /**
@@ -16,10 +16,10 @@ public interface Automaton<T> {
     void doStep();
 
     /**
-     * Get a {@link Grid} describing the current {@link Automaton}'s state.
+     * Get the {@link Grid} describing the current {@link Automaton}'s state.
      * 
-     * @return {@link Grid} A {@link Grid} of {@link CellAttributes}
+     * @return {@link Grid} A {@link Grid} of {@link Cell}.
      */
-    Grid<CellAttributes<T>> getAttributesGrid();
+    Grid<Cell<T>> getGrid();
 
 }
