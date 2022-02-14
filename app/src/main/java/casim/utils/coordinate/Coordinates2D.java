@@ -62,11 +62,11 @@ public class Coordinates2D<T extends Number> implements Coordinates<T> {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof Coordinates2D)) {
             return false;
         }
-        final Coordinates2D<T> other = (Coordinates2D<T>) obj;
-        return this.getX().equals(other.getX()) && this.getY().equals(other.getY());
+        final Coordinates2D<?> other = (Coordinates2D<?>) obj;
+        return other.coords.equals(other.coords);
     }
 
 }
