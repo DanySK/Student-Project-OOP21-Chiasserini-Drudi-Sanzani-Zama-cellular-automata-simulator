@@ -21,10 +21,8 @@ class CoordinatesUtilTest {
      */
     @Test
     void testSum() {
-        final Coordinates2D<Integer> intSum = CoordinatesUtil.sum(INTCOORD01, INTCOORD02);
-        Assert.assertEquals((int)intSum.getX(), INTCOORD01.getX() + INTCOORD02.getX());
-        final Coordinates2D<Integer> floatSum = CoordinatesUtil.sum(DOUBLECOORD01, DOUBLECOORD02);
-        Assert.assertEquals((int)floatSum.getX(), DOUBLECOORD01.getX().intValue() + DOUBLECOORD02.getX().intValue());
+        final Coordinates2D<Integer> intSum = CoordinatesUtil.sumInt(INTCOORD01, INTCOORD02);
+        Assert.assertEquals(intSum.getX().intValue(), INTCOORD01.getX() + INTCOORD02.getX());
     }
 
     /**
