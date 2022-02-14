@@ -8,13 +8,16 @@ import org.junit.jupiter.api.Test;
  */
 class Coordinates2DTest {
 
+    static final int XVALUE = 5;
+    static final int YVALUE = 10;
+
     /**
      * Test for {@link Coordinates#getX()} method. 
      */
     @Test
     void testGetX() {
         final Coordinates2D<Integer> coord = CoordinatesUtil.of(5,  10);
-        Assert.assertEquals((int)coord.getX(), 5);
+        Assert.assertEquals((int) coord.getX(), XVALUE);
     }
 
     /**
@@ -22,8 +25,8 @@ class Coordinates2DTest {
      */
     @Test
     void testGetY() {
-    	final Coordinates2D<Integer> coord = CoordinatesUtil.of(5, 10);
-        Assert.assertEquals((int)coord.getY(), 10);
+        final Coordinates2D<Integer> coord = CoordinatesUtil.of(5, 10);
+        Assert.assertEquals((int) coord.getY(), YVALUE);
     }
 
 }
