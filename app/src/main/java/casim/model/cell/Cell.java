@@ -14,7 +14,7 @@ public interface Cell<T> {
      * 
      * @return the {@link Coordinates} of the {@link Cell}. 
      */
-    Coordinates<Integer> getCoord();
+    Coordinates<Integer> getCoordinates();
 
     /** 
      * Return the current {@link CellAttributes} of the {@link Cell}.
