@@ -1,6 +1,6 @@
 package casim.model;
 
-import casim.model.cell.CellAttributes;
+import casim.model.cell.interfaces.CellAttributes;
 import casim.utils.grid.Grid;
 
 /**

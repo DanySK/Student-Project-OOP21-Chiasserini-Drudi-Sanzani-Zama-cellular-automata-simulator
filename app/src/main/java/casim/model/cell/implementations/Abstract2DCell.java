@@ -1,5 +1,7 @@
-package casim.model.cell;
+package casim.model.cell.implementations;
 
+import casim.model.cell.interfaces.Cell;
+import casim.model.cell.interfaces.CellAttributes;
 import casim.utils.coordinate.Coordinates;
 import casim.utils.coordinate.Coordinates2D;
 

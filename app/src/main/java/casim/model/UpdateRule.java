@@ -2,8 +2,8 @@ package casim.model;
 
 import java.util.Iterator;
 
-import casim.model.cell.Cell;
-import casim.model.cell.CellAttributes;
+import casim.model.cell.interfaces.Cell;
+import casim.model.cell.interfaces.CellAttributes;
 
 /**
  * The {@link Automaton}'s rule used to update the {@link Cell}'s state.
