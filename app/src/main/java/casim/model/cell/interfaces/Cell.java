@@ -1,4 +1,4 @@
-package casim.model.cell;
+package casim.model.cell.interfaces;
 
 import casim.utils.coordinate.Coordinates;
 

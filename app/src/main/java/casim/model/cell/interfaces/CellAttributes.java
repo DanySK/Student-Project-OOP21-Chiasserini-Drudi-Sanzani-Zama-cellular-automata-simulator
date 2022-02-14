@@ -1,4 +1,4 @@
-package casim.model.cell;
+package casim.model.cell.interfaces;
 
 /**
  * An interface which describes the {@link Cell}'s attributes.
