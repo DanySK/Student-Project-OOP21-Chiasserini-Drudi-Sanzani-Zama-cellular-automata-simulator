@@ -16,13 +16,12 @@ public final class CoordinatesUtil {
      *  - X equals to the sum of the X values of a and b
      *  - Y equals to the sum of the Y values of a and b
      * 
-     * @param <T> type of the {@link Coordinates2D} involved.
      * @param a first element of the sum.
      * @param b second element of the sum.
      * @return a new {@link Coordinates2D} object representing the sum of a and b.
      */
-    public static <T extends Number> Coordinates2D<Integer> sum(final Coordinates2D<T> a, final Coordinates2D<T> b) {
-        return CoordinatesUtil.of(a.getX().intValue() + b.getX().intValue(), a.getY().intValue() + b.getY().intValue());
+    public static Coordinates2D<Integer> sumInt(final Coordinates2D<Integer> a, final Coordinates2D<Integer> b) {
+        return CoordinatesUtil.of(a.getX() + b.getX(), a.getY() + b.getY());
     }
 
     /**
