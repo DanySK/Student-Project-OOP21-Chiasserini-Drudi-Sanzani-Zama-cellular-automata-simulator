@@ -1,5 +1,7 @@
 package casim.model;
 
+import java.util.Iterator;
+
 import casim.model.cell.interfaces.Cell;
 import casim.utils.grid.Grid;
 
@@ -8,12 +10,7 @@ import casim.utils.grid.Grid;
  *
  *  @param <T> the type of the finite states of the {@link Automaton}'s {@link Cell}.
  */
-public interface Automaton<T> {
-
-    /**
-     * Method called to let {@link Automaton} to do the next step.
-     */
-    void doStep();
+public interface Automaton<T> extends Iterator<T> {
 
     /**
      * Get the {@link Grid} describing the current {@link Automaton}'s state.
