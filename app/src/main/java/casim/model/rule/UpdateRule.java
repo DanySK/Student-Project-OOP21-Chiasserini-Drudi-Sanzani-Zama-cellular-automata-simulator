@@ -1,4 +1,4 @@
-package casim.model;
+package casim.model.rule;
 
 import casim.model.cell.interfaces.Cell;
 
