@@ -1,7 +1,5 @@
 package casim.model;
 
-import java.util.Iterator;
-
 import casim.model.cell.interfaces.Cell;
 
 /**
@@ -15,9 +13,8 @@ public interface UpdateRule<T> {
      * Return the updated {@link Cell}.
      * 
      * @param cell to update.
-     * @param neighbors iterator of the cell's neighbors.
      * @return the updated {@link Cell}.
      */
-    Cell<T> getNext(Cell<T> cell, Iterator<Cell<T>> neighbors);
+    Cell<T> getNextCell(Cell<T> cell);
 
 }
