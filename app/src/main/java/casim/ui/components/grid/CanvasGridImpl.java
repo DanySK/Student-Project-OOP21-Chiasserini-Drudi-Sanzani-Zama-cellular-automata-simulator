@@ -23,6 +23,7 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
 
     private static final Color DEFAULT = Colors.WHITE;
     private static final Color SELECTED = Colors.RED;
+    private static final Color HIGHLIGHTED = new Color(0.4, 0.4, 0.4, 1);
 
     private final int rows;
     private final int columns;
@@ -48,7 +49,7 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
      * @param separatorOffset separator offset.
      */
     public CanvasGridImpl(final int rows, final int columns, final double cellSize, 
-        final Color separatorColor, final double separatorWidth, final double separatorOffset) {      
+        final Color separatorColor, final double separatorWidth, final double separatorOffset) {
 
         this.rows = rows;
         this.columns = columns;
@@ -91,9 +92,8 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
         this.lastHoveredCell.ifPresent(
             lastCoord -> this.getCell(lastCoord).getValue().setColor(DEFAULT));
 
-        cell.setColor(new Color(0.4, 0.4, 0.4, 1));
+        cell.setColor(HIGHLIGHTED);
         this.lastHoveredCell = Optional.of(coord);
-        
         this.draw();
     }
 
@@ -160,7 +160,7 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
             for (final var column : Ranges.of(0, this.columns)) {
                 this.cells.set(row, column, new CanvasGridCellImpl(
                     DEFAULT,
-                    CoordinatesUtil.of(row * (int)this.cellSize, column * (int)this.cellSize),
+                    CoordinatesUtil.of(row * (int) this.cellSize, column * (int) this.cellSize),
                     this.cellSize)
                 );
             }

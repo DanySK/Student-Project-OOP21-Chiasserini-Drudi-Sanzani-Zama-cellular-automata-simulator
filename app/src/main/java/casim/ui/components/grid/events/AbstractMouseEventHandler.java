@@ -30,7 +30,7 @@ public abstract class AbstractMouseEventHandler implements EventHandler<MouseEve
      */
     protected Coordinates2D<Integer> getCoordinatesFromEvent(final MouseEvent event) {
         return CoordinatesUtil.of(
-            (int)(event.getX() / this.grid.getCellSize()), (int)(event.getY() / this.grid.getCellSize()));
+            (int) (event.getX() / this.grid.getCellSize()), (int) (event.getY() / this.grid.getCellSize()));
     }
 
     /**

@@ -13,5 +13,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface PlayableAutomaton {
+    /**
+     * Automaton name property.
+     * 
+     * @return return the automaton name.
+     */
     String AutomatonName();
 }

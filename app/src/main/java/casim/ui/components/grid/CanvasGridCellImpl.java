@@ -17,7 +17,7 @@ public class CanvasGridCellImpl implements CanvasGridCell {
      * 
      * @param color the color of the cell.
      * @param topLeft the top left corner of the cell.
-     * @param bottomRight the bottom right corner of the cell.
+     * @param size the size of the cell.
      */
     public CanvasGridCellImpl(final Color color, final Coordinates2D<Integer> topLeft, final double size) {
         this.color = color;

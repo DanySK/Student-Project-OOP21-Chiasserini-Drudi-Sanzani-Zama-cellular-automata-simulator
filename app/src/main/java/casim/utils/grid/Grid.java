@@ -47,12 +47,12 @@ public interface Grid<K extends Coordinates<? extends Number>, V> {
      * @return @return {@link Result} containing {@link Empty} if the {@link Coordinates} are valid, {@link IndexOutOfBoundsException} otherwise.
      */
     Result<Empty> set(K coord, V value);
-    
+
     /**
      * Return true if parameter coord is inside the {@link Grid}.
      * 
      * @param coord the {@link Coordinates} of the point.
-     * @return.
+     * @return true if the parameter coord is a valid {@link Coordinates} for {@link Grid}.
      */
     boolean isCoordValid(K coord);
 

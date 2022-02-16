@@ -16,7 +16,7 @@ import java.util.function.Predicate;
  * @param <T> Result type.
  */
 public final class Result<T> {
-    private static final Empty EMPTY_VALUE = new Empty() {}; 
+    private static final Empty EMPTY_VALUE = new Empty() { }; 
 
     private final Optional<T> value;
     private final Optional<Exception> exception; 

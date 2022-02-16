@@ -59,5 +59,5 @@ public class PageContainer extends AnchorPane {
         if (!this.pages.isEmpty()) {
             this.getChildren().add(this.pages.peek());
         }
-    }    
+    }
 }

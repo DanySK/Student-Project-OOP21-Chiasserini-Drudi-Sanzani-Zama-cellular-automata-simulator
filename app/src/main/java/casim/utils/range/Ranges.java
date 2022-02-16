@@ -9,7 +9,7 @@ import java.util.function.Function;
 public final class Ranges {
 
     private Ranges() {
-        
+
     }
 
     /**
