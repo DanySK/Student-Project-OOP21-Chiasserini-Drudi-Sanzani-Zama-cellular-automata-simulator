@@ -24,6 +24,7 @@ public class Neighbors2DFunction<T> implements BiFunction<Cell2D<T>, Grid<Coordi
         return Stream.of(CoordinatesUtil.of(1, 0), CoordinatesUtil.of(0, 1), 
                           CoordinatesUtil.of(0, -1), CoordinatesUtil.of(-1, 0))
                      .map(coord -> CoordinatesUtil.sumInt(coord, cell.getCoordinates()))
+                     .filter(coord -> grid.isCoordValid(coord))
                      .map(coord -> new Cell2D<>(coord, cell.getAttributes()))
                      .collect(Collectors.toList());
     }
