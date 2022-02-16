@@ -1,17 +1,12 @@
 package casim.utils.grid;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
-
-import com.google.common.base.Supplier;
 
 import casim.utils.Empty;
 import casim.utils.Result;
-import casim.utils.coordinate.Coordinates;
 import casim.utils.coordinate.Coordinates2D;
 import casim.utils.coordinate.CoordinatesUtil;
 import casim.utils.range.Ranges;
@@ -49,7 +44,7 @@ public class Grid2DImpl<T> implements Grid2D<T>{
 			}
 		}
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -119,7 +114,4 @@ public class Grid2DImpl<T> implements Grid2D<T>{
 	public Stream<T> stream() {
 		return this.grid.values().stream();
 	}
-
-	
-
 }
