@@ -10,17 +10,20 @@ import casim.utils.coordinate.Coordinates3D;
  * 
  * @param <T> the type of the finite states of the {@link Cell}.
  */
-public abstract class Abstract3DCell<T> implements Cell<T> {
+public class Cell3D<T> implements Cell<T> {
 
     private final Coordinates<Integer> coordinates;
+    private final CellAttributes<T> attributes;
 
     /**
      * Construct a new {@link Coordinates3D}.
      * 
-     * @param coordinates the coordinates of the cell.
+     * @param coordinates the {@link Coordinates} of the {@link Cell}.
+     * @param attributes the {@link CellAttributes} of the {@link Cell}.
      */
-    public Abstract3DCell(final Coordinates3D<Integer> coordinates) {
+    public Cell3D(final Coordinates3D<Integer> coordinates, final CellAttributes<T> attributes) {
         this.coordinates = coordinates;
+        this.attributes = attributes;
     }
 
     /**
@@ -35,5 +38,7 @@ public abstract class Abstract3DCell<T> implements Cell<T> {
      * 
      */
     @Override
-    public abstract CellAttributes<T> getAttributes();
+    public CellAttributes<T> getAttributes() {
+        return this.attributes;
+    }
 }

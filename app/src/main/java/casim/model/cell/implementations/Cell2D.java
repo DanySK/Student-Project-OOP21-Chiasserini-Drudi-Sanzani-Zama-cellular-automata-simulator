@@ -6,21 +6,24 @@ import casim.utils.coordinate.Coordinates;
 import casim.utils.coordinate.Coordinates2D;
 
 /**
- * An abstract which describes a generic 2D {@link Cell}, it doesn't specify the finite states type.
+ * Implementation of a generic 2D {@link Cell}, it doesn't specify the finite states type.
  * 
  *  @param <T> the type of the finite states of the {@link Automaton}'s {@link Cell}.
  */
-public abstract class Abstract2DCell<T> implements Cell<T> {
+public class Cell2D<T> implements Cell<T> {
 
     private final Coordinates<Integer> coord;
+    private final CellAttributes<T> attributes;
 
     /**
      * Construct a new {@link Abstract2DCell}.
      * 
-     * @param coord the coordinates of the cell.
+     * @param coord the {@link Coordinates} of the {@link Cell}.
+     * @param attributes the {@link CellAttributes} of the {@link Cell}.
      */
-    public Abstract2DCell(final Coordinates2D<Integer> coord) {
+    public Cell2D(final Coordinates2D<Integer> coord, final CellAttributes<T> attributes) {
         this.coord = coord;
+        this.attributes = attributes;
     }
 
     /**
@@ -35,6 +38,8 @@ public abstract class Abstract2DCell<T> implements Cell<T> {
      * {@inheritDoc}
      */
     @Override
-    public abstract CellAttributes<T> getAttributes();
+    public CellAttributes<T> getAttributes() {
+        return this.attributes;
+    };
 
 }
