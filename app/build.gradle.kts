@@ -14,6 +14,7 @@ plugins {
     // Adds task 'shadowJar ' to export a runnable jar .
     // The runnable jar will be found in build / libs / projectname - all . jar
     id ("com.github.johnrengelman.shadow") version "7.1.2"
+    id("org.openjfx.javafxplugin") version "0.0.11"
 }
 
 repositories {
@@ -21,19 +22,9 @@ repositories {
     mavenCentral()
 }
 
-val javaFXModules = listOf("base", "controls", "fxml", "swing", "graphics")
-val supportedPlatforms = listOf("linux", "mac", "win")
-val javaFXVersion = 15
-
 dependencies {
     spotbugs("com.github.spotbugs:spotbugs:4.5.3")
     spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.11.0")
-    
-    for (platform in supportedPlatforms) {
-        for (module in javaFXModules) {
-            implementation("org.openjfx:javafx-$module:$javaFXVersion:$platform")
-        }
-    }
 
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
@@ -95,4 +86,9 @@ tasks.named<Test>("test") {
 
 tasks.named("check") {
     dependsOn("javadoc")
+}
+
+javafx {
+    version = "15"
+    modules("javafx.base", "javafx.controls", "javafx.fxml", "javafx.swing", "javafx.graphics")
 }
