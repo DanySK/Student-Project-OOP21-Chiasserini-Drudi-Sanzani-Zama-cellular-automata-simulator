@@ -1,6 +1,7 @@
 package casim.model.rule;
 
 import casim.model.cell.interfaces.Cell;
+import casim.utils.coordinate.Coordinates;
 import casim.utils.grid.Grid;
 
 /**
@@ -17,6 +18,6 @@ public interface UpdateRule<T> {
      * @param grid the {@link Grid} representing the {@link Automaton}.
      * @return the updated {@link Cell}.
      */
-    Cell<T> getNextCell(Cell<T> cell, Grid<Cell<T>> grid);
+    Cell<T> getNextCell(Cell<T> cell, Grid<Coordinates<Integer>, Cell<T>> grid);
 
 }

@@ -1,5 +1,6 @@
 package casim.model;
 
+import casim.utils.coordinate.Coordinates;
 import casim.utils.grid.Grid;
 
 /**
@@ -14,6 +15,6 @@ public interface GridBuilder<T> {
      * 
      * @return a new {@link Grid} of type T.
      */
-    Grid<T> getGrid();
+    Grid<Coordinates<Integer>, T> getGrid();
 
 }

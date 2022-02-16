@@ -3,6 +3,7 @@ package casim.model;
 import java.util.Iterator;
 
 import casim.model.cell.interfaces.Cell;
+import casim.utils.coordinate.Coordinates;
 import casim.utils.grid.Grid;
 
 /**
@@ -17,6 +18,6 @@ public interface Automaton<T> extends Iterator<T> {
      * 
      * @return {@link Grid} A {@link Grid} of {@link Cell}.
      */
-    Grid<Cell<T>> getGrid();
+    Grid<Coordinates<Integer>, Cell<T>> getGrid();
 
 }
