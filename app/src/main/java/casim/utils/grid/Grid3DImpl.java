@@ -9,7 +9,6 @@ import com.google.common.base.Supplier;
 import casim.utils.Empty;
 import casim.utils.Result;
 import casim.utils.coordinate.Coordinates3D;
-import casim.utils.coordinate.CoordinatesImpl;
 import casim.utils.coordinate.CoordinatesUtil;
 import casim.utils.range.Ranges;
 
