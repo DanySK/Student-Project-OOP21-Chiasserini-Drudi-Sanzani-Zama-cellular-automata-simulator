@@ -1,8 +1,8 @@
 package casim.ui.components.grid;
 
 import casim.utils.Result;
-import casim.utils.coordinate.Coordinates;
-import casim.utils.grid.Grid;
+import casim.utils.coordinate.Coordinates2D;
+import casim.utils.grid.Grid2D;
 import javafx.scene.input.MouseButton;
 
 /**
@@ -17,7 +17,7 @@ public interface CanvasGrid {
      * @param cell the cell the mouse has clicked.
      * @param coord the coordinates of the cell.
      */
-    void onCellClick(MouseButton button, CanvasGridCell cell, Coordinates<Integer> coord);
+    void onCellClick(MouseButton button, CanvasGridCell cell, Coordinates2D<Integer> coord);
 
     /**
      * Function called when the mouse hovers the {@link CanvasGrid}.
@@ -25,7 +25,7 @@ public interface CanvasGrid {
      * @param cell the cell the mouse is hovering.
      * @param coord the coordinates of the cell.
      */
-    void onCellHover(CanvasGridCell cell, Coordinates<Integer> coord);
+    void onCellHover(CanvasGridCell cell, Coordinates2D<Integer> coord);
 
     /**
      * Get the number of columns in the grid.
@@ -40,11 +40,6 @@ public interface CanvasGrid {
      * @return an integer representing the number of rows in the grid.
      */
     int getRows();
-
-    /**
-     * Populate the grid with cells.
-     */
-    void populate();
 
     /**
      * Draw the grid.
@@ -63,22 +58,22 @@ public interface CanvasGrid {
      * 
      * @return a {@link Grid} containing the cells of the {@link CanvasGrid}.
      */
-    Grid<CanvasGridCell> getCells();
+    Grid2D<CanvasGridCell> getCells();
 
     /**
      * Set the {@link CanvasGrid}'s grid.
      * 
      * @param cells a {@link Grid} containing the cells.
      */
-    void setCells(Grid<CanvasGridCell> cells);
+    void setCells(Grid2D<CanvasGridCell> cells);
 
     /**
      * Get a specific cell of the canvas, returns a {@link Result} holding:
      *  - a {@link CanvasGridCell} if the coordinated are valid,
      *  - an IndexOutOfBoundException otherwise.
      * 
-     * @param coord the {@link Coordinates} of the cell to get.
+     * @param coord the {@link Coordinates2D} of the cell to get.
      * @return {@link Result} with the {@link CanvasGridCell} if coord is valid, IndexOutOfBoundException otherwise.
      */
-    Result<CanvasGridCell> getCell(Coordinates<Integer> coord);
+    Result<CanvasGridCell> getCell(Coordinates2D<Integer> coord);
 }

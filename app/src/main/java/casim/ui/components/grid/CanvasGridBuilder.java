@@ -20,14 +20,7 @@ public class CanvasGridBuilder {
     private int columns = -1;
     private int cellSize = -1;
     private Color separatorColor = Colors.BLACK;
-    private double separatorWidth = 0.0;
-    
-    /**
-     * Construct a {@link CanvasGridBuilder}.
-     */
-    public CanvasGridBuilder() {
-
-    }
+    private double separatorWidth;
 
     /**
      * Set the number of rows in number of cells of the {@link CanvasGrid}.
