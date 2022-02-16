@@ -1,6 +1,5 @@
 package casim.utils.grid;
 
-import java.util.List;
 import java.util.stream.Stream;
 
 import casim.utils.Empty;
@@ -10,13 +9,14 @@ import casim.utils.coordinate.Coordinates;
 /**
  * An N x M {@link Grid} of elements of type T.
  * 
- * @param <T> type of the elements contained in Grid.
+ * @param <K> type of the {@link Coordinates} contained in Grid.
+ * @param <V> type of the elements contained in Grid
  */
-public interface Grid<T> {
+public interface Grid<K extends Coordinates<? extends Number>, V> {
     /**
      * Return the width of the {@link Grid}.
      * 
-     * @return an integer representing the witdh of {@link Grid}.
+     * @return an integer representing the width of {@link Grid}.
      */
     int getWidth();
 
@@ -29,48 +29,38 @@ public interface Grid<T> {
 
     /**
      * Return a {@link Result} containing:
-     *  - the value contained in {@link Grid} if row and column are valid; 
-     *  - an {@link IndexOutOfBoundsException} otherwise.
-     * 
-     * @param row of the element to get.
-     * @param column of the element to get.
-     * @return {@link Result} containing the requested element if present, {@link IndexOutOfBoundsException} otherwise.
-     */
-    Result<T> get(int row, int column);
-
-    /**
-     * Return a {@link Result} containing:
      *  - the value contained in {@link Grid} if the {@link Coordinates} are valid; 
      *  - an {@link IndexOutOfBoundsException} otherwise.
      * 
-     * @param coord the coordinates of the point.
+     * @param coord the {@link Coordinates} of the point.
      * @return {@link Result} containing the requested element if present, {@link IndexOutOfBoundsException} otherwise.
      */
-    Result<T> get(Coordinates<Integer> coord);
+    Result<V> get(K coord);
 
     /**
      * Return a {@link Result} containing:
-     *  - {@link Empty} if row and column are valid,
+     *  - {@link Empty} if the {@link Coordinates} are valid,
      *  - an {@link IndexOutOfBoundsException} otherwise.
      * 
-     * @param row of the element to set.
-     * @param column of the element to set.
+     * @param coord the coordinates of the element to set.
      * @param value to set.
-     * @return @return {@link Result} containing {@link Empty} if row and column are valid, {@link IndexOutOfBoundsException} otherwise.
+     * @return @return {@link Result} containing {@link Empty} if the {@link Coordinates} are valid, {@link IndexOutOfBoundsException} otherwise.
      */
-    Result<Empty> set(int row, int column, T value);
-
+    Result<Empty> set(K coord, V value);
+    
     /**
-     * Return a Stream of the {@link Grid}'s rows.
+     * Return true if parameter coord is inside the {@link Grid}.
      * 
-     * @return Stream of the rows.
+     * @param coord the {@link Coordinates} of the point.
+     * @return.
      */
-    Stream<List<T>> stream();
+    boolean isCoordValid(K coord);
 
     /**
      * Return a Stream of the elements in {@link Grid}.
      * 
      * @return a Stream of the elements in {@link Grid}.
      */
-    Stream<T> flatStream();
+    Stream<V> stream();
+
 }
