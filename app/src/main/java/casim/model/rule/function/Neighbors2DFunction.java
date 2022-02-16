@@ -16,6 +16,7 @@ import casim.utils.grid.Grid;
  * @param <T> the type of the finite states a {@link Cell} can assume.
  */
 public class Neighbors2DFunction<T> implements BiFunction<Cell2D<T>, Grid<Coordinates<Integer>, Cell<T>>, Iterable<Cell<T>>> {
+
     /**
      * {@inheritDoc}
      */
@@ -25,7 +26,7 @@ public class Neighbors2DFunction<T> implements BiFunction<Cell2D<T>, Grid<Coordi
                           CoordinatesUtil.of(0, -1), CoordinatesUtil.of(-1, 0))
                      .map(coord -> CoordinatesUtil.sumInt(coord, cell.getCoordinates()))
                      .filter(coord -> grid.isCoordValid(coord))
-                     .map(coord -> new Cell2D<>(coord, cell.getAttributes()))
+                     .map(coord -> new Cell2D<>(coord, grid.get(coord).getValue().getAttributes())) 
                      .collect(Collectors.toList());
     }
 
