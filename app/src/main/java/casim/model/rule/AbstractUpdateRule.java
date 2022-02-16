@@ -3,6 +3,7 @@ package casim.model.rule;
 import java.util.function.Function;
 
 import casim.model.cell.interfaces.Cell;
+import casim.utils.grid.Grid;
 
 /**
  * Abstract implementation of {@link UpdateRule}.
@@ -26,7 +27,7 @@ public abstract class AbstractUpdateRule<T> implements UpdateRule<T> {
      * {@inheritDoc}
      */
     @Override
-    public Cell<T> getNextCell(final Cell<T> cell) {
+    public Cell<T> getNextCell(final Cell<T> cell, final Grid<Cell<T>> grid) {
         final Iterable<Cell<T>> neighbors = this.neighborsFunction.apply(cell);
         return this.nextCell(cell, neighbors);
     }
