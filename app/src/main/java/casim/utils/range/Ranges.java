@@ -8,6 +8,10 @@ import java.util.function.Function;
  */
 public final class Ranges {
 
+    private Ranges() {
+        
+    }
+
     /**
      * Creates a {@link Range} that goes from startInclusive to endExclusive using a function to define the step.
      * 

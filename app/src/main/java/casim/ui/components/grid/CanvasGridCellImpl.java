@@ -37,7 +37,7 @@ public class CanvasGridCellImpl implements CanvasGridCell {
      * {@inheritDoc}
      */
     @Override
-    public void setColor(Color color) {
+    public void setColor(final Color color) {
         this.color = color;
     }
 

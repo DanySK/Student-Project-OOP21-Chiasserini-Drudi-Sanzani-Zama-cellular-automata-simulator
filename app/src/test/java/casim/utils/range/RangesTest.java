@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test class for {@link Ranges}.
  */
-public class RangesTest {
+class RangesTest {
 
     private static final int INT_RANGE_START = 0;
     private static final int INT_RANGE_END = 10;

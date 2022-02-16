@@ -35,7 +35,7 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
 
     private Optional<Coordinates2D<Integer>> lastHoveredCell;
 
-    private Grid2D<CanvasGridCell> cells;
+    private final Grid2D<CanvasGridCell> cells;
 
     /**
      * Construct a new {@link CanvasGridImpl}.
@@ -156,12 +156,12 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
     }
 
     private void init() {
-        for (final var row : Ranges.of(0, this.getRows())) {
-            for (final var column : Ranges.of(0, this.getColumns())) {
+        for (final var row : Ranges.of(0, this.rows)) {
+            for (final var column : Ranges.of(0, this.columns)) {
                 this.cells.set(row, column, new CanvasGridCellImpl(
                     DEFAULT,
-                    CoordinatesUtil.of(row * (int)this.getCellSize(), column * (int)this.getCellSize()),
-                    this.getCellSize())
+                    CoordinatesUtil.of(row * (int)this.cellSize, column * (int)this.cellSize),
+                    this.cellSize)
                 );
             }
         }

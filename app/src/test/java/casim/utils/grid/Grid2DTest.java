@@ -16,7 +16,7 @@ import casim.utils.range.Ranges;
 /**
  * Test class for {@link Grid2D}.
  */
-public class Grid2DTest {
+class Grid2DTest {
 
     private static final int DEFAULT_VALUE = 1;
     private static final int ROWS = 3;
