@@ -2,7 +2,6 @@ package casim.model.cell.implementations;
 
 import casim.model.cell.interfaces.Cell;
 import casim.model.cell.interfaces.CellAttributes;
-import casim.utils.coordinate.Coordinates;
 import casim.utils.coordinate.Coordinates2D;
 
 /**
@@ -12,7 +11,7 @@ import casim.utils.coordinate.Coordinates2D;
  */
 public class Cell2D<T> implements Cell<T> {
 
-    private final Coordinates<Integer> coord;
+    private final Coordinates2D<Integer> coord;
     private final CellAttributes<T> attributes;
 
     /**
@@ -30,7 +29,7 @@ public class Cell2D<T> implements Cell<T> {
      * {@inheritDoc}
      */
     @Override
-    public Coordinates<Integer> getCoordinates() {
+    public Coordinates2D<Integer> getCoordinates() {
         return this.coord;
     }
 
