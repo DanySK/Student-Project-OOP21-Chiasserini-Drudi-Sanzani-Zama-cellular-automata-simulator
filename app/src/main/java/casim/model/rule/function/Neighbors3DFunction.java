@@ -22,8 +22,9 @@ public class Neighbors3DFunction<T> implements BiFunction<Cell3D<T>, Grid<Coordi
      */
     @Override
     public Iterable<Cell<T>> apply(final Cell3D<T> cell, final Grid<Coordinates<Integer>, Cell<T>> grid) {
-        return Stream.of(CoordinatesUtil.of(1, 0, 0), CoordinatesUtil.of(0, 1, 0), 
-                          CoordinatesUtil.of(0, -1, 0), CoordinatesUtil.of(-1, 0, 0))
+        return Stream.of(CoordinatesUtil.of(1, 0, 0), CoordinatesUtil.of(-1, 0, 0), 
+                          CoordinatesUtil.of(0, 1, 0), CoordinatesUtil.of(0, -1, 0),
+                          CoordinatesUtil.of(0, 0, 1), CoordinatesUtil.of(0, 0, -1))
                      .map(coord -> CoordinatesUtil.sumInt(coord, cell.getCoordinates()))
                      .filter(coord -> grid.isCoordValid(coord))
                      .map(coord -> new Cell3D<>(coord, grid.get(coord).getValue().getAttributes()))
