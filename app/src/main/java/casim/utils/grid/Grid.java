@@ -2,8 +2,6 @@ package casim.utils.grid;
 
 import java.util.stream.Stream;
 
-import casim.utils.Empty;
-import casim.utils.Result;
 import casim.utils.coordinate.Coordinates;
 
 /**
@@ -28,31 +26,30 @@ public interface Grid<K extends Coordinates<? extends Number>, V> {
     int getHeight();
 
     /**
-     * Return a {@link Result} containing:
-     *  - the value contained in {@link Grid} if the {@link Coordinates} are valid; 
-     *  - an {@link IndexOutOfBoundsException} otherwise.
+     * Return the value at given coordinates.
+     *
+     * Throws {@link IndexOutOfBoundsException} if the coordinates are out of bound.
      * 
      * @param coord the {@link Coordinates} of the point.
-     * @return {@link Result} containing the requested element if present, {@link IndexOutOfBoundsException} otherwise.
+     * @return the value to at coord.
      */
-    Result<V> get(K coord);
+    V get(K coord);
 
     /**
-     * Return a {@link Result} containing:
-     *  - {@link Empty} if the {@link Coordinates} are valid,
-     *  - an {@link IndexOutOfBoundsException} otherwise.
+     * Set an element to a given value.
+     *
+     * Throws {@link IndexOutOfBoundsException} if the coordinates are out of bound.
      * 
      * @param coord the coordinates of the element to set.
-     * @param value to set.
-     * @return @return {@link Result} containing {@link Empty} if the {@link Coordinates} are valid, {@link IndexOutOfBoundsException} otherwise.
+     * @param value to set. 
      */
-    Result<Empty> set(K coord, V value);
+    void set(K coord, V value);
     
     /**
      * Return true if parameter coord is inside the {@link Grid}.
      * 
      * @param coord the {@link Coordinates} of the point.
-     * @return.
+     * @return true if the parameter coord is a valid {@link Coordinates} for {@link Grid}.
      */
     boolean isCoordValid(K coord);
 
