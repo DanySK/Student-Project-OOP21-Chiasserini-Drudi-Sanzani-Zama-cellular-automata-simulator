@@ -92,7 +92,7 @@ import casim.utils.range.Ranges;
 	 */
 	@Override
 	public void set(final int row, final int column, final int depth, final T value) {
-		return this.set(CoordinatesUtil.of(row, column, depth), value);
+		this.set(CoordinatesUtil.of(row, column, depth), value);
 	}
 
 	/**
