@@ -1,22 +1,20 @@
 package casim.utils.grid;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
-import com.google.common.base.Supplier;
-
-import casim.utils.Empty;
-import casim.utils.Result;
-import casim.utils.coordinate.Coordinates;
 import casim.utils.coordinate.Coordinates2D;
 import casim.utils.coordinate.CoordinatesUtil;
 import casim.utils.range.Ranges;
 
-public class Grid2DImpl<T> implements Grid2D<T>{
+/**
+ * Implementation of {@link Grid2D}.
+ * 
+ * @param <T> the type of the elements contained in {@link Grid2DImpl}.
+ */
+ public class Grid2DImpl<T> implements Grid2D<T>{
 	
 	private final int rows;
 	private final int columns;
@@ -70,7 +68,7 @@ public class Grid2DImpl<T> implements Grid2D<T>{
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Result<T> get(final int row, final int column) {
+	public T get(final int row, final int column) {
 		return this.get(CoordinatesUtil.of(row, column));
 	}
 	
@@ -78,30 +76,26 @@ public class Grid2DImpl<T> implements Grid2D<T>{
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Result<Empty> set(final int row, final int column, final T value) {
-		return this.set(CoordinatesUtil.of(row, column), value);
+	public void set(final int row, final int column, final T value) {
+		this.set(CoordinatesUtil.of(row, column), value);
 	}
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Result<T> get(final Coordinates2D<Integer> coord) {
-		return Result.ofEmpty()
-			.require(x -> this.isCoordValid(coord), new IndexOutOfBoundsException())
-			.map(x -> this.grid.get(coord));
+	public T get(final Coordinates2D<Integer> coord) {
+		this.throwIfOutOfBound(coord);
+		return this.grid.get(coord);
 	}
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Result<Empty> set(final Coordinates2D<Integer> coord, final T value) {
-		if (!this.isCoordValid(coord)) {
-			return Result.error(new IndexOutOfBoundsException());
-		}
+	public void set(final Coordinates2D<Integer> coord, final T value) {
+		this.throwIfOutOfBound(coord);
 		this.grid.put(coord, value);
-		return Result.ofEmpty();
 	}
 	
 	/**
@@ -120,6 +114,9 @@ public class Grid2DImpl<T> implements Grid2D<T>{
 		return this.grid.values().stream();
 	}
 
-	
-
+	private void throwIfOutOfBound(final Coordinates2D<Integer> coord) {
+        if (!this.isCoordValid(coord)) {
+            throw new IndexOutOfBoundsException("Size: " + this.getHeight() + " x " + this.getWidth() + "Coord: " + coord);
+        }
+    }
 }

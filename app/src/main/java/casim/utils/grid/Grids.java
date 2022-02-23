@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
-
-import casim.utils.Empty;
-import casim.utils.Result;
 import casim.utils.coordinate.Coordinates;
 
 /**
