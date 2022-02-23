@@ -1,6 +1,6 @@
 package casim.model.rule;
 
-import java.util.function.Function;
+import java.util.function.BiFunction;
 
 import casim.model.cell.interfaces.Cell;
 import casim.utils.coordinate.Coordinates;
@@ -13,14 +13,14 @@ import casim.utils.grid.Grid;
  */
 public abstract class AbstractUpdateRule<T> implements UpdateRule<T> {
 
-    private final Function<Cell<T>, Iterable<Cell<T>>> neighborsFunction;
+    private final BiFunction<Cell<T>, Grid<Coordinates<Integer>, Cell<T>>, Iterable<Cell<T>>> neighborsFunction;
 
     /**
      * Constructor of an abstract updateRule.
      * 
      * @param neighborsFunction used to take the neighbors of a given cell.
      */
-    public AbstractUpdateRule(final Function<Cell<T>, Iterable<Cell<T>>> neighborsFunction) {
+    public AbstractUpdateRule(final BiFunction<Cell<T>, Grid<Coordinates<Integer>, Cell<T>>, Iterable<Cell<T>>> neighborsFunction) {
         this.neighborsFunction = neighborsFunction;
     }
 
@@ -29,7 +29,7 @@ public abstract class AbstractUpdateRule<T> implements UpdateRule<T> {
      */
     @Override
     public Cell<T> getNextCell(final Cell<T> cell, final Grid<Coordinates<Integer>, Cell<T>> grid) {
-        final Iterable<Cell<T>> neighbors = this.neighborsFunction.apply(cell);
+        final Iterable<Cell<T>> neighbors = this.neighborsFunction.apply(cell, grid);
         return this.nextCell(cell, neighbors);
     }
 
