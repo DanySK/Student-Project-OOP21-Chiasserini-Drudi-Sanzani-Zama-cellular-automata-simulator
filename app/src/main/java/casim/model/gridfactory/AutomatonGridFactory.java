@@ -1,4 +1,4 @@
-package casim.model;
+package casim.model.gridfactory;
 
 import casim.model.cell.interfaces.Cell;
 import casim.utils.grid.Grid2D;
