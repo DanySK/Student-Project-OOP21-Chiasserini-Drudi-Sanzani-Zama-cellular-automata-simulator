@@ -26,8 +26,8 @@ public class Neighbors3DFunction<T> implements BiFunction<Cell3D<T>, Grid<Coordi
                           CoordinatesUtil.of(0, 1, 0), CoordinatesUtil.of(0, -1, 0),
                           CoordinatesUtil.of(0, 0, 1), CoordinatesUtil.of(0, 0, -1))
                      .map(coord -> CoordinatesUtil.sumInt(coord, cell.getCoordinates()))
-                     .filter(coord -> grid.isCoordValid(coord))
-                     .map(coord -> new Cell3D<>(coord, grid.get(coord).getValue().getAttributes()))
+                     .filter(grid::isCoordValid)
+                     .map(coord -> new Cell3D<>(coord, grid.get(coord).getAttributes()))
                      .collect(Collectors.toList());
     }
 
