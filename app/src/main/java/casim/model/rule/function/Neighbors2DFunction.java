@@ -22,12 +22,11 @@ public class Neighbors2DFunction<T> implements BiFunction<Cell2D<T>, Grid<Coordi
      */
     @Override
     public Iterable<Cell<T>> apply(final Cell2D<T> cell, final Grid<Coordinates<Integer>, Cell<T>> grid) {
-        return Stream.of(CoordinatesUtil.of(1, 0), CoordinatesUtil.of(0, 1), 
-                          CoordinatesUtil.of(0, -1), CoordinatesUtil.of(-1, 0))
-                     .map(coord -> CoordinatesUtil.sumInt(coord, cell.getCoordinates()))
-                     .filter(grid::isCoordValid)
-                     .map(coord -> new Cell2D<>(coord, grid.get(coord).getAttributes())) 
-                     .collect(Collectors.toList());
+        return Stream.of(CoordinatesUtil.of(1, 0), CoordinatesUtil.of(0, 1), CoordinatesUtil.of(0, -1), CoordinatesUtil.of(-1, 0))
+            .map(coord -> CoordinatesUtil.sumInt(coord, cell.getCoordinates()))
+            .filter(grid::isCoordValid)
+            .map(coord -> new Cell2D<>(coord, grid.get(coord).getAttributes())) 
+            .collect(Collectors.toList());
     }
 
 }
