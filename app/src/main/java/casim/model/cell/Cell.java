@@ -1,26 +1,17 @@
-package casim.model.cell.interfaces;
-
-import casim.utils.coordinate.Coordinates;
+package casim.model.cell;
 
 /**
  * A {@link Cell} of the {@link Grid}.
  * 
- * @param <T> the type of the finite states a Cell can assume.
+ * @param <T> the type of the finite states a {@link Cell} can assume.
  */
 public interface Cell<T> {
 
-    /**
-     * Return the {@link Coordinates} which describes the position of the {@link Cell}.
-     * 
-     * @return the {@link Coordinates} of the {@link Cell}. 
-     */
-    Coordinates<Integer> getCoordinates();
-
     /** 
-     * Return the current {@link CellAttributes} of the {@link Cell}.
+     * Return the current state of the {@link Cell}.
      * 
-     * @return {@link CellAttributes} the state of the {@link Cell}.
+     * @return the current state of the {@link Cell}.
      */
-    CellAttributes<T> getAttributes();
+    T getState();
 
 }
