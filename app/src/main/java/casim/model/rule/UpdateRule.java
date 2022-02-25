@@ -1,6 +1,8 @@
 package casim.model.rule;
 
-import casim.model.cell.interfaces.Cell;
+import org.apache.commons.lang3.tuple.Pair;
+
+import casim.model.cell.Cell;
 import casim.utils.coordinate.Coordinates;
 import casim.utils.grid.Grid;
 
@@ -14,10 +16,10 @@ public interface UpdateRule<T> {
      /**
      * Return the updated {@link Cell}.
      * 
-     * @param cell to update.
+     * @param cellPair pair of {@link Coordinates} and {@link Cell} to updates;
      * @param grid the {@link Grid} representing the {@link Automaton}.
      * @return the updated {@link Cell}.
      */
-    Cell<T> getNextCell(Cell<T> cell, Grid<Coordinates<Integer>, Cell<T>> grid);
+    Cell<T> getNextCell(Pair<Coordinates<Integer>, Cell<T>> cellPair, Grid<Coordinates<Integer>, Cell<T>> grid);
 
 }

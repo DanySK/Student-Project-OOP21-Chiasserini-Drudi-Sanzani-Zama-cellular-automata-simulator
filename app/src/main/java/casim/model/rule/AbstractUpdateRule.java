@@ -2,7 +2,9 @@ package casim.model.rule;
 
 import java.util.function.BiFunction;
 
-import casim.model.cell.interfaces.Cell;
+import org.apache.commons.lang3.tuple.Pair;
+
+import casim.model.cell.Cell;
 import casim.utils.coordinate.Coordinates;
 import casim.utils.grid.Grid;
 
@@ -13,14 +15,14 @@ import casim.utils.grid.Grid;
  */
 public abstract class AbstractUpdateRule<T> implements UpdateRule<T> {
 
-    private final BiFunction<Cell<T>, Grid<Coordinates<Integer>, Cell<T>>, Iterable<Cell<T>>> neighborsFunction;
+    private final BiFunction<Pair<Coordinates<Integer>, Cell<T>>, Grid<Coordinates<Integer>, Cell<T>>, Iterable<Cell<T>>> neighborsFunction;
 
     /**
      * Constructor of an abstract updateRule.
      * 
      * @param neighborsFunction used to take the neighbors of a given cell.
      */
-    public AbstractUpdateRule(final BiFunction<Cell<T>, Grid<Coordinates<Integer>, Cell<T>>, Iterable<Cell<T>>> neighborsFunction) {
+    public AbstractUpdateRule(final BiFunction<Pair<Coordinates<Integer>, Cell<T>>, Grid<Coordinates<Integer>, Cell<T>>, Iterable<Cell<T>>> neighborsFunction) {
         this.neighborsFunction = neighborsFunction;
     }
 
@@ -28,17 +30,17 @@ public abstract class AbstractUpdateRule<T> implements UpdateRule<T> {
      * {@inheritDoc}
      */
     @Override
-    public Cell<T> getNextCell(final Cell<T> cell, final Grid<Coordinates<Integer>, Cell<T>> grid) {
-        final Iterable<Cell<T>> neighbors = this.neighborsFunction.apply(cell, grid);
-        return this.nextCell(cell, neighbors);
+    public Cell<T> getNextCell(final Pair<Coordinates<Integer>, Cell<T>> cellPair, final Grid<Coordinates<Integer>, Cell<T>> grid) {
+        final Iterable<Cell<T>> neighbors = this.neighborsFunction.apply(cellPair, grid);
+        return this.nextCell(cellPair, neighbors);
     }
 
     /**
      * Abstract method used to calculate the updated the cell of the one taken as input. 
      * 
-     * @param cell the cell to update (the updated value is returned by this method).
+     * @param cellPair pair of {@link Coordinates} and {@link Cell} to updates;
      * @param neighbors an iterable containing all the neighbors of cell.
      * @return the new updated {@link Cell}.
      */
-    protected abstract Cell<T> nextCell(Cell<T> cell, Iterable<Cell<T>> neighbors);
+    protected abstract Cell<T> nextCell(Pair<Coordinates<Integer>, Cell<T>> cellPair, Iterable<Cell<T>> neighbors);
 }
