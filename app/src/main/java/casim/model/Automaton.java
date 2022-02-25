@@ -2,7 +2,7 @@ package casim.model;
 
 import java.util.Iterator;
 
-import casim.model.cell.interfaces.Cell;
+import casim.model.cell.Cell;
 import casim.utils.grid.Grid2D;
 
 /**
