@@ -12,9 +12,9 @@ import casim.utils.coordinate.CoordinatesUtil;
 import casim.utils.grid.Grid2D;
 
 /**
- * General function used to calculate neighbors of a {@link Cell} in a 2D grid.
+ * General function used to get the neighbors of a {@link Cell} in a {@link Grid2D}.
  * 
- * @param <T> the type of the finite states a {@link Cell} can assume.
+ *  @param <T> the type of the finite states of the {@link Automaton}'s {@link Cell}.
  */
 public class Neighbors2DFunction<T> implements BiFunction<Pair<Coordinates2D<Integer>, Cell<T>>, Grid2D<Cell<T>>, Iterable<Pair<Coordinates2D<Integer>, Cell<T>>>> {
 

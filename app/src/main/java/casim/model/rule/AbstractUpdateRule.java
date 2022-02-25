@@ -11,7 +11,7 @@ import casim.utils.grid.Grid;
 /**
  * Abstract implementation of {@link UpdateRule}.
  *
- * @param <T> the type of the finite states which the {@link Cell} can assume.
+ *  @param <T> the type of the finite states of the {@link Automaton}'s {@link Cell}.
  */
 public abstract class AbstractUpdateRule<T> implements UpdateRule<T> {
 
