@@ -14,7 +14,7 @@ import casim.utils.range.Ranges;
  * 
  * @param <T> the type of the elements contained in {@link Grid2DImpl}.
  */
- public class Grid2DImpl<T> implements Grid2D<T>{
+ public class Grid2DImpl<T> implements Grid2D<T> {
 	
 	private final int rows;
 	private final int columns;
@@ -35,12 +35,12 @@ import casim.utils.range.Ranges;
 	 * 
 	 * @param rows the number of the rows of the {@link Grid2D}.
 	 * @param columns the number of the columns of the {@link Grid2D}.
-	 * @param defaultValuethe default value supplier.
+	 * @param defaultValue the default value supplier.
 	 */
 	public Grid2DImpl(final int rows, final int columns, final Supplier<T> defaultValue) {
 		this.rows = rows;
 		this.columns = columns;
-		
+
 		for (final var x : Ranges.of(0, rows)) {
 			for (final var y : Ranges.of(0, columns)) {
 				this.grid.put(CoordinatesUtil.of(x, y), defaultValue.get());
