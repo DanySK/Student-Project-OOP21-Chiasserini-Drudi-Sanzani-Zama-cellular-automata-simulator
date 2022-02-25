@@ -2,9 +2,8 @@ package casim.utils.grid;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
-
-import com.google.common.base.Supplier;
 
 import casim.utils.coordinate.Coordinates3D;
 import casim.utils.coordinate.CoordinatesUtil;
@@ -16,8 +15,8 @@ import casim.utils.range.Ranges;
  * @param <T> the type contained in the {@link Grid3D}.
  */
  public class Grid3DImpl<T> implements Grid3D<T> {
-	
-	private final int rows;
+
+    private final int rows;
 	private final int columns;
 	private final int depth;
 	private final Map<Coordinates3D<Integer>, T> grid = new HashMap<>();
@@ -45,7 +44,7 @@ import casim.utils.range.Ranges;
 		this.rows = rows;
 		this.columns = columns;
 		this.depth = depth;
-		
+
 		for (final var x : Ranges.of(0, rows)) {
 			for (final var y : Ranges.of(0, columns)) {
 				for (final var z : Ranges.of(0, depth)) {
