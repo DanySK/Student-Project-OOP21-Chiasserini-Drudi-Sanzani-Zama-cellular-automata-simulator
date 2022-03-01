@@ -5,13 +5,16 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import casim.utils.Empty;
-import casim.utils.Result;
 import casim.utils.coordinate.Coordinates2D;
 import casim.utils.coordinate.CoordinatesUtil;
 import casim.utils.range.Ranges;
 
-public class Grid2DImpl<T> implements Grid2D<T>{
+/**
+ * Implementation of {@link Grid2D}.
+ * 
+ * @param <T> the type of the elements contained in {@link Grid2DImpl}.
+ */
+ public class Grid2DImpl<T> implements Grid2D<T> {
 	
 	private final int rows;
 	private final int columns;
@@ -32,12 +35,12 @@ public class Grid2DImpl<T> implements Grid2D<T>{
 	 * 
 	 * @param rows the number of the rows of the {@link Grid2D}.
 	 * @param columns the number of the columns of the {@link Grid2D}.
-	 * @param defaultValuethe default value supplier.
+	 * @param defaultValue the default value supplier.
 	 */
 	public Grid2DImpl(final int rows, final int columns, final Supplier<T> defaultValue) {
 		this.rows = rows;
 		this.columns = columns;
-		
+
 		for (final var x : Ranges.of(0, rows)) {
 			for (final var y : Ranges.of(0, columns)) {
 				this.grid.put(CoordinatesUtil.of(x, y), defaultValue.get());
@@ -65,7 +68,7 @@ public class Grid2DImpl<T> implements Grid2D<T>{
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Result<T> get(final int row, final int column) {
+	public T get(final int row, final int column) {
 		return this.get(CoordinatesUtil.of(row, column));
 	}
 	
@@ -73,30 +76,26 @@ public class Grid2DImpl<T> implements Grid2D<T>{
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Result<Empty> set(final int row, final int column, final T value) {
-		return this.set(CoordinatesUtil.of(row, column), value);
+	public void set(final int row, final int column, final T value) {
+		this.set(CoordinatesUtil.of(row, column), value);
 	}
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Result<T> get(final Coordinates2D<Integer> coord) {
-		return Result.ofEmpty()
-			.require(x -> this.isCoordValid(coord), new IndexOutOfBoundsException())
-			.map(x -> this.grid.get(coord));
+	public T get(final Coordinates2D<Integer> coord) {
+		this.throwIfOutOfBound(coord);
+		return this.grid.get(coord);
 	}
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Result<Empty> set(final Coordinates2D<Integer> coord, final T value) {
-		if (!this.isCoordValid(coord)) {
-			return Result.error(new IndexOutOfBoundsException());
-		}
+	public void set(final Coordinates2D<Integer> coord, final T value) {
+		this.throwIfOutOfBound(coord);
 		this.grid.put(coord, value);
-		return Result.ofEmpty();
 	}
 	
 	/**
@@ -114,4 +113,10 @@ public class Grid2DImpl<T> implements Grid2D<T>{
 	public Stream<T> stream() {
 		return this.grid.values().stream();
 	}
+
+	private void throwIfOutOfBound(final Coordinates2D<Integer> coord) {
+        if (!this.isCoordValid(coord)) {
+            throw new IndexOutOfBoundsException("Size: " + this.getHeight() + " x " + this.getWidth() + "Coord: " + coord);
+        }
+    }
 }

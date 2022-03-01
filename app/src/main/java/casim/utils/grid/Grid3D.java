@@ -1,10 +1,13 @@
 package casim.utils.grid;
 
-import casim.utils.Empty;
-import casim.utils.Result;
 import casim.utils.coordinate.Coordinates3D;
 
-public interface Grid3D<T> extends Grid<Coordinates3D<Integer>, T> {
+/**
+ * 3-Dimensional grid interface.
+ * 
+ * @param <T> the type contained in the {@link Grid3D}.
+ */
+ public interface Grid3D<T> extends Grid<Coordinates3D<Integer>, T> {
 	/**
 	 *Return the width of the {@link Grid}.
 	 *
@@ -34,9 +37,9 @@ public interface Grid3D<T> extends Grid<Coordinates3D<Integer>, T> {
 	 * @param row of the element to get.
 	 * @param column of the element to get.
 	 * @param depth of the element to get.
-	 * @return {@link Result} containing the requested element if present, {@link IndexOutOfBoundsException} otherwise.  
+	 * @return the value to at coord.  
 	 */
-	Result<T> get(int row, int column, int depth);
+	T get(int row, int column, int depth);
 	
 	/**
 	 * Return a {@link Result} containing:
@@ -47,7 +50,6 @@ public interface Grid3D<T> extends Grid<Coordinates3D<Integer>, T> {
 	 * @param column of the element to set.
 	 * @param depth of the element to set.
 	 * @param value to set.
-	 * @return {@link Result} containing {@link Empty} if row, column and depth are valid, {@link IndexOutOfBoundsException} otherwise.  
 	 */
-	Result<Empty> set(int row, int column, int depth, T value);
+	void set(int row, int column, int depth, T value);
 }

@@ -2,24 +2,25 @@ package casim.utils.grid;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import com.google.common.base.Supplier;
-
-import casim.utils.Empty;
-import casim.utils.Result;
 import casim.utils.coordinate.Coordinates3D;
 import casim.utils.coordinate.CoordinatesUtil;
 import casim.utils.range.Ranges;
 
-public class Grid3DImpl<T> implements Grid3D<T> {
-	
-	private final int rows;
+/**
+ * Implementation of {@link Grid3D}.
+ * 
+ * @param <T> the type contained in the {@link Grid3D}.
+ */
+ public class Grid3DImpl<T> implements Grid3D<T> {
+
+    private final int rows;
 	private final int columns;
 	private final int depth;
 	private final Map<Coordinates3D<Integer>, T> grid = new HashMap<>();
 
-	
 	/**
 	 * Construct a new {@link Grid3D} filled with nulls.
 	 * 
@@ -43,7 +44,7 @@ public class Grid3DImpl<T> implements Grid3D<T> {
 		this.rows = rows;
 		this.columns = columns;
 		this.depth = depth;
-		
+
 		for (final var x : Ranges.of(0, rows)) {
 			for (final var y : Ranges.of(0, columns)) {
 				for (final var z : Ranges.of(0, depth)) {
@@ -81,7 +82,7 @@ public class Grid3DImpl<T> implements Grid3D<T> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Result<T> get(final int row, final int column, final int depth) {
+	public T get(final int row, final int column, final int depth) {
 		return this.get(CoordinatesUtil.of(row, column, depth));
 	}
 
@@ -89,30 +90,26 @@ public class Grid3DImpl<T> implements Grid3D<T> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Result<Empty> set(final int row, final int column, final int depth, final T value) {
-		return this.set(CoordinatesUtil.of(row, column, depth), value);
+	public void set(final int row, final int column, final int depth, final T value) {
+		this.set(CoordinatesUtil.of(row, column, depth), value);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Result<T> get(final Coordinates3D<Integer> coord) {
-		return Result.ofEmpty()
-			.require(x -> this.isCoordValid(coord), new IndexOutOfBoundsException())
-			.map(x -> this.grid.get(coord));
+	public T get(final Coordinates3D<Integer> coord) {
+		this.throwIfOutOfBound(coord);
+		return this.grid.get(coord);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Result<Empty> set(final Coordinates3D<Integer> coord, final T value) {
-		if (!this.isCoordValid(coord)) {
-			return Result.error(new IndexOutOfBoundsException());
-		}
+	public void set(final Coordinates3D<Integer> coord, final T value) {
+		this.throwIfOutOfBound(coord);
 		this.grid.put(coord, value);
-		return Result.ofEmpty();
 	}
 
 	/**
@@ -130,4 +127,10 @@ public class Grid3DImpl<T> implements Grid3D<T> {
 	public Stream<T> stream() {
 		return this.grid.values().stream();
 	}
+
+	private void throwIfOutOfBound(final Coordinates3D<Integer> coord) {
+        if (!this.isCoordValid(coord)) {
+            throw new IndexOutOfBoundsException("Size: " + this.getHeight() + " x " + this.getWidth() + " x " + this.getDepth() + "Coord: " + coord);
+        }
+    }
 }
