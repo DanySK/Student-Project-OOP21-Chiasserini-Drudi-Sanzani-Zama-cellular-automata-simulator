@@ -9,20 +9,6 @@ import casim.utils.coordinate.Coordinates2D;
  */
 public interface Grid2D <T> extends Grid<Coordinates2D<Integer>, T>{
 	/**
-	 *Return the width of the {@link Grid}.
-	 *
-	 *@return an integer representing the width of {@link Grid}.
-	 */
-	int getWidth();
-	
-	/**
-	 *Return the height of the {@link Grid}.
-	 *
-	 *@return an integer representing the height of {@link Grid}.
-	 */
-	int getHeight();
-	
-	/**
 	 * Return the value at given coordinates.
      * 
      * Throws {@link IndexOutOfBoundsException} if the coordinates are out of bound.

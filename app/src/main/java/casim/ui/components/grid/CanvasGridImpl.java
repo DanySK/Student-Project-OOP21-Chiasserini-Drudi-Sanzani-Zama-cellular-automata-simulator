@@ -5,12 +5,10 @@ import java.util.Optional;
 import casim.ui.components.grid.events.GridCellClickListener;
 import casim.ui.components.grid.events.GridCellHoverListener;
 import casim.utils.Colors;
-import casim.utils.Result;
-import casim.utils.coordinate.Coordinates;
+import casim.utils.coordinate.Coordinates2D;
 import casim.utils.coordinate.CoordinatesUtil;
-import casim.utils.grid.Grid;
-import casim.utils.grid.GridImpl;
-import casim.utils.grid.Grids;
+import casim.utils.grid.Grid2D;
+import casim.utils.grid.Grid2DImpl;
 import casim.utils.range.Ranges;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -24,6 +22,7 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
 
     private static final Color DEFAULT = Colors.WHITE;
     private static final Color SELECTED = Colors.RED;
+    private static final Color HIGHLIGHTED = new Color(0.4, 0.4, 0.4, 1);
 
     private final int rows;
     private final int columns;
@@ -34,9 +33,9 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
     private final double width;
     private final double height;
 
-    private Optional<Coordinates<Integer>> lastHoveredCell;
+    private Optional<Coordinates2D<Integer>> lastHoveredCell;
 
-    private Grid<CanvasGridCell> cells;
+    private final Grid2D<CanvasGridCell> cells;
 
     /**
      * Construct a new {@link CanvasGridImpl}.
@@ -49,7 +48,7 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
      * @param separatorOffset separator offset.
      */
     public CanvasGridImpl(final int rows, final int columns, final double cellSize, 
-        final Color separatorColor, final double separatorWidth, final double separatorOffset) {      
+        final Color separatorColor, final double separatorWidth, final double separatorOffset) {
 
         this.rows = rows;
         this.columns = columns;
@@ -61,18 +60,18 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
         this.height = rows * cellSize;
         super.setWidth(width);
         super.setHeight(height);
-        this.cells = new GridImpl<>(rows, columns);
+        this.cells = new Grid2DImpl<>(rows, columns);
         this.lastHoveredCell = Optional.empty();
-        this.populate();
         this.setOnMouseClicked(new GridCellClickListener(this));
         this.setOnMouseMoved(new GridCellHoverListener(this));
+        this.init();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void onCellClick(final MouseButton button, final CanvasGridCell cell, final Coordinates<Integer> coord) {
+    public void onCellClick(final MouseButton button, final CanvasGridCell cell, final Coordinates2D<Integer> coord) {
         if (!button.equals(MouseButton.PRIMARY)) {
             return;
         }
@@ -84,17 +83,16 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
      * {@inheritDoc}
      */
     @Override
-    public void onCellHover(final CanvasGridCell cell, final Coordinates<Integer> coord) {
-        if (this.lastHoveredCell.isPresent() && coord.getX() == this.lastHoveredCell.get().getX() && coord.getY() == this.lastHoveredCell.get().getY() /*this.lastHoveredCell.equals(Optional.of(coord))*/) {
+    public void onCellHover(final CanvasGridCell cell, final Coordinates2D<Integer> coord) {
+        if (this.lastHoveredCell.equals(Optional.of(coord))) {
             return;
         }
 
         this.lastHoveredCell.ifPresent(
-            lastCoord -> this.getCell(lastCoord).getValue().setColor(DEFAULT));
+            lastCoord -> this.getCell(lastCoord).setColor(DEFAULT));
 
-        cell.setColor(new Color(0.4, 0.4, 0.4, 1));
+        cell.setColor(HIGHLIGHTED);
         this.lastHoveredCell = Optional.of(coord);
-        
         this.draw();
     }
 
@@ -112,22 +110,6 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
     @Override
     public int getRows() {
         return this.rows;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void populate() {
-        for (final var row : Ranges.of(0, this.getRows())) {
-            for (final var column : Ranges.of(0, this.getColumns())) {
-                this.cells.set(row, column, new CanvasGridCellImpl(
-                    DEFAULT,
-                    CoordinatesUtil.of(row * (int)this.getCellSize(), column * (int)this.getCellSize()),
-                    this.getCellSize())
-                );
-            }
-        }
     }
 
     /**
@@ -152,15 +134,15 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
      * {@inheritDoc}
      */
     @Override
-    public Grid<CanvasGridCell> getCells() {
-        return Grids.getUnmodifiableCopy(this.cells);
+    public Grid2D<CanvasGridCell> getCells() {
+        return null; //TODO: Grids.getUnmodifiableCopy(this.cells);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void setCells(final Grid<CanvasGridCell> cells) {
+    public void setCells(final Grid2D<CanvasGridCell> cells) {
         //TODO
     }
 
@@ -168,8 +150,21 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
      * {@inheritDoc}
      */
     @Override
-    public Result<CanvasGridCell> getCell(final Coordinates<Integer> coord) {
-        return this.cells.get(coord.getX(), coord.getY());
+    public CanvasGridCell getCell(final Coordinates2D<Integer> coord) {
+        return this.cells.get(coord);
+    }
+
+    private void init() {
+        for (final var row : Ranges.of(0, this.getRows())) {
+            for (final var column : Ranges.of(0, this.getColumns())) {
+                final var topLeft = CoordinatesUtil.of(row * ((int) this.cellSize), column * ((int) this.cellSize));
+                this.cells.set(row, column, new CanvasGridCellImpl(
+                    DEFAULT,
+                    topLeft,
+                    this.cellSize)
+                );
+            }
+        }
     }
 
     private void drawCell(final GraphicsContext graphics, final CanvasGridCell cell) {
@@ -183,7 +178,7 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
     }
 
     private void drawCells(final GraphicsContext graphics) {
-        this.cells.flatStream()
+        this.cells.stream()
             .forEach(cell -> this.drawCell(graphics, cell));
     }
 

@@ -16,9 +16,10 @@ import casim.utils.range.Ranges;
 /**
  * Test class for {@link Grid2D}.
  */
-public class Grid2DTest {
+class Grid2DTest {
 
     private static final int DEFAULT_VALUE = 1;
+    private static final int NEW_VALUE = 2;
     private static final int ROWS = 3;
     private static final int COLS = 2;
     private static final int X = 0;
@@ -28,9 +29,14 @@ public class Grid2DTest {
         return new Grid2DImpl<>(ROWS, COLS, () -> DEFAULT_VALUE);
     }
 
-    private Grid2D<Integer> getRandomGrid() {
-        return new Grid2DImpl<>(ROWS, COLS,
-            () -> (int)Math.round(Math.random() * Integer.MAX_VALUE));
+    private Grid2D<Integer> getGridWithValues() {
+        final var grid = getGrid();
+        for (final var x : Ranges.of(0, ROWS)) {
+            for (final var y : Ranges.of(0, COLS)) {
+                grid.set(x, y, x + y);
+            }
+        }
+        return grid;
     }
 
     /**
@@ -39,8 +45,8 @@ public class Grid2DTest {
     @Test
     void testGetWithIntegers() {
         final var grid = getGrid();
-        assertEquals(Result.ofEmpty(), grid.set(X, Y, DEFAULT_VALUE));
-        assertEquals(DEFAULT_VALUE, grid.get(X, Y));
+        assertEquals(Result.ofEmpty(), grid.set(X, Y, NEW_VALUE));
+        assertEquals(Result.of(NEW_VALUE), grid.get(X, Y));
         assertEquals(IndexOutOfBoundsException.class, grid.get(X, COLS).getError().getClass());
         assertEquals(IndexOutOfBoundsException.class, grid.get(ROWS, Y).getError().getClass());
     }
@@ -52,8 +58,8 @@ public class Grid2DTest {
     void testGetWithCoordinates() {
         final var grid = getGrid();
         final var coord = CoordinatesUtil.of(X, Y);
-        assertEquals(Result.ofEmpty(), grid.set(coord, DEFAULT_VALUE));
-        assertEquals(DEFAULT_VALUE, grid.get(coord));
+        assertEquals(Result.ofEmpty(), grid.set(coord, NEW_VALUE));
+        assertEquals(Result.of(NEW_VALUE), grid.get(coord));
         assertEquals(
             IndexOutOfBoundsException.class, grid.get(CoordinatesUtil.of(X, COLS)).getError().getClass());
         assertEquals(
@@ -67,7 +73,7 @@ public class Grid2DTest {
     void testGetHeight() {
         assertEquals(ROWS, getGrid().getHeight());
     }
-    
+
     /**
      * Test for {@link Grid#getWidth()} method.
      */
@@ -97,30 +103,28 @@ public class Grid2DTest {
 
     @Test
     void testSetWithIntegers() {
-        final int newVal = 2;
         final var grid = getGrid();
-        assertEquals(Result.ofEmpty(), grid.set(X, Y, DEFAULT_VALUE));
-        assertEquals(Result.of(newVal), grid.get(X, Y));
-        assertEquals(IndexOutOfBoundsException.class, grid.set(X, COLS, newVal).getError().getClass());
-        assertEquals(IndexOutOfBoundsException.class, grid.set(ROWS, Y, newVal).getError().getClass());
+        assertEquals(Result.ofEmpty(), grid.set(X, Y, NEW_VALUE));
+        assertEquals(Result.of(NEW_VALUE), grid.get(X, Y));
+        assertEquals(IndexOutOfBoundsException.class, grid.set(X, COLS, NEW_VALUE).getError().getClass());
+        assertEquals(IndexOutOfBoundsException.class, grid.set(ROWS, Y, NEW_VALUE).getError().getClass());
     }
 
     @Test
     void testSetWithCoordinates() {
-        final int newVal = 2;
         final var coord = CoordinatesUtil.of(X, Y);
         final var grid = getGrid();
-        assertEquals(Result.ofEmpty(), grid.set(coord, DEFAULT_VALUE));
-        assertEquals(Result.of(newVal), grid.get(coord));
+        assertEquals(Result.ofEmpty(), grid.set(coord, NEW_VALUE));
+        assertEquals(Result.of(NEW_VALUE), grid.get(coord));
         assertEquals(
-            IndexOutOfBoundsException.class, grid.set(CoordinatesUtil.of(X, COLS), newVal).getError().getClass());
+            IndexOutOfBoundsException.class, grid.set(CoordinatesUtil.of(X, COLS), NEW_VALUE).getError().getClass());
         assertEquals(
-            IndexOutOfBoundsException.class, grid.set(CoordinatesUtil.of(ROWS, Y), newVal).getError().getClass());
+            IndexOutOfBoundsException.class, grid.set(CoordinatesUtil.of(ROWS, Y), NEW_VALUE).getError().getClass());
     }
 
     @Test
     void testStream() {
-        final var grid = getRandomGrid();
+        final var grid = getGridWithValues();
         final var elements = new HashSet<>();
         for (final var x : Ranges.of(0, ROWS)) {
             for (final var y : Ranges.of(0, COLS)) {

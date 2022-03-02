@@ -1,6 +1,6 @@
 package casim.ui.components.grid;
 
-import casim.utils.coordinate.Coordinates;
+import casim.utils.coordinate.Coordinates2D;
 import javafx.scene.paint.Color;
 
 /**
@@ -23,11 +23,11 @@ public interface CanvasGridCell {
     void setColor(Color color);
 
     /**
-     * Return the {@link CanvasGridCell}'s top left point as {@link Coordinates}.
+     * Return the {@link CanvasGridCell}'s top left point as {@link Coordinates2D}.
      * 
-     * @return a {@link Coordinates} representing the top left point of the {@link CanvasGridCell}.
+     * @return a {@link Coordinates2D} representing the top left point of the {@link CanvasGridCell}.
      */
-    Coordinates<Integer> getTopLeft();
+    Coordinates2D<Integer> getTopLeft();
 
     /**
      * Return the {@link CanvasGridCell}'s size.

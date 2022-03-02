@@ -18,13 +18,6 @@ public class AlertBuilder {
     private Window owner;
 
     /**
-     * Construct a {@link AlertBuilder}.
-     */
-    public AlertBuilder() {
-
-    }
-
-    /**
      * Set the alert type.
      * 
      * @param type the type of the alert.
