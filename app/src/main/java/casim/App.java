@@ -3,7 +3,7 @@
  */
 package casim;
 
-import casim.ui.components.grid.CanvasGridBuilder;
+import casim.ui.components.grid.CanvasGridBuilderImpl;
 import casim.ui.components.grid.CanvasGridImpl;
 import casim.ui.components.page.PageContainer;
 import javafx.application.Application;
@@ -20,11 +20,7 @@ public class App extends Application {
      */
     @Override
     public void start(final Stage primaryStage) throws Exception {
-        final var gridBuilder = new CanvasGridBuilder();
-        gridBuilder.setRows(50)
-            .setColumns(50)
-            .setCellSize(20);
-        final var grid = gridBuilder.build().getValue();
+        final var grid = new CanvasGridBuilderImpl().build(5, 5, 100);
         final var root = new PageContainer();
         root.addPage((CanvasGridImpl)grid);
         final var scene = new Scene(root);
