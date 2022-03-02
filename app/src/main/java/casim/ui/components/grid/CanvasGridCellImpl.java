@@ -1,4 +1,4 @@
-package casim.ui.grid;
+package casim.ui.components.grid;
 
 import casim.utils.coordinate.Coordinates;
 import javafx.scene.paint.Color;
@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 public class CanvasGridCellImpl implements CanvasGridCell {
 
     private final Coordinates<Integer> topLeft;
-    private final Coordinates<Integer> bottomRight;
+    private final double size;
     private Color color;
 
     /**
@@ -19,11 +19,10 @@ public class CanvasGridCellImpl implements CanvasGridCell {
      * @param topLeft the top left corner of the cell.
      * @param bottomRight the bottom right corner of the cell.
      */
-    public CanvasGridCellImpl(final Color color, final Coordinates<Integer> topLeft,
-        final Coordinates<Integer> bottomRight) {
+    public CanvasGridCellImpl(final Color color, final Coordinates<Integer> topLeft, final double size) {
         this.color = color;
         this.topLeft = topLeft;
-        this.bottomRight = bottomRight;
+        this.size = size;
     }
 
     /**
@@ -54,7 +53,15 @@ public class CanvasGridCellImpl implements CanvasGridCell {
      * {@inheritDoc}
      */
     @Override
-    public Coordinates<Integer> getBottomRight() {
-        return this.bottomRight;
+    public double getSize() {
+        return this.size;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return "CanvasGridCellImpl [color=" + color + ", size=" + size + ", topLeft=" + topLeft + "]";
     }
 }

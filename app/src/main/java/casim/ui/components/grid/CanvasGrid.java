@@ -1,4 +1,4 @@
-package casim.ui.grid;
+package casim.ui.components.grid;
 
 import casim.utils.Result;
 import casim.utils.coordinate.Coordinates;
