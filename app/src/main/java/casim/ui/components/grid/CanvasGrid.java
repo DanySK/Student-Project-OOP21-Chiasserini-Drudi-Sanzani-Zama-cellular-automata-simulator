@@ -1,6 +1,5 @@
 package casim.ui.components.grid;
 
-import casim.utils.Result;
 import casim.utils.coordinate.Coordinates2D;
 import casim.utils.grid.Grid2D;
 import javafx.scene.input.MouseButton;
@@ -68,12 +67,10 @@ public interface CanvasGrid {
     void setCells(Grid2D<CanvasGridCell> cells);
 
     /**
-     * Get a specific cell of the canvas, returns a {@link Result} holding:
-     *  - a {@link CanvasGridCell} if the coordinated are valid,
-     *  - an IndexOutOfBoundException otherwise.
+     * Get a specific cell of the canvas.
      * 
      * @param coord the {@link Coordinates2D} of the cell to get.
-     * @return {@link Result} with the {@link CanvasGridCell} if coord is valid, IndexOutOfBoundException otherwise.
+     * @return the {@link CanvasGrid} of coordinates coord.
      */
-    Result<CanvasGridCell> getCell(Coordinates2D<Integer> coord);
+    CanvasGridCell getCell(Coordinates2D<Integer> coord);
 }

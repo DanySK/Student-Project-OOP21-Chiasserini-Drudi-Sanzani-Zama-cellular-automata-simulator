@@ -23,7 +23,7 @@ public class GridCellClickListener extends AbstractMouseEventHandler {
     @Override
     public void handle(final MouseEvent event) {
         final var coord = this.getCoordinatesFromEvent(event);
-        this.getCanvasGrid().getCell(coord)
-            .ifPresent(cell -> this.getCanvasGrid().onCellClick(event.getButton(), cell, coord));
+        final var cell = this.getCanvasGrid().getCell(coord);
+        this.getCanvasGrid().onCellClick(event.getButton(), cell, coord);
     }
 }

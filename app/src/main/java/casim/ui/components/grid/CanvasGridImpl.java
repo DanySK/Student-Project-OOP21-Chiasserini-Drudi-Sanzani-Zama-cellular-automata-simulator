@@ -5,7 +5,6 @@ import java.util.Optional;
 import casim.ui.components.grid.events.GridCellClickListener;
 import casim.ui.components.grid.events.GridCellHoverListener;
 import casim.utils.Colors;
-import casim.utils.Result;
 import casim.utils.coordinate.Coordinates2D;
 import casim.utils.coordinate.CoordinatesUtil;
 import casim.utils.grid.Grid2D;
@@ -90,7 +89,7 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
         }
 
         this.lastHoveredCell.ifPresent(
-            lastCoord -> this.getCell(lastCoord).getValue().setColor(DEFAULT));
+            lastCoord -> this.getCell(lastCoord).setColor(DEFAULT));
 
         cell.setColor(HIGHLIGHTED);
         this.lastHoveredCell = Optional.of(coord);
@@ -151,16 +150,17 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
      * {@inheritDoc}
      */
     @Override
-    public Result<CanvasGridCell> getCell(final Coordinates2D<Integer> coord) {
-        return this.cells.get(coord.getX(), coord.getY());
+    public CanvasGridCell getCell(final Coordinates2D<Integer> coord) {
+        return this.cells.get(coord);
     }
 
     private void init() {
-        for (final var row : Ranges.of(0, this.rows)) {
-            for (final var column : Ranges.of(0, this.columns)) {
+        for (final var row : Ranges.of(0, this.getRows())) {
+            for (final var column : Ranges.of(0, this.getColumns())) {
+                final var topLeft = CoordinatesUtil.of(row * ((int) this.cellSize), column * ((int) this.cellSize));
                 this.cells.set(row, column, new CanvasGridCellImpl(
                     DEFAULT,
-                    CoordinatesUtil.of(row * (int) this.cellSize, column * (int) this.cellSize),
+                    topLeft,
                     this.cellSize)
                 );
             }
