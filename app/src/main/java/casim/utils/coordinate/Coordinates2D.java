@@ -66,7 +66,7 @@ public class Coordinates2D<T extends Number> implements Coordinates<T> {
             return false;
         }
         final Coordinates2D<?> other = (Coordinates2D<?>) obj;
-        return other.coords.equals(other.coords);
+        return this.coords.equals(other.coords);
     }
 
 }
