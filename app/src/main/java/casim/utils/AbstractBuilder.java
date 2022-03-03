@@ -49,6 +49,6 @@ public abstract class AbstractBuilder {
      * @return value if predicate returns true.
      */
     protected <T> T checkNonNullValue(final T value, final String errMsg) {
-        return this.checkValue(value, x -> !Objects.nonNull(value), errMsg);
+        return this.checkValue(value, Objects::nonNull, errMsg);
     }
 }
