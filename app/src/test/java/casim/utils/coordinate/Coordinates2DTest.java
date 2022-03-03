@@ -4,29 +4,39 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test class for {@link Coordinates}.
+ * Test class for {@link Coordinates2D}.
  */
 class Coordinates2DTest {
 
     static final int XVALUE = 5;
     static final int YVALUE = 10;
+    static final Coordinates2D<Integer> coord = CoordinatesUtil.of(5,  10);
 
     /**
-     * Test for {@link Coordinates#getX()} method. 
+     * Test for {@link Coordinates2D#getX()} method. 
      */
     @Test
     void testGetX() {
-        final Coordinates2D<Integer> coord = CoordinatesUtil.of(5,  10);
         Assert.assertEquals((int) coord.getX(), XVALUE);
     }
 
     /**
-     * Test for {@link Coordinates#getY()} method.
+     * Test for {@link Coordinates2D#getY()} method.
      */
     @Test
     void testGetY() {
-        final Coordinates2D<Integer> coord = CoordinatesUtil.of(5, 10);
         Assert.assertEquals((int) coord.getY(), YVALUE);
     }
 
+    /**
+     * Test for {@link Coordinates2D#equals(Object)} method.
+     */
+    @Test
+    void testEquals() {
+        Assert.assertTrue(coord.equals(coord));
+        var coord01 = CoordinatesUtil.of(XVALUE, YVALUE);
+        Assert.assertTrue(coord.equals(coord01));
+        coord01 = CoordinatesUtil.of(YVALUE, XVALUE);
+        Assert.assertFalse(coord.equals(coord01));
+    }
 }
