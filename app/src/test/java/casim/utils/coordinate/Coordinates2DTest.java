@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test class for {@link Coordinates}.
+ * Test class for {@link Coordinates2D}.
  */
 class Coordinates2DTest {
 
@@ -12,7 +12,7 @@ class Coordinates2DTest {
     static final int YVALUE = 10;
 
     /**
-     * Test for {@link Coordinates#getX()} method. 
+     * Test for {@link Coordinates2D#getX()} method. 
      */
     @Test
     void testGetX() {
@@ -21,7 +21,7 @@ class Coordinates2DTest {
     }
 
     /**
-     * Test for {@link Coordinates#getY()} method.
+     * Test for {@link Coordinates2D#getY()} method.
      */
     @Test
     void testGetY() {
