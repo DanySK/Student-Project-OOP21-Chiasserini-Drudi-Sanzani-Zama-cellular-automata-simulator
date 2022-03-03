@@ -12,8 +12,6 @@ public class Coordinates3DTest {
     static final int YVALUE = 10;
     static final int ZVALUE = 15;
     static final Coordinates3D<Integer> coord = CoordinatesUtil.of(XVALUE, YVALUE, ZVALUE);
-    static final Coordinates3D<Integer> coord01 = CoordinatesUtil.of(XVALUE, YVALUE, ZVALUE);
-
     /**
      * Test for {@link Coordinates3D#getX()} method.
      */
@@ -35,5 +33,17 @@ public class Coordinates3DTest {
      */
     void testGetZ() {
         Assert.assertEquals(ZVALUE, (int)coord.getZ());
+    }
+
+    /**
+     * Test for {@link Coordinates3D#equals(Object)} method.
+     */
+    @Test
+    void testEquals() {
+        Assert.assertTrue(coord.equals(coord));
+        var coord01 = CoordinatesUtil.of(XVALUE, YVALUE, ZVALUE);
+        Assert.assertTrue(coord.equals(coord01));
+        coord01 = CoordinatesUtil.of(YVALUE, XVALUE, ZVALUE);
+        Assert.assertFalse(coord.equals(coord01));
     }
 }
