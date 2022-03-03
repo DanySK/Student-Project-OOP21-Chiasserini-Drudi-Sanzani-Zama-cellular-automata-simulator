@@ -1,105 +1,45 @@
 package casim.ui.utils;
 
-import java.util.Objects;
-
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.Region;
 import javafx.stage.Window;
 
 /**
- * Implementation for a builder of {@link Alert}.
+ * An interface that defines a builder of {@link Alert}.
  */
-public class AlertBuilder {
-
-    private AlertType type;
-    private String title;
-    private String message;
-    private Window owner;
-
-    /**
-     * Set the alert type.
-     * 
-     * @param type the type of the alert.
-     * @return {@link AlertBuilder}.
-     */
-    public AlertBuilder setType(final AlertType type) {
-        Objects.requireNonNull(type);
-        this.type = type;
-        return this;
-    }
-
-    /**
-     * Set the alert title.
-     * 
-     * @param title
-     * @return {@link AlertBuilder}. 
-     */
-    public AlertBuilder setTitle(final String title) {
-        Objects.requireNonNull(title);
-        this.title = title;
-        return this;
-    }
-
-    /**
-     * Set the alert message.
-     * 
-     * @param message
-     * @return {@link AlertBuilder}.
-     */
-    public AlertBuilder setMessage(final String message) {
-        Objects.requireNonNull(message);
-        this.message = message;
-        return this;
-    }
-
-    /**
-     * Set the alert owner.
-     * 
-     * @param owner
-     * @return {@link AlertBuilder}.
-     */
-    public AlertBuilder setOwner(final Window owner) {
-        Objects.requireNonNull(owner);
-        this.owner = owner;
-        return this;
-    }
-
+public interface AlertBuilder {
     /**
      * Set the default values for an info alert.
      *  - Type: {@link AlertType.INFORMATION}.
-     *  - Title: info
+     *  - Title: Info
      * 
-     * @return {@link AlertBuilder}.
+     * @param message the message of the alert.
+     * @param owner the owner of the alert.
+     * @return {@link Alert}.
      */
-    public AlertBuilder setDefaultInfo() {
-        return this.setType(AlertType.INFORMATION)
-            .setTitle("Info");
-    }
+    public Alert buildDefaultInfo(final String message, final Window owner);
 
     /**
      * Set the default values for an info alert.
      *  - Type: {@link AlertType.ERROR}.
-     *  - Title: error
+     *  - Title: Error
      * 
-     * @return {@link AlertBuilder}.
+     * @param message the message of the alert.
+     * @param owner the owner of the alert.
+     * @return {@link Alert}.
      */
-    public AlertBuilder setDefaultError() {
-        return this.setType(AlertType.ERROR)
-            .setTitle("Error");
-    }
+    public Alert buildDefaultError(final String message, final Window owner);
 
     /**
+     * Sets the message and the owner of the {@link Alert}.
      * 
+     * Throws if some of the parameters are not set.
+     * 
+     * @param type the type of the alert.
+     * @param title the title of the alert.
+     * @param message the message of the alert.
+     * @param owner the owner of the alert.
      * @return the built {@link Alert}.
      */
-    public Alert build() {
-        final var alert = new Alert(this.type);
-        alert.setTitle(this.title);
-        alert.setHeaderText(this.title);
-        alert.setContentText(this.message);
-        alert.initOwner(this.owner);
-        alert.getDialogPane().setMinSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
-        return alert;
-    }
+    public Alert buildCustom(final AlertType type, final String title, final String message, final Window owner);
 }

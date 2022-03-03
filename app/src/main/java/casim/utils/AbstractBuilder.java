@@ -1,6 +1,7 @@
 package casim.utils;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Predicate;
 
@@ -25,14 +26,29 @@ public abstract class AbstractBuilder {
 
     /**
      * Check a value with a {@link Predicate} and throws an exception if the test fails.
+     * 
      * @param <T> The type of the value.
      * @param value The value that will be set.
      * @param predicate {@link Predicate} used to check the value.
      * @param errMsg Message displayed in case of failed test.
+     * @return value if predicate returns true.
      */
-    protected <T> void checkValue(final T value, final Predicate<T> predicate, final String errMsg) {
+    protected <T> T checkValue(final T value, final Predicate<T> predicate, final String errMsg) {
         if (!predicate.test(value)) {
             throw new IllegalArgumentException(errMsg);
         }
+        return value;
+    }
+
+    /**
+     * Check if the value is not null, if it is throws an exception.
+     * 
+     * @param <T> The type of the value.
+     * @param value The value that will be set.
+     * @param errMsg The Message of the exception.
+     * @return value if predicate returns true.
+     */
+    protected <T> T checkNonNullValue(final T value, final String errMsg) {
+        return this.checkValue(value, x -> !Objects.nonNull(value), errMsg);
     }
 }

@@ -15,6 +15,7 @@ public class CanvasGridBuilderImpl extends AbstractBuilder implements CanvasGrid
     private static final String INVALID_COLUMNS_NUMBER = "The number of columns must be greater than zero.";
     private static final String INVALID_CELL_SIZE = "The cell size must be greater than zero.";
     private static final String INVALID_SEPARATOR_WIDTH = "The separator width must be equal or greater than zero.";
+    private static final String SEPARATOR_COLOR_NULL = "The separator color cannot be null.";
 
     private int rows;
     private int columns;
@@ -25,16 +26,14 @@ public class CanvasGridBuilderImpl extends AbstractBuilder implements CanvasGrid
     @Override
     public CanvasGridBuilderImpl separatorWidth(final double separatorWidth) {
         this.registerCall();
-        this.checkValue(separatorWidth, x -> x >= 0, INVALID_SEPARATOR_WIDTH);
-        this.separatorWidth = separatorWidth;
+        this.separatorWidth = this.checkValue(separatorWidth, x -> x >= 0, INVALID_SEPARATOR_WIDTH);
         return this;
     }
 
     @Override
     public CanvasGridBuilderImpl separatorColor(final Color separatorColor) {
         this.registerCall();
-        Objects.requireNonNull(separatorColor);
-        this.separatorColor = separatorColor;
+        this.separatorColor = this.checkNonNullValue(separatorColor, SEPARATOR_COLOR_NULL);
         return this;
     }
 
@@ -59,22 +58,19 @@ public class CanvasGridBuilderImpl extends AbstractBuilder implements CanvasGrid
 
     private CanvasGridBuilderImpl rows(final int rows) {
         this.registerCall();
-        this.checkValue(rows, x -> x > 0, INVALID_ROWS_NUMBER);
-        this.rows = rows;
+        this.rows = this.checkValue(rows, x -> x > 0, INVALID_ROWS_NUMBER);
         return this;
     }
 
     private CanvasGridBuilderImpl columns(final int columns) {
         this.registerCall();
-        this.checkValue(rows, x -> x > 0, INVALID_COLUMNS_NUMBER);
-        this.columns = columns;
+        this.columns = this.checkValue(rows, x -> x > 0, INVALID_COLUMNS_NUMBER);
         return this;
     }
 
     private CanvasGridBuilderImpl cellSize(final int cellSize) {
         this.registerCall();
-        this.checkValue(rows, x -> x > 0, INVALID_CELL_SIZE);
-        this.cellSize = cellSize;
+        this.cellSize = this.checkValue(rows, x -> x > 0, INVALID_CELL_SIZE);
         return this;
     }
 }
