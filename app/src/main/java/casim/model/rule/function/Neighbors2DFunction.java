@@ -20,7 +20,9 @@ import casim.utils.grid.Grid;
 public class Neighbors2DFunction<T> implements BiFunction<Coordinates<Integer>, Grid<Coordinates<Integer>, Cell<T>>, Iterable<Pair<Coordinates<Integer>, Cell<T>>>> {
 
     /**
-     * {@inheritDoc}
+     * @param cellCoord the coordinates of the cell of which calculate the neighbors.
+     * @param grid the grid where search for the neighbors.
+     * @return an iterable containing all the neighbors of the cell.
      */
     @Override
     public Iterable<Pair<Coordinates<Integer>, Cell<T>>> apply(final Coordinates<Integer> cellCoord, final Grid<Coordinates<Integer>, Cell<T>> grid) {
