@@ -1,7 +1,5 @@
 package casim.ui.components.grid;
 
-import java.util.Objects;
-
 import casim.utils.AbstractBuilder;
 import casim.utils.Colors;
 import javafx.scene.paint.Color;

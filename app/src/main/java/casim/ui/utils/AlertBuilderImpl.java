@@ -1,7 +1,5 @@
 package casim.ui.utils;
 
-import java.util.Objects;
-
 import casim.utils.AbstractBuilder;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
