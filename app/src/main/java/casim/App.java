@@ -22,7 +22,7 @@ public class App extends Application {
     public void start(final Stage primaryStage) throws Exception {
         final var grid = new CanvasGridBuilderImpl().build(5, 5, 100);
         final var root = new PageContainer();
-        root.addPage((CanvasGridImpl)grid);
+        root.addPage((CanvasGridImpl) grid);
         final var scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();

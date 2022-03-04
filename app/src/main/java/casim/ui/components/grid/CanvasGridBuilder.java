@@ -2,6 +2,9 @@ package casim.ui.components.grid;
 
 import javafx.scene.paint.Color;
 
+/**
+ * Builder interface for {@link CancasGrid}.
+ */
 public interface CanvasGridBuilder {
     /**
      * Set the {@link CanvasGrid} separator width in pixels.
@@ -24,6 +27,9 @@ public interface CanvasGridBuilder {
      *
      * Throws an IllegalArgumentException if the values are invalid.
      * 
+     * @param rows the number of rows in the {@link CanvasGrid}
+     * @param columns the number of columns in the {@link CanvasGrid}
+     * @param cellSize the size of each cell in the {@link CanvasGrid}
      * @return a {@link CanvasGrid} if the parameters are valid.
      */
     CanvasGrid build(int rows, int columns, int cellSize);
