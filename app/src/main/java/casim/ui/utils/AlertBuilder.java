@@ -17,10 +17,10 @@ public interface AlertBuilder {
      * @param owner the owner of the alert.
      * @return {@link Alert}.
      */
-    Alert buildDefaultInfo(final String message, final Window owner);
+    Alert buildDefaultInfo(String message, Window owner);
 
     /**
-     * Set the default values for an info alert.
+     * Set the default values for an error alert.
      *  - Type: {@link AlertType.ERROR}.
      *  - Title: Error
      * 
@@ -28,7 +28,7 @@ public interface AlertBuilder {
      * @param owner the owner of the alert.
      * @return {@link Alert}.
      */
-    Alert buildDefaultError(final String message, final Window owner);
+    Alert buildDefaultError(String message, Window owner);
 
     /**
      * Sets the message and the owner of the {@link Alert}.
@@ -41,5 +41,5 @@ public interface AlertBuilder {
      * @param owner the owner of the alert.
      * @return the built {@link Alert}.
      */
-    Alert buildCustom(final AlertType type, final String title, final String message, final Window owner);
+    Alert buildCustom(AlertType type, String title, String message, Window owner);
 }
