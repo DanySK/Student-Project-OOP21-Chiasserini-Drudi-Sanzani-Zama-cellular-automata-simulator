@@ -84,10 +84,6 @@ tasks.named<Test>("test") {
 	}
 }
 
-tasks.named("check") {
-    dependsOn("javadoc")
-}
-
 javafx {
     version = "15"
     modules("javafx.base", "javafx.controls", "javafx.fxml", "javafx.swing", "javafx.graphics")
