@@ -1,12 +1,12 @@
 package casim.utils.coordinate;
 
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link Coordinates3D}.
  */
-public class Coordinates3DTest {
+class Coordinates3DTest {
 
     static final int XVALUE = 5;
     static final int YVALUE = 10;
