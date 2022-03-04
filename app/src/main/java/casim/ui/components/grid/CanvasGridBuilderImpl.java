@@ -36,7 +36,7 @@ public class CanvasGridBuilderImpl extends AbstractBuilder implements CanvasGrid
     }
 
     @Override
-    public CanvasGrid build(int rows, int columns, int cellSize) {
+    public CanvasGrid build(final int rows, final int columns, final int cellSize) {
         this.registerCall();
         this.rows(rows)
             .columns(columns)
@@ -62,13 +62,13 @@ public class CanvasGridBuilderImpl extends AbstractBuilder implements CanvasGrid
 
     private CanvasGridBuilderImpl columns(final int columns) {
         this.registerCall();
-        this.columns = this.checkValue(rows, x -> x > 0, INVALID_COLUMNS_NUMBER);
+        this.columns = this.checkValue(columns, x -> x > 0, INVALID_COLUMNS_NUMBER);
         return this;
     }
 
     private CanvasGridBuilderImpl cellSize(final int cellSize) {
         this.registerCall();
-        this.cellSize = this.checkValue(rows, x -> x > 0, INVALID_CELL_SIZE);
+        this.cellSize = this.checkValue(cellSize, x -> x > 0, INVALID_CELL_SIZE);
         return this;
     }
 }

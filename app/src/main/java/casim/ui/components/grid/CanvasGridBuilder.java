@@ -9,7 +9,7 @@ public interface CanvasGridBuilder {
      * @param separatorWidth the separator width.
      * @return a {@link CanvasGridBuilderImpl}.
      */
-    public CanvasGridBuilderImpl separatorWidth(final double separatorWidth);
+    CanvasGridBuilderImpl separatorWidth(double separatorWidth);
 
     /**
      * Set the {@link CanvasGrid} separator color.
@@ -17,14 +17,14 @@ public interface CanvasGridBuilder {
      * @param separatorColor
      * @return a {@link CanvasGridBuilderImpl}.
      */
-    public CanvasGridBuilderImpl separatorColor(final Color separatorColor);
+    CanvasGridBuilderImpl separatorColor(Color separatorColor);
 
     /**
      * Build the {@link CanvasGrid} object, setting the mandatory fields.
-     *  
+     *
      * Throws an IllegalArgumentException if the values are invalid.
      * 
      * @return a {@link CanvasGrid} if the parameters are valid.
      */
-    public CanvasGrid build(int rows, int columns, int cellSize);
+    CanvasGrid build(int rows, int columns, int cellSize);
 }

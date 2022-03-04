@@ -70,10 +70,10 @@ public class AlertBuilderImpl extends AbstractBuilder implements AlertBuilder {
 
     private AlertBuilderImpl message(final String message) {
         this.registerCall();
-        this.message = this.checkNonNullValue(message, MESSAGE_NULL);;
+        this.message = this.checkNonNullValue(message, MESSAGE_NULL);
         return this;
     }
-    
+
     private AlertBuilderImpl owner(final Window owner) {
         this.registerCall();
         this.owner = this.checkNonNullValue(owner, OWNER_NULL);

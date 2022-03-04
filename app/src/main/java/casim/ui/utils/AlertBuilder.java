@@ -17,7 +17,7 @@ public interface AlertBuilder {
      * @param owner the owner of the alert.
      * @return {@link Alert}.
      */
-    public Alert buildDefaultInfo(final String message, final Window owner);
+    Alert buildDefaultInfo(final String message, final Window owner);
 
     /**
      * Set the default values for an info alert.
@@ -28,7 +28,7 @@ public interface AlertBuilder {
      * @param owner the owner of the alert.
      * @return {@link Alert}.
      */
-    public Alert buildDefaultError(final String message, final Window owner);
+    Alert buildDefaultError(final String message, final Window owner);
 
     /**
      * Sets the message and the owner of the {@link Alert}.
@@ -41,5 +41,5 @@ public interface AlertBuilder {
      * @param owner the owner of the alert.
      * @return the built {@link Alert}.
      */
-    public Alert buildCustom(final AlertType type, final String title, final String message, final Window owner);
+    Alert buildCustom(final AlertType type, final String title, final String message, final Window owner);
 }
