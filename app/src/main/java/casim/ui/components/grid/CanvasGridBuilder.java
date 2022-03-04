@@ -17,7 +17,7 @@ public interface CanvasGridBuilder {
     /**
      * Set the {@link CanvasGrid} separator color.
      * 
-     * @param separatorColor
+     * @param separatorColor {@link Color} to be set as separator color
      * @return a {@link CanvasGridBuilderImpl}.
      */
     CanvasGridBuilderImpl separatorColor(Color separatorColor);
