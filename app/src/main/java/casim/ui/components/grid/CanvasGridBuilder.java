@@ -3,7 +3,7 @@ package casim.ui.components.grid;
 import javafx.scene.paint.Color;
 
 /**
- * Builder interface for {@link CancasGrid}.
+ * Builder interface for {@link CanvasGridBuilder}.
  */
 public interface CanvasGridBuilder {
     /**
