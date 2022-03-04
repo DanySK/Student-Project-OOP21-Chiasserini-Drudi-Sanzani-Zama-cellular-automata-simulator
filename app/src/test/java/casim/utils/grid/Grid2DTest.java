@@ -1,5 +1,7 @@
 package casim.utils.grid;
 
+import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -9,7 +11,6 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import casim.utils.Result;
 import casim.utils.coordinate.CoordinatesUtil;
 import casim.utils.range.Ranges;
 
@@ -45,10 +46,10 @@ class Grid2DTest {
     @Test
     void testGetWithIntegers() {
         final var grid = getGrid();
-        assertEquals(Result.ofEmpty(), grid.set(X, Y, NEW_VALUE));
-        assertEquals(Result.of(NEW_VALUE), grid.get(X, Y));
-        assertEquals(IndexOutOfBoundsException.class, grid.get(X, COLS).getError().getClass());
-        assertEquals(IndexOutOfBoundsException.class, grid.get(ROWS, Y).getError().getClass());
+        assertDoesNotThrow(() -> grid.set(X, Y, NEW_VALUE));
+        assertEquals(NEW_VALUE, grid.get(X, Y));
+        assertThrows(IndexOutOfBoundsException.class, () -> grid.get(X, COLS));
+        assertThrows(IndexOutOfBoundsException.class, () -> grid.get(ROWS, Y));
     }
 
     /**
@@ -58,12 +59,10 @@ class Grid2DTest {
     void testGetWithCoordinates() {
         final var grid = getGrid();
         final var coord = CoordinatesUtil.of(X, Y);
-        assertEquals(Result.ofEmpty(), grid.set(coord, NEW_VALUE));
-        assertEquals(Result.of(NEW_VALUE), grid.get(coord));
-        assertEquals(
-            IndexOutOfBoundsException.class, grid.get(CoordinatesUtil.of(X, COLS)).getError().getClass());
-        assertEquals(
-            IndexOutOfBoundsException.class, grid.get(CoordinatesUtil.of(ROWS, Y)).getError().getClass());
+        assertDoesNotThrow(() -> grid.set(coord, NEW_VALUE));
+        assertEquals(NEW_VALUE, grid.get(coord));
+        assertThrows(IndexOutOfBoundsException.class, () -> grid.get(CoordinatesUtil.of(X, COLS)));
+        assertThrows(IndexOutOfBoundsException.class, () -> grid.get(CoordinatesUtil.of(ROWS, Y)));
     }
 
     /**
@@ -104,22 +103,20 @@ class Grid2DTest {
     @Test
     void testSetWithIntegers() {
         final var grid = getGrid();
-        assertEquals(Result.ofEmpty(), grid.set(X, Y, NEW_VALUE));
-        assertEquals(Result.of(NEW_VALUE), grid.get(X, Y));
-        assertEquals(IndexOutOfBoundsException.class, grid.set(X, COLS, NEW_VALUE).getError().getClass());
-        assertEquals(IndexOutOfBoundsException.class, grid.set(ROWS, Y, NEW_VALUE).getError().getClass());
+        assertDoesNotThrow(() -> grid.set(X, Y, NEW_VALUE));
+        assertEquals(NEW_VALUE, grid.get(X, Y));
+        assertThrows(IndexOutOfBoundsException.class, () -> grid.set(X, COLS, NEW_VALUE));
+        assertThrows(IndexOutOfBoundsException.class, () -> grid.set(ROWS, Y, NEW_VALUE));
     }
 
     @Test
     void testSetWithCoordinates() {
         final var coord = CoordinatesUtil.of(X, Y);
         final var grid = getGrid();
-        assertEquals(Result.ofEmpty(), grid.set(coord, NEW_VALUE));
-        assertEquals(Result.of(NEW_VALUE), grid.get(coord));
-        assertEquals(
-            IndexOutOfBoundsException.class, grid.set(CoordinatesUtil.of(X, COLS), NEW_VALUE).getError().getClass());
-        assertEquals(
-            IndexOutOfBoundsException.class, grid.set(CoordinatesUtil.of(ROWS, Y), NEW_VALUE).getError().getClass());
+        assertDoesNotThrow(() -> grid.set(coord, NEW_VALUE));
+        assertEquals(NEW_VALUE, grid.get(coord));
+        assertThrows(IndexOutOfBoundsException.class, () -> grid.set(CoordinatesUtil.of(X, COLS), NEW_VALUE));
+        assertThrows(IndexOutOfBoundsException.class, () -> grid.set(CoordinatesUtil.of(ROWS, Y), NEW_VALUE));
     }
 
     @Test
@@ -128,7 +125,7 @@ class Grid2DTest {
         final var elements = new HashSet<>();
         for (final var x : Ranges.of(0, ROWS)) {
             for (final var y : Ranges.of(0, COLS)) {
-                elements.add(grid.get(x, y).getValue());
+                elements.add(grid.get(x, y));
             }
         }
         assertEquals(elements, grid.stream().collect(Collectors.toUnmodifiableSet()));
