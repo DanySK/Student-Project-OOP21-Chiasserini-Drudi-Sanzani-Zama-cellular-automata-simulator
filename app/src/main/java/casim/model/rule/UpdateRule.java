@@ -16,7 +16,7 @@ public interface UpdateRule<T> {
      /**
      * Return the updated {@link Cell}.
      * 
-     * @param cellPair pair of {@link Coordinates} and {@link Cell} to updates;
+     * @param cellPair pair of {@link Coordinates} and {@link Cell} to update;
      * @param grid the {@link Grid} representing the {@link Automaton}.
      * @return the updated {@link Cell}.
      */
