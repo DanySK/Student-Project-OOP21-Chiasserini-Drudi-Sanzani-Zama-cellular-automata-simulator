@@ -1,23 +1,23 @@
 package casim.utils.coordinate;
 
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link Coordinates3D}.
  */
-public class Coordinates3DTest {
+class Coordinates3DTest {
 
     static final int XVALUE = 5;
     static final int YVALUE = 10;
     static final int ZVALUE = 15;
-    static final Coordinates3D<Integer> coord = CoordinatesUtil.of(XVALUE, YVALUE, ZVALUE);
+    static final Coordinates3D<Integer>  COORD = CoordinatesUtil.of(XVALUE, YVALUE, ZVALUE);
     /**
      * Test for {@link Coordinates3D#getX()} method.
      */
     @Test
     void testGetX() {
-        Assert.assertEquals(XVALUE, (int)coord.getX());
+        Assert.assertEquals(XVALUE, (int) COORD.getX());
     }
 
     /**
@@ -25,14 +25,15 @@ public class Coordinates3DTest {
      */
     @Test
     void testGetY() {
-        Assert.assertEquals(YVALUE, (int)coord.getY());
+        Assert.assertEquals(YVALUE, (int) COORD.getY());
     }
 
     /**
      * Test for {@link Coordinates3D#getZ()} method.
      */
+    @Test
     void testGetZ() {
-        Assert.assertEquals(ZVALUE, (int)coord.getZ());
+        Assert.assertEquals(ZVALUE, (int) COORD.getZ());
     }
 
     /**
@@ -40,10 +41,10 @@ public class Coordinates3DTest {
      */
     @Test
     void testEquals() {
-        Assert.assertTrue(coord.equals(coord));
+        Assert.assertTrue(COORD.equals(COORD));
         var coord01 = CoordinatesUtil.of(XVALUE, YVALUE, ZVALUE);
-        Assert.assertTrue(coord.equals(coord01));
+        Assert.assertTrue(COORD.equals(coord01));
         coord01 = CoordinatesUtil.of(YVALUE, XVALUE, ZVALUE);
-        Assert.assertFalse(coord.equals(coord01));
+        Assert.assertFalse(COORD.equals(coord01));
     }
 }

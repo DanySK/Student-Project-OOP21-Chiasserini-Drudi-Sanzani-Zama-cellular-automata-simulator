@@ -14,6 +14,8 @@ public abstract class AbstractBuilder {
 
     /**
      * Register the method that was called last.
+     * 
+     * @exception IllegalStateException if the method that was called last was called twice.
      */
     protected void registerCall() {
         final var stackTrace = Thread.currentThread().getStackTrace();
@@ -26,6 +28,8 @@ public abstract class AbstractBuilder {
 
     /**
      * Check a value with a {@link Predicate} and throws an exception if the test fails.
+     * 
+     * @exception IllegalArgumentException if the value fails the {@link Predicate} test.
      * 
      * @param <T> The type of the value.
      * @param value The value that will be set.
@@ -42,6 +46,8 @@ public abstract class AbstractBuilder {
 
     /**
      * Check if the value is not null, if it is throws an exception.
+     * 
+     * @exception IllegalArgumentException if value is null.
      * 
      * @param <T> The type of the value.
      * @param value The value that will be set.
