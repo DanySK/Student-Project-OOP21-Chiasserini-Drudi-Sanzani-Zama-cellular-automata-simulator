@@ -1,22 +1,22 @@
 package casim.controller;
 
-import casim.model.Automaton;
+import casim.model.abstraction.automaton.AbstractAutomaton;
 import casim.utils.grid.Grid2D;
-import casim.model.cell.AbstractCell;
+import casim.model.abstraction.cell.AbstractCell;
 
 /**
  * 
  *
  * @param <T>
  */
-public class AutomatonControllerImpl<T> implements AutomatonController<T> {
-    private final Automaton<T> automaton;
+public class AutomatonControllerImpl<T extends Enum<T>> implements AutomatonController<T> {
+    private final AbstractAutomaton<T> automaton;
 
     /**
      * 
      * @param automaton
      */
-    public AutomatonControllerImpl(final Automaton<T> automaton) {
+    public AutomatonControllerImpl(final AbstractAutomaton<T> automaton) {
         this.automaton = automaton;
     }
 
