@@ -2,6 +2,7 @@ package casim.model.rule;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import casim.model.cell.AbstractCell;
 import casim.model.cell.Cell;
 import casim.utils.coordinate.Coordinates;
 import casim.utils.grid.Grid;
@@ -20,6 +21,6 @@ public interface UpdateRule<T extends Enum<T>> {
      * @param grid the {@link Grid} representing the {@link Automaton}.
      * @return the updated {@link Cell}.
      */
-    Cell<T> getNextCell(Pair<Coordinates<Integer>, Cell<T>> cellPair, Grid<Coordinates<Integer>, Cell<T>> grid);
+    AbstractCell<T> getNextCell(Pair<Coordinates<Integer>, Cell<T>> cellPair, Grid<Coordinates<Integer>, Cell<T>> grid);
 
 }

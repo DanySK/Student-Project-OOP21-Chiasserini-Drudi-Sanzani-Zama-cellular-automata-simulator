@@ -4,6 +4,7 @@ import java.util.function.BiFunction;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import casim.model.cell.AbstractCell;
 import casim.model.cell.Cell;
 import casim.utils.coordinate.Coordinates;
 import casim.utils.grid.Grid;
@@ -27,7 +28,7 @@ public abstract class AbstractUpdateRule<T extends Enum<T>> implements UpdateRul
     }
 
     @Override
-    public Cell<T> getNextCell(final Pair<Coordinates<Integer>, Cell<T>> cellPair, final Grid<Coordinates<Integer>, Cell<T>> grid) {
+    public AbstractCell<T> getNextCell(final Pair<Coordinates<Integer>, Cell<T>> cellPair, final Grid<Coordinates<Integer>, Cell<T>> grid) {
         final Iterable<Pair<Coordinates<Integer>, Cell<T>>> neighbors = this.neighborsFunction.apply(cellPair, grid);
         return this.nextCell(cellPair, neighbors);
     }
@@ -39,5 +40,5 @@ public abstract class AbstractUpdateRule<T extends Enum<T>> implements UpdateRul
      * @param neighborsPairs an iterable containing all the pair describing all the pairs {@link Coordinates} + {@link Cell} neighbors of the cellPair.
      * @return the new updated {@link Cell}.
      */
-    protected abstract Cell<T> nextCell(Pair<Coordinates<Integer>, Cell<T>> cellPair, Iterable<Pair<Coordinates<Integer>, Cell<T>>> neighborsPairs);
+    protected abstract AbstractCell<T> nextCell(Pair<Coordinates<Integer>, Cell<T>> cellPair, Iterable<Pair<Coordinates<Integer>, Cell<T>>> neighborsPairs);
 }
