@@ -18,9 +18,6 @@ public abstract class AbstractCell<T extends Enum<T>> implements Cell<T> {
         this.state = state;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public T getState() {
         return this.state;

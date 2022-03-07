@@ -15,17 +15,11 @@ import casim.utils.grid.Grid3DImpl;
  */
 public class AutomatonGridFactoryImpl<T extends Enum<T>> implements AutomatonGridFactory<T> {
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Grid2D<Cell<T>> create2DGrid(final int width, final int height, final Supplier<Cell<T>> cellSupplier) {
         return new Grid2DImpl<>(width, height, cellSupplier);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Grid3D<Cell<T>> create3DGrid(final int width, final int height, final int depth, final  Supplier<Cell<T>> cellSupplier) {
         return new Grid3DImpl<Cell<T>>(width, height, depth, cellSupplier);

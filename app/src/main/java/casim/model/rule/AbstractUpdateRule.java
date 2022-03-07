@@ -26,9 +26,6 @@ public abstract class AbstractUpdateRule<T extends Enum<T>> implements UpdateRul
         this.neighborsFunction = neighborsFunction;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Cell<T> getNextCell(final Pair<Coordinates<Integer>, Cell<T>> cellPair, final Grid<Coordinates<Integer>, Cell<T>> grid) {
         final Iterable<Pair<Coordinates<Integer>, Cell<T>>> neighbors = this.neighborsFunction.apply(cellPair, grid);
