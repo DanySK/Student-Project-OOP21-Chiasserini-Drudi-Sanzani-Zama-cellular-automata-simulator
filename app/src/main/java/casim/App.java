@@ -3,9 +3,10 @@
  */
 package casim;
 
+import casim.ui.components.grid.CanvasGridBuilderImpl;
+import casim.ui.components.grid.CanvasGridImpl;
+import casim.ui.components.page.PageContainer;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -19,10 +20,13 @@ public class App extends Application {
      */
     @Override
     public void start(final Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("view/grid_test.fxml"));
-        primaryStage.setTitle("Grid Test");
-        primaryStage.setScene(new Scene(root));
+        final var grid = new CanvasGridBuilderImpl().build(5, 5, 100);
+        final var root = new PageContainer();
+        root.addPage((CanvasGridImpl) grid);
+        final var scene = new Scene(root);
+        primaryStage.setScene(scene);
         primaryStage.show();
+        grid.draw();
     }
 
     /**

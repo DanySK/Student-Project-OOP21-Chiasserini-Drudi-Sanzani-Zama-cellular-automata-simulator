@@ -1,6 +1,6 @@
-package casim.ui.grid.events;
+package casim.ui.components.grid.events;
 
-import casim.ui.grid.CanvasGrid;
+import casim.ui.components.grid.CanvasGrid;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -23,7 +23,7 @@ public class GridCellHoverListener extends AbstractMouseEventHandler {
     @Override
     public void handle(final MouseEvent event) {
         final var coord = this.getCoordinatesFromEvent(event);
-        this.getCanvasGrid().getCell(coord)
-            .ifPresent(cell -> this.getCanvasGrid().onCellHover(cell, coord));
+        final var cell = this.getCanvasGrid().getCell(coord);
+        this.getCanvasGrid().onCellHover(cell, coord);
     }
 }
