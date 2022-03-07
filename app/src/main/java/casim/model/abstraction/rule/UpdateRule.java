@@ -1,17 +1,18 @@
-package casim.model.rule;
+package casim.model.abstraction.rule;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import casim.model.cell.Cell;
+import casim.model.abstraction.cell.AbstractCell;
+import casim.model.abstraction.cell.Cell;
 import casim.utils.coordinate.Coordinates;
 import casim.utils.grid.Grid;
 
 /**
  * The {@link casim.model.Automaton}'s rule used to update the {@link Cell}'s state.
  * 
- *  @param <T> the type of the finite states of the {@link casim.model.Automaton}'s {@link Cell}.
+ *  @param <T> the enumeration which contains the finite states of the {@link casim.model.Automaton}'s {@link Cell}.
  */
-public interface UpdateRule<T> {
+public interface UpdateRule<T extends Enum<T>> {
 
      /**
      * Return the updated {@link Cell}.
@@ -20,6 +21,6 @@ public interface UpdateRule<T> {
      * @param grid the {@link Grid} representing the {@link Automaton}.
      * @return the updated {@link Cell}.
      */
-    Cell<T> getNextCell(Pair<Coordinates<Integer>, Cell<T>> cellPair, Grid<Coordinates<Integer>, Cell<T>> grid);
+    AbstractCell<T> getNextCell(Pair<Coordinates<Integer>, Cell<T>> cellPair, Grid<Coordinates<Integer>, Cell<T>> grid);
 
 }

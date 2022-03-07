@@ -1,17 +1,17 @@
-package casim.model.gridfactory;
+package casim.model.abstraction.gridfactory;
 
 import java.util.function.Supplier;
 
-import casim.model.cell.Cell;
+import casim.model.abstraction.cell.Cell;
 import casim.utils.grid.Grid2D;
 import casim.utils.grid.Grid3D;
 
 /**
  * A factory for {@link casim.model.Automaton}'s {@link casim.utils.grid.Grid}.
  * 
- *  @param <T> the type of the finite states of the {@link casim.model.Automaton}'s {@link Cell}.
+ *  @param <T> the enumeration which contains the finite states of the {@link casim.model.Automaton}'s {@link Cell}.
  */
-public interface AutomatonGridFactory<T> {
+public interface AutomatonGridFactory<T extends Enum<T>> {
 
     /**
      * Return a new {@link Grid2D} of elements of type T.
