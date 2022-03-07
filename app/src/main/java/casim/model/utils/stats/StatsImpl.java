@@ -1,4 +1,4 @@
-package casim.model.utils;
+package casim.model.utils.stats;
 
 import java.util.EnumMap;
 
