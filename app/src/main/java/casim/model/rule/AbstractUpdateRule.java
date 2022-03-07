@@ -29,8 +29,7 @@ public abstract class AbstractUpdateRule<T extends Enum<T>> implements UpdateRul
 
     @Override
     public AbstractCell<T> getNextCell(final Pair<Coordinates<Integer>, Cell<T>> cellPair, final Grid<Coordinates<Integer>, Cell<T>> grid) {
-        final Iterable<Pair<Coordinates<Integer>, Cell<T>>> neighbors = this.neighborsFunction.apply(cellPair, grid);
-        return this.nextCell(cellPair, neighbors);
+        return this.nextCell(cellPair, this.neighborsFunction.apply(cellPair, grid));
     }
 
     /**
