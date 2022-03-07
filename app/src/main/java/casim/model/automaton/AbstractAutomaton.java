@@ -3,8 +3,8 @@ package casim.model.automaton;
 import java.util.EnumMap;
 
 import casim.model.cell.AbstractCell;
-import casim.model.utils.Stats;
-import casim.model.utils.StatsImpl;
+import casim.model.utils.stats.Stats;
+import casim.model.utils.stats.StatsImpl;
 import casim.utils.grid.Grid2D;
 
 /**

@@ -3,7 +3,7 @@ package casim.model.automaton;
 import java.util.Iterator;
 
 import casim.model.cell.AbstractCell;
-import casim.model.utils.Stats;
+import casim.model.utils.stats.Stats;
 import casim.utils.grid.Grid2D;
 
 /**
