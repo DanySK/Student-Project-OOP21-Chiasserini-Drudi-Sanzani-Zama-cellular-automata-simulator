@@ -1,4 +1,4 @@
-package casim.model.cell;
+package casim.model.abstraction.cell;
 
 /**
  * A {@link Cell} of the {@link casim.utils.grid.Grid}.

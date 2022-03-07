@@ -1,11 +1,11 @@
-package casim.model.utils;
+package casim.model.abstraction.utils;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import casim.model.cell.AbstractCell;
+import casim.model.abstraction.cell.AbstractCell;
 import casim.utils.coordinate.Coordinates;
 import casim.utils.coordinate.Coordinates2D;
 import casim.utils.coordinate.Coordinates3D;

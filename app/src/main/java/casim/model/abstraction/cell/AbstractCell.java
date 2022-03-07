@@ -1,4 +1,4 @@
-package casim.model.cell;
+package casim.model.abstraction.cell;
 
 /**
  * An abstract implementation of a {@link Cell}.

@@ -1,8 +1,8 @@
-package casim.model.gridfactory;
+package casim.model.abstraction.gridfactory;
 
 import java.util.function.Supplier;
 
-import casim.model.cell.Cell;
+import casim.model.abstraction.cell.Cell;
 import casim.utils.grid.Grid2D;
 import casim.utils.grid.Grid2DImpl;
 import casim.utils.grid.Grid3D;

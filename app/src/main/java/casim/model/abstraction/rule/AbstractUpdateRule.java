@@ -1,11 +1,11 @@
-package casim.model.rule;
+package casim.model.abstraction.rule;
 
 import java.util.function.BiFunction;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import casim.model.cell.AbstractCell;
-import casim.model.cell.Cell;
+import casim.model.abstraction.cell.AbstractCell;
+import casim.model.abstraction.cell.Cell;
 import casim.utils.coordinate.Coordinates;
 import casim.utils.grid.Grid;
 

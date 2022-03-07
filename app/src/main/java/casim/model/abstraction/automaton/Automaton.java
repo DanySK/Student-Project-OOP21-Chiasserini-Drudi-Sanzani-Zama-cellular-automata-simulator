@@ -1,9 +1,9 @@
-package casim.model.automaton;
+package casim.model.abstraction.automaton;
 
 import java.util.Iterator;
 
-import casim.model.cell.AbstractCell;
-import casim.model.utils.stats.Stats;
+import casim.model.abstraction.cell.AbstractCell;
+import casim.model.abstraction.utils.stats.Stats;
 import casim.utils.grid.Grid2D;
 
 /**
