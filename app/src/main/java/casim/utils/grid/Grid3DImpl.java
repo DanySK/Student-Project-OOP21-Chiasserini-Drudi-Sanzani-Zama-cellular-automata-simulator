@@ -2,6 +2,7 @@ package casim.utils.grid;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -17,120 +18,149 @@ import casim.utils.range.Ranges;
  public class Grid3DImpl<T> implements Grid3D<T> {
 
     private final int rows;
-	private final int columns;
-	private final int depth;
-	private final Map<Coordinates3D<Integer>, T> grid = new HashMap<>();
+    private final int columns;
+    private final int depth;
+    private final Map<Coordinates3D<Integer>, T> grid = new HashMap<>();
 
-	/**
-	 * Construct a new {@link Grid3D} filled with nulls.
-	 * 
-	 * @param rows the number of the rows of the grid.
-	 * @param columns the number of the columns of the grid.
-	 * @param depth the depth of the grid.
-	 */
-	public Grid3DImpl(final int rows, final int columns, final int depth) {
-		this(rows, columns, depth, () -> null);
-	}
-	
-	/**
-	 * Construct a new {@link Grid3D} with a default value supplier.
-	 * 
-	 * @param rows the number of the rows of the grid.
-	 * @param columns the number of the columns of the grid.
-	 * @param depth the depth of the grid.
-	 * @param defaultValue the default value supplier.
-	 */
-	public Grid3DImpl(final int rows, final int columns, final int depth, final Supplier<T> defaultValue) {
-		this.rows = rows;
-		this.columns = columns;
-		this.depth = depth;
+    /**
+     * Construct a new {@link Grid3D} filled with nulls.
+     * 
+     * @param rows the number of the rows of the grid.
+     * @param columns the number of the columns of the grid.
+     * @param depth the depth of the grid.
+     */
+    public Grid3DImpl(final int rows, final int columns, final int depth) {
+        this(rows, columns, depth, () -> null);
+    }
 
-		for (final var x : Ranges.of(0, rows)) {
-			for (final var y : Ranges.of(0, columns)) {
-				for (final var z : Ranges.of(0, depth)) {
-					this.grid.put(CoordinatesUtil.of(x, y, z), defaultValue.get());
-				}
-			}
-		}
-	}
+    /**
+     * Construct a new {@link Grid3D} with a default value supplier.
+     * 
+     * @param rows the number of the rows of the grid.
+     * @param columns the number of the columns of the grid.
+     * @param depth the depth of the grid.
+     * @param defaultValue the default value supplier.
+     */
+    public Grid3DImpl(final int rows, final int columns, final int depth, final Supplier<T> defaultValue) {
+        this.rows = rows;
+        this.columns = columns;
+        this.depth = depth;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int getWidth() {
-		return this.columns;
-	}
+        for (final var x : Ranges.of(0, rows)) {
+            for (final var y : Ranges.of(0, columns)) {
+                for (final var z : Ranges.of(0, depth)) {
+                    this.grid.put(CoordinatesUtil.of(x, y, z), defaultValue.get());
+                }
+            }
+        }
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int getHeight() {
-		return this.rows;
-	}
+    /**
+     * Construct a new {@link Grid3D} with a function that maps coordinates to values.
+     * 
+     * @param rows the number of the rows of the grid.
+     * @param columns the number of the columns of the grid.
+     * @param depth the depth of the grid.
+     * @param valueFunction a function that maps coordinates to values.
+     */
+    public Grid3DImpl(final int rows, final int columns, final int depth, final Function<Coordinates3D<Integer>, T> valueFunction) {
+        this.rows = rows;
+        this.columns = columns;
+        this.depth = depth;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int getDepth() {
-		return this.depth;
-	}
+        for (final var x : Ranges.of(0, rows)) {
+            for (final var y : Ranges.of(0, columns)) {
+                for (final var z : Ranges.of(0, depth)) {
+                    final var coord = CoordinatesUtil.of(x, y, z);
+                    this.grid.put(coord, valueFunction.apply(coord));
+                }
+            }
+        }
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public T get(final int row, final int column, final int depth) {
-		return this.get(CoordinatesUtil.of(row, column, depth));
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getWidth() {
+        return this.columns;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void set(final int row, final int column, final int depth, final T value) {
-		this.set(CoordinatesUtil.of(row, column, depth), value);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getHeight() {
+        return this.rows;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public T get(final Coordinates3D<Integer> coord) {
-		this.throwIfOutOfBound(coord);
-		return this.grid.get(coord);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getDepth() {
+        return this.depth;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void set(final Coordinates3D<Integer> coord, final T value) {
-		this.throwIfOutOfBound(coord);
-		this.grid.put(coord, value);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T get(final int row, final int column, final int depth) {
+        return this.get(CoordinatesUtil.of(row, column, depth));
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean isCoordValid(final Coordinates3D<Integer> coord) {
-		return CoordinatesUtil.isValid(coord, this.rows, this.columns, this.depth);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void set(final int row, final int column, final int depth, final T value) {
+        this.set(CoordinatesUtil.of(row, column, depth), value);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Stream<T> stream() {
-		return this.grid.values().stream();
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T get(final Coordinates3D<Integer> coord) {
+        this.throwIfOutOfBound(coord);
+        return this.grid.get(coord);
+    }
 
-	private void throwIfOutOfBound(final Coordinates3D<Integer> coord) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void set(final Coordinates3D<Integer> coord, final T value) {
+        this.throwIfOutOfBound(coord);
+        this.grid.put(coord, value);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isCoordValid(final Coordinates3D<Integer> coord) {
+        return CoordinatesUtil.isValid(coord, this.rows, this.columns, this.depth);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Stream<T> stream() {
+        return this.grid.values().stream();
+    }
+
+    @Override
+    public <O> Grid3D<O> map(final Function<T, O> mapper) {
+        return new Grid3DImpl<>(this.rows, this.columns, this.depth, coord -> mapper.apply(this.grid.get(coord)));
+    }
+
+    private void throwIfOutOfBound(final Coordinates3D<Integer> coord) {
         if (!this.isCoordValid(coord)) {
             throw new IndexOutOfBoundsException("Size: " + this.getHeight() + " x " + this.getWidth() + " x " + this.getDepth() + "Coord: " + coord);
         }
     }
+
 }
