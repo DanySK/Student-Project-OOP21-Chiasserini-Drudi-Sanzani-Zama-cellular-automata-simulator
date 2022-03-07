@@ -9,9 +9,9 @@ import casim.utils.grid.Grid;
 /**
  * The {@link casim.model.Automaton}'s rule used to update the {@link Cell}'s state.
  * 
- *  @param <T> the type of the finite states of the {@link casim.model.Automaton}'s {@link Cell}.
+ *  @param <T> the enumeration which contains the finite states of the {@link casim.model.Automaton}'s {@link Cell}.
  */
-public interface UpdateRule<T> {
+public interface UpdateRule<T extends Enum<T>> {
 
      /**
      * Return the updated {@link Cell}.
