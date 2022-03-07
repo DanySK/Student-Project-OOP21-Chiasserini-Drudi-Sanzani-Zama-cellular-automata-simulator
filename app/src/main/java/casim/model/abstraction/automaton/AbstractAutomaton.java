@@ -25,7 +25,7 @@ public abstract class AbstractAutomaton<T extends Enum<T>> implements Automaton<
         return this.doStep();
     }
 
-    abstract Grid2D<AbstractCell<T>> doStep();
+    protected abstract Grid2D<AbstractCell<T>> doStep();
 
     @Override
     public abstract Grid2D<AbstractCell<T>> getGrid();
@@ -35,6 +35,6 @@ public abstract class AbstractAutomaton<T extends Enum<T>> implements Automaton<
         return new StatsImpl<T>(iterationCounter, this.createEnumMap());
     }
 
-    abstract EnumMap<T, Integer> createEnumMap();
+    protected abstract EnumMap<T, Integer> createEnumMap();
 
 }
