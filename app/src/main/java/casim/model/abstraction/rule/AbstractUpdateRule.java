@@ -12,7 +12,7 @@ import casim.utils.grid.Grid;
 /**
  * Abstract implementation of {@link UpdateRule}.
  *
- *  @param <T> the enumeration which contains the finite states of the {@link casim.model.Automaton}'s {@link Cell}.
+ *  @param <T> the enumeration which contains the finite states of the {@link casim.model.abstraction.automaton.Automaton}'s {@link Cell}.
  */
 public abstract class AbstractUpdateRule<T extends Enum<T>> implements UpdateRule<T> {
 

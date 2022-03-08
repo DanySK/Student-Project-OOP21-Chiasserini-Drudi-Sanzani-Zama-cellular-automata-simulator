@@ -15,7 +15,7 @@ import casim.utils.grid.Grid;
 /**
  * General function used to get the neighbors of a {@link Cell} in a {@link casim.utils.grid.Grid3D}.
  * 
- *  @param <T> the enumeration which contains the finite states of the {@link casim.model.Automaton}'s {@link Cell}.
+ *  @param <T> the enumeration which contains the finite states of the {@link casim.model.abstractin.automaton.Automaton}'s {@link Cell}.
  */
 public class Neighbors3DFunction<T extends Enum<T>> implements BiFunction<Coordinates<Integer>, Grid<Coordinates<Integer>, Cell<T>>, Iterable<Pair<Coordinates<Integer>, Cell<T>>>> {
 
