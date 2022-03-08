@@ -1,7 +1,7 @@
 package casim.utils.coordinate;
 
 /**
- * Utility class that defines methods for the Coordinate type.
+ * Utility class that defines methods for the {@link Coordinates} type.
  */
 public final class CoordinatesUtil {
 
