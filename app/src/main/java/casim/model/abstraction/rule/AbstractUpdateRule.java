@@ -1,5 +1,6 @@
 package casim.model.abstraction.rule;
 
+import java.util.List;
 import java.util.function.BiFunction;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -14,21 +15,21 @@ import casim.utils.grid.Grid;
  *
  *  @param <T> the enumeration which contains the finite states of the {@link casim.model.Automaton}'s {@link Cell}.
  */
-public abstract class AbstractUpdateRule<T extends Enum<T>> implements UpdateRule<T> {
+public abstract class AbstractUpdateRule<C extends Coordinates<? extends Number>, T extends AbstractCell<?>> implements UpdateRule<C, T> {
 
-    private final BiFunction<Pair<Coordinates<Integer>, Cell<T>>, Grid<Coordinates<Integer>, Cell<T>>, Iterable<Pair<Coordinates<Integer>, Cell<T>>>> neighborsFunction;
+    private final BiFunction<Pair<C, T>, Grid<C, T>, List<Pair<C, T>>> neighborsFunction;
 
     /**
      * Constructor of an abstract updateRule.
      * 
      * @param neighborsFunction used to take the neighbors of a given cell.
      */
-    public AbstractUpdateRule(final BiFunction<Pair<Coordinates<Integer>, Cell<T>>, Grid<Coordinates<Integer>, Cell<T>>, Iterable<Pair<Coordinates<Integer>, Cell<T>>>> neighborsFunction) {
+    public AbstractUpdateRule(final BiFunction<Pair<C, T>, Grid<C, T>, List<Pair<C, T>>> neighborsFunction) {
         this.neighborsFunction = neighborsFunction;
     }
 
     @Override
-    public AbstractCell<T> getNextCell(final Pair<Coordinates<Integer>, Cell<T>> cellPair, final Grid<Coordinates<Integer>, Cell<T>> grid) {
+    public T getNextCell(final Pair<C, T> cellPair, final Grid<C, T> grid) {
         return this.nextCell(cellPair, this.neighborsFunction.apply(cellPair, grid));
     }
 
@@ -39,5 +40,5 @@ public abstract class AbstractUpdateRule<T extends Enum<T>> implements UpdateRul
      * @param neighborsPairs an iterable containing all the pair describing all the pairs {@link Coordinates} + {@link Cell} neighbors of the cellPair.
      * @return the new updated {@link Cell}.
      */
-    protected abstract AbstractCell<T> nextCell(Pair<Coordinates<Integer>, Cell<T>> cellPair, Iterable<Pair<Coordinates<Integer>, Cell<T>>> neighborsPairs);
+    protected abstract T nextCell(Pair<C, T> cellPair, List<Pair<C, T>> neighborsPairs);
 }
