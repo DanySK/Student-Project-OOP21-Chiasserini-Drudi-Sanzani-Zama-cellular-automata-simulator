@@ -1,6 +1,7 @@
 package casim.model.abstraction.automaton;
 
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import casim.model.abstraction.cell.AbstractCell;
 import casim.model.abstraction.utils.stats.Stats;
@@ -35,6 +36,12 @@ public abstract class AbstractAutomaton<S, T extends AbstractCell<S>> implements
         return new StatsImpl<S>(iterationCounter, this.createEnumMap());
     }
 
-    protected abstract Map<S, Integer> createEnumMap();
+    protected Map<S, Integer> createEnumMap() {
+        return this.getGrid().stream()
+            .collect(Collectors.groupingBy(AbstractCell::getState, Collectors.counting()))
+            .entrySet().stream()
+            .map(e -> Map.entry(e.getKey(), e.getValue().intValue()))
+            .collect(Collectors.toUnmodifiableMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
 
 }

@@ -1,7 +1,5 @@
 package casim.model.bryansbrain;
 
-import java.util.Map;
-
 import org.apache.commons.lang3.tuple.Pair;
 
 import casim.model.abstraction.automaton.AbstractAutomaton;
@@ -39,12 +37,6 @@ public class BryansBrain extends AbstractAutomaton<CellState, BryansBrainCell> {
 
         this.state = newState;
         return this.state;
-    }
-
-    @Override
-    protected Map<CellState, Integer> createEnumMap() {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     @Override
