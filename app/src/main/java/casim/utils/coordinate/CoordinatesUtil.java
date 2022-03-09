@@ -1,5 +1,9 @@
 package casim.utils.coordinate;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 /**
  * Utility class that defines methods for the {@link Coordinates} type.
  */
@@ -76,6 +80,18 @@ public final class CoordinatesUtil {
      */
     public static <T extends Number & Comparable<T>> boolean isValid(final Coordinates2D<T> coord, final T maxX, final T maxY) {
         return isValid(coord, CoordinatesUtil.of(maxX, maxY));
+    }
+
+    /**
+     * Returns the Von Neuman's neighbors of the {@link Coordinates} given as argument.
+     * 
+     * @param coord The {@link Coordinates2D} of which to calculate the neighbors.
+     * @return The neighbors of the {@link Coordinates2D} given as argument.
+     */
+    public static List<Coordinates2D<Integer>> get2DNeighbors(final Coordinates2D<Integer> coord) {
+        return Stream.of(CoordinatesUtil.of(1, 0), CoordinatesUtil.of(0, 1), CoordinatesUtil.of(0, -1), CoordinatesUtil.of(-1, 0))
+        .map(x -> CoordinatesUtil.sumInt(x, coord))
+        .collect(Collectors.toList());
     }
 
     /**

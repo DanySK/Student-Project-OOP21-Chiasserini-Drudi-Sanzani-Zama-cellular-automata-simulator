@@ -1,5 +1,7 @@
 package casim.utils.coordinate;
 
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
@@ -110,5 +112,15 @@ class CoordinatesUtilTest {
         Assert.assertTrue(CoordinatesUtil.isValid(coord3DI, INTCOORD06.getX(), INTCOORD06.getY(), INTCOORD06.getZ()));
         Assert.assertFalse(CoordinatesUtil.isValid(coord3DI, INTCOORD05.getX(), INTCOORD05.getY(), INTCOORD05.getZ()));
         Assert.assertTrue(CoordinatesUtil.isValid(coord3DD, DOUBLECOORD04.getX(), DOUBLECOORD04.getY(), DOUBLECOORD04.getZ()));
+    }
+
+    /**
+     * Test for {@link CoordinatesUtil#get2DNeighbors(Coordinates2D)} method.
+     */
+    @Test
+    void testGet2DNeighbors() {
+        Assert.assertEquals(CoordinatesUtil.get2DNeighbors(INTCOORD01), List.of(CoordinatesUtil.sumInt(INTCOORD01, CoordinatesUtil.of(1, 0)), 
+            CoordinatesUtil.sumInt(INTCOORD01, CoordinatesUtil.of(0, 1)), CoordinatesUtil.sumInt(INTCOORD01, CoordinatesUtil.of(0, -1)),
+            CoordinatesUtil.sumInt(INTCOORD01, CoordinatesUtil.of(-1, 0))));
     }
 }
