@@ -163,4 +163,11 @@ public final class CoordinatesUtil {
     public static <T extends Number & Comparable<T>> boolean isValid(final Coordinates3D<T> coord, final T maxX, final T maxY, final T maxZ) {
         return isValid(coord, CoordinatesUtil.of(maxX, maxY, maxZ));
     }
+    
+    public static List<Coordinates3D<Integer>> get3DNeighbors(final Coordinates3D<Integer> coord) {
+        return Stream.of(CoordinatesUtil.of(1, 0, 0), CoordinatesUtil.of(-1, 0, 0), CoordinatesUtil.of(0, 1, 0),
+        CoordinatesUtil.of(0, -1, 0), CoordinatesUtil.of(0, 0, 1), CoordinatesUtil.of(0, 0, -1))
+        .map(x -> CoordinatesUtil.sumInt(x, coord))
+        .collect(Collectors.toList());
+    }
 }
