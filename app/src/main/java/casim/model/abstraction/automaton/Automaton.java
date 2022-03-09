@@ -11,20 +11,20 @@ import casim.utils.grid.Grid2D;
  *
  *  @param <T> the enumeration which contains the finite states of the {@link Automaton}'s {@link Cell}.
  */
-public interface Automaton<T extends Enum<T>> extends Iterator<Grid2D<AbstractCell<T>>> {
+public interface Automaton<S, T extends AbstractCell<?>> extends Iterator<Grid2D<T>> {
 
     /**
      * Get the {@link Grid} describing the current {@link Automaton}'s state.
      * 
      * @return {@link Grid} A {@link Grid} of {@link Cell}.
      */
-    Grid2D<AbstractCell<T>> getGrid();
+    Grid2D<T> getGrid();
 
     /**
      * Get the {@link Stats} about the {@link Automaton}.
      * 
      * @return a {@link Stats} object containing all the stats data.
      */
-    Stats<T> getStats();
+    Stats<S> getStats();
 
 }

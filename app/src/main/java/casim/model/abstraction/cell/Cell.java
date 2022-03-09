@@ -5,7 +5,7 @@ package casim.model.abstraction.cell;
  * 
  *  @param <T> the enumeration which contains the finite states of the {@link casim.model.Automaton}'s {@link Cell}.
  */
-public interface Cell<T extends Enum<T>> {
+public interface Cell<T> {
 
     /** 
      * Return the current state of the {@link Cell}.
