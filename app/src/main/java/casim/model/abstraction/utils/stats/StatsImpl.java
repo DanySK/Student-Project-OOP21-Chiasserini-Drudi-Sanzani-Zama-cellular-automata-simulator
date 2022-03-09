@@ -5,7 +5,7 @@ import java.util.EnumMap;
 /**
  * A {@link Stats} implementation.
  * 
- *  @param <T> the type of the finite states of the {@link casim.model.Automaton}'s {@link casim.model.abstraction.cell.Cell}.
+ *  @param <T> the type of the finite states of the {@link casim.model.abstraction.automaton.Automaton}'s {@link casim.model.abstraction.cell.Cell}.
  */
 public class StatsImpl<T extends Enum<T>> implements Stats<T> {
 
