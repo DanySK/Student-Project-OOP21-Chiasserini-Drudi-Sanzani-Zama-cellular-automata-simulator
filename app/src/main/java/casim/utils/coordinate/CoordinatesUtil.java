@@ -83,7 +83,7 @@ public final class CoordinatesUtil {
     }
 
     /**
-     * Returns the Von Neuman's neighbors of the {@link Coordinates2D} given as argument.
+     * Returns the Von Neumann's neighbors of the {@link Coordinates2D} given as argument.
      * 
      * @param coord The {@link Coordinates2D} of which to calculate the neighbors.
      * @return a {@link List} of {@link Coordinates2D} composed of the neighbors of the argument coordinate.
@@ -165,7 +165,7 @@ public final class CoordinatesUtil {
     }
     
     /**
-     * Returns the Von Neuman's neighbors of the {@link Coordinates3D} given as argument.
+     * Returns the Von Neumann's neighbors of the {@link Coordinates3D} given as argument.
      * 
      * @param coord the {@link Coordinates3D} of which to calculate the neighbors.
      * @return a {@link List} of {@link Coordinates3D} composed of the neighbors of the argument coordinate.
