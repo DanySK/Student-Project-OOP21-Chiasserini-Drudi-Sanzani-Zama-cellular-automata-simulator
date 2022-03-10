@@ -44,7 +44,7 @@ public interface Grid<K extends Coordinates<? extends Number>, V> {
      * @param value to set. 
      */
     void set(K coord, V value);
-    
+
     /**
      * Return true if parameter coord is inside the {@link Grid}.
      * 

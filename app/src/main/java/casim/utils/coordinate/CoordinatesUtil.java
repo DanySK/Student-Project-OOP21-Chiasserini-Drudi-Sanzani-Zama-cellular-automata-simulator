@@ -163,7 +163,7 @@ public final class CoordinatesUtil {
     public static <T extends Number & Comparable<T>> boolean isValid(final Coordinates3D<T> coord, final T maxX, final T maxY, final T maxZ) {
         return isValid(coord, CoordinatesUtil.of(maxX, maxY, maxZ));
     }
-    
+
     /**
      * Returns the Von Neumann's neighbors of the {@link Coordinates3D} given as argument.
      * 
