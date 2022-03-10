@@ -83,10 +83,10 @@ public final class CoordinatesUtil {
     }
 
     /**
-     * Returns the Von Neuman's neighbors of the {@link Coordinates} given as argument.
+     * Returns the Von Neuman's neighbors of the {@link Coordinates2D} given as argument.
      * 
      * @param coord The {@link Coordinates2D} of which to calculate the neighbors.
-     * @return The neighbors of the {@link Coordinates2D} given as argument.
+     * @return a {@link List} of {@link Coordinates2D} composed of the neighbors of the argument coordinate.
      */
     public static List<Coordinates2D<Integer>> get2DNeighbors(final Coordinates2D<Integer> coord) {
         return Stream.of(CoordinatesUtil.of(1, 0), CoordinatesUtil.of(0, 1), CoordinatesUtil.of(0, -1), CoordinatesUtil.of(-1, 0))
@@ -164,6 +164,12 @@ public final class CoordinatesUtil {
         return isValid(coord, CoordinatesUtil.of(maxX, maxY, maxZ));
     }
     
+    /**
+     * Returns the Von Neuman's neighbors of the {@link Coordinates3D} given as argument.
+     * 
+     * @param coord the {@link Coordinates3D} of which to calculate the neighbors.
+     * @return a {@link List} of {@link Coordinates3D} composed of the neighbors of the argument coordinate.
+     */
     public static List<Coordinates3D<Integer>> get3DNeighbors(final Coordinates3D<Integer> coord) {
         return Stream.of(CoordinatesUtil.of(1, 0, 0), CoordinatesUtil.of(-1, 0, 0), CoordinatesUtil.of(0, 1, 0),
         CoordinatesUtil.of(0, -1, 0), CoordinatesUtil.of(0, 0, 1), CoordinatesUtil.of(0, 0, -1))
