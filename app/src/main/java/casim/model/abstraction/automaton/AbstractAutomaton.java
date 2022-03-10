@@ -10,7 +10,8 @@ import casim.utils.grid.Grid2D;
 /**
  * Abstract class for {@link Automaton}.
  *
- * @param <T> the enumeration which contains the finite states of the {@link Automaton}'s {@link Cell}.
+ *  @param <T> the {@link AbstractCell} implementation used by the {@link Automaton}.
+ *  @param <S> the states type for the states an {@link Automaton} cell can assume.
  */
 public abstract class AbstractAutomaton<S, T extends AbstractCell<S>> implements Automaton<S, T> {
 
@@ -25,6 +26,11 @@ public abstract class AbstractAutomaton<S, T extends AbstractCell<S>> implements
         return this.doStep();
     }
 
+    /**
+     * Method used to obtain the next {@link Automaton} step.
+     * 
+     * @return a {@link Grid2D} describing the next {@link Automaton} step.
+     */
     protected abstract Grid2D<T> doStep();
 
     @Override
@@ -32,9 +38,15 @@ public abstract class AbstractAutomaton<S, T extends AbstractCell<S>> implements
 
     @Override
     public Stats<S> getStats() {
-        return new StatsImpl<S>(iterationCounter, this.createEnumMap());
+        return new StatsImpl<S>(iterationCounter, this.createStatesMap());
     }
 
-    protected abstract Map<S, Integer> createEnumMap();
+    /**
+     * Method used to build the map for the cell states stats.
+     * 
+     * @return the map linking each {@link casim.model.abstraction.cell.Cell}'s state with it's frequency
+     *  in the current {@link Automaton} state. 
+     */
+    protected abstract Map<S, Integer> createStatesMap();
 
 }

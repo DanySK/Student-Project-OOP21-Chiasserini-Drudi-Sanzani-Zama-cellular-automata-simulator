@@ -9,14 +9,15 @@ import casim.utils.grid.Grid2D;
 /**
  *  An interface which describes an {@link Automaton}.
  *
- *  @param <T> the enumeration which contains the finite states of the {@link Automaton}'s {@link Cell}.
+ *  @param <T> the {@link AbstractCell} implementation used by the {@link Automaton}.
+ *  @param <S> the states type for the states an {@link Automaton} cell can assume.
  */
 public interface Automaton<S, T extends AbstractCell<?>> extends Iterator<Grid2D<T>> {
 
     /**
-     * Get the {@link Grid} describing the current {@link Automaton}'s state.
+     * Get the {@link Grid2D} describing the current {@link Automaton}'s state.
      * 
-     * @return {@link Grid} A {@link Grid} of {@link Cell}.
+     * @return A {@link Grid2D} of an {@link AbstractCell} implementation.
      */
     Grid2D<T> getGrid();
 
