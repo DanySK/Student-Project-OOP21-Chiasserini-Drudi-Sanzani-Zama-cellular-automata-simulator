@@ -7,9 +7,9 @@ import casim.utils.grid.Grid2D;
 import casim.utils.grid.Grid3D;
 
 /**
- * A factory for {@link casim.model.Automaton}'s {@link casim.utils.grid.Grid}.
+ * A factory for {@link casim.model.abstraction.automaton.Automaton}'s {@link casim.utils.grid.Grid}.
  * 
- *  @param <T> the enumeration which contains the finite states of the {@link casim.model.Automaton}'s {@link Cell}.
+ *  @param <T> the enumeration which contains the finite states of the {@link casim.model.abstraction.automaton.Automaton}'s {@link Cell}.
  */
 public interface AutomatonGridFactory<T extends Enum<T>> {
 

@@ -1,7 +1,11 @@
 package casim.utils.coordinate;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 /**
- * Utility class that defines methods for the Coordinate type.
+ * Utility class that defines methods for the {@link Coordinates} type.
  */
 public final class CoordinatesUtil {
 
@@ -79,6 +83,18 @@ public final class CoordinatesUtil {
     }
 
     /**
+     * Returns the Von Neumann's neighbors of the {@link Coordinates2D} given as argument.
+     * 
+     * @param coord The {@link Coordinates2D} of which to calculate the neighbors.
+     * @return a {@link List} of {@link Coordinates2D} composed of the neighbors of the argument coordinate.
+     */
+    public static List<Coordinates2D<Integer>> get2DNeighbors(final Coordinates2D<Integer> coord) {
+        return Stream.of(CoordinatesUtil.of(1, 0), CoordinatesUtil.of(0, 1), CoordinatesUtil.of(0, -1), CoordinatesUtil.of(-1, 0))
+        .map(x -> CoordinatesUtil.sumInt(x, coord))
+        .collect(Collectors.toList());
+    }
+
+    /**
      * @param <T> type of the {@link Coordinates3D} involved.
      * @param x value to be used as coordinate x.
      * @param y value to be used as coordinate y.
@@ -146,5 +162,18 @@ public final class CoordinatesUtil {
      */
     public static <T extends Number & Comparable<T>> boolean isValid(final Coordinates3D<T> coord, final T maxX, final T maxY, final T maxZ) {
         return isValid(coord, CoordinatesUtil.of(maxX, maxY, maxZ));
+    }
+
+    /**
+     * Returns the Von Neumann's neighbors of the {@link Coordinates3D} given as argument.
+     * 
+     * @param coord the {@link Coordinates3D} of which to calculate the neighbors.
+     * @return a {@link List} of {@link Coordinates3D} composed of the neighbors of the argument coordinate.
+     */
+    public static List<Coordinates3D<Integer>> get3DNeighbors(final Coordinates3D<Integer> coord) {
+        return Stream.of(CoordinatesUtil.of(1, 0, 0), CoordinatesUtil.of(-1, 0, 0), CoordinatesUtil.of(0, 1, 0),
+        CoordinatesUtil.of(0, -1, 0), CoordinatesUtil.of(0, 0, 1), CoordinatesUtil.of(0, 0, -1))
+        .map(x -> CoordinatesUtil.sumInt(x, coord))
+        .collect(Collectors.toList());
     }
 }

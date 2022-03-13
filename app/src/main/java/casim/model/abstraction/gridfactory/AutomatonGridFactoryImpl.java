@@ -11,7 +11,7 @@ import casim.utils.grid.Grid3DImpl;
 /**
  * Implementation of {@link AutomatonGridFactory}.
  * 
- *  @param <T> the enumeration which contains the finite states of the {@link casim.model.Automaton}'s {@link Cell}.
+ *  @param <T> the enumeration which contains the finite states of the {@link casim.model.abstraction.automaton.Automaton}'s {@link Cell}.
  */
 public class AutomatonGridFactoryImpl<T extends Enum<T>> implements AutomatonGridFactory<T> {
 

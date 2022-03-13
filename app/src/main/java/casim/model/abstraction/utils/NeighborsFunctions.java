@@ -26,7 +26,7 @@ public final class NeighborsFunctions {
      * @param cellCoord the coordinates of the cell of which calculate the neighbors.
      * @param grid the grid where search for the neighbors.
      * @return an iterable containing all the neighbors of the cell.
-     * @param <T> the enumeration which contains the finite states of the {@link casim.model.Automaton}'s {@link casim.model.Cell}.
+     * @param <T> the enumeration which contains the finite states of the {@link casim.model.abstraction.automaton.Automaton}'s {@link casim.model.Cell}.
      */
     public static <T extends Enum<T>> Iterable<Pair<Coordinates<Integer>, AbstractCell<T>>> neighbors2DFunction(final Coordinates<Integer> cellCoord, final Grid<Coordinates<Integer>, AbstractCell<T>> grid) {
          return Stream.of(CoordinatesUtil.of(1, 0), CoordinatesUtil.of(0, 1), CoordinatesUtil.of(0, -1), CoordinatesUtil.of(-1, 0))
@@ -42,7 +42,7 @@ public final class NeighborsFunctions {
      * @param cellCoord the coordinates of the cell of which calculate the neighbors.
      * @param grid the grid where search for the neighbors.
      * @return an iterable containing all the neighbors of the cell.
-     * @param <T> the enumeration which contains the finite states of the {@link casim.model.Automaton}'s {@link casim.model.Cell}.
+     * @param <T> the enumeration which contains the finite states of the {@link casim.model.abstraction.automaton.Automaton}'s {@link casim.model.Cell}.
      */
     public static <T extends Enum<T>> Iterable<Pair<Coordinates<Integer>, AbstractCell<T>>> neighbors3DFunction(final Coordinates<Integer> cellCoord, final Grid<Coordinates<Integer>, AbstractCell<T>> grid) {
         return Stream.of(CoordinatesUtil.of(1, 0, 0), CoordinatesUtil.of(-1, 0, 0), CoordinatesUtil.of(0, 1, 0),

@@ -3,9 +3,9 @@ package casim.model.abstraction.utils.stats;
 import java.util.EnumMap;
 
 /**
- * An interface used to describe stats about an {@link casim.model.Automaton}.
+ * An interface used to describe stats about an {@link casim.model.abstraction.automaton.Automaton}.
  * 
- *  @param <T> the type of the finite states of the {@link casim.model.Automaton}'s {@link casim.model.abstraction.cell.Cell}.
+ *  @param <T> the type of the finite states of the {@link casim.model.abstraction.automaton.Automaton}'s {@link casim.model.abstraction.cell.Cell}.
  */
 public interface Stats<T extends Enum<T>>   {
 
