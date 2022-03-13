@@ -5,7 +5,7 @@ package casim.model.abstraction.cell;
  * 
  *  @param <T> the enumeration which contains the finite states of the {@link casim.model.abstraction.automaton.Automaton}'s {@link Cell}.
  */
-public abstract class AbstractCell<T extends Enum<T>> implements Cell<T> {
+public abstract class AbstractCell<T> implements Cell<T> {
 
     private final T state;
 
