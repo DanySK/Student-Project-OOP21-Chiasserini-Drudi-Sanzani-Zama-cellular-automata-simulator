@@ -34,4 +34,9 @@ public class StatsImpl<T> implements Stats<T> {
         return Collections.unmodifiableMap(this.statesMap);
     }
 
+    @Override
+    public String toString() {
+        return "Stats [iterationCounter=" + iterationCounter + ", statesMap=" + statesMap + "]";
+    }
+
 }

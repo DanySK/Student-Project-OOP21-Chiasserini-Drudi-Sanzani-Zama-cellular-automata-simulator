@@ -25,4 +25,11 @@ public interface Stats<T>   {
      */
     Map<T, Integer> getCellStats();
 
+    /**
+     * Return the string representation of the stats.
+     * 
+     * @return the string representation.
+     */
+    String toString();
+
 }
