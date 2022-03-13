@@ -7,6 +7,7 @@
  */
 
 plugins {
+    java
     // Apply the application plugin to add support for building a CLI application in Java.
     application
     checkstyle
@@ -26,19 +27,20 @@ dependencies {
     spotbugs("com.github.spotbugs:spotbugs:4.5.3")
     spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.11.0")
 
+    val junitVer = "5.8.2"
+    val platformVer = "1.8.2"
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
-    testImplementation("org.junit.platform:junit-platform-runner:1.8.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVer")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVer")
+    testImplementation("org.junit.platform:junit-platform-runner:$platformVer")
     // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-commons
-    implementation("org.junit.platform:junit-platform-commons:1.8.2")
+    implementation("org.junit.platform:junit-platform-commons:$platformVer")
     // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher
-    testImplementation("org.junit.platform:junit-platform-launcher:1.8.2")
+    testImplementation("org.junit.platform:junit-platform-launcher:$platformVer")
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
     implementation("org.apache.commons:commons-lang3:3.12.0")
 
-    // This dependency is used by the application.
     implementation("com.google.guava:guava:30.1.1-jre")
 }
 
@@ -69,19 +71,20 @@ tasks.spotbugsMain {
     }
 }
 
-//Java version
 java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
-    }
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 }
 
-//Configure JUnit
-tasks.named<Test>("test") {
-    useJUnitPlatform()
-    testLogging {
-		events("skipped", "failed")
-	}
+tasks {
+    withType<JavaCompile> {
+        options.encoding = "UTF-8"
+    }
+
+    withType<Test> {
+        // Enables JUnit 5 Jupiter module
+        useJUnitPlatform()
+    }
 }
 
 javafx {
