@@ -4,7 +4,7 @@ import casim.utils.coordinate.Coordinates2D;
 import javafx.scene.paint.Color;
 
 /**
- * A {@CanvasGridCell} implementation.
+ * A {@link CanvasGridCell} implementation.
  */
 public class CanvasGridCellImpl implements CanvasGridCell {
 

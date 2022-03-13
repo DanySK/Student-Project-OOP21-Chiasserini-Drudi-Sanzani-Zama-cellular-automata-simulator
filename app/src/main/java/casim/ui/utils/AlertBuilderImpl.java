@@ -36,7 +36,7 @@ public class AlertBuilderImpl extends AbstractBuilder implements AlertBuilder {
     }
 
     /**
-     * Set the default values for an info alert.
+     * Set the default values for an error alert.
      *  - Type: {@link AlertType.ERROR}.
      *  - Title: Error
      * 
@@ -51,7 +51,7 @@ public class AlertBuilderImpl extends AbstractBuilder implements AlertBuilder {
     /**
      * Sets the message and the owner of the {@link Alert}.
      * 
-     * Throws if some of the parameters are not set.
+     * @throws {@link IllegalStateException} if some of the parameters are not set.
      * 
      * @param type the type of the alert.
      * @param title the title of the alert.

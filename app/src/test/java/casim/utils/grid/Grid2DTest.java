@@ -100,6 +100,9 @@ class Grid2DTest {
         assertFalse(grid.isCoordValid(CoordinatesUtil.of(ROWS, COLS)));
     }
 
+    /**
+     * Test for {@link Grid2D#set(int, int, Object)} method.
+     */
     @Test
     void testSetWithIntegers() {
         final var grid = getGrid();
@@ -109,6 +112,9 @@ class Grid2DTest {
         assertThrows(IndexOutOfBoundsException.class, () -> grid.set(ROWS, Y, NEW_VALUE));
     }
 
+    /**
+     * Test for {@link Grid2D#set(casim.utils.coordinate.Coordinates, Object)} method.
+     */
     @Test
     void testSetWithCoordinates() {
         final var coord = CoordinatesUtil.of(X, Y);
@@ -119,6 +125,9 @@ class Grid2DTest {
         assertThrows(IndexOutOfBoundsException.class, () -> grid.set(CoordinatesUtil.of(ROWS, Y), NEW_VALUE));
     }
 
+    /**
+     * Test for {@link Grid2D#stream()} method.
+     */
     @Test
     void testStream() {
         final var grid = getGridWithValues();
