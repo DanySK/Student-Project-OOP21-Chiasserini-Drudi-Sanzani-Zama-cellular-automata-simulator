@@ -42,6 +42,10 @@ dependencies {
     implementation("org.apache.commons:commons-lang3:3.12.0")
 
     implementation("com.google.guava:guava:30.1.1-jre")
+
+    // https://mvnrepository.com/artifact/org.reflections/reflections
+    implementation("org.reflections:reflections:0.10.2")
+
 }
 
 application {
