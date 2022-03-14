@@ -12,7 +12,8 @@ import casim.utils.grid.Grid;
 /**
  * Abstract implementation of {@link UpdateRule}.
  *
- *  @param <T> the enumeration which contains the finite states of the {@link casim.model.abstraction.automaton.Automaton}'s {@link Cell}.
+ *  @param <T> the {@link AbstractCell} implementation to update.
+ *  @param <C> the {@link Coordinates} implementation used by the cell (it can be 2D or 3D).
  */
 public abstract class AbstractUpdateRule<C extends Coordinates<? extends Number>, T extends AbstractCell<?>> implements UpdateRule<C, T> {
 

@@ -23,46 +23,30 @@ public final class NeighborsFunctions {
     /**
      * Method to obtain all the neighbors of a 2D {@link casim.model.abstraction.cell.Cell}.
      * 
-     * @param cellCoord the coordinates of the cell of which calculate the neighbors.
-     * @param grid the grid where search for the neighbors.
-     * @return an iterable containing all the neighbors of the cell.
-     * @param <T> the enumeration which contains the finite states of the {@link casim.model.abstraction.automaton.Automaton}'s {@link casim.model.Cell}.
+     * @param cellPair a pair {@link Coordinates2D}+{@link AbstractCell} implementation of the cell of which calculate the neighbors.
+     * @param grid the 2D {@link Grid} where search for the neighbors.
+     * @return a list containing all the neighbors of the cell.
+     * @param <T> the {@link AbstractCell} implementation of the cells.
      */
     public static <T extends AbstractCell<?>> List<Pair<Coordinates2D<Integer>, T>> neighbors2DFunction(final Pair<Coordinates2D<Integer>, T> cellPair, final Grid<Coordinates2D<Integer>, T> grid) {
-         return CoordinatesUtil.get2DNeighbors(cellPair.getLeft()).stream()
-            .map(coord -> CoordinatesUtil.sumInt(coord, cellPair.getLeft()))
-            .filter(grid::isCoordValid)
-            .map(coord -> Pair.of(coord, grid.get(coord))) 
-            .collect(Collectors.toList());
+         return Stream.of(CoordinatesUtil.of(1, 0), CoordinatesUtil.of(0, 1), CoordinatesUtil.of(0, -1), CoordinatesUtil.of(-1, 0))
+                 .map(coord -> CoordinatesUtil.sumInt(coord, cellPair.getLeft()))
+                 .filter(grid::isCoordValid)
+                 .map(coord -> Pair.of(coord, grid.get(coord))) 
+                 .collect(Collectors.toList());
     }
 
     /**
-     * Method to obtain all the moore neighbors of a 2D cell.
+     * Method to obtain all the neighbors of a 3D {@link casim.model.abstraction.cell.Cell}.
      * 
-     * @param cellCoord the coordinates of the cell of which calculate the neighbors.
-     * @param grid the grid where search for the neighbors.
-     * @return an iterable containing all the neighbors of the cell.
-     * @param <T> the enumeration which contains the finite states of the {@link casim.model.abstraction.automaton.Automaton}'s {@link casim.model.Cell}.
-     */
-    public static <T extends AbstractCell<?>> List<Pair<Coordinates2D<Integer>, T>> mooreNeighborsFunction(final Pair<Coordinates2D<Integer>, T> cellCoord, final Grid<Coordinates2D<Integer>, T> grid) {
-        return Stream.of(CoordinatesUtil.of(1, 0), CoordinatesUtil.of(0, 1), CoordinatesUtil.of(0, -1), CoordinatesUtil.of(-1, 0),
-                CoordinatesUtil.of(1, 1), CoordinatesUtil.of(-1, 1), CoordinatesUtil.of(1, -1), CoordinatesUtil.of(-1, -1))
-            .map(coord -> CoordinatesUtil.sumInt(coord, cellCoord.getLeft()))
-            .filter(grid::isCoordValid)
-            .map(coord -> Pair.of(coord, grid.get(coord))) 
-            .collect(Collectors.toList());
-   }
-
-    /**
-     * Method to obtain all the neighbors of a 3D cell.
-     * 
-     * @param cellCoord the coordinates of the cell of which calculate the neighbors.
-     * @param grid the grid where search for the neighbors.
-     * @return an iterable containing all the neighbors of the cell.
-     * @param <T> the enumeration which contains the finite states of the {@link casim.model.abstraction.automaton.Automaton}'s {@link casim.model.Cell}.
+     * @param cellPair a pair {@link Coordinates3D}+{@link AbstractCell} implementation of the cell of which calculate the neighbors.
+     * @param grid the 3D {@link Grid} where search for the neighbors.
+     * @return a list containing all the neighbors of the cell.
+     * @param <T> the {@link AbstractCell} implementation of the cells.
      */
     public static <T extends AbstractCell<?>> Iterable<Pair<Coordinates3D<Integer>, T>> neighbors3DFunction(final Pair<Coordinates3D<Integer>, T> cellPair, final Grid<Coordinates3D<Integer>, T> grid) {
-        return CoordinatesUtil.get3DNeighbors(cellPair.getLeft()).stream()
+        return Stream.of(CoordinatesUtil.of(1, 0, 0), CoordinatesUtil.of(-1, 0, 0), CoordinatesUtil.of(0, 1, 0),
+                CoordinatesUtil.of(0, -1, 0), CoordinatesUtil.of(0, 0, 1), CoordinatesUtil.of(0, 0, -1))
             .map(coord -> CoordinatesUtil.sumInt(coord, cellPair.getLeft()))
             .filter(grid::isCoordValid)
             .map(coord -> Pair.of(coord, grid.get(coord)))
