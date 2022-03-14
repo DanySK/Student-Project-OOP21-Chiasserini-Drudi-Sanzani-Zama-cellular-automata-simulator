@@ -1,13 +1,18 @@
 package casim.model.langtonsant;
 
+import casim.utils.coordinate.Coordinates2D;
+
 /**
  * An ant contained in a {@link casim.model.langtonsant.LangtonsAntCell}.
  */
 public class Ant {
+
+    private Coordinates2D<Integer> position;
     private Direction direction;
 
-    public Ant(final Direction direction) {
+    public Ant(final Direction direction, final Coordinates2D<Integer> position) {
         this.direction = direction;
+        this.position = position;
     }
 
     /**
@@ -24,5 +29,13 @@ public class Ant {
      */
     public void setDirection(final Direction direction) {
         this.direction = direction;
+    }
+
+    public Coordinates2D<Integer> getPosition() {
+        return this.position;
+    }
+
+    public void setPosition(final Coordinates2D<Integer> position) {
+        this.position = position;
     }
 }
