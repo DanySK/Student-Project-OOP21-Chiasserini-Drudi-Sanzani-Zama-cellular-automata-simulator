@@ -3,11 +3,14 @@ package casim.controller;
 import casim.model.abstraction.automaton.AbstractAutomaton;
 import casim.utils.grid.Grid2D;
 import casim.model.abstraction.cell.AbstractCell;
+import casim.model.abstraction.utils.stats.Stats;
+import casim.model.abstraction.utils.stats.StatsImpl;
 
 /**
- * 
+ * Implementation of {@link AutomatonController}.
  *
- * @param <T>
+ * @param <S> the states of the cells.
+ * @param <T> the type of the cells.
  */
 public class AutomatonControllerImpl<S, T extends AbstractCell<S>> implements AutomatonController<S> {
     private final AbstractAutomaton<S, T> automaton;
@@ -33,5 +36,10 @@ public class AutomatonControllerImpl<S, T extends AbstractCell<S>> implements Au
     @Override
     public Grid2D<S> getGrid() {
         return this.automaton.getGrid().map(AbstractCell::getState);
+    }
+
+    @Override
+    public Stats<S> getStats() {
+        return this.automaton.getStats();
     }
 }
