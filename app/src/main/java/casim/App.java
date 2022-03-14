@@ -3,9 +3,19 @@
  */
 package casim;
 
+import java.util.Random;
+
+import casim.controller.AutomatonController;
+import casim.controller.AutomatonControllerImpl;
+import casim.model.bryansbrain.BryansBrain;
+import casim.model.bryansbrain.CellState;
 import casim.ui.components.grid.CanvasGridBuilderImpl;
 import casim.ui.components.grid.CanvasGridImpl;
 import casim.ui.components.page.PageContainer;
+import casim.ui.utils.StateColorMapper;
+import casim.ui.view.AutomatonView;
+import casim.utils.Colors;
+import casim.utils.grid.Grid2DImpl;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -15,18 +25,56 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
+    final static int ROWS = 100;
+    final static int COLS = 100;
+    final static int CELL_SIZE = 10;
+
+    private CanvasGridImpl getGrid() {
+        final var grid = new CanvasGridBuilderImpl().build(ROWS, COLS, CELL_SIZE);
+        return (CanvasGridImpl)grid;
+    }
+
+    private AutomatonView<CellState> getView(final Stage stage, final AutomatonController<CellState> controller, final CanvasGridImpl grid, final StateColorMapper<CellState> mapper) {
+        return new AutomatonView<>(stage, controller, grid, mapper);
+    }
+    
     /**
      * {@inheritDoc}
      */
     @Override
     public void start(final Stage primaryStage) throws Exception {
-        final var grid = new CanvasGridBuilderImpl().build(5, 5, 100);
+        final var state = new Grid2DImpl<CellState>(ROWS, COLS, () -> {
+            final var rng = new Random();
+            final var val = rng.nextInt();
+
+            if (val % 6 <= 2) {
+                return CellState.DEAD;
+            } else if (val % 6 <= 5) {
+                return CellState.ALIVE;
+            } else {
+                return CellState.DEAD;
+            }
+        });
+        final var automaton = new BryansBrain(state);
+        final var controller = new AutomatonControllerImpl<>(automaton);
+        final var view = this.getView(primaryStage, controller, this.getGrid(), s -> {
+            switch (s) {
+                case ALIVE:
+                    return Colors.WHITE;
+                case DEAD:
+                    return Colors.BLACK;
+                case DYING:
+                    return Colors.LIGHT_BLUE;
+                default:
+                    throw new IllegalArgumentException("Invalid state.");
+            }
+        });
+
         final var root = new PageContainer();
-        root.addPage((CanvasGridImpl) grid);
+        root.addPage(view);
         final var scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
-        grid.draw();
     }
 
     /**
