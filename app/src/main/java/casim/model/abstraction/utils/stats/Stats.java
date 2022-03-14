@@ -19,10 +19,17 @@ public interface Stats<T>   {
     /**
      * Get the number of cells alive for each types.
      * 
-     * @return an EnumMap:
-     *   - Key: the types of the enumeration describing the cell's types;
+     * @return a map:
+     *   - Key: the states that a {@link casim.model.abstraction.cell.Cell} can assume;
      *   - Value: the number of cells of that type.
      */
     Map<T, Integer> getCellStats();
+
+    /**
+     * Return the string representation of the stats.
+     * 
+     * @return the string representation.
+     */
+    String toString();
 
 }

@@ -1,5 +1,6 @@
 package casim.model.abstraction.utils.stats;
 
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -30,7 +31,12 @@ public class StatsImpl<T> implements Stats<T> {
 
     @Override
     public Map<T, Integer> getCellStats() {
-        return this.statesMap;
+        return Collections.unmodifiableMap(this.statesMap);
+    }
+
+    @Override
+    public String toString() {
+        return "Stats [iterationCounter=" + iterationCounter + ", statesMap=" + statesMap + "]";
     }
 
 }

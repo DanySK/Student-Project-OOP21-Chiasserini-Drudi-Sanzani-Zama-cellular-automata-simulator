@@ -6,7 +6,6 @@ import java.util.function.BiFunction;
 import org.apache.commons.lang3.tuple.Pair;
 
 import casim.model.abstraction.cell.AbstractCell;
-import casim.model.abstraction.cell.Cell;
 import casim.utils.coordinate.Coordinates;
 import casim.utils.grid.Grid;
 
@@ -20,9 +19,12 @@ public abstract class AbstractUpdateRule<C extends Coordinates<? extends Number>
     private final BiFunction<Pair<C, T>, Grid<C, T>, List<Pair<C, T>>> neighborsFunction;
 
     /**
-     * Constructor of an abstract updateRule.
+     * Constructor of an abstract {@link UpdateRule}.
      * 
-     * @param neighborsFunction used to take the neighbors of a given cell.
+     * @param neighborsFunction used to take the neighbors of a given cell:
+     *  - First Argument -> a pair {@link Coordinates} + {@link AbstractCell} implementation of the cell of which we want to obtain the neighbors;
+     *  - Second Argument -> the {@link Grid} where the cells are contained;
+     *  -.Return type -> a list containing all the neighbors.
      */
     public AbstractUpdateRule(final BiFunction<Pair<C, T>, Grid<C, T>, List<Pair<C, T>>> neighborsFunction) {
         this.neighborsFunction = neighborsFunction;
@@ -34,11 +36,11 @@ public abstract class AbstractUpdateRule<C extends Coordinates<? extends Number>
     }
 
     /**
-     * Abstract method used to calculate the updated the cell of the one taken as input. 
+     * Abstract method used to calculate the updated cell of the one taken as input. 
      * 
-     * @param cellPair pair of {@link Coordinates} and {@link Cell} to updates;
-     * @param neighborsPairs an iterable containing all the pair describing all the pairs {@link Coordinates} + {@link Cell} neighbors of the cellPair.
-     * @return the new updated {@link Cell}.
+     * @param cellPair pair of {@link Coordinates} and {@link casim.model.abstraction.cell.Cell} to updates;
+     * @param neighborsPairs a list containing all the pairs {@link Coordinates} + {@link casim.model.abstraction.cell.Cell} neighbors of the cellPair .
+     * @return the new updated {@link casim.model.abstraction.cell.Cell}.
      */
     protected abstract T nextCell(Pair<C, T> cellPair, List<Pair<C, T>> neighborsPairs);
 }
