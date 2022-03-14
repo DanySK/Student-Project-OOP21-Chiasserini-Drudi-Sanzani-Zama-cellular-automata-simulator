@@ -64,7 +64,12 @@ public interface Grid<K extends Coordinates<? extends Number>, V> {
      */
     Stream<V> stream();
 
-    //TODO: javadoc
+    /**
+     * Return a list containing the pairs {@link Coordinates} + value of the {@link Coordinates} taken as input.
+     * 
+     * @param positions a list containing all the {@link Coordinates} of which the method have to get the values. 
+     * @return a list containing all the pair {@link Coordinates} + value.
+     */
     default List<Pair<K, V>> getValuesFrom(final List<K> positions) {
         return positions.stream()
             .filter(this::isCoordValid)

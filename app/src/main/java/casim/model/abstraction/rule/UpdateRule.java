@@ -3,7 +3,6 @@ package casim.model.abstraction.rule;
 import org.apache.commons.lang3.tuple.Pair;
 
 import casim.model.abstraction.cell.AbstractCell;
-import casim.model.abstraction.cell.Cell;
 import casim.utils.coordinate.Coordinates;
 import casim.utils.grid.Grid;
 
@@ -15,7 +14,7 @@ import casim.utils.grid.Grid;
 public interface UpdateRule<C extends Coordinates<? extends Number>, T extends AbstractCell<?>> {
 
      /**
-     * Return the updated {@link Cell}.
+     * Return the updated {@link casim.model.abstraction.cell.Cell}.
      * 
      * @param cellPair pair of {@link Coordinates} and {@link Cell} to update;
      * @param grid the {@link Grid} representing the {@link casim.model.abstraction.automaton.Automaton}.
