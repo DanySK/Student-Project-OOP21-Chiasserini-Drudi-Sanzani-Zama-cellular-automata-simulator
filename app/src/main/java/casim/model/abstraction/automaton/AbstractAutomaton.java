@@ -1,6 +1,7 @@
 package casim.model.abstraction.automaton;
 
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import casim.model.abstraction.cell.AbstractCell;
 import casim.model.abstraction.utils.stats.Stats;
@@ -47,6 +48,12 @@ public abstract class AbstractAutomaton<S, T extends AbstractCell<S>> implements
      * @return the map linking each {@link casim.model.abstraction.cell.Cell}'s state with it's frequency
      *  in the current {@link Automaton} state. 
      */
-    protected abstract Map<S, Integer> createStatesMap();
+    protected Map<S, Integer> createStatesMap() {
+        return this.getGrid().stream()
+            .collect(Collectors.groupingBy(AbstractCell::getState, Collectors.counting()))
+            .entrySet().stream()
+            .map(e -> Map.entry(e.getKey(), e.getValue().intValue()))
+            .collect(Collectors.toUnmodifiableMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
 
 }
