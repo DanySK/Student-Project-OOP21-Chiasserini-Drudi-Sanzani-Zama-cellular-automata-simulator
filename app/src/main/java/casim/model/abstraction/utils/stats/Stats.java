@@ -1,13 +1,13 @@
 package casim.model.abstraction.utils.stats;
 
-import java.util.EnumMap;
+import java.util.Map;
 
 /**
  * An interface used to describe stats about an {@link casim.model.abstraction.automaton.Automaton}.
  * 
  *  @param <T> the type of the finite states of the {@link casim.model.abstraction.automaton.Automaton}'s {@link casim.model.abstraction.cell.Cell}.
  */
-public interface Stats<T extends Enum<T>>   {
+public interface Stats<T>   {
 
     /**
      * Get the number of iterations done by the Automaton.
@@ -23,6 +23,6 @@ public interface Stats<T extends Enum<T>>   {
      *   - Key: the types of the enumeration describing the cell's types;
      *   - Value: the number of cells of that type.
      */
-    EnumMap<T, Integer> getCellStats();
+    Map<T, Integer> getCellStats();
 
 }

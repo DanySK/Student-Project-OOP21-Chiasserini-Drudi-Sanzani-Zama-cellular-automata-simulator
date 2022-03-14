@@ -1,6 +1,6 @@
 package casim.model.abstraction.automaton;
 
-import java.util.EnumMap;
+import java.util.Map;
 
 import casim.model.abstraction.cell.AbstractCell;
 import casim.model.abstraction.utils.stats.Stats;
@@ -12,7 +12,7 @@ import casim.utils.grid.Grid2D;
  *
  * @param <T> the enumeration which contains the finite states of the {@link Automaton}'s {@link casim.model.abstraction.cell.Cell}.
  */
-public abstract class AbstractAutomaton<T extends Enum<T>> implements Automaton<T> {
+public abstract class AbstractAutomaton<S, T extends AbstractCell<S>> implements Automaton<S, T> {
 
     private int iterationCounter;
 
@@ -20,21 +20,21 @@ public abstract class AbstractAutomaton<T extends Enum<T>> implements Automaton<
     public abstract boolean hasNext();
 
     @Override
-    public Grid2D<AbstractCell<T>> next() {
+    public Grid2D<T> next() {
         this.iterationCounter++;
         return this.doStep();
     }
 
-    abstract Grid2D<AbstractCell<T>> doStep();
+    protected abstract Grid2D<T> doStep();
 
     @Override
-    public abstract Grid2D<AbstractCell<T>> getGrid();
+    public abstract Grid2D<T> getGrid();
 
     @Override
-    public Stats<T> getStats() {
-        return new StatsImpl<T>(iterationCounter, this.createEnumMap());
+    public Stats<S> getStats() {
+        return new StatsImpl<S>(iterationCounter, this.createEnumMap());
     }
 
-    abstract EnumMap<T, Integer> createEnumMap();
+    protected abstract Map<S, Integer> createEnumMap();
 
 }

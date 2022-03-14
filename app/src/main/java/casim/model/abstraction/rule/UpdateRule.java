@@ -12,7 +12,7 @@ import casim.utils.grid.Grid;
  * 
  *  @param <T> the enumeration which contains the finite states of the {@link casim.model.abstraction.automaton.Automaton}'s {@link Cell}.
  */
-public interface UpdateRule<T extends Enum<T>> {
+public interface UpdateRule<C extends Coordinates<? extends Number>, T extends AbstractCell<?>> {
 
      /**
      * Return the updated {@link Cell}.
@@ -21,6 +21,6 @@ public interface UpdateRule<T extends Enum<T>> {
      * @param grid the {@link Grid} representing the {@link casim.model.abstraction.automaton.Automaton}.
      * @return the updated {@link Cell}.
      */
-    AbstractCell<T> getNextCell(Pair<Coordinates<Integer>, Cell<T>> cellPair, Grid<Coordinates<Integer>, Cell<T>> grid);
+    T getNextCell(Pair<C, T> cellPair, Grid<C, T> grid);
 
 }

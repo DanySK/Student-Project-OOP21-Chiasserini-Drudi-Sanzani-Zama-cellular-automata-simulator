@@ -9,14 +9,14 @@ import casim.model.abstraction.cell.AbstractCell;
  *
  * @param <T>
  */
-public class AutomatonControllerImpl<T extends Enum<T>> implements AutomatonController<T> {
-    private final AbstractAutomaton<T> automaton;
+public class AutomatonControllerImpl<S, T extends AbstractCell<S>> implements AutomatonController<S> {
+    private final AbstractAutomaton<S, T> automaton;
 
     /**
      * 
      * @param automaton
      */
-    public AutomatonControllerImpl(final AbstractAutomaton<T> automaton) {
+    public AutomatonControllerImpl(final AbstractAutomaton<S, T> automaton) {
         this.automaton = automaton;
     }
 
@@ -26,12 +26,12 @@ public class AutomatonControllerImpl<T extends Enum<T>> implements AutomatonCont
     }
 
     @Override
-    public Grid2D<T> next() {
+    public Grid2D<S> next() {
         return this.automaton.next().map(AbstractCell::getState);
     }
 
     @Override
-    public Grid2D<T> getGrid() {
+    public Grid2D<S> getGrid() {
         return this.automaton.getGrid().map(AbstractCell::getState);
     }
 }

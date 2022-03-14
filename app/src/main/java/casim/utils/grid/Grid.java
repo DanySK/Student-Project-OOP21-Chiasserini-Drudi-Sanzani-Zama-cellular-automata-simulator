@@ -1,6 +1,10 @@
 package casim.utils.grid;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import org.apache.commons.lang3.tuple.Pair;
 
 import casim.utils.coordinate.Coordinates;
 
@@ -59,5 +63,13 @@ public interface Grid<K extends Coordinates<? extends Number>, V> {
      * @return a Stream of the elements in {@link Grid}.
      */
     Stream<V> stream();
+
+    //TODO: javadoc
+    default List<Pair<K, V>> getValuesFrom(final List<K> positions) {
+        return positions.stream()
+            .filter(this::isCoordValid)
+            .map(coord -> Pair.of(coord, this.get(coord)))
+            .collect(Collectors.toList());
+    }
 
 }

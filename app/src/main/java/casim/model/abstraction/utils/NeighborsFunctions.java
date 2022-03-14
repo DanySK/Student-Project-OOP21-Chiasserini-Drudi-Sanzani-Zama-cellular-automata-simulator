@@ -1,12 +1,12 @@
 package casim.model.abstraction.utils;
 
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.tuple.Pair;
 
 import casim.model.abstraction.cell.AbstractCell;
-import casim.utils.coordinate.Coordinates;
 import casim.utils.coordinate.Coordinates2D;
 import casim.utils.coordinate.Coordinates3D;
 import casim.utils.coordinate.CoordinatesUtil;
@@ -28,11 +28,11 @@ public final class NeighborsFunctions {
      * @return an iterable containing all the neighbors of the cell.
      * @param <T> the enumeration which contains the finite states of the {@link casim.model.abstraction.automaton.Automaton}'s {@link casim.model.Cell}.
      */
-    public static <T extends Enum<T>> Iterable<Pair<Coordinates<Integer>, AbstractCell<T>>> neighbors2DFunction(final Coordinates<Integer> cellCoord, final Grid<Coordinates<Integer>, AbstractCell<T>> grid) {
+    public static <T extends AbstractCell<?>> List<Pair<Coordinates2D<Integer>, T>> neighbors2DFunction(final Pair<Coordinates2D<Integer>, T> cellCoord, final Grid<Coordinates2D<Integer>, T> grid) {
          return Stream.of(CoordinatesUtil.of(1, 0), CoordinatesUtil.of(0, 1), CoordinatesUtil.of(0, -1), CoordinatesUtil.of(-1, 0))
-                 .map(coord -> CoordinatesUtil.sumInt(coord, (Coordinates2D<Integer>) cellCoord))
+                 .map(coord -> CoordinatesUtil.sumInt(coord, cellCoord.getLeft()))
                  .filter(grid::isCoordValid)
-                 .map(coord -> Pair.of((Coordinates<Integer>) coord, grid.get(coord))) 
+                 .map(coord -> Pair.of(coord, grid.get(coord))) 
                  .collect(Collectors.toList());
     }
 
@@ -44,13 +44,12 @@ public final class NeighborsFunctions {
      * @return an iterable containing all the neighbors of the cell.
      * @param <T> the enumeration which contains the finite states of the {@link casim.model.abstraction.automaton.Automaton}'s {@link casim.model.Cell}.
      */
-    public static <T extends Enum<T>> Iterable<Pair<Coordinates<Integer>, AbstractCell<T>>> neighbors3DFunction(final Coordinates<Integer> cellCoord, final Grid<Coordinates<Integer>, AbstractCell<T>> grid) {
+    public static <T extends AbstractCell<?>> Iterable<Pair<Coordinates3D<Integer>, T>> neighbors3DFunction(final Pair<Coordinates3D<Integer>, T> cellCoord, final Grid<Coordinates3D<Integer>, T> grid) {
         return Stream.of(CoordinatesUtil.of(1, 0, 0), CoordinatesUtil.of(-1, 0, 0), CoordinatesUtil.of(0, 1, 0),
                 CoordinatesUtil.of(0, -1, 0), CoordinatesUtil.of(0, 0, 1), CoordinatesUtil.of(0, 0, -1))
-            .map(coord -> CoordinatesUtil.sumInt(coord, (Coordinates3D<Integer>) cellCoord))
+            .map(coord -> CoordinatesUtil.sumInt(coord, cellCoord.getLeft()))
             .filter(grid::isCoordValid)
-            .map(coord -> Pair.of((Coordinates<Integer>) coord, grid.get(coord)))
+            .map(coord -> Pair.of(coord, grid.get(coord)))
             .collect(Collectors.toList());
     }
-
 }
