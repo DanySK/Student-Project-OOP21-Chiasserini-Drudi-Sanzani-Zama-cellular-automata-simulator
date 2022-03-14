@@ -31,6 +31,11 @@ public final class Colors {
      */
     public static final Color GREEN = new Color(0.0, 1.0, 0.0, 1.0);
 
+    /**
+     * Light Blue.
+     */
+    public static final Color LIGHT_BLUE = new Color(0.0, 0.5, 1.0, 1.0);
+
     private Colors() {
 
     }

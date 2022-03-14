@@ -3,6 +3,7 @@ package casim.ui.components.grid;
 import casim.utils.coordinate.Coordinates2D;
 import casim.utils.grid.Grid2D;
 import javafx.scene.input.MouseButton;
+import javafx.scene.paint.Color;
 
 /**
  * Grid UI component that allows to capture mouse events. 
@@ -64,7 +65,7 @@ public interface CanvasGrid {
      * 
      * @param cells a {@link casim.utils.grid.Grid} containing the cells.
      */
-    void setCells(Grid2D<CanvasGridCell> cells);
+    void setCells(Grid2D<Color> cells);
 
     /**
      * Get a specific cell of the canvas.
