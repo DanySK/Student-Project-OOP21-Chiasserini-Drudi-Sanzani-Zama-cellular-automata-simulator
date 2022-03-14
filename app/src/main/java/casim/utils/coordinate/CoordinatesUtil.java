@@ -90,8 +90,8 @@ public final class CoordinatesUtil {
      */
     public static List<Coordinates2D<Integer>> get2DNeighbors(final Coordinates2D<Integer> coord) {
         return Stream.of(CoordinatesUtil.of(1, 0), CoordinatesUtil.of(0, 1), CoordinatesUtil.of(0, -1), CoordinatesUtil.of(-1, 0))
-        .map(x -> CoordinatesUtil.sumInt(x, coord))
-        .collect(Collectors.toList());
+            .map(x -> CoordinatesUtil.sumInt(x, coord))
+            .collect(Collectors.toList());
     }
 
     /**
@@ -172,8 +172,8 @@ public final class CoordinatesUtil {
      */
     public static List<Coordinates3D<Integer>> get3DNeighbors(final Coordinates3D<Integer> coord) {
         return Stream.of(CoordinatesUtil.of(1, 0, 0), CoordinatesUtil.of(-1, 0, 0), CoordinatesUtil.of(0, 1, 0),
-        CoordinatesUtil.of(0, -1, 0), CoordinatesUtil.of(0, 0, 1), CoordinatesUtil.of(0, 0, -1))
-        .map(x -> CoordinatesUtil.sumInt(x, coord))
-        .collect(Collectors.toList());
+                CoordinatesUtil.of(0, -1, 0), CoordinatesUtil.of(0, 0, 1), CoordinatesUtil.of(0, 0, -1))
+            .map(x -> CoordinatesUtil.sumInt(x, coord))
+            .collect(Collectors.toList());
     }
 }
