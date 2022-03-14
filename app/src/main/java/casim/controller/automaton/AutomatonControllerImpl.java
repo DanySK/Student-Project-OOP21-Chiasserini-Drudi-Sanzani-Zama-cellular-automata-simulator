@@ -1,4 +1,4 @@
-package casim.controller;
+package casim.controller.automaton;
 
 import casim.model.abstraction.automaton.AbstractAutomaton;
 import casim.utils.grid.Grid2D;

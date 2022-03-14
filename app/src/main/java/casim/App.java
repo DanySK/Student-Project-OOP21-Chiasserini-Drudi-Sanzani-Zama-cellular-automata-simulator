@@ -5,8 +5,8 @@ package casim;
 
 import java.util.Random;
 
-import casim.controller.AutomatonController;
-import casim.controller.AutomatonControllerImpl;
+import casim.controller.automaton.AutomatonController;
+import casim.controller.automaton.AutomatonControllerImpl;
 import casim.model.bryansbrain.BryansBrain;
 import casim.model.bryansbrain.CellState;
 import casim.ui.components.grid.CanvasGridBuilderImpl;
@@ -37,7 +37,7 @@ public class App extends Application {
     private AutomatonView<CellState> getView(final Stage stage, final AutomatonController<CellState> controller, final CanvasGridImpl grid, final StateColorMapper<CellState> mapper) {
         return new AutomatonView<>(stage, controller, grid, mapper);
     }
-    
+
     /**
      * {@inheritDoc}
      */

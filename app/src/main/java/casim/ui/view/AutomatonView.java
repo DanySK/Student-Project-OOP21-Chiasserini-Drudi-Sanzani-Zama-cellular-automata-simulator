@@ -1,6 +1,6 @@
 package casim.ui.view;
 
-import casim.controller.AutomatonController;
+import casim.controller.automaton.AutomatonController;
 import casim.ui.components.grid.CanvasGridImpl;
 import casim.ui.utils.StateColorMapper;
 import javafx.scene.control.Button;

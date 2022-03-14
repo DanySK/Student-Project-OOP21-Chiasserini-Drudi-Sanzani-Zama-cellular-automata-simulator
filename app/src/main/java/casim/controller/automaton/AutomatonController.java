@@ -1,4 +1,4 @@
-package casim.controller;
+package casim.controller.automaton;
 
 import java.util.Iterator;
 
