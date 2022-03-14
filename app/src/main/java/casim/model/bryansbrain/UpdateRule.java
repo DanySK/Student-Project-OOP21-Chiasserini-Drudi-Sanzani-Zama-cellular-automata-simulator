@@ -20,15 +20,19 @@ public class UpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, Bryan
 
     @Override
     protected BryansBrainCell nextCell(Pair<Coordinates2D<Integer>, BryansBrainCell> cellPair,
-            List<Pair<Coordinates2D<Integer> ,BryansBrainCell>> neighborsPairs) {
+            List<Pair<Coordinates2D<Integer>, BryansBrainCell>> neighborsPairs) {
+
+        // TODO: System.out.println("Cell: " + cellPair.getLeft());
+        // System.out.println("Neighbours: " + neighborsPairs.stream().map(x -> Pair.of(x.getLeft(), x.getRight().getState())).collect(Collectors.toList()));
         
         switch(cellPair.getRight().getState()) {
             case ALIVE:
                 return new BryansBrainCell(CellState.DYING);
-            case DEAD:
-                return new BryansBrainCell(CellState.DEAD);
             case DYING:
+                return new BryansBrainCell(CellState.DEAD);
+            case DEAD:
                 int aliveCells = countAliveNeighbors(neighborsPairs);
+                // TODO: System.out.println(aliveCells);
                 return new BryansBrainCell(
                     aliveCells == ALIVE_NEIGHBOUR_BIRTH_VALUE ? CellState.ALIVE : CellState.DEAD);
             default:
