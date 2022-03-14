@@ -2,7 +2,6 @@ package casim.model.langtonsant;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 import casim.model.abstraction.automaton.AbstractAutomaton;
 import casim.utils.grid.Grid2D;
 import casim.utils.grid.Grid2DImpl;
