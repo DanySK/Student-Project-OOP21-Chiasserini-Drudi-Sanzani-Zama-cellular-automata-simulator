@@ -1,10 +1,18 @@
 package casim.model.langtonsant;
 
+import java.util.List;
+
 public enum Direction {
-    NORTH,
-    EAST,
-    SOUTH,
-    WEST;
+    NORTH(List.of(0, 1)),
+    EAST(List.of(1, 0)),
+    SOUTH(List.of(0, -1)),
+    WEST(List.of(-1, 0));
+
+    private List<Integer> moveInfo;
+
+    private Direction(final List<Integer> moveInfo) {
+        this.moveInfo = moveInfo;
+    }
 
     /**
      * Given a {@link Direction} and a {@link CellState} returns the new altered {@link Direction}
@@ -18,5 +26,14 @@ public enum Direction {
             return Direction.WEST;
         }
         return Direction.values()[(direction.ordinal() + (state == CellState.ON ? -1 : +1)) % Direction.values().length];
+    }
+
+    /**
+     * Returns the movement info of the {@link Direction}
+     * @return a {@link List} of {@link Integer} describing the changes to be made to the X and Y coordinates
+     * to move the {@link casim.model.langtonsant.Ant} in the correct {@link Direction}
+     */
+    public List<Integer> getMoveInfo() {
+        return this.moveInfo;
     }
 }
