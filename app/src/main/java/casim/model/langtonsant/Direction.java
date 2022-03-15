@@ -1,16 +1,18 @@
 package casim.model.langtonsant;
 
-import java.util.List;
+import casim.utils.coordinate.Coordinates2D;
+import casim.utils.coordinate.CoordinatesUtil;
 
 public enum Direction {
-    NORTH(List.of(0, 1)),
-    EAST(List.of(1, 0)),
-    SOUTH(List.of(0, -1)),
-    WEST(List.of(-1, 0));
+    
+    NORTH(CoordinatesUtil.of(0, 1)),
+    EAST(CoordinatesUtil.of(1, 0)),
+    SOUTH(CoordinatesUtil.of(0, -1)),
+    WEST(CoordinatesUtil.of(-1, 0));
 
-    private List<Integer> moveInfo;
+    private Coordinates2D<Integer> moveInfo;
 
-    private Direction(final List<Integer> moveInfo) {
+    private Direction(final Coordinates2D<Integer> moveInfo) {
         this.moveInfo = moveInfo;
     }
 
@@ -30,10 +32,10 @@ public enum Direction {
 
     /**
      * Returns the movement info of the {@link Direction}
-     * @return a {@link List} of {@link Integer} describing the changes to be made to the X and Y coordinates
+     * @return a {@link Coordinates2D} of {@link Integer} describing the changes to be made to the X and Y coordinates
      * to move the {@link casim.model.langtonsant.Ant} in the correct {@link Direction}
      */
-    public List<Integer> getMoveInfo() {
+    public Coordinates2D<Integer> getMoveInfo() {
         return this.moveInfo;
     }
 }
