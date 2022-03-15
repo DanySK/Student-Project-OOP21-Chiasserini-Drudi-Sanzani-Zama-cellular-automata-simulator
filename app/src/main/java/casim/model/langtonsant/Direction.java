@@ -14,6 +14,9 @@ public enum Direction {
      * @return a new {@link Direction} altered based on the {@link CellState}
      */
     public static Direction turn(final Direction direction, final CellState state) {
+        if (direction.equals(Direction.NORTH) && state.equals(CellState.ON)) {
+            return Direction.WEST;
+        }
         return Direction.values()[direction.ordinal() + (state == CellState.ON ? -1 : +1) % Direction.values().length];
     }
 }
