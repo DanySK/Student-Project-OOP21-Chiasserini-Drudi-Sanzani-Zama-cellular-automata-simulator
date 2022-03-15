@@ -26,15 +26,27 @@ public class LangtonsAnt extends AbstractAutomaton<CellState, LangtonsAntCell>{
 
         this.ants.stream()
             .forEach(x -> this.antStep(x, newState));
+        this.removeAnts(state);
         return newState;
     }
 
     private void antStep(final Ant ant, final Grid2DImpl<LangtonsAntCell> state) {
+        // Change the direction of the ant based on the state of its cell
         ant.setDirection(Direction.turn(ant.getDirection(), state.get(ant.getPosition()).getState()));
         // Change state of the cell the ant is on
         state.set(ant.getPosition(),
-            new LangtonsAntCell(state.get(ant.getPosition()).getState() == CellState.OFF ? CellState.ON : CellState.OFF));
-        // TODO move ant towards facing direction  
+                new LangtonsAntCell(state.get(ant.getPosition()).getState() == CellState.OFF ? CellState.ON : CellState.OFF));
+        // Move the ant in the direction it is facing
+        ant.move();
+    }
+
+    private void removeAnts(final Grid2D<LangtonsAntCell> state) {
+        final List<Ant> toBeRemoved = new ArrayList<Ant>();
+        this.ants.stream()
+            .filter(x -> state.isCoordValid(x.getPosition()))
+            .forEach(x -> toBeRemoved.add(x));;
+        toBeRemoved.stream()
+            .forEach(x -> this.ants.remove(x));
     }
 
     @Override
