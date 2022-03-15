@@ -30,13 +30,10 @@ public class LangtonsAnt extends AbstractAutomaton<CellState, LangtonsAntCell>{
     }
 
     private void antStep(final Ant ant, final Grid2DImpl<LangtonsAntCell> state) {
-        if (state.get(ant.getPosition()).getState() == CellState.OFF) {
-            state.set(ant.getPosition(), new LangtonsAntCell(CellState.ON));
-            // TODO change ant direction
-        } else if (state.get(ant.getPosition()).getState() == CellState.ON) {
-            state.set(ant.getPosition(), new LangtonsAntCell(CellState.OFF));
-            // TODO change ant direction
-        }
+        ant.setDirection(Direction.turn(ant.getDirection(), state.get(ant.getPosition()).getState()));
+        // Change state of the cell the ant is on
+        state.set(ant.getPosition(),
+            new LangtonsAntCell(state.get(ant.getPosition()).getState() == CellState.OFF ? CellState.ON : CellState.OFF));
         // TODO move ant towards facing direction  
     }
 
