@@ -17,6 +17,6 @@ public enum Direction {
         if (direction.equals(Direction.NORTH) && state.equals(CellState.ON)) {
             return Direction.WEST;
         }
-        return Direction.values()[direction.ordinal() + (state == CellState.ON ? -1 : +1) % Direction.values().length];
+        return Direction.values()[(direction.ordinal() + (state == CellState.ON ? -1 : +1)) % Direction.values().length];
     }
 }
