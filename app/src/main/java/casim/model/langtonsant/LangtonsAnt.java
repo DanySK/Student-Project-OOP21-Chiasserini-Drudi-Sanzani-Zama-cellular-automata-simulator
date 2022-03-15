@@ -26,7 +26,7 @@ public class LangtonsAnt extends AbstractAutomaton<CellState, LangtonsAntCell>{
 
         this.ants.stream()
             .forEach(x -> this.antStep(x, newState));
-        this.removeAnts(state);
+        this.removeAnts();
         return newState;
     }
 
@@ -40,10 +40,10 @@ public class LangtonsAnt extends AbstractAutomaton<CellState, LangtonsAntCell>{
         ant.move();
     }
 
-    private void removeAnts(final Grid2D<LangtonsAntCell> state) {
+    private void removeAnts() {
         final List<Ant> toBeRemoved = new ArrayList<Ant>();
         this.ants.stream()
-            .filter(x -> state.isCoordValid(x.getPosition()))
+            .filter(x -> this.state.isCoordValid(x.getPosition()))
             .forEach(x -> toBeRemoved.add(x));;
         toBeRemoved.stream()
             .forEach(x -> this.ants.remove(x));
