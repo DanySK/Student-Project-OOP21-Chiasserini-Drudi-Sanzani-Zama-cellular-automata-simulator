@@ -3,8 +3,10 @@ package casim.model.langtonsant;
 import java.util.ArrayList;
 import java.util.List;
 import casim.model.abstraction.automaton.AbstractAutomaton;
+import casim.utils.PlayableAutomaton;
 import casim.utils.grid.Grid2D;
 
+@PlayableAutomaton(AutomatonName = "Langton's Ant")
 public class LangtonsAnt extends AbstractAutomaton<CellState, LangtonsAntCell>{
 
     private final List<Ant> ants = new ArrayList<Ant>();
