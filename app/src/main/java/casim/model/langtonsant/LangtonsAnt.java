@@ -31,7 +31,8 @@ public class LangtonsAnt extends AbstractAutomaton<CellState, LangtonsAntCell>{
 
     private void antStep(final Ant ant) {
         // Change the direction of the ant based on the state of its cell
-        ant.setDirection(Direction.turn(ant.getDirection(), state.get(ant.getPosition()).getState()));
+        // ant.setDirection(Direction.turn(ant.getDirection(), state.get(ant.getPosition()).getState()));
+        ant.turn(state.get(ant.getPosition()).getState());
         // Change state of the cell the ant is on
         this.state.set(ant.getPosition(),
                 new LangtonsAntCell(this.state.get(ant.getPosition()).getState() == CellState.OFF ? CellState.ON : CellState.OFF));
