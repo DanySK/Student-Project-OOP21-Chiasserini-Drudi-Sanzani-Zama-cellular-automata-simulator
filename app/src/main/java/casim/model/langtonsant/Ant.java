@@ -55,4 +55,18 @@ public class Ant {
     public void move() {
         this.setPosition(CoordinatesUtil.sumInt(this.getPosition(), this.direction.getMoveInfo()));
     }
+
+    /**
+      * Given a  {@link CellState} changes the {@link Direction} of the {@link Ant}.
+      * 
+      * @param state current {@link CellState} of the {@link LangtonsAntCell} the {@link Ant} is on.
+      */
+    public void turn(final CellState state) {
+        if (this.direction.equals(Direction.NORTH) && state.equals(CellState.ON)) {
+            this.direction = Direction.WEST;
+        } else {
+            this.direction = Direction.values()[(this.direction.ordinal()
+                    + (state.equals(CellState.ON) ? -1 : +1)) % Direction.values().length];
+        }
+    }
 }
