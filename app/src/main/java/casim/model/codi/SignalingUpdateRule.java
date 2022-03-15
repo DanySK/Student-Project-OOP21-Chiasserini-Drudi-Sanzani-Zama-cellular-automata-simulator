@@ -12,16 +12,16 @@ import casim.utils.grid.Grid;
 /**
  * Implementation of the {@link casim.model.abstraction.rule.UpdateRule} for {@link CoDi} automaton.
  */
-public class UpdateRule extends AbstractUpdateRule<Coordinates3D<Integer>, CoDiCell> {
+public class SignalingUpdateRule extends AbstractUpdateRule<Coordinates3D<Integer>, CoDiCell> {
 
     /**
-     * Constructor of {@link UpdateRule}.
+     * Constructor of {@link SignalingUpdateRule}.
      * 
      * @param neighborsFunction it takes as input a pair {@link Coordinates3D}+{@link CoDiCell} and the {@link Grid} of the 
      *     automaton and return a list of pair {@link Coordinates3D}+{@link CoDiCell} of all the neighbors of the cell taken
      *     as input.
      */
-    public UpdateRule(
+    public SignalingUpdateRule(
             final BiFunction<Pair<Coordinates3D<Integer>, CoDiCell>, Grid<Coordinates3D<Integer>, CoDiCell>, List<Pair<Coordinates3D<Integer>, CoDiCell>>> neighborsFunction) {
         super(neighborsFunction);
     }
