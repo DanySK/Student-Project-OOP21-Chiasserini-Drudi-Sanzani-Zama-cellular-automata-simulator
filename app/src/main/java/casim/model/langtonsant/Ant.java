@@ -55,6 +55,6 @@ public class Ant {
     public void move() {
         final var moveInfo = this.direction.getMoveInfo();
         this.setPosition(CoordinatesUtil.of(this.position.getX() + moveInfo.get(0),
-            this.position.getY() + moveInfo.get(1)));
+                this.position.getY() + moveInfo.get(1)));
     }
 }
