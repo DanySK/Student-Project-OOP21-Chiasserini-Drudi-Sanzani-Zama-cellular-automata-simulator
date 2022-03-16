@@ -1,6 +1,7 @@
 package casim.utils.coordinate;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -92,6 +93,19 @@ public final class CoordinatesUtil {
         return Stream.of(CoordinatesUtil.of(1, 0), CoordinatesUtil.of(0, 1), CoordinatesUtil.of(0, -1), CoordinatesUtil.of(-1, 0))
             .map(x -> CoordinatesUtil.sumInt(x, coord))
             .collect(Collectors.toList());
+    }
+
+    /**
+     * Returns a {@link Coordinates2D} of type {@link Integer} with random values between 0 (inclusive)
+     * and the specified values (exclusive).
+     * 
+     * @param maxX the upper limit of the X coordinate. Must be positive.
+     * @param maxY the upper limit of the Y coordinate. Must be positive.
+     * @return {@link Coordinates2D} with random values between 0 and arguments.
+     */
+    public static Coordinates2D<Integer> random(final int maxX, final int maxY) {
+        final var rand = new Random();
+        return CoordinatesUtil.of(rand.nextInt(maxX), rand.nextInt(maxY));
     }
 
     /**
