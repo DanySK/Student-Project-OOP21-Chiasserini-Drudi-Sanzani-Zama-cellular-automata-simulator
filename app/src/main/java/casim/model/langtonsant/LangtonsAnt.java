@@ -9,11 +9,12 @@ import casim.utils.grid.Grid2D;
 @PlayableAutomaton(AutomatonName = "Langton's Ant")
 public class LangtonsAnt extends AbstractAutomaton<CellState, LangtonsAntCell>{
 
-    private final List<Ant> ants = new ArrayList<Ant>();
+    private final List<Ant> ants;
     private final Grid2D<LangtonsAntCell> state;
 
-    public LangtonsAnt(final Grid2D<CellState> state) {
+    public LangtonsAnt(final Grid2D<CellState> state, final List<Ant> ants) {
         this.state = state.map(x -> new LangtonsAntCell(x));
+        this.ants = ants;
     }
 
     @Override
