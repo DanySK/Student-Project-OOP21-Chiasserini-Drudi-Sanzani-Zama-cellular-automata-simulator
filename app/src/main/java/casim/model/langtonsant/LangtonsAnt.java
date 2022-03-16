@@ -2,8 +2,12 @@ package casim.model.langtonsant;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 import casim.model.abstraction.automaton.AbstractAutomaton;
 import casim.utils.PlayableAutomaton;
+import casim.utils.coordinate.Coordinates2D;
+import casim.utils.coordinate.CoordinatesUtil;
 import casim.utils.grid.Grid2D;
 
 @PlayableAutomaton(AutomatonName = "Langton's Ant")
@@ -44,6 +48,35 @@ public class LangtonsAnt extends AbstractAutomaton<CellState, LangtonsAntCell>{
             .forEach(x -> toBeRemoved.add(x));;
         toBeRemoved.stream()
             .forEach(x -> this.ants.remove(x));
+    }
+
+    /**
+     * Adds an {@link Ant} at a specified position with a specified direction.
+     * 
+     * @param direction the {@link Direction} of the {@link Ant} to be added.
+     * @param position the {@link Coordinates2D} representing the position
+     * of the and to be added.
+     * @return True if the {@link Coordinates2D} given as argument are valid,
+     * False otherwise.
+     */
+    public boolean addAnt(final Direction direction, final Coordinates2D<Integer> position) {
+        if (!this.state.isCoordValid(position)) {
+            return false;
+        }
+        this.ants.add(new Ant(direction, position));
+        return true; 
+    }
+
+    /**
+     * Adds an {@link Ant} at a random position with a random {@Link Direction}.
+     * @return the {@link Coordinates2D} representig the position of the new {@link Ant}.
+     */
+    public Coordinates2D<Integer> addAnt() {
+        final Random rand = new Random();
+        final var position = CoordinatesUtil.random(state.getWidth(), state.getHeight());
+        final var direction = Direction.values()[rand.nextInt(Direction.values().length)];
+        this.addAnt(direction, position);
+        return position;
     }
 
     @Override
