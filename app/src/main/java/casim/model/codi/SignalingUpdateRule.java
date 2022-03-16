@@ -1,5 +1,6 @@
 package casim.model.codi;
 
+import java.util.EnumMap;
 import java.util.List;
 import java.util.function.BiFunction;
 
@@ -33,42 +34,53 @@ public class SignalingUpdateRule extends AbstractUpdateRule<Coordinates3D<Intege
             final List<Pair<Coordinates3D<Integer>, CoDiCell>> neighborsPairs) {
         int inputCounter;
         final CoDiCell cell = cellPair.getRight();
+        final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
+        EnumMap<Direction, Integer> neighborsPreviousInput = this.fillEnumMap(0);
+        builder.state(cell.getState());
         switch (cell.getState()) {
             case BLANK:
+                builder.activationCounter(cell.getActivationCounter());
                 break;
             case NEURON:
-                inputCounter = 1 + cell.getNeighborsPriorInput().values().stream().reduce((n1, n2) -> n1 + n2).get()
-                        - cell.getNeighborsPriorInput().get(cell.getOppositeToGate().get())
-                        - cell.getNeighborsPriorInput().get(cell.getGate().get());
-                cell.setActivationCounter(inputCounter);
-                this.setPriorInputToValue(cell, 0);
+                inputCounter = 1 + sumPreviousInput(cell.getNeighborsPreviousInput())
+                        - cell.getNeighborsPreviousInput().get(cell.getOppositeToGate().get())
+                        - cell.getNeighborsPreviousInput().get(cell.getGate().get());
+                builder.activationCounter(inputCounter);
+                neighborsPreviousInput = this.fillEnumMap(0);
                 if (cell.getActivationCounter() > NEURON_ACTIVATION_VALUE) {
-                   cell.getNeighborsPriorInput().put(cell.getGate().get(), 1);
-                   cell.getNeighborsPriorInput().put(cell.getOppositeToGate().get(), 1);
-                   cell.setActivationCounter(0);
+                    neighborsPreviousInput.put(cell.getGate().get(), 1);
+                    neighborsPreviousInput.put(cell.getOppositeToGate().get(), 1);
+                    builder.activationCounter(0);
                 }
                 break;
             case AXON:
-                this.setPriorInputToValue(cell, cell.getActivationCounter());
-                cell.setActivationCounter((cell.getNeighborsPriorInput().get(cell.getGate().get()) != 0) ? 1 : 0);
+                neighborsPreviousInput = this.fillEnumMap(cell.getActivationCounter());
+                builder.activationCounter((cell.getNeighborsPreviousInput().get(cell.getGate().get()) != 0) ? 1 : 0);
                 break;
             case DENTRITE:
-                inputCounter = cell.getNeighborsPriorInput().values().stream().reduce((n1, n2) -> n1 + n2).get();
+                inputCounter = sumPreviousInput(cell.getNeighborsPreviousInput());
                 inputCounter = inputCounter > 2 ? 2 : inputCounter;
-                this.setPriorInputToValue(cell, 0);
-                cell.getNeighborsPriorInput().put(cell.getGate().get(), inputCounter);
-                cell.setActivationCounter((inputCounter != 0) ? 1 : 0);
+                neighborsPreviousInput = this.fillEnumMap(0);
+                neighborsPreviousInput.put(cell.getGate().get(), inputCounter);
+                builder.activationCounter((inputCounter != 0) ? 1 : 0);
                 break;
             default:
                 break;
             }
-        return null; //TODO don't change the cell value but return the new cell
+        builder.neighborsPreviousInput(neighborsPreviousInput);
+        return builder.build();
     }
 
-    private void setPriorInputToValue(final CoDiCell cell, final int value) {
+    private EnumMap<Direction, Integer> fillEnumMap(final int value) {
+        final EnumMap<Direction, Integer> neighborsPreviousInput = new EnumMap<>(Direction.class);
         for (final var d: Direction.values()) {
-            cell.getNeighborsPriorInput().put(d, value);
+            neighborsPreviousInput.put(d, value);
         }
+        return neighborsPreviousInput;
+    }
+
+    private int sumPreviousInput(final EnumMap<Direction, Integer> neighborsPreviousInput) {
+        return neighborsPreviousInput.values().stream().reduce((n1, n2) -> n1 + n2).get();
     }
 
 }
