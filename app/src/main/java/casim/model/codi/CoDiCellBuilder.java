@@ -24,12 +24,12 @@ public interface CoDiCellBuilder {
     CoDiCellBuilder activationCounter(int activationCounter);
 
     /**
-     * Set the {@link EnumMap} containing the values of the prior neighbors inputs.
+     * Set the {@link EnumMap} containing the values of the previous neighbors inputs.
      * 
-     * @param neighborsPriorInput the {@link enumMap} top set as prior inputs.
+     * @param neighborsPreviousInput the {@link enumMap} top set as previous inputs.
      * @return the current {@link CoDiCellBuilder}. 
      */
-    CoDiCellBuilder neighborsPriorInput(EnumMap<Direction, Integer> neighborsPriorInput);
+    CoDiCellBuilder neighborsPreviousInput(EnumMap<Direction, Integer> neighborsPreviousInput);
 
     /**
      * Build the {@link CoDiCell}.

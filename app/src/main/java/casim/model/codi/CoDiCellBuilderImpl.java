@@ -11,7 +11,7 @@ public class CoDiCellBuilderImpl implements CoDiCellBuilder {
     private boolean built;
     private Optional<CellState> state;
     private Optional<Integer> activationCounter;
-    private Optional<EnumMap<Direction, Integer>> neighborsPriorInput;
+    private Optional<EnumMap<Direction, Integer>> neighborsPreviousInput;
 
     /**
      * Construct a {@link CoDiCellBuilder}.
@@ -20,7 +20,7 @@ public class CoDiCellBuilderImpl implements CoDiCellBuilder {
         this.built = false;
         this.state = Optional.empty();
         this.activationCounter = Optional.empty();
-        this.neighborsPriorInput = Optional.empty();
+        this.neighborsPreviousInput = Optional.empty();
     }
 
     private void check(final boolean value) {
@@ -44,9 +44,9 @@ public class CoDiCellBuilderImpl implements CoDiCellBuilder {
     }
 
     @Override
-    public CoDiCellBuilder neighborsPriorInput(final EnumMap<Direction, Integer> neighborsPriorInput) {
+    public CoDiCellBuilder neighborsPreviousInput(final EnumMap<Direction, Integer> neighborsPreviousInput) {
         this.check(!built);
-        this.neighborsPriorInput = Optional.of(neighborsPriorInput);
+        this.neighborsPreviousInput = Optional.of(neighborsPreviousInput);
         return this;
     }
 
@@ -55,9 +55,9 @@ public class CoDiCellBuilderImpl implements CoDiCellBuilder {
         this.check(!built);
         this.check(this.state.isPresent());
         this.check(this.activationCounter.isPresent());
-        this.check(this.neighborsPriorInput.isPresent());
+        this.check(this.neighborsPreviousInput.isPresent());
         this.built = true;
-        return new CoDiCell(this.state.get(), this.activationCounter.get(), this.neighborsPriorInput.get());
+        return new CoDiCell(this.state.get(), this.activationCounter.get(), this.neighborsPreviousInput.get());
     }
 
 }
