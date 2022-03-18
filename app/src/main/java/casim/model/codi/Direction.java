@@ -29,7 +29,12 @@ public enum Direction {
      */
     BOTTOM;
 
-    public Direction getOpposite() {
+    /**
+     * Return the opposite {@link Direction} to the current one.
+     * 
+     * @return the opposite {@link Direction}.
+     */
+    public Direction getOpposite() { //TODO do it in a better way (maybe a map can be a good thing)
         switch (this) {
             case SOUTH:
                 return NORTH;
