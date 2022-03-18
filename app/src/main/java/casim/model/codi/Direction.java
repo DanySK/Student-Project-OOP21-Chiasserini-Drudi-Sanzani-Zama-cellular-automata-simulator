@@ -2,6 +2,7 @@ package casim.model.codi;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * Enum containing all the neighbors directions.
@@ -51,5 +52,15 @@ public enum Direction {
      */
     public Direction getOpposite() { //TODO do it in a better way (maybe a map can be a good thing)
         return OPPOSITE_DIRECTION.get(this);
+    }
+
+    /**
+     * Return a random {@link Direction}.
+     * 
+     * @return a random {@link Direction}.
+     */
+    public static Direction getRandomDirection() {
+        final Random random = new Random();
+        return values()[random.nextInt(values().length)];
     }
 }
