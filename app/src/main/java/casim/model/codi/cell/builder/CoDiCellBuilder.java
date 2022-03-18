@@ -20,6 +20,14 @@ public interface CoDiCellBuilder {
     CoDiCellBuilder state(CellState state);
 
     /**
+     * Set the gate.
+     * 
+     * @param gate the gate to set.
+     * @return the current {@link CoDiCellBuilder}. 
+     */
+    CoDiCellBuilder gate(Direction gate);
+
+    /**
      * Set the activation counter.
      * 
      * @param activationCounter the value of the activationCounter to set.

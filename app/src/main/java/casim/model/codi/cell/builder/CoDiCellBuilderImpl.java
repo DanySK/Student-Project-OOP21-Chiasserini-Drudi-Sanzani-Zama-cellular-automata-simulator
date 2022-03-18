@@ -14,6 +14,7 @@ public class CoDiCellBuilderImpl implements CoDiCellBuilder {
 
     private boolean built;
     private Optional<CellState> state;
+    private Optional<Direction> gate;
     private Optional<Integer> activationCounter;
     private Optional<EnumMap<Direction, Integer>> neighborsPreviousInput;
 
@@ -22,6 +23,7 @@ public class CoDiCellBuilderImpl implements CoDiCellBuilder {
      */
     public CoDiCellBuilderImpl() {
         this.built = false;
+        this.gate = Optional.empty();
         this.state = Optional.empty();
         this.activationCounter = Optional.empty();
         this.neighborsPreviousInput = Optional.empty();
@@ -31,6 +33,13 @@ public class CoDiCellBuilderImpl implements CoDiCellBuilder {
         if (!value) {
             throw new IllegalStateException();
         }
+    }
+
+    @Override
+    public CoDiCellBuilder gate(final Direction gate) {
+        this.check(!built);
+        this.gate = Optional.of(gate);
+        return null;
     }
 
     @Override
@@ -61,7 +70,8 @@ public class CoDiCellBuilderImpl implements CoDiCellBuilder {
         this.check(this.activationCounter.isPresent());
         this.check(this.neighborsPreviousInput.isPresent());
         this.built = true;
-        return new CoDiCell(this.state.get(), this.activationCounter.get(), this.neighborsPreviousInput.get());
+        return new CoDiCell(this.state.get(), this.activationCounter.get(), 
+                                this.neighborsPreviousInput.get(), this.gate);
     }
 
 }
