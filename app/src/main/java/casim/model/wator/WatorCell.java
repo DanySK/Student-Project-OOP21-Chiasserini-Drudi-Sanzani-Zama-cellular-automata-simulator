@@ -6,13 +6,13 @@ public class WatorCell extends AbstractCell<CellState>{
 
     private static final int MIN_HEALTH = 0;
 
-    private final int max_health;
+    private final int maxHealth;
     private int health;
 
-    public WatorCell(CellState state, final int health, final int max_health) {
+    public WatorCell(CellState state, final int health, final int maxHealth) {
         super(state);
         this.health = health;
-        this.max_health = max_health;
+        this.maxHealth = maxHealth;
     }
 
 
@@ -32,7 +32,7 @@ public class WatorCell extends AbstractCell<CellState>{
      * of the {@link WatorCell}
      */
     public int getMaxHealth() {
-        return this.max_health;
+        return this.maxHealth;
     }
 
     /**
@@ -48,7 +48,7 @@ public class WatorCell extends AbstractCell<CellState>{
      * value.
      */
     public void setHealth(final int health) {
-        if (health < MIN_HEALTH || health > this.max_health) {
+        if (health < MIN_HEALTH || health > this.maxHealth) {
             throw new IllegalArgumentException("Heath value out of valid limits.");
         }
         this.health = health;
@@ -70,7 +70,7 @@ public class WatorCell extends AbstractCell<CellState>{
      * maximum.
      */
     public void heal() {
-        this.health += this.health == this.max_health ? 0 : 1;
+        this.health += this.health == this.maxHealth ? 0 : 1;
     }
 
     /**
