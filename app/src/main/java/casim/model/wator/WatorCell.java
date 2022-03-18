@@ -81,4 +81,21 @@ public class WatorCell extends AbstractCell<CellState>{
         this.health =- (this.isDead() ? 0 : 1);
     }
 
+    /**
+     * Returns the {@link WatorCell} that the cell calling
+     * the method will leave behind if it moves
+     * 
+     * @return a new {@link WatorCell} with the same state as
+     * the one calling the method if it can reproduce, dead
+     * otherwise.
+     */
+    public WatorCell reproduce() {
+        if (this.health == this.maxHealth) {
+            this.health = this.maxHealth / 2;
+            return new WatorCell(this.getState(), MIN_HEALTH + 1, this.maxHealth);
+        } else {
+            return new WatorCell(CellState.DEAD, MIN_HEALTH, this.maxHealth);
+        }
+    }
+
 }
