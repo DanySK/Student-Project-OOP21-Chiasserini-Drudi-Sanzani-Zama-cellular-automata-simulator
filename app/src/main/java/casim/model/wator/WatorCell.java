@@ -83,7 +83,8 @@ public class WatorCell extends AbstractCell<CellState>{
 
     /**
      * Returns the {@link WatorCell} that the cell calling
-     * the method will leave behind if it moves
+     * the method will leave behind if it moves and updates
+     * health of calling cell accordingly.
      * 
      * @return a new {@link WatorCell} with the same state as
      * the one calling the method if it can reproduce, dead
