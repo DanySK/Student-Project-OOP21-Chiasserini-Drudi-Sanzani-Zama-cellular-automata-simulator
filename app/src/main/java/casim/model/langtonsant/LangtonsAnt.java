@@ -60,11 +60,11 @@ public class LangtonsAnt extends AbstractAutomaton<CellState, LangtonsAntCell>{
      * False otherwise.
      */
     public boolean addAnt(final Direction direction, final Coordinates2D<Integer> position) {
-        if (!this.state.isCoordValid(position)) {
-            return false;
+        if (this.state.isCoordValid(position)) {
+            this.ants.add(new Ant(direction, position));
+            return true;
         }
-        this.ants.add(new Ant(direction, position));
-        return true; 
+        return false;
     }
 
     /**
