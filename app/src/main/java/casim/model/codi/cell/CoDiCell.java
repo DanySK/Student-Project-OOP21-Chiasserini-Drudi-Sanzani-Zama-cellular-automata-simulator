@@ -1,9 +1,11 @@
-package casim.model.codi;
+package casim.model.codi.cell;
 
 import java.util.EnumMap;
 import java.util.Optional;
 
 import casim.model.abstraction.cell.AbstractCell;
+import casim.model.codi.CellState;
+import casim.model.codi.Direction;
 
 /**
  * The CoDi cells.

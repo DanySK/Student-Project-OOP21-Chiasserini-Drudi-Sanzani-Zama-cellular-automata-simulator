@@ -1,6 +1,10 @@
-package casim.model.codi;
+package casim.model.codi.cell.builder;
 
 import java.util.EnumMap;
+
+import casim.model.codi.CellState;
+import casim.model.codi.Direction;
+import casim.model.codi.cell.CoDiCell;
 
 /**
  * A builder for {@link CoDiCell}.

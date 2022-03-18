@@ -1,4 +1,4 @@
-package casim.model.codi;
+package casim.model.codi.rule;
 
 import java.util.EnumMap;
 import java.util.List;
@@ -7,6 +7,10 @@ import java.util.function.BiFunction;
 import org.apache.commons.lang3.tuple.Pair;
 
 import casim.model.abstraction.rule.AbstractUpdateRule;
+import casim.model.codi.Direction;
+import casim.model.codi.cell.CoDiCell;
+import casim.model.codi.cell.builder.CoDiCellBuilder;
+import casim.model.codi.cell.builder.CoDiCellBuilderImpl;
 import casim.utils.coordinate.Coordinates3D;
 import casim.utils.grid.Grid;
 

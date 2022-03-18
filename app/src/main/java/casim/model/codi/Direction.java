@@ -3,16 +3,33 @@ package casim.model.codi;
 /**
  * Enum containing all the neighbors directions.
  */
-enum Direction {
-
+public enum Direction {
+    /**
+     * The north direction.
+     */
     NORTH,
+    /**
+     * The north direction.
+     */
     SOUTH,
+    /**
+     * The south direction.
+     */
     WEST,
+    /**
+     * The west direction.
+     */
     EAST,
+    /**
+     * The top direction.
+     */
     TOP,
+    /**
+     * The bottom direction.
+     */
     BOTTOM;
 
-    Direction getOpposite() {
+    public Direction getOpposite() {
         switch (this) {
             case SOUTH:
                 return NORTH;
