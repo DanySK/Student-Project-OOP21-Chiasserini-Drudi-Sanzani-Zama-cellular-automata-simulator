@@ -36,21 +36,20 @@ public class SignalingUpdateRule extends AbstractUpdateRule<Coordinates3D<Intege
     @Override
     protected CoDiCell nextCell(final Pair<Coordinates3D<Integer>, CoDiCell> cellPair,
             final List<Pair<Coordinates3D<Integer>, CoDiCell>> neighborsPairs) {
-        int inputCounter;
+        int inputSum;
         final CoDiCell cell = cellPair.getRight();
         final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
-        EnumMap<Direction, Integer> neighborsPreviousInput = this.fillEnumMap(0);
-        builder.state(cell.getState());
+        EnumMap<Direction, Integer> neighborsPreviousInput = RulesUtils.newFilledEnumMap(0);
         switch (cell.getState()) {
             case BLANK:
                 builder.activationCounter(cell.getActivationCounter());
                 break;
             case NEURON:
-                inputCounter = 1 + sumPreviousInput(cell.getNeighborsPreviousInput())
+                inputSum = 1 + RulesUtils.sumEnumMapValues(cell.getNeighborsPreviousInput())
                         - cell.getNeighborsPreviousInput().get(cell.getOppositeToGate().get())
                         - cell.getNeighborsPreviousInput().get(cell.getGate().get());
-                builder.activationCounter(inputCounter);
-                neighborsPreviousInput = this.fillEnumMap(0);
+                builder.activationCounter(inputSum);
+                neighborsPreviousInput = RulesUtils.newFilledEnumMap(0);
                 if (cell.getActivationCounter() > NEURON_ACTIVATION_VALUE) {
                     neighborsPreviousInput.put(cell.getGate().get(), 1);
                     neighborsPreviousInput.put(cell.getOppositeToGate().get(), 1);
@@ -58,33 +57,23 @@ public class SignalingUpdateRule extends AbstractUpdateRule<Coordinates3D<Intege
                 }
                 break;
             case AXON:
-                neighborsPreviousInput = this.fillEnumMap(cell.getActivationCounter());
+                neighborsPreviousInput = RulesUtils.newFilledEnumMap(cell.getActivationCounter());
                 builder.activationCounter((cell.getNeighborsPreviousInput().get(cell.getGate().get()) != 0) ? 1 : 0);
                 break;
-            case DENTRITE:
-                inputCounter = sumPreviousInput(cell.getNeighborsPreviousInput());
-                inputCounter = inputCounter > 2 ? 2 : inputCounter;
-                neighborsPreviousInput = this.fillEnumMap(0);
-                neighborsPreviousInput.put(cell.getGate().get(), inputCounter);
-                builder.activationCounter((inputCounter != 0) ? 1 : 0);
+            case DENDRITE:
+                inputSum = RulesUtils.sumEnumMapValues(cell.getNeighborsPreviousInput());
+                inputSum = inputSum > 2 ? 2 : inputSum;
+                neighborsPreviousInput = RulesUtils.newFilledEnumMap(0);
+                neighborsPreviousInput.put(cell.getGate().get(), inputSum);
+                builder.activationCounter((inputSum != 0) ? 1 : 0);
                 break;
             default:
                 break;
             }
+        builder.state(cell.getState());
+        builder.gate(cell.getGate().get());
         builder.neighborsPreviousInput(neighborsPreviousInput);
         return builder.build();
-    }
-
-    private EnumMap<Direction, Integer> fillEnumMap(final int value) {
-        final EnumMap<Direction, Integer> neighborsPreviousInput = new EnumMap<>(Direction.class);
-        for (final var d: Direction.values()) {
-            neighborsPreviousInput.put(d, value);
-        }
-        return neighborsPreviousInput;
-    }
-
-    private int sumPreviousInput(final EnumMap<Direction, Integer> neighborsPreviousInput) {
-        return neighborsPreviousInput.values().stream().reduce((n1, n2) -> n1 + n2).get();
     }
 
 }
