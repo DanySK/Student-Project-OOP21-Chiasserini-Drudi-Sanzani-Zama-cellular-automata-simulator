@@ -39,6 +39,7 @@ public class Wator extends AbstractAutomaton<CellState, WatorCell>{
 
     @Override
     public boolean hasNext() {
+        // return this.state.stream().anyMatch(x -> x.getState().equals(CellState.PREDATOR) || x.getState().equals(CellState.PREY));
         return true;
     }
 
