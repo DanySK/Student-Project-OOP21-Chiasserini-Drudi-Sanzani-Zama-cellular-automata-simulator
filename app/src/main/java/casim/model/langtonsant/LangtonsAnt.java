@@ -3,6 +3,7 @@ package casim.model.langtonsant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import casim.model.abstraction.automaton.AbstractAutomaton;
 import casim.utils.PlayableAutomaton;
@@ -42,10 +43,9 @@ public class LangtonsAnt extends AbstractAutomaton<CellState, LangtonsAntCell>{
     }
 
     private void removeAnts() {
-        final List<Ant> toBeRemoved = new ArrayList<Ant>();
-        this.ants.stream()
+        final List<Ant> toBeRemoved = this.ants.stream()
             .filter(x -> this.state.isCoordValid(x.getPosition()))
-            .forEach(x -> toBeRemoved.add(x));;
+            .collect(Collectors.toList());
         toBeRemoved.stream()
             .forEach(x -> this.ants.remove(x));
     }
