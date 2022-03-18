@@ -12,19 +12,29 @@ import casim.model.abstraction.rule.AbstractUpdateRule;
 import casim.utils.coordinate.Coordinates2D;
 import casim.utils.grid.Grid;
 
-public class UpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, WatorCell>{
+/**
+ * Implementation of {@link AbstractUpdateRule} for Predators and Preys Automaton.
+ */
+public class UpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, WatorCell> {
 
     private static final String UNKNOW_STATE = "Cell has unknown state.";
     private static final int DEAD_HEALTH = 0;
 
+    /**
+     * Constructs a new {@link UpdateRule}.
+     * 
+     * @param neighborsFunction {@link BiFunction} used to obtain the
+     * neighbors of a cell.
+     */
     public UpdateRule(
-            BiFunction<Pair<Coordinates2D<Integer>, WatorCell>, Grid<Coordinates2D<Integer>, WatorCell>, List<Pair<Coordinates2D<Integer>, WatorCell>>> neighborsFunction) {
+            final BiFunction<Pair<Coordinates2D<Integer>, WatorCell>,
+                Grid<Coordinates2D<Integer>, WatorCell>, List<Pair<Coordinates2D<Integer>, WatorCell>>> neighborsFunction) {
         super(neighborsFunction);
     }
 
     @Override
-    protected WatorCell nextCell(Pair<Coordinates2D<Integer>, WatorCell> cellPair,
-            List<Pair<Coordinates2D<Integer>, WatorCell>> neighborsPairs) {
+    protected WatorCell nextCell(final Pair<Coordinates2D<Integer>, WatorCell> cellPair,
+            final List<Pair<Coordinates2D<Integer>, WatorCell>> neighborsPairs) {
         final var cell = cellPair.getRight();
         final var newCell = cell.reproduce();
         switch (cellPair.getRight().getState()) {
@@ -69,7 +79,7 @@ public class UpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, Wator
                 throw new IllegalStateException(UNKNOW_STATE);
         }
     }
-    
+
     private void move(WatorCell toChange, final CellState state, final int health, final int maxHealth,
             Consumer<WatorCell> consumer) {
         var newCell = new WatorCell(state, health, maxHealth);
