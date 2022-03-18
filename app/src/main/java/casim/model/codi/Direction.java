@@ -1,5 +1,8 @@
 package casim.model.codi;
 
+import java.util.EnumMap;
+import java.util.Map;
+
 /**
  * Enum containing all the neighbors directions.
  */
@@ -29,26 +32,24 @@ public enum Direction {
      */
     BOTTOM;
 
+    private static final Map<Direction, Direction> OPPOSITE_DIRECTION = new EnumMap<>(Direction.class);
+
+    static {
+        OPPOSITE_DIRECTION.put(NORTH, SOUTH);
+        OPPOSITE_DIRECTION.put(SOUTH, NORTH);
+        OPPOSITE_DIRECTION.put(WEST, EAST);
+        OPPOSITE_DIRECTION.put(EAST, WEST);
+        OPPOSITE_DIRECTION.put(TOP, BOTTOM);
+        OPPOSITE_DIRECTION.put(BOTTOM, TOP);
+
+    }
+
     /**
      * Return the opposite {@link Direction} to the current one.
      * 
      * @return the opposite {@link Direction}.
      */
     public Direction getOpposite() { //TODO do it in a better way (maybe a map can be a good thing)
-        switch (this) {
-            case SOUTH:
-                return NORTH;
-            case NORTH:
-                return SOUTH;
-            case WEST:
-                return EAST;
-            case EAST:
-                return WEST;
-            case TOP:
-                return BOTTOM;
-            case BOTTOM:
-            default:
-                return TOP;
-        }
+        return OPPOSITE_DIRECTION.get(this);
     }
 }
