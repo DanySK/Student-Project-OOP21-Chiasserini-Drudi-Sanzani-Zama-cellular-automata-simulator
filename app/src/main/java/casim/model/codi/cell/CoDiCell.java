@@ -22,7 +22,7 @@ public class CoDiCell extends AbstractCell<CellState> {
      * @param state the {@link CellState} of the cell.
      */
     public CoDiCell(final CellState state) {
-        this(state, 0, new EnumMap<>(Direction.class));
+        this(state, 0, new EnumMap<>(Direction.class), Optional.empty());
     }
 
     /**
@@ -30,11 +30,13 @@ public class CoDiCell extends AbstractCell<CellState> {
      * 
      * @param state the {@link CellState} of the cell.
      * @param activationCounter the value of the activation counter.
+     * @param gate the gate of the cell (an empty optional if it's not defined).
      * @param neighborsPriorInput the {@link EnumMap} containing the values of the prior inputs.
      */
     public CoDiCell(final CellState state, final int activationCounter, 
-            final EnumMap<Direction, Integer> neighborsPriorInput) {
+            final EnumMap<Direction, Integer> neighborsPriorInput, final Optional<Direction> gate) {
         super(state);
+        this.gate = gate;
         this.activationCounter = activationCounter;
         this.neighborsPreviousInput = neighborsPriorInput;
     }
@@ -61,15 +63,6 @@ public class CoDiCell extends AbstractCell<CellState> {
     }
 
     /**
-     * Set the gate of the {@link CoDiCell}.
-     * 
-     * @param gate the gate to set.
-     */
-    public void setGate(final Direction gate) {
-        this.gate = Optional.of(gate);
-    }
-
-    /**
      * The current value of the activation counter, the cell can transmit the signal only if a predetermined value is reached.
      * 
      * @return the current value of the activation counter.
@@ -79,31 +72,12 @@ public class CoDiCell extends AbstractCell<CellState> {
     }
 
     /**
-     * Set the value of the activation counter.
-     * 
-     * @param activationCounter the value to set.
-     */
-    public void setActivationCounter(final int activationCounter) {
-        this.activationCounter = activationCounter;
-    }
-
-    /**
      * Return an {@link EnumMap} containing the previous output for each {@link Direction}.
      * 
      * @return Return an {@link EnumMap} containing the previous output for each {@link Direction}.
      */
     public EnumMap<Direction, Integer> getNeighborsPreviousInput() {
         return neighborsPreviousInput;
-    }
-
-    /**
-     * Set the {@link EnumMap} containing the previous output for each {@link Direction}.
-
-     * 
-     * @param neighborsPreviousInput the {@link EnumMap} containing the values to set.
-     */
-    public void setNeighborsPreviousInput(final EnumMap<Direction, Integer> neighborsPreviousInput) {
-        this.neighborsPreviousInput = neighborsPreviousInput;
     }
 
 }
