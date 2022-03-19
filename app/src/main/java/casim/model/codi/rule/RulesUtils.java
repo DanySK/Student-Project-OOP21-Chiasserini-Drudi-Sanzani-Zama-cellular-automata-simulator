@@ -60,9 +60,9 @@ public final class RulesUtils {
     }
 
     /**
-     * Return true with 25% of probabiblity.
+     * Return true with 25% of probability.
      * 
-     * @return true with 25% probabiilty.
+     * @return true with 25% probability.
      */
     public static boolean rand75() {
         return RulesUtils.rand50() && RulesUtils.rand50();
