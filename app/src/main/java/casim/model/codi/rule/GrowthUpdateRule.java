@@ -2,6 +2,7 @@ package casim.model.codi.rule;
 
 import java.util.EnumMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BiFunction;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -56,14 +57,9 @@ public class GrowthUpdateRule extends AbstractUpdateRule<Coordinates3D<Integer>,
                 inputSum = RulesUtils.sumEnumMapSpecificValues(neighborsPreviousInput, Signal.AXON_SIGNAL.getValue());
                 if (inputSum == Signal.AXON_SIGNAL.getValue()) {
                     builder.state(CellState.AXON);
-                    final Direction direction = cell.getNeighborsPreviousInput().entrySet().stream().
-                        filter(e -> e.getValue() == Signal.AXON_SIGNAL.getValue()).
-                        map(e -> e.getKey()).
-                        findFirst().get();
+                    final Direction direction = this.findSignalDirection(cell, Signal.AXON_SIGNAL).get();
                     builder.gate(direction); 
-                    for (final var d: Direction.values()) {
-                        neighborsPreviousInput.put(d, cell.getChromosome().get(d) ? Signal.AXON_SIGNAL.getValue() : 0);
-                    }
+                    this.fillEnumMapWithPredicate(neighborsPreviousInput, cell, Signal.DENDRITE_SIGNAL.getValue(), 0);
                     break;
 
                 }
@@ -74,14 +70,9 @@ public class GrowthUpdateRule extends AbstractUpdateRule<Coordinates3D<Integer>,
                 inputSum = RulesUtils.sumEnumMapSpecificValues(neighborsPreviousInput, Signal.DENDRITE_SIGNAL.getValue());
                 if (inputSum == Signal.DENDRITE_SIGNAL.getValue()) {
                     builder.state(CellState.DENDRITE);
-                    final Direction direction = cell.getNeighborsPreviousInput().entrySet().stream().
-                            filter(e -> e.getValue() == Signal.DENDRITE_SIGNAL.getValue()).
-                            map(e -> e.getKey()).
-                            findFirst().get();
+                    final Direction direction = this.findSignalDirection(cell, Signal.DENDRITE_SIGNAL).get();
                     builder.gate(direction.getOpposite());
-                    for (final var d: Direction.values()) {
-                        neighborsPreviousInput.put(d, cell.getChromosome().get(d) ? Signal.DENDRITE_SIGNAL.getValue() : 0);
-                    }
+                    this.fillEnumMapWithPredicate(neighborsPreviousInput, cell, Signal.DENDRITE_SIGNAL.getValue(), 0);
                     break;
                 }
                 builder.state(cell.getState());
@@ -93,14 +84,10 @@ public class GrowthUpdateRule extends AbstractUpdateRule<Coordinates3D<Integer>,
                 neighborsPreviousInput.put(cell.getOppositeToGate().get(), Signal.AXON_SIGNAL.getValue());
                 break;
             case AXON:
-                for (final var d: Direction.values()) {
-                    neighborsPreviousInput.put(d, cell.getChromosome().get(d) ? Signal.AXON_SIGNAL.getValue() : 0);
-                }
+                this.fillEnumMapWithPredicate(neighborsPreviousInput, cell, Signal.AXON_SIGNAL.getValue(), 0);
                 break;
             case DENDRITE:
-                for (final var d: Direction.values()) {
-                    neighborsPreviousInput.put(d, cell.getChromosome().get(d) ? Signal.DENDRITE_SIGNAL.getValue() : 0);
-                }
+                this.fillEnumMapWithPredicate(neighborsPreviousInput, cell, Signal.DENDRITE_SIGNAL.getValue(), 0);
                 break;
             default:
                 break;
@@ -109,6 +96,20 @@ public class GrowthUpdateRule extends AbstractUpdateRule<Coordinates3D<Integer>,
         builder.activationCounter(cell.getActivationCounter());
         builder.neighborsPreviousInput(neighborsPreviousInput);
         return builder.build();
+    }
+
+    private void fillEnumMapWithPredicate(final EnumMap<Direction, Integer> neighborsPreviousInput,
+            final CoDiCell cell, final int valueA, final int valueB) {
+        for (final var d: Direction.values()) {
+            neighborsPreviousInput.put(d, cell.getChromosome().get(d) ? valueA : valueB);
+        }
+    }
+
+    private Optional<Direction> findSignalDirection(final CoDiCell cell, final Signal signal) {
+        return cell.getNeighborsPreviousInput().entrySet().stream().
+                filter(e -> e.getValue() == signal.getValue()).
+                map(e -> e.getKey()).
+                findFirst();
     }
 
     private Direction getNeuronGate() {
