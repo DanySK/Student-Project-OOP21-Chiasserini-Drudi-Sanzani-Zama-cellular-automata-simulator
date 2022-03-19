@@ -19,7 +19,7 @@ public class CoDiCellBuilderImpl implements CoDiCellBuilder {
     private Optional<EnumMap<Direction, Integer>> neighborsPreviousInput;
 
     /**
-     * Construct a {@link CoDiCellBuilder}.
+     * Construct a {@link CoDiCellBuilder} with initial values.
      */
     public CoDiCellBuilderImpl() {
         this.built = false;
@@ -39,7 +39,7 @@ public class CoDiCellBuilderImpl implements CoDiCellBuilder {
     public CoDiCellBuilder gate(final Direction gate) {
         this.check(!built);
         this.gate = Optional.of(gate);
-        return null;
+        return this;
     }
 
     @Override
