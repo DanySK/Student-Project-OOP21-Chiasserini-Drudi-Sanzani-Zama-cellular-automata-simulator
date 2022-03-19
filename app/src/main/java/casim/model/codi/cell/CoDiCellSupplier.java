@@ -3,8 +3,8 @@ package casim.model.codi.cell;
 import java.util.EnumMap;
 import java.util.function.Supplier;
 
-import casim.model.codi.CellState;
-import casim.model.codi.Direction;
+import casim.model.codi.cell.attributes.CellState;
+import casim.model.codi.cell.attributes.Direction;
 import casim.model.codi.cell.builder.CoDiCellBuilder;
 import casim.model.codi.cell.builder.CoDiCellBuilderImpl;
 

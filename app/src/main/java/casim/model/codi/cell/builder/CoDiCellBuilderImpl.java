@@ -3,9 +3,9 @@ package casim.model.codi.cell.builder;
 import java.util.EnumMap;
 import java.util.Optional;
 
-import casim.model.codi.CellState;
-import casim.model.codi.Direction;
 import casim.model.codi.cell.CoDiCell;
+import casim.model.codi.cell.attributes.CellState;
+import casim.model.codi.cell.attributes.Direction;
 
 /**
  * Implementation of {@link CoDiCellBuilder}.

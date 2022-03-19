@@ -1,4 +1,4 @@
-package casim.model.codi;
+package casim.model.codi.cell.attributes;
 
 import java.util.EnumMap;
 import java.util.Map;

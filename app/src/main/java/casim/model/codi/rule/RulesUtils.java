@@ -3,7 +3,7 @@ package casim.model.codi.rule;
 import java.util.EnumMap;
 import java.util.Random;
 
-import casim.model.codi.Direction;
+import casim.model.codi.cell.attributes.Direction;
 
 /**
  * A static utility class for {@link casim.model.codi.CoDi} rules.

@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.Optional;
 
 import casim.model.abstraction.cell.AbstractCell;
-import casim.model.codi.CellState;
-import casim.model.codi.Direction;
+import casim.model.codi.cell.attributes.CellState;
+import casim.model.codi.cell.attributes.Direction;
 import casim.model.codi.rule.RulesUtils;
 
 /**

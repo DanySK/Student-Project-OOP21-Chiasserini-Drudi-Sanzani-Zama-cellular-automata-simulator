@@ -1,4 +1,6 @@
-package casim.model.codi;
+package casim.model.codi.cell.attributes;
+
+import casim.model.codi.CoDi;
 
 /**
  * An enum for the growth signals for the {@link CoDi} growth phase (see in {@link casim.model.codi.rule.GrowthUpdateRule}).
