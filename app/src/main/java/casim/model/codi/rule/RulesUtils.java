@@ -64,7 +64,7 @@ public final class RulesUtils {
      * 
      * @return true with 25% probability.
      */
-    public static boolean rand75() {
+    public static boolean rand25() {
         return RulesUtils.rand50() && RulesUtils.rand50();
     } 
 }
