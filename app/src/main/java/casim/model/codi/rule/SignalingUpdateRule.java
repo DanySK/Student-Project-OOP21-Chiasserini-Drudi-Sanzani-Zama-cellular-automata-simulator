@@ -7,8 +7,8 @@ import java.util.function.BiFunction;
 import org.apache.commons.lang3.tuple.Pair;
 
 import casim.model.abstraction.rule.AbstractUpdateRule;
-import casim.model.codi.Direction;
 import casim.model.codi.cell.CoDiCell;
+import casim.model.codi.cell.attributes.Direction;
 import casim.model.codi.cell.builder.CoDiCellBuilder;
 import casim.model.codi.cell.builder.CoDiCellBuilderImpl;
 import casim.utils.coordinate.Coordinates3D;
@@ -48,12 +48,12 @@ public class SignalingUpdateRule extends AbstractUpdateRule<Coordinates3D<Intege
                 inputSum = 1 + RulesUtils.sumEnumMapValues(cell.getNeighborsPreviousInput())
                         - cell.getNeighborsPreviousInput().get(cell.getOppositeToGate().get())
                         - cell.getNeighborsPreviousInput().get(cell.getGate().get());
-                builder.activationCounter(inputSum);
-                neighborsPreviousInput = RulesUtils.newFilledEnumMap(0);
-                if (cell.getActivationCounter() > NEURON_ACTIVATION_VALUE) {
+                if (cell.getActivationCounter() + inputSum > NEURON_ACTIVATION_VALUE) {
                     neighborsPreviousInput.put(cell.getGate().get(), 1);
                     neighborsPreviousInput.put(cell.getOppositeToGate().get(), 1);
                     builder.activationCounter(0);
+                } else {
+                    builder.activationCounter(cell.getActivationCounter() + inputSum);
                 }
                 break;
             case AXON:
@@ -62,7 +62,7 @@ public class SignalingUpdateRule extends AbstractUpdateRule<Coordinates3D<Intege
                 break;
             case DENDRITE:
                 inputSum = RulesUtils.sumEnumMapValues(cell.getNeighborsPreviousInput());
-                inputSum = inputSum > 2 ? 2 : inputSum;
+                inputSum = inputSum > 2 ? 2 : inputSum; //TODO do some test
                 neighborsPreviousInput = RulesUtils.newFilledEnumMap(0);
                 neighborsPreviousInput.put(cell.getGate().get(), inputSum);
                 builder.activationCounter((inputSum != 0) ? 1 : 0);
