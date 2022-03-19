@@ -1,15 +1,11 @@
 package casim.model.codi.cell;
 
-import java.util.Collections;
 import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 import casim.model.abstraction.cell.AbstractCell;
 import casim.model.codi.cell.attributes.CellState;
 import casim.model.codi.cell.attributes.Direction;
-import casim.model.codi.rule.RulesUtils;
 
 /**
  * The CoDi cells.
@@ -18,7 +14,7 @@ public class CoDiCell extends AbstractCell<CellState> {
 
     private int activationCounter;
     private final Optional<Direction> gate;
-    private final Map<Direction, Boolean> chromosome;
+    private final EnumMap<Direction, Boolean> chromosome; //TODO se uso hashmap posso tornare copie difensive.
     private final EnumMap<Direction, Integer> neighborsPreviousInput;
 
     /**
@@ -28,15 +24,13 @@ public class CoDiCell extends AbstractCell<CellState> {
      * @param activationCounter the value of the activation counter.
      * @param gate the gate of the cell (an empty optional if it's not defined).
      * @param neighborsPreviousInput the {@link EnumMap} containing the values of the prior inputs.
+     * @param chromosome the {@link EnumMap} containing the growth instruction.
      */
-    public CoDiCell(final CellState state, final int activationCounter, 
-            final EnumMap<Direction, Integer> neighborsPreviousInput, final Optional<Direction> gate) {
+    public CoDiCell(final CellState state, final int activationCounter, final Optional<Direction> gate, 
+            final EnumMap<Direction, Integer> neighborsPreviousInput, final EnumMap<Direction, Boolean> chromosome) {
         super(state);
-        this.chromosome = new HashMap<>();
-        for (final var dir: Direction.values()) {
-            this.chromosome.put(dir, RulesUtils.rand50());
-        }
         this.gate = gate;
+        this.chromosome = chromosome;
         this.activationCounter = activationCounter;
         this.neighborsPreviousInput = neighborsPreviousInput;
     }
@@ -91,13 +85,13 @@ public class CoDiCell extends AbstractCell<CellState> {
     }
 
     /**
-     * Return a {@link Map} describing the chromosome of the cell.
+     * Return a {@link EnumMap} describing the chromosome of the cell.
      * The value is true in the directions where the cell can send the signal.
      * 
-     * @return Return a {@link Map} representing the chromosome of the cell.
+     * @return Return a {@link EnumMap} representing the chromosome of the cell.
      */
-    public Map<Direction, Boolean> getChromosome() {
-        return Collections.unmodifiableMap(this.chromosome);
+    public EnumMap<Direction, Boolean> getChromosome() {
+        return this.chromosome;
     }
 
 }

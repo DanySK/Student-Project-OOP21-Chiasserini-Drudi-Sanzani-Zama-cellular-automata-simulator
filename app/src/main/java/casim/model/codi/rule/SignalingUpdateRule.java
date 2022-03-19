@@ -72,6 +72,7 @@ public class SignalingUpdateRule extends AbstractUpdateRule<Coordinates3D<Intege
             }
         builder.state(cell.getState());
         builder.gate(cell.getGate().get());
+        builder.chromosome(cell.getChromosome());
         builder.neighborsPreviousInput(neighborsPreviousInput);
         return builder.build();
     }

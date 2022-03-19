@@ -16,6 +16,7 @@ public class CoDiCellBuilderImpl implements CoDiCellBuilder {
     private Optional<CellState> state;
     private Optional<Direction> gate;
     private Optional<Integer> activationCounter;
+    private Optional<EnumMap<Direction, Boolean>> chromosome;
     private Optional<EnumMap<Direction, Integer>> neighborsPreviousInput;
 
     /**
@@ -50,6 +51,12 @@ public class CoDiCellBuilderImpl implements CoDiCellBuilder {
     }
 
     @Override
+    public CoDiCellBuilder chromosome(final EnumMap<Direction, Boolean> chromosome) {
+        this.chromosome = Optional.of(chromosome);
+        return this;
+    }
+
+    @Override
     public CoDiCellBuilder activationCounter(final int activationCounter) {
         this.check(!built);
         this.activationCounter = Optional.of(activationCounter);
@@ -64,14 +71,14 @@ public class CoDiCellBuilderImpl implements CoDiCellBuilder {
     }
 
     @Override
-    public CoDiCell build() {
+    public CoDiCell build() { //TODO è giusto lasciare fuori dai check gate e chromosome?
         this.check(!built);
         this.check(this.state.isPresent());
         this.check(this.activationCounter.isPresent());
         this.check(this.neighborsPreviousInput.isPresent());
         this.built = true;
-        return new CoDiCell(this.state.get(), this.activationCounter.get(), 
-                                this.neighborsPreviousInput.get(), this.gate);
+        return new CoDiCell(this.state.get(), this.activationCounter.get(), this.gate,
+                                this.neighborsPreviousInput.get(), this.chromosome.get());
     }
 
 }

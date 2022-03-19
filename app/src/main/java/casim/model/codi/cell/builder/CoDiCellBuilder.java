@@ -28,6 +28,14 @@ public interface CoDiCellBuilder {
     CoDiCellBuilder gate(Direction gate);
 
     /**
+     * Set the chromosome.
+     * 
+     * @param chromosome the value so set.
+     * @return the current {@link CoDiCellBuilder}. 
+     */
+    CoDiCellBuilder chromosome(EnumMap<Direction, Boolean> chromosome);
+
+    /**
      * Set the activation counter.
      * 
      * @param activationCounter the value of the activationCounter to set.

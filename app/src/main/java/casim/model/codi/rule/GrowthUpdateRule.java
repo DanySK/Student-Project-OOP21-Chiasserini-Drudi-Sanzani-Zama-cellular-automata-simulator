@@ -105,6 +105,7 @@ public class GrowthUpdateRule extends AbstractUpdateRule<Coordinates3D<Integer>,
             default:
                 break;
         }
+        builder.chromosome(cell.getChromosome());
         builder.activationCounter(cell.getActivationCounter());
         builder.neighborsPreviousInput(neighborsPreviousInput);
         return builder.build();

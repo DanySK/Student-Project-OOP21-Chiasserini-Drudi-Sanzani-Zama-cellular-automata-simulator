@@ -30,7 +30,7 @@ import casim.utils.range.Ranges;
  */
 public class CoDi extends AbstractAutomaton<CellState, CoDiCell> {
 
-    private boolean changed; //TODO
+    private boolean changed; 
     private Grid3D<CoDiCell> state;
     private boolean hasSetupSignaling;
     private final GrowthUpdateRule growthUpdateRule;
@@ -49,6 +49,14 @@ public class CoDi extends AbstractAutomaton<CellState, CoDiCell> {
         this.state = state.map(s -> cellSupplier.get());
         this.growthUpdateRule = new GrowthUpdateRule(NeighborsFunctions::neighbors3DFunction);
         this.signalingUpdateRule = new SignalingUpdateRule(NeighborsFunctions::neighbors3DFunction);
+        this.restrictToGrid();
+    }
+
+    private void restrictToGrid() {
+        for (final var coord: this.visitGrid()) {
+            final CoDiCell cell = this.normalize(this.state.get(coord), coord);
+            this.state.set(coord, cell);
+        }
     }
 
     @Override
@@ -146,13 +154,19 @@ public class CoDi extends AbstractAutomaton<CellState, CoDiCell> {
     }
 
     private CoDiCell removeDirectionFromNeighbors(final CoDiCell cell, final List<Direction> directions) {
+        if (directions.isEmpty()) {
+            return cell;
+        }
         final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
         final var neighborsPreviousInput = cell.getNeighborsPreviousInput();
+        final var chromosome = cell.getChromosome();
         for (final var d: directions) {
             neighborsPreviousInput.remove(d);
+            chromosome.remove(d);
         }
-        builder.activationCounter(cell.getActivationCounter());
         builder.state(cell.getState());
+        builder.chromosome(chromosome);
+        builder.activationCounter(cell.getActivationCounter());
         builder.neighborsPreviousInput(neighborsPreviousInput);
         return builder.build();
     }
@@ -180,6 +194,7 @@ public class CoDi extends AbstractAutomaton<CellState, CoDiCell> {
         final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
         builder.gate(cell.getGate().get());
         builder.activationCounter(cell.getActivationCounter());
+        builder.chromosome(cell.getChromosome());
         builder.neighborsPreviousInput(cell.getNeighborsPreviousInput());
         builder.state((cell.getState() == CellState.AXON) ? CellState.ACTIVATED_AXON : CellState.ACTIVATED_DENDRITE);
         return builder.build();
