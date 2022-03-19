@@ -17,7 +17,15 @@ public enum CellState {
      */
     AXON,
     /**
+     * An activated axon.
+     */
+    ACTIVATED_AXON,
+    /**
      * Dendritic cells, they collect data and eventually pass it to the neuron body.
      */
     DENDRITE,
+    /**
+     * An activated dendrite. 
+     */
+    ACTIVATED_DENDRITE;
 }
