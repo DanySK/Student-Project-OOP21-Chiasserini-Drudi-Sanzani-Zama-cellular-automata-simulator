@@ -50,7 +50,7 @@ public enum Direction {
      * 
      * @return the opposite {@link Direction}.
      */
-    public Direction getOpposite() { //TODO do it in a better way (maybe a map can be a good thing)
+    public Direction getOpposite() { 
         return OPPOSITE_DIRECTION.get(this);
     }
 

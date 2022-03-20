@@ -43,9 +43,9 @@ public class CoDi extends AbstractAutomaton<CellState, CoDiCell> {
      * @param state the grid of {@link CellState} used to initialize the automaton.
      */
     public CoDi(final Grid3D<CellState> state) {
-        final Supplier<CoDiCell> cellSupplier = new CoDiCellSupplier();
         this.changed = true;
         this.hasSetupSignaling = false;
+        final Supplier<CoDiCell> cellSupplier = new CoDiCellSupplier();
         this.state = state.map(s -> cellSupplier.get());
         this.growthUpdateRule = new GrowthUpdateRule(NeighborsFunctions::neighbors3DFunction);
         this.signalingUpdateRule = new SignalingUpdateRule(NeighborsFunctions::neighbors3DFunction);

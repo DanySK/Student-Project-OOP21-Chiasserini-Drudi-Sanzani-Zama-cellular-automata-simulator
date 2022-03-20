@@ -71,9 +71,10 @@ public class CoDiCellBuilderImpl implements CoDiCellBuilder {
     }
 
     @Override
-    public CoDiCell build() { //TODO è giusto lasciare fuori dai check gate e chromosome?
+    public CoDiCell build() { 
         this.check(!built);
         this.check(this.state.isPresent());
+        this.check(this.chromosome.isPresent());
         this.check(this.activationCounter.isPresent());
         this.check(this.neighborsPreviousInput.isPresent());
         this.built = true;
