@@ -4,6 +4,7 @@
 package casim;
 
 import java.util.Random;
+import java.awt.GraphicsEnvironment;
 
 import casim.controller.automaton.AutomatonController;
 import casim.controller.automaton.AutomatonControllerImpl;
@@ -82,6 +83,13 @@ public class App extends Application {
     }
 
     private void startMenu(final Stage primaryStage) {
+        final var graphics = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        final var width = graphics.getDisplayMode().getWidth();
+        final var height = graphics.getDisplayMode().getHeight();
+
+        primaryStage.setWidth(width / 2);
+        primaryStage.setHeight(height / 2);
+        
         final var root = new PageContainer(primaryStage);
         root.addPage(this.getMenu(root, new MenuControllerImpl()));
         final var scene = new Scene(root);
