@@ -37,14 +37,15 @@ public class UpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, Wator
             final List<Pair<Coordinates2D<Integer>, WatorCell>> neighborsPairs) {
         final var cell = cellPair.getRight();
         final var newCell = cell.reproduce();
+        final var neighborsList = neighborsPairs.stream()
+            .map(x -> x.getValue())
+            .collect(Collectors.toList());
         switch (cell.getState()) {
             case PREY:
                 if (this.countState(neighborsPairs, CellState.DEAD) > 0) {
                     //move and reproduce if can
-                    final var deadNeighbors = this.getFilteredList(neighborsPairs, CellState.DEAD);
                     // move current prey to new position and heal by 1
-                    var toChange = this.getCellToChange(deadNeighbors);
-                    this.move(toChange, cell.getState(), cell.getHealth(), cell.getMaxHealth(), WatorCell::heal);
+                    this.cellStep(neighborsList, CellState.DEAD, cell, WatorCell::heal);
                     return newCell;
                 } else {
                     // don't move
@@ -54,15 +55,11 @@ public class UpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, Wator
             case PREDATOR:
                 if (this.countState(neighborsPairs, CellState.PREY) > 0) {
                     // move and eat
-                    final var preyNeighbors = this.getFilteredList(neighborsPairs, CellState.PREY);
-                    var toChange = this.getCellToChange(preyNeighbors);
-                    this.move(toChange, cell.getState(), cell.getHealth(), cell.getMaxHealth(), WatorCell::heal);
+                    this.cellStep(neighborsList, CellState.PREY, cell, WatorCell::heal);
                     return newCell;
                 } else if (this.countState(neighborsPairs, CellState.DEAD) > 0) {
                     // move and lose health
-                    final var deadNeighbors = this.getFilteredList(neighborsPairs, CellState.DEAD);
-                    var toChange = this.getCellToChange(deadNeighbors);
-                    this.move(toChange, cell.getState(), cell.getHealth(), cell.getMaxHealth(), WatorCell::starve);
+                    this.cellStep(neighborsList, CellState.DEAD, cell, WatorCell::starve);
                     return newCell;
                 } else {
                     // don't move and lose health
@@ -100,11 +97,17 @@ public class UpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, Wator
             .count();
     }
 
-    private List<WatorCell> getFilteredList(final List<Pair<Coordinates2D<Integer>, WatorCell>> list, final CellState state) {
+    private List<WatorCell> getFilteredList(final List<WatorCell> list, final CellState state) {
         return list.stream()
-            .map(x -> x.getValue())
             .filter(x -> x.getState().equals(state))
             .collect(Collectors.toList());
+    }
+
+    private void cellStep(final List<WatorCell> neighborsList, final CellState neighborsFilter,
+            final WatorCell currCell, final Consumer<WatorCell> action) {
+        final var filteredNeighbors = this.getFilteredList(neighborsList, neighborsFilter);
+        var toChange = this.getCellToChange(filteredNeighbors);
+        this.move(toChange, currCell.getState(), currCell.getHealth(), currCell.getMaxHealth(), action);
     }
 
 }
