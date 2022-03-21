@@ -77,14 +77,13 @@ public class UpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, Wator
         }
     }
 
-    private void move(WatorCell toChange, final CellState state, final int health, final int maxHealth,
-            final Consumer<WatorCell> action) {
-        var newCell = new WatorCell(state, health, maxHealth);
-        if (newCell.isDead()) {
-            newCell = new WatorCell(CellState.DEAD, DEAD_HEALTH, maxHealth);
-        }
-        toChange = newCell;
+    private void move(WatorCell toChange, final CellState state, final int health, final Consumer<WatorCell> action) {
+        toChange.setState(state);
+        toChange.setHealth(health);
         action.accept(toChange);
+        if (toChange.isDead()) {
+            toChange.setState(CellState.DEAD);
+        }
     }
 
     private WatorCell getCellToChange(final List<WatorCell> list) {
@@ -107,7 +106,7 @@ public class UpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, Wator
             final WatorCell currCell, final Consumer<WatorCell> action) {
         final var filteredNeighbors = this.getFilteredList(neighborsList, neighborsFilter);
         var toChange = this.getCellToChange(filteredNeighbors);
-        this.move(toChange, currCell.getState(), currCell.getHealth(), currCell.getMaxHealth(), action);
+        this.move(toChange, currCell.getState(), currCell.getHealth(), action);
     }
 
 }
