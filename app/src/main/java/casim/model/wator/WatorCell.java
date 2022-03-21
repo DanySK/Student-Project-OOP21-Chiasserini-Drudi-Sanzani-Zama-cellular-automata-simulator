@@ -2,14 +2,25 @@ package casim.model.wator;
 
 import casim.model.abstraction.cell.AbstractCell;
 
-public class WatorCell extends AbstractCell<CellState>{
+/**
+ * A cell of the {@link casim.model.wator.Wator} Automaton.
+ */
+public class WatorCell extends AbstractCell<CellState> {
 
     private static final int MIN_HEALTH = 0;
 
     private final int maxHealth;
     private int health;
 
-    public WatorCell(CellState state, final int health, final int maxHealth) {
+
+    /**
+     * Constructs a new {@link WatorCell}.
+     * 
+     * @param state the {@link CellState} of the cell.
+     * @param health the int value representing the health of the cell.
+     * @param maxHealth the int value representing the maximum health of the cell.
+     */
+    public WatorCell(final CellState state, final int health, final int maxHealth) {
         super(state);
         this.health = health;
         this.maxHealth = maxHealth;
@@ -63,7 +74,7 @@ public class WatorCell extends AbstractCell<CellState>{
         }
         this.health = health;
     }
-    
+
     /**
      * Returns true if the {@link WatorCell} has
      * reached minimum health value, false otherwise.
@@ -80,7 +91,7 @@ public class WatorCell extends AbstractCell<CellState>{
      * maximum.
      */
     public void heal() {
-        this.health += (this.health == this.maxHealth ? 0 : 1);
+        this.health += this.health == this.maxHealth ? 0 : 1;
     }
 
     /**
@@ -88,7 +99,7 @@ public class WatorCell extends AbstractCell<CellState>{
      * 1 if health isn't at minimum.
      */
     public void starve() {
-        this.health -= (this.isDead() ? 0 : 1);
+        this.health -= this.isDead() ? 0 : 1;
     }
 
     /**
