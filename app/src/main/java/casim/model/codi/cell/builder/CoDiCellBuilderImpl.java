@@ -37,9 +37,9 @@ public class CoDiCellBuilderImpl implements CoDiCellBuilder {
     }
 
     @Override
-    public CoDiCellBuilder gate(final Direction gate) {
+    public CoDiCellBuilder gate(final Optional<Direction> gate) {
         this.check(!built);
-        this.gate = Optional.of(gate);
+        this.gate = gate;
         return this;
     }
 

@@ -46,8 +46,8 @@ public class SignalingUpdateRule extends AbstractUpdateRule<Coordinates3D<Intege
                 break;
             case NEURON:
                 inputSum = 1 + RulesUtils.sumEnumMapValues(cell.getNeighborsPreviousInput())
-                        - cell.getNeighborsPreviousInput().get(cell.getOppositeToGate().get())
-                        - cell.getNeighborsPreviousInput().get(cell.getGate().get());
+                        - cell.getNeighborsPreviousInput().get(cell.getGate().get())
+                        - cell.getNeighborsPreviousInput().get(cell.getOppositeToGate().get());
                 if (cell.getActivationCounter() + inputSum > NEURON_ACTIVATION_VALUE) {
                     neighborsPreviousInput.put(cell.getGate().get(), 1);
                     neighborsPreviousInput.put(cell.getOppositeToGate().get(), 1);
@@ -62,7 +62,7 @@ public class SignalingUpdateRule extends AbstractUpdateRule<Coordinates3D<Intege
                 break;
             case DENDRITE:
                 inputSum = RulesUtils.sumEnumMapValues(cell.getNeighborsPreviousInput());
-                inputSum = inputSum > 2 ? 2 : inputSum; //TODO do some test
+                inputSum = inputSum > 2 ? 2 : inputSum; 
                 neighborsPreviousInput = RulesUtils.newFilledEnumMap(0);
                 neighborsPreviousInput.put(cell.getGate().get(), inputSum);
                 builder.activationCounter((inputSum != 0) ? 1 : 0);
@@ -70,11 +70,11 @@ public class SignalingUpdateRule extends AbstractUpdateRule<Coordinates3D<Intege
             default:
                 break;
             }
-        builder.state(cell.getState());
-        builder.gate(cell.getGate().get());
-        builder.chromosome(cell.getChromosome());
-        builder.neighborsPreviousInput(neighborsPreviousInput);
-        return builder.build();
+        return builder.state(cell.getState())
+                      .gate(cell.getGate())
+                      .chromosome(cell.getChromosome())
+                      .neighborsPreviousInput(neighborsPreviousInput)
+                      .build();
     }
 
 }

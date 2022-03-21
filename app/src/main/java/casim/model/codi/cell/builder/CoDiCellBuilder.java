@@ -1,6 +1,7 @@
 package casim.model.codi.cell.builder;
 
 import java.util.EnumMap;
+import java.util.Optional;
 
 import casim.model.codi.cell.CoDiCell;
 import casim.model.codi.cell.attributes.CellState;
@@ -25,7 +26,7 @@ public interface CoDiCellBuilder {
      * @param gate the gate to set.
      * @return the current {@link CoDiCellBuilder}. 
      */
-    CoDiCellBuilder gate(Direction gate);
+    CoDiCellBuilder gate(Optional<Direction> gate);
 
     /**
      * Set the chromosome.

@@ -45,7 +45,7 @@ public final class RulesUtils {
      * @return the sum of the values.
      */
     public static int sumEnumMapSpecificValues(final EnumMap<Direction, Integer> enumMap, final int value) {
-        return enumMap.values().stream().filter(v -> v == value).reduce((n1, n2) -> n1 + n2).get();
+        return enumMap.values().stream().filter(v -> v == value).reduce((n1, n2) -> n1 + n2).orElse(0);
 
     }
 

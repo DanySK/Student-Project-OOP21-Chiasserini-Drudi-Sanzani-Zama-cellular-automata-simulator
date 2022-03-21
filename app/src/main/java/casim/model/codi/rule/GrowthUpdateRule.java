@@ -43,8 +43,9 @@ public class GrowthUpdateRule extends AbstractUpdateRule<Coordinates3D<Integer>,
         switch (cell.getState()) {
             case BLANK:
                 if (this.isNeuronSeed(cellPair.getLeft())) {
-                    builder.state(CellState.NEURON);
                     final Direction gate = this.getNeuronGate(); 
+                    builder.state(CellState.NEURON)
+                           .gate(Optional.of(gate));
                     neighborsPreviousInput = RulesUtils.newFilledEnumMap(Signal.DENDRITE_SIGNAL.getValue());
                     neighborsPreviousInput.put(gate, Signal.AXON_SIGNAL.getValue());
                     neighborsPreviousInput.put(gate.getOpposite(), Signal.AXON_SIGNAL.getValue());
@@ -52,56 +53,66 @@ public class GrowthUpdateRule extends AbstractUpdateRule<Coordinates3D<Integer>,
                 }
                 int inputSum = RulesUtils.sumEnumMapValues(cell.getNeighborsPreviousInput());
                 if (inputSum == 0) {
+                    builder.state(CellState.BLANK);
                     break;
                 }
                 inputSum = RulesUtils.sumEnumMapSpecificValues(neighborsPreviousInput, Signal.AXON_SIGNAL.getValue());
                 if (inputSum == Signal.AXON_SIGNAL.getValue()) {
-                    builder.state(CellState.AXON);
                     final Direction direction = this.findSignalDirection(cell, Signal.AXON_SIGNAL).get();
-                    builder.gate(direction); 
+                    builder.state(CellState.AXON)
+                           .gate(Optional.of(direction)); 
                     this.fillEnumMapWithPredicate(neighborsPreviousInput, cell, Signal.DENDRITE_SIGNAL.getValue(), 0);
                     break;
 
                 }
                 if (inputSum > Signal.AXON_SIGNAL.getValue()) {
+                    builder.state(CellState.BLANK);
                     neighborsPreviousInput = RulesUtils.newFilledEnumMap(0);
                     break;
                 }
                 inputSum = RulesUtils.sumEnumMapSpecificValues(neighborsPreviousInput, Signal.DENDRITE_SIGNAL.getValue());
                 if (inputSum == Signal.DENDRITE_SIGNAL.getValue()) {
-                    builder.state(CellState.DENDRITE);
                     final Direction direction = this.findSignalDirection(cell, Signal.DENDRITE_SIGNAL).get();
-                    builder.gate(direction.getOpposite());
+                    builder.state(CellState.DENDRITE)
+                           .gate(Optional.of(direction.getOpposite()));
                     this.fillEnumMapWithPredicate(neighborsPreviousInput, cell, Signal.DENDRITE_SIGNAL.getValue(), 0);
                     break;
                 }
-                builder.state(cell.getState());
+                builder.state(CellState.BLANK);
                 neighborsPreviousInput = RulesUtils.newFilledEnumMap(0);
                 break;
             case NEURON:
+                builder.state(cell.getState())
+                       .gate(cell.getGate());
                 neighborsPreviousInput = RulesUtils.newFilledEnumMap(Signal.DENDRITE_SIGNAL.getValue());
                 neighborsPreviousInput.put(cell.getGate().get(), Signal.AXON_SIGNAL.getValue());
                 neighborsPreviousInput.put(cell.getOppositeToGate().get(), Signal.AXON_SIGNAL.getValue());
                 break;
             case AXON:
+                builder.state(cell.getState())
+                       .gate(cell.getGate());
                 this.fillEnumMapWithPredicate(neighborsPreviousInput, cell, Signal.AXON_SIGNAL.getValue(), 0);
                 break;
             case DENDRITE:
+                builder.state(cell.getState())
+                       .gate(cell.getGate());
                 this.fillEnumMapWithPredicate(neighborsPreviousInput, cell, Signal.DENDRITE_SIGNAL.getValue(), 0);
                 break;
             default:
                 break;
         }
-        builder.chromosome(cell.getChromosome());
-        builder.activationCounter(cell.getActivationCounter());
-        builder.neighborsPreviousInput(neighborsPreviousInput);
-        return builder.build();
+        return builder.chromosome(cell.getChromosome())
+                      .activationCounter(cell.getActivationCounter())
+                      .neighborsPreviousInput(neighborsPreviousInput)
+                      .build();
     }
 
     private void fillEnumMapWithPredicate(final EnumMap<Direction, Integer> neighborsPreviousInput,
             final CoDiCell cell, final int valueA, final int valueB) {
         for (final var d: Direction.values()) {
-            neighborsPreviousInput.put(d, cell.getChromosome().get(d) ? valueA : valueB);
+            if (neighborsPreviousInput.containsKey(d)) {
+                neighborsPreviousInput.put(d, cell.getChromosome().get(d) ? valueA : valueB);
+            }
         }
     }
 
