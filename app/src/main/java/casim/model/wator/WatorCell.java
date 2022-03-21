@@ -70,7 +70,7 @@ public class WatorCell extends AbstractCell<CellState>{
      * maximum.
      */
     public void heal() {
-        this.health += this.health == this.maxHealth ? 0 : 1;
+        this.health += (this.health == this.maxHealth ? 0 : 1);
     }
 
     /**
@@ -78,7 +78,7 @@ public class WatorCell extends AbstractCell<CellState>{
      * 1 if health isn't at minimum.
      */
     public void starve() {
-        this.health =- (this.isDead() ? 0 : 1);
+        this.health -= (this.isDead() ? 0 : 1);
     }
 
     /**
