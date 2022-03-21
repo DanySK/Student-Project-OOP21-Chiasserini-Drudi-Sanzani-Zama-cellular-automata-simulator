@@ -7,10 +7,13 @@ import java.util.Random;
 
 import casim.controller.automaton.AutomatonController;
 import casim.controller.automaton.AutomatonControllerImpl;
+import casim.controller.menu.MenuController;
+import casim.controller.menu.MenuControllerImpl;
 import casim.model.bryansbrain.BryansBrain;
 import casim.model.bryansbrain.CellState;
 import casim.ui.components.grid.CanvasGridBuilderImpl;
 import casim.ui.components.grid.CanvasGridImpl;
+import casim.ui.components.menu.automaton.AutomatonMenu;
 import casim.ui.components.page.PageContainer;
 import casim.ui.utils.StateColorMapper;
 import casim.ui.view.AutomatonView;
@@ -38,11 +41,12 @@ public class App extends Application {
         return new AutomatonView<>(stage, controller, grid, mapper);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void start(final Stage primaryStage) throws Exception {
+    private AutomatonMenu getMenu(final PageContainer container, final MenuController controller) {
+        final var menu = new AutomatonMenu(container, controller);
+        return menu;
+    }
+
+    private void startBryansBrain(final Stage primaryStage) {
         final var state = new Grid2DImpl<CellState>(ROWS, COLS, () -> {
             final var rng = new Random();
             final var val = rng.nextInt();
@@ -70,11 +74,27 @@ public class App extends Application {
             }
         });
 
-        final var root = new PageContainer();
+        final var root = new PageContainer(primaryStage);
         root.addPage(view);
         final var scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private void startMenu(final Stage primaryStage) {
+        final var root = new PageContainer(primaryStage);
+        root.addPage(this.getMenu(root, new MenuControllerImpl()));
+        final var scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void start(final Stage primaryStage) throws Exception {
+        this.startMenu(primaryStage);
     }
 
     /**

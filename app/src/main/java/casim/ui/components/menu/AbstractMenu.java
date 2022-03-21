@@ -2,15 +2,17 @@ package casim.ui.components.menu;
 
 import java.util.List;
 
+import casim.controller.menu.MenuController;
 import casim.ui.components.page.PageContainer;
 import javafx.scene.control.Control;
 import javafx.scene.layout.VBox;
 
 public abstract class AbstractMenu extends VBox {
-    //TODO: Add controller & controller getter
+    private final MenuController controller;
     private final PageContainer container;
 
-    public AbstractMenu(final PageContainer container) {
+    public AbstractMenu(final PageContainer container, final MenuController controller) {
+        this.controller = controller;
         this.container = container;
     }
 
@@ -30,6 +32,15 @@ public abstract class AbstractMenu extends VBox {
      */
     public void addControls(final List<Control> controls) {
         controls.forEach(this::addControl);
+    }
+
+    /**
+     * Get the {@link MenuController}.
+     * 
+     * @return the {@link MenuController} .
+     */
+    public MenuController getMenuController() {
+        return this.controller;
     }
 
     /**
