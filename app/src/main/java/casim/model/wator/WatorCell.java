@@ -36,6 +36,16 @@ public class WatorCell extends AbstractCell<CellState>{
     }
 
     /**
+     * Sets the {@link CellState} of the {@link WatorCell}.
+     * 
+     * @param state the {@link CellState} to be set as the new
+     * state of the {@link WatorCell}
+     */
+    public void setState(final CellState state) {
+        this.state = state;
+    }
+
+    /**
      * Sets the current health value of the {@link WatorCell}.
      * 
      * @param health the integer value to be set as

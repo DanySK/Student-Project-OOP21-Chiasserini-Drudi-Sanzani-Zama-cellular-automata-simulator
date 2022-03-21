@@ -1,9 +1,6 @@
 package casim.model.wator;
 
-import java.util.Random;
-
 import org.apache.commons.lang3.tuple.Pair;
-
 import casim.model.abstraction.automaton.AbstractAutomaton;
 import casim.model.abstraction.utils.NeighborsFunctions;
 import casim.utils.PlayableAutomaton;
