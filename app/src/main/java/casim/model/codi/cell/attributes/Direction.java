@@ -4,6 +4,9 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.Random;
 
+import casim.utils.coordinate.Coordinates3D;
+import casim.utils.coordinate.CoordinatesUtil;
+
 /**
  * Enum containing all the neighbors directions.
  */
@@ -11,29 +14,34 @@ public enum Direction {
     /**
      * The north direction.
      */
-    NORTH,
+    NORTH(CoordinatesUtil.of(0, 0, 1)),
     /**
      * The north direction.
      */
-    SOUTH,
+    SOUTH(CoordinatesUtil.of(0, 0, -1)),
     /**
      * The south direction.
      */
-    WEST,
+    WEST(CoordinatesUtil.of(-1, 0, 0)),
     /**
      * The west direction.
      */
-    EAST,
+    EAST(CoordinatesUtil.of(1, 0, 0)),
     /**
      * The top direction.
      */
-    TOP,
+    TOP(CoordinatesUtil.of(0, 1, 0)),
     /**
      * The bottom direction.
      */
-    BOTTOM;
+    BOTTOM(CoordinatesUtil.of(0, -1, 0));
 
     private static final Map<Direction, Direction> OPPOSITE_DIRECTION = new EnumMap<>(Direction.class);
+    private final Coordinates3D<Integer> offset;
+
+    Direction(final Coordinates3D<Integer> offset) {
+        this.offset = offset;
+    }
 
     static {
         OPPOSITE_DIRECTION.put(NORTH, SOUTH);
@@ -63,4 +71,14 @@ public enum Direction {
         final Random random = new Random();
         return values()[random.nextInt(values().length)];
     }
+
+    /**
+     * Return the {@link Coordinates3D} offset of the {@link Direction}.
+     * 
+     * @return the offset of the direction.
+     */
+    public Coordinates3D<Integer> getDirectionOffset() {
+        return this.offset;
+    }
+
 }
