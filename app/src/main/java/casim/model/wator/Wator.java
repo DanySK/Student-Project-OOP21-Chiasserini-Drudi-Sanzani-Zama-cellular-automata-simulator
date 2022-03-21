@@ -16,25 +16,13 @@ import casim.utils.range.Ranges;
 public class Wator extends AbstractAutomaton<CellState, WatorCell>{
 
     private static final int MAX_HEALTH = 10;
-    private static final int INIT_PREDATOR_HEALTH = 5;
-    private static final int INIT_PREY_HEALTH = 5;
-    private static final int DEAD_HEALTH = 0;
+    private static final int INIT_HEALTH = 5;
 
     private Grid2D<WatorCell> state;
     private final UpdateRule updateRule = new UpdateRule(NeighborsFunctions::neighbors2DFunction);
 
     public Wator(final Grid2D<CellState> state) {
-        this.state = state.map(x -> {
-            final var rand = new Random();
-            final var randInt = rand.nextInt(1000);
-            if (randInt < 50) {
-                return new WatorCell(CellState.PREDATOR, INIT_PREDATOR_HEALTH, MAX_HEALTH);
-            } else if (randInt < 100) {
-                return new WatorCell(CellState.PREY, INIT_PREY_HEALTH, MAX_HEALTH);
-            } else {
-                return new WatorCell(CellState.DEAD, DEAD_HEALTH, MAX_HEALTH);
-            }
-        });
+        this.state = state.map(x -> new WatorCell(x, INIT_HEALTH, MAX_HEALTH));
     }
 
     @Override
@@ -58,8 +46,7 @@ public class Wator extends AbstractAutomaton<CellState, WatorCell>{
 
     @Override
     public Grid2D<WatorCell> getGrid() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.state;
     }
     
 }
