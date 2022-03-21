@@ -62,11 +62,7 @@ public class Ant {
       * @param state current {@link CellState} of the {@link LangtonsAntCell} the {@link Ant} is on.
       */
     public void turn(final CellState state) {
-        if (this.direction.equals(Direction.NORTH) && state.equals(CellState.ON)) {
-            this.direction = Direction.WEST;
-        } else {
-            this.direction = Direction.values()[(this.direction.ordinal()
-                    + (state.equals(CellState.ON) ? -1 : +1)) % Direction.values().length];
-        }
+        this.direction = Direction.values()[(this.direction.ordinal()
+                + (state.equals(CellState.ON) ? Direction.values().length -1 : +1)) % Direction.values().length];
     }
 }
