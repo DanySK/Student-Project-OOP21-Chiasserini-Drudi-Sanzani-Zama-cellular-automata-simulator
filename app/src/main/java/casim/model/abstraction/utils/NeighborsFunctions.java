@@ -63,7 +63,6 @@ public final class NeighborsFunctions {
      */
     public static <T extends AbstractCell<?>> List<Pair<Coordinates3D<Integer>, T>> neighbors3DFunction(final Pair<Coordinates3D<Integer>, T> cellPair, final Grid<Coordinates3D<Integer>, T> grid) {
         return CoordinatesUtil.get3DNeighbors(cellPair.getLeft()).stream()
-            .map(coord -> CoordinatesUtil.sumInt(coord, cellPair.getLeft()))
             .filter(grid::isCoordValid)
             .map(coord -> Pair.of(coord, grid.get(coord)))
             .collect(Collectors.toList());
