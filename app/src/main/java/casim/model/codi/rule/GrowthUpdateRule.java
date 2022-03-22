@@ -4,6 +4,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -15,6 +16,7 @@ import casim.model.codi.cell.attributes.Signal;
 import casim.model.codi.cell.builder.CoDiCellBuilder;
 import casim.model.codi.cell.builder.CoDiCellBuilderImpl;
 import casim.utils.coordinate.Coordinates3D;
+import casim.utils.coordinate.CoordinatesUtil;
 import casim.utils.grid.Grid;
 
 /**
@@ -43,7 +45,9 @@ public class GrowthUpdateRule extends AbstractUpdateRule<Coordinates3D<Integer>,
         switch (cell.getState()) {
             case BLANK:
                 if (this.isNeuronSeed(cellPair.getLeft())) {
-                    final Direction gate = this.getNeuronGate(); 
+                    final List<Coordinates3D<Integer>> neighborsCoordinates = neighborsPairs.stream()
+                        .map(p -> p.getLeft()).collect(Collectors.toList());
+                    final Direction gate = this.getNeuronGate(cellPair.getLeft(), neighborsCoordinates); 
                     builder.state(CellState.NEURON)
                            .gate(Optional.of(gate));
                     neighborsPreviousInput = RulesUtils.newFilledEnumMap(Signal.DENDRITE_SIGNAL.getValue());
@@ -52,6 +56,7 @@ public class GrowthUpdateRule extends AbstractUpdateRule<Coordinates3D<Integer>,
                     break;
                 }
                 int inputSum = RulesUtils.sumEnumMapValues(cell.getNeighborsPreviousInput());
+
                 if (inputSum == 0) {
                     builder.state(CellState.BLANK);
                     break;
@@ -123,9 +128,11 @@ public class GrowthUpdateRule extends AbstractUpdateRule<Coordinates3D<Integer>,
                 findFirst();
     }
 
-    private Direction getNeuronGate() {
+    private Direction getNeuronGate(final Coordinates3D<Integer> cellCoord, 
+            final List<Coordinates3D<Integer>> neighborsCoordinates) {
         Direction direction = Direction.getRandomDirection();
-        while (direction == Direction.TOP || direction == Direction.BOTTOM) {
+        while (direction == Direction.TOP || direction == Direction.BOTTOM 
+                || !neighborsCoordinates.contains(CoordinatesUtil.sumInt(cellCoord, direction.getDirectionOffset()))) {
             direction = Direction.getRandomDirection();
         }
         return direction;
