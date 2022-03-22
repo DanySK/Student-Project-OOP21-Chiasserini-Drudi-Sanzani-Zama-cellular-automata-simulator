@@ -85,6 +85,43 @@ public class CoDiCell extends AbstractCell<CellState> {
     }
 
     /**
+     * Set the value in the {@link Direction} take as input,
+     * if the {@link EnumMap} doesn't contains the direction it does nothing.
+     * 
+     * @param direction the direction where set the value.
+     * @param value the value to set.
+     */
+    public void setNeighborsPreviousInputDirection(final Direction direction, final int value) {
+        if (this.neighborsPreviousInput.containsKey(direction)) {
+            this.neighborsPreviousInput.put(direction, value);
+        }
+    }
+
+    /**
+     * Return an {@link Optional} containing the value in the {@link Direction} take as input,
+     * an empty optional if the direction is not present.
+     * 
+     * @param direction the direction of the value to return.
+     * @return an {@link Optional} containing the value in the direction take as input,
+     * an empty optional if it's not present.
+     */
+    public Optional<Integer> getSpecificNeighborsPreviousInput(final Direction direction) {
+        return this.neighborsPreviousInput.containsKey(direction) 
+                ? Optional.of(this.neighborsPreviousInput.get(direction)) : Optional.empty();
+    }
+
+    /**
+     * Remove a specific {@link Direction} (if present) in neighborsPreviousInput.
+     * 
+     * @param direction the {@link Direction} to remove.
+     */
+    public void removeNeighborsPreviousInputDirection(final Direction direction) {
+        if (this.neighborsPreviousInput.containsKey(direction)) {
+            this.neighborsPreviousInput.remove(direction);
+        }
+    }
+
+    /**
      * Return a {@link EnumMap} describing the chromosome of the cell.
      * The value is true in the directions where the cell can send the signal.
      * 
