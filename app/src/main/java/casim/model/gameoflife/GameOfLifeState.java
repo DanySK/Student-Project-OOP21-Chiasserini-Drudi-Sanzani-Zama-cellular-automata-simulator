@@ -1,6 +1,6 @@
 package casim.model.gameoflife;
 //TODO javadoc
-public enum CellState {
+public enum GameOfLifeState {
     ALIVE,
     DEAD;
 }

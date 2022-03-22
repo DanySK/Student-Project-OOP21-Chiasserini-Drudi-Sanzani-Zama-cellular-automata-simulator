@@ -2,9 +2,9 @@ package casim.model.gameoflife;
 
 import casim.model.abstraction.cell.AbstractCell;
 //TODO javadoc
-public class GameOfLifeCell extends AbstractCell<CellState> {
+public class GameOfLifeCell extends AbstractCell<GameOfLifeState> {
 
-    public GameOfLifeCell(CellState state) {
+    public GameOfLifeCell(GameOfLifeState state) {
         super(state);
     }
     

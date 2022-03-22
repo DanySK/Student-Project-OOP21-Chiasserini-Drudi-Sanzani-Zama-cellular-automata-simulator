@@ -1,6 +1,48 @@
 package casim.model.gameoflife;
 
-//TODO javadoc
-public class GameOfLIfe extends AbstractAutomaton<CellState, GameOfLifeCell> {
+import org.apache.commons.lang3.tuple.Pair;
 
+import casim.model.abstraction.automaton.AbstractAutomaton;
+import casim.model.abstraction.utils.NeighborsFunctions;
+import casim.utils.coordinate.CoordinatesUtil;
+import casim.utils.grid.Grid2D;
+import casim.utils.grid.Grid2DImpl;
+import casim.utils.range.Ranges;
+
+//TODO javadoc
+public class GameOfLife extends AbstractAutomaton<GameOfLifeState, GameOfLifeCell> {
+    
+    private Grid2D<GameOfLifeCell> state;
+    private final UpdateRule updateRule
+        = new UpdateRule(NeighborsFunctions::mooreNeighborsFunction);
+
+    public GameOfLife(final Grid2D<GameOfLifeState> state) {
+        this.state = state.map(s -> new GameOfLifeCell(s));
+    }
+
+    @Override
+    public boolean hasNext() {
+        return true;
+    }
+
+    @Override
+    protected Grid2D<GameOfLifeCell> doStep() {
+        final var newState = new Grid2DImpl<GameOfLifeCell>(this.state.getHeight(), this.state.getWidth());
+
+        for (final var x : Ranges.of(0, this.state.getHeight())) {
+            for (final var y : Ranges.of(0, this.state.getWidth())) {
+                final var coord = CoordinatesUtil.of(x, y);
+                newState.set((coord), this.updateRule.getNextCell(Pair.of(coord, this.state.get(coord)), this.state));
+            }
+        }
+
+        this.state = newState;
+        return this.state;
+    }
+    @Override
+    public Grid2D<GameOfLifeCell> getGrid() {
+        return this.state;
+    }
+
+    
 }
