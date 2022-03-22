@@ -9,22 +9,36 @@ import casim.utils.grid.Grid2D;
 import casim.utils.grid.Grid2DImpl;
 import casim.utils.range.Ranges;
 
-//TODO javadoc
+/**
+ * Class that models the Game Of Life.
+ */
 public class GameOfLife extends AbstractAutomaton<GameOfLifeState, GameOfLifeCell> {
     
     private Grid2D<GameOfLifeCell> state;
     private final UpdateRule updateRule
         = new UpdateRule(NeighborsFunctions::mooreNeighborsFunction);
 
+    /**
+     * Costructor of the {@link Grid2D} filled with {@link GameOfLifeState}.
+     * 
+     * @param state starting state for all {@link GameOfLifeCell}.
+     */
     public GameOfLife(final Grid2D<GameOfLifeState> state) {
         this.state = state.map(s -> new GameOfLifeCell(s));
     }
 
+    /**
+     * hasNext method (always true).
+     */
     @Override
     public boolean hasNext() {
         return true;
     }
 
+    /**
+     * Function that advances of one step acoording to the {@link GameOfLife}'s' rules.
+     * 
+     */
     @Override
     protected Grid2D<GameOfLifeCell> doStep() {
         final var newState = new Grid2DImpl<GameOfLifeCell>(this.state.getHeight(), this.state.getWidth());
@@ -39,10 +53,12 @@ public class GameOfLife extends AbstractAutomaton<GameOfLifeState, GameOfLifeCel
         this.state = newState;
         return this.state;
     }
+
+    /**
+     * Method that return the whole {@link Grid2D}.
+     */
     @Override
     public Grid2D<GameOfLifeCell> getGrid() {
         return this.state;
     }
-
-    
 }

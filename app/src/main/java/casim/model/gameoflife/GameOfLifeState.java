@@ -1,5 +1,8 @@
 package casim.model.gameoflife;
-//TODO javadoc
+
+/**
+ * The enumeration which contains the finite states of this {@link Cell}.
+ */
 public enum GameOfLifeState {
     ALIVE,
     DEAD;
