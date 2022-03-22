@@ -39,7 +39,7 @@ public final class Colors {
     /**
      * Light Red.
      */
-    public static final Color LIGHT_RED = new Color(0.0, 1.0, 0.65, 1.0);
+    public static final Color LIGHT_RED = new Color(1.0, 0.5, 0.5, 1.0);
 
     private Colors() {
 
