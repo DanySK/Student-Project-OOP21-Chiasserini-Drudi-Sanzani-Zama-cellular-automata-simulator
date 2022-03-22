@@ -4,6 +4,8 @@ import java.util.EnumMap;
 import java.util.Random;
 
 import casim.model.codi.cell.attributes.Direction;
+import casim.utils.coordinate.Coordinates3D;
+import casim.utils.coordinate.CoordinatesUtil;
 
 /**
  * A static utility class for {@link casim.model.codi.CoDi} rules.
@@ -47,6 +49,18 @@ public final class RulesUtils {
     public static int sumEnumMapSpecificValues(final EnumMap<Direction, Integer> enumMap, final int value) {
         return enumMap.values().stream().filter(v -> v == value).reduce((n1, n2) -> n1 + n2).orElse(0);
 
+    }
+
+    /**
+     * Return the {@link Coordinates3D} obtained from the sum of a coordinates 
+     * and the offset of a {@link Direction}.
+     * 
+     * @param coord the {@link Coordinates3D} to sum.
+     * @param direction the direction from which take the offset.
+     * @return the resultant {@link Coordinates3D}.
+     */
+    public static Coordinates3D<Integer> getCoordinatesInDirection(final Coordinates3D<Integer> coord, final Direction direction) {
+        return CoordinatesUtil.sumInt(coord, direction.getDirectionOffset());
     }
 
     /**
