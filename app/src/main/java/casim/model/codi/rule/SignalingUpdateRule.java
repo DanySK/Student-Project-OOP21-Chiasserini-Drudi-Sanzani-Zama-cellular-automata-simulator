@@ -46,8 +46,10 @@ public class SignalingUpdateRule extends AbstractUpdateRule<Coordinates3D<Intege
                 break;
             case NEURON:
                 inputSum = 1 + RulesUtils.sumEnumMapValues(cell.getNeighborsPreviousInput())
-                        - cell.getNeighborsPreviousInput().get(cell.getGate().get())
-                        - cell.getNeighborsPreviousInput().get(cell.getOppositeToGate().get());
+                        - cell.getNeighborsPreviousInput().get(cell.getGate().get());
+                if (cell.getNeighborsPreviousInput().containsKey(cell.getOppositeToGate().get())) {
+                    inputSum -= cell.getNeighborsPreviousInput().get(cell.getOppositeToGate().get());
+                }
                 if (cell.getActivationCounter() + inputSum > NEURON_ACTIVATION_VALUE) {
                     neighborsPreviousInput.put(cell.getGate().get(), 1);
                     neighborsPreviousInput.put(cell.getOppositeToGate().get(), 1);
