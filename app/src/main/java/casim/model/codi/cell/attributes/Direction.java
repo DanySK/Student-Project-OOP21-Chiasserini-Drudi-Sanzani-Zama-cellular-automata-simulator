@@ -16,15 +16,15 @@ public enum Direction {
      */
     NORTH(CoordinatesUtil.of(0, 0, 1)),
     /**
-     * The north direction.
+     * The south direction.
      */
     SOUTH(CoordinatesUtil.of(0, 0, -1)),
     /**
-     * The south direction.
+     * The west direction.
      */
     WEST(CoordinatesUtil.of(-1, 0, 0)),
     /**
-     * The west direction.
+     * The east direction.
      */
     EAST(CoordinatesUtil.of(1, 0, 0)),
     /**
