@@ -8,7 +8,7 @@ import casim.model.codi.cell.attributes.CellState;
 import casim.model.codi.cell.attributes.Direction;
 import casim.model.codi.cell.builder.CoDiCellBuilder;
 import casim.model.codi.cell.builder.CoDiCellBuilderImpl;
-import casim.model.codi.rule.RulesUtils;
+import casim.model.codi.utils.CodiUtils;
 
 /**
  * {@link Function} used to map a {@link CellState} to a new {@link CoDiCell} with that state.
@@ -18,8 +18,8 @@ public class StateToCellFunction implements Function<CellState, CoDiCell> {
     @Override
     public CoDiCell apply(final CellState state) {
         final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
-        final EnumMap<Direction, Integer> neighborsPreviousInput = RulesUtils.newFilledEnumMap(() -> 0);
-        final EnumMap<Direction, Boolean> chromosome = RulesUtils.newFilledEnumMap(() -> RulesUtils.rand50());
+        final EnumMap<Direction, Integer> neighborsPreviousInput = CodiUtils.newFilledEnumMap(() -> 0);
+        final EnumMap<Direction, Boolean> chromosome = CodiUtils.newFilledEnumMap(() -> CodiUtils.rand50());
         builder.state(state);
         builder.activationCounter(0);
         builder.chromosome(chromosome);

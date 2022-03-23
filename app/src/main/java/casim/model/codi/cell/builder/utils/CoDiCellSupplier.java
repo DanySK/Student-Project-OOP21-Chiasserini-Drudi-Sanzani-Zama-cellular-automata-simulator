@@ -8,7 +8,7 @@ import casim.model.codi.cell.attributes.CellState;
 import casim.model.codi.cell.attributes.Direction;
 import casim.model.codi.cell.builder.CoDiCellBuilder;
 import casim.model.codi.cell.builder.CoDiCellBuilderImpl;
-import casim.model.codi.rule.RulesUtils;
+import casim.model.codi.utils.CodiUtils;
 
 /**
  * {@link CoDiCell} supplier  used to fill the initial grid with blank cells.
@@ -18,8 +18,8 @@ public class CoDiCellSupplier implements Supplier<CoDiCell> {
     @Override
     public CoDiCell get() {
         final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
-        final EnumMap<Direction, Integer> neighborsPreviousInput = RulesUtils.newFilledEnumMap(() -> 0);
-        final EnumMap<Direction, Boolean> chromosome = RulesUtils.newFilledEnumMap(() -> RulesUtils.rand50());
+        final EnumMap<Direction, Integer> neighborsPreviousInput = CodiUtils.newFilledEnumMap(() -> 0);
+        final EnumMap<Direction, Boolean> chromosome = CodiUtils.newFilledEnumMap(() -> CodiUtils.rand50());
         builder.state(CellState.BLANK);
         builder.activationCounter(0);
         builder.chromosome(chromosome);

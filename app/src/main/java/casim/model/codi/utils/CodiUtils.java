@@ -1,7 +1,8 @@
-package casim.model.codi.rule;
+package casim.model.codi.utils;
 
 import java.util.EnumMap;
 import java.util.Random;
+import java.util.function.Supplier;
 
 import casim.model.codi.cell.attributes.Direction;
 import casim.utils.coordinate.Coordinates3D;
@@ -10,23 +11,24 @@ import casim.utils.coordinate.CoordinatesUtil;
 /**
  * A static utility class for {@link casim.model.codi.CoDi} rules.
  */
-public final class RulesUtils {
+public final class CodiUtils {
 
-    private RulesUtils() {
+    private CodiUtils() {
     }
 
     /**
-     * Return a new {@link EnumMap} filled with the specified value.
+     * Return a new {@link EnumMap} filled with a supplier.
      * 
-     * @param value value to put in each { @link Direction}.
+     * @param <T> the type of the values returned by the supplier.
+     * @param valuesSupplier the supplier which gives the values to put in each { @link Direction}.
      * @return the new {@link EnumMap}.
      */
-    public static EnumMap<Direction, Integer> newFilledEnumMap(final int value) {
-        final EnumMap<Direction, Integer> neighborsPreviousInput = new EnumMap<>(Direction.class);
+    public static <T> EnumMap<Direction, T> newFilledEnumMap(final Supplier<T> valuesSupplier) {
+        final EnumMap<Direction, T> map = new EnumMap<>(Direction.class);
         for (final var d: Direction.values()) {
-            neighborsPreviousInput.put(d, value);
+            map.put(d, valuesSupplier.get());
         }
-        return neighborsPreviousInput;
+        return map;
     }
 
     /**
@@ -52,14 +54,13 @@ public final class RulesUtils {
     }
 
     /**
-     * Return the {@link Coordinates3D} obtained from the sum of a coordinates 
-     * and the offset of a {@link Direction}.
+     * Return the {@link Coordinates3D} of the neighbours of a cell in a specific {@link Direction}. 
      * 
-     * @param coord the {@link Coordinates3D} to sum.
-     * @param direction the direction from which take the offset.
+     * @param coord the {@link Coordinates3D} of the current cell.
+     * @param direction the direction of the neighbour.
      * @return the resultant {@link Coordinates3D}.
      */
-    public static Coordinates3D<Integer> getCoordinatesInDirection(final Coordinates3D<Integer> coord, final Direction direction) {
+    public static Coordinates3D<Integer> getNeighbourCoordinates(final Coordinates3D<Integer> coord, final Direction direction) {
         return CoordinatesUtil.sumInt(coord, direction.getDirectionOffset());
     }
 
@@ -79,6 +80,6 @@ public final class RulesUtils {
      * @return true with 25% probability.
      */
     public static boolean rand25() {
-        return RulesUtils.rand50() && RulesUtils.rand50();
+        return CodiUtils.rand50() && CodiUtils.rand50();
     } 
 }
