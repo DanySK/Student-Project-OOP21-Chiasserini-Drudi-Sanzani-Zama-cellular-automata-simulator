@@ -8,9 +8,13 @@ import casim.model.abstraction.cell.AbstractCell;
 public class WatorCell extends AbstractCell<CellState> {
 
     private static final int MIN_HEALTH = 0;
+    private static final int MAX_HEALTH = 10;
+    private static final int PRED_HEAL = 5;
+    private static final int PREY_HEAL = 1;
 
     private final int maxHealth;
     private int health;
+    private boolean moved = false;
 
 
     /**
@@ -70,7 +74,8 @@ public class WatorCell extends AbstractCell<CellState> {
      */
     public void setHealth(final int health) {
         if (health < MIN_HEALTH || health > this.maxHealth) {
-            throw new IllegalArgumentException("Heath value out of valid limits.");
+            throw new IllegalArgumentException("Heath value out of valid limits: MAX: " + this.maxHealth
+                + " MIN: " + MIN_HEALTH + " GIVEN: " + health);
         }
         this.health = health;
     }
@@ -91,7 +96,13 @@ public class WatorCell extends AbstractCell<CellState> {
      * maximum.
      */
     public void heal() {
-        this.health += this.health == this.maxHealth ? 0 : 1;
+        if (this.getState().equals(CellState.PREY)) {
+            this.health += PREY_HEAL;
+        } else {
+            this.health += PRED_HEAL;
+        }
+        int overflow = (this.health > this.maxHealth) ? this.health - this.maxHealth : 0;
+        this.health -= overflow;
     }
 
     /**
@@ -114,10 +125,34 @@ public class WatorCell extends AbstractCell<CellState> {
     public WatorCell reproduce() {
         if (this.health == this.maxHealth) {
             this.health = this.maxHealth / 2;
-            return new WatorCell(this.getState(), MIN_HEALTH + 1, this.maxHealth);
+            return new WatorCell(this.getState(), this.maxHealth / 2, this.maxHealth);
         } else {
             return new WatorCell(CellState.DEAD, MIN_HEALTH, this.maxHealth);
         }
+    }
+
+    /**
+     * Returns true if the {@link WatorCell} can move.
+     * 
+     * @return true if the cell can performe a movement,
+     * false otherwise.
+     */
+    public boolean hasMoved() {
+        return this.moved;
+    }
+
+    /**
+     * Sets the moved state of the {@link WatorCell}.
+     */
+    public void move() {
+        this.moved = true;
+    }
+
+    /**
+     * Resets the moved state of the {@link WatorCell}.
+     */
+    public void resetMovement() {
+        this.moved = false;
     }
 
 }
