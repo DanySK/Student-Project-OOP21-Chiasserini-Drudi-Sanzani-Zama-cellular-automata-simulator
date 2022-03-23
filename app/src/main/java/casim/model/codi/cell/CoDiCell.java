@@ -65,7 +65,6 @@ public class CoDiCell extends AbstractCell<CellState> {
         return activationCounter;
     }
 
-    //TODO delete that
     /**
      * The value to set.
      * 
@@ -108,17 +107,6 @@ public class CoDiCell extends AbstractCell<CellState> {
     public Optional<Integer> getSpecificNeighborsPreviousInput(final Direction direction) {
         return this.neighborsPreviousInput.containsKey(direction) 
                 ? Optional.of(this.neighborsPreviousInput.get(direction)) : Optional.empty();
-    }
-
-    /**
-     * Remove a specific {@link Direction} (if present) in neighborsPreviousInput.
-     * 
-     * @param direction the {@link Direction} to remove.
-     */
-    public void removeNeighborsPreviousInputDirection(final Direction direction) {
-        if (this.neighborsPreviousInput.containsKey(direction)) {
-            this.neighborsPreviousInput.remove(direction);
-        }
     }
 
     /**
