@@ -96,13 +96,11 @@ public class Wator extends AbstractAutomaton<CellState, WatorCell> {
         }
         final var rand = new Random();
         final var toChange = neighbors.get(rand.nextInt(neighbors.size()));
-        toChange.setState(currentCell.getState());
-        toChange.setHealth(currentCell.getHealth());
+        this.changeCell(currentCell, toChange);
         movementAction.accept(toChange);
         toChange.move();
         final var spawn = toChange.reproduce();
-        currentCell.setState(spawn.getState());
-        currentCell.setHealth(spawn.getHealth());
+        this.changeCell(spawn, currentCell);
         currentCell.move();
     }
 
@@ -114,6 +112,11 @@ public class Wator extends AbstractAutomaton<CellState, WatorCell> {
         } else {
             return false;
         }
+    }
+
+    private void changeCell(final WatorCell from, final WatorCell into) {
+        into.setState(from.getState());
+        into.setHealth(from.getHealth());
     }
 
 }
