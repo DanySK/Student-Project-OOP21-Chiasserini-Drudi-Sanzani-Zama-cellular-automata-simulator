@@ -4,6 +4,7 @@ import java.util.EnumMap;
 import java.util.Random;
 import java.util.function.Supplier;
 
+import casim.model.codi.cell.CoDiCell;
 import casim.model.codi.cell.attributes.Direction;
 import casim.utils.coordinate.Coordinates3D;
 import casim.utils.coordinate.CoordinatesUtil;
@@ -12,6 +13,8 @@ import casim.utils.coordinate.CoordinatesUtil;
  * A static utility class for {@link casim.model.codi.CoDi} rules.
  */
 public final class CodiUtils {
+
+    private static final int MAX_PERCENTAGE = 101; 
 
     private CodiUtils() {
     }
@@ -54,6 +57,22 @@ public final class CodiUtils {
     }
 
     /**
+     * Return an {@link EnumMap} containing valueA if chromosome in that direction is true, else return valueB.
+     * 
+     * @param cell the cell of which calculate the neighbors previous input.
+     * @param valueA the value put in the map if chromosome direction is true.
+     * @param valueB the value put in the map if chromosome direction is false.
+     * @return the filled {@link EnumMap}.
+     */
+    public static EnumMap<Direction, Integer> conditionalFillNeighborsPreviosInput(final CoDiCell cell, final int valueA, final int valueB) {
+        final EnumMap<Direction, Integer> map = new EnumMap<>(Direction.class);
+        for (final var d: Direction.values()) {
+            map.put(d, cell.getChromosome().get(d) ? valueA : valueB);
+        }
+        return map;
+    }
+
+    /**
      * Return the {@link Coordinates3D} of the neighbours of a cell in a specific {@link Direction}. 
      * 
      * @param coord the {@link Coordinates3D} of the current cell.
@@ -65,21 +84,16 @@ public final class CodiUtils {
     }
 
     /**
-     * Return true with 50% of probability.
+     * Return true with a specific probability take as input.
      * 
-     * @return true or false with equal probability.
+     * @param probability the probability with which the method return true.
+     * @return true with the probability take as input, else return false.
      */
-    public static boolean rand50() {
+    public static boolean booleanWithSpecificProbability(final int probability) {
+        if (probability < 0 || probability > 100) {
+            throw new IllegalArgumentException();
+        }
         final Random random = new Random();
-        return random.nextInt() % 2 == 0;
+        return random.nextInt(MAX_PERCENTAGE) < probability;
     }
-
-    /**
-     * Return true with 25% of probability.
-     * 
-     * @return true with 25% probability.
-     */
-    public static boolean rand25() {
-        return CodiUtils.rand50() && CodiUtils.rand50();
-    } 
 }
