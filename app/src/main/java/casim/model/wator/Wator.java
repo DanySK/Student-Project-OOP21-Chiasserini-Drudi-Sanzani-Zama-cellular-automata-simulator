@@ -55,8 +55,7 @@ public class Wator extends AbstractAutomaton<CellState, WatorCell> {
                     case PREY:
                         if (deadNeighbors.size() > 0) {
                             this.cellStep(currCell, deadNeighbors, WatorCell::heal);
-                        }
-                        else {
+                        } else {
                             currCell.heal();
                             currCell.move();
                         }
@@ -64,7 +63,6 @@ public class Wator extends AbstractAutomaton<CellState, WatorCell> {
                     case PREDATOR:
                         if (preyNeighbors.size() > 0) {
                             this.cellStep(currCell, preyNeighbors, WatorCell::heal);
-
                         } else if (deadNeighbors.size() > 0) {
                             this.cellStep(currCell, deadNeighbors, WatorCell::starve);
                         } else {
@@ -88,10 +86,7 @@ public class Wator extends AbstractAutomaton<CellState, WatorCell> {
     }
 
     private void cellStep(final WatorCell currentCell, final List<WatorCell> neighbors, final Consumer<WatorCell> movementAction) {
-        if (currentCell.isDead()) {
-            currentCell.setState(CellState.DEAD);
-            currentCell.setHealth(DEAD_HEALTH);
-            currentCell.move();
+        if (this.applyDeath(currentCell)) {
             return;
         } else if (currentCell.hasMoved()) {
             return;
@@ -106,6 +101,16 @@ public class Wator extends AbstractAutomaton<CellState, WatorCell> {
         currentCell.setState(spawn.getState());
         currentCell.setHealth(spawn.getHealth());
         currentCell.move();
+    }
+
+    private boolean applyDeath(final WatorCell currentCell) {
+        if (currentCell.isDead()) {
+            currentCell.setState(CellState.DEAD);
+            currentCell.setHealth(DEAD_HEALTH);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
