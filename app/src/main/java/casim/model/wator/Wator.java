@@ -67,6 +67,7 @@ public class Wator extends AbstractAutomaton<CellState, WatorCell> {
                             this.cellStep(currCell, deadNeighbors, WatorCell::starve);
                         } else {
                             currCell.starve();
+                            this.applyDeath(currCell);
                             currCell.move();
                         }
                         break;
