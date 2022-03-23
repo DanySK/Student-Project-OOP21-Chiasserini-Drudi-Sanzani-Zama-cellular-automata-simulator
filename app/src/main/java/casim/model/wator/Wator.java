@@ -10,6 +10,9 @@ import casim.utils.coordinate.CoordinatesUtil;
 import casim.utils.grid.Grid2D;
 import casim.utils.range.Ranges;
 
+/**
+ * Predators and Preys automaton.
+ */
 @PlayableAutomaton(AutomatonName = "Predators and Preys")
 public class Wator extends AbstractAutomaton<CellState, WatorCell> {
 
@@ -19,6 +22,12 @@ public class Wator extends AbstractAutomaton<CellState, WatorCell> {
 
     private Grid2D<WatorCell> state;
 
+    /**
+     * Builds a new {@link Wator} automaton with initial state from input.
+     * 
+     * @param state {@link Grid2D} of {@link CellState} representing the
+     * initial state of the automaton.
+     */
     public Wator(final Grid2D<CellState> state) {
         this.state = state.map(x -> new WatorCell(x, INIT_HEALTH, MAX_HEALTH));
     }
