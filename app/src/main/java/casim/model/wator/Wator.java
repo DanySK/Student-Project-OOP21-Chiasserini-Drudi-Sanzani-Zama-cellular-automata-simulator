@@ -1,19 +1,13 @@
 package casim.model.wator;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
-
-import org.apache.commons.lang3.tuple.Pair;
 import casim.model.abstraction.automaton.AbstractAutomaton;
-import casim.model.abstraction.utils.NeighborsFunctions;
 import casim.utils.PlayableAutomaton;
-import casim.utils.coordinate.Coordinates2D;
 import casim.utils.coordinate.CoordinatesUtil;
 import casim.utils.grid.Grid2D;
-import casim.utils.grid.Grid2DImpl;
 import casim.utils.range.Ranges;
 
 @PlayableAutomaton(AutomatonName = "Predators and Preys")
