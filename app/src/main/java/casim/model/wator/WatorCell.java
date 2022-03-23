@@ -14,7 +14,7 @@ public class WatorCell extends AbstractCell<CellState> {
 
     private final int maxHealth;
     private int health;
-    private boolean moved = false;
+    private boolean moved;
 
 
     /**
