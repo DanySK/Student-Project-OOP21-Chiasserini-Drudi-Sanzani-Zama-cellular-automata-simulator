@@ -12,7 +12,6 @@ public class WatorCell extends AbstractCell<CellState> {
     private static final int PRED_HEAL = 5;
     private static final int PREY_HEAL = 1;
 
-    private final int maxHealth;
     private int health;
     private boolean moved;
 
@@ -22,12 +21,10 @@ public class WatorCell extends AbstractCell<CellState> {
      * 
      * @param state the {@link CellState} of the cell.
      * @param health the int value representing the health of the cell.
-     * @param maxHealth the int value representing the maximum health of the cell.
      */
-    public WatorCell(final CellState state, final int health, final int maxHealth) {
+    public WatorCell(final CellState state, final int health) {
         super(state);
         this.health = health;
-        this.maxHealth = maxHealth;
     }
 
 
@@ -38,16 +35,6 @@ public class WatorCell extends AbstractCell<CellState> {
      */
     public int getHealth() {
         return this.health;
-    }
-
-    /**
-     * Returns the maximum health value of the {@link WatorCell}.
-     * 
-     * @return the interger value representing the maximum health
-     * of the {@link WatorCell}
-     */
-    public int getMaxHealth() {
-        return this.maxHealth;
     }
 
     /**
@@ -73,8 +60,8 @@ public class WatorCell extends AbstractCell<CellState> {
      * value.
      */
     public void setHealth(final int health) {
-        if (health < MIN_HEALTH || health > this.maxHealth) {
-            throw new IllegalArgumentException("Heath value out of valid limits: MAX: " + this.maxHealth
+        if (health < MIN_HEALTH || health > MAX_HEALTH) {
+            throw new IllegalArgumentException("Heath value out of valid limits: MAX: " + MAX_HEALTH
                 + " MIN: " + MIN_HEALTH + " GIVEN: " + health);
         }
         this.health = health;
@@ -101,7 +88,7 @@ public class WatorCell extends AbstractCell<CellState> {
         } else {
             this.health += PRED_HEAL;
         }
-        final int overflow = this.health > this.maxHealth ? this.health - this.maxHealth : 0;
+        final int overflow = this.health > MAX_HEALTH ? this.health - MAX_HEALTH : 0;
         this.health -= overflow;
     }
 
@@ -123,18 +110,18 @@ public class WatorCell extends AbstractCell<CellState> {
      * otherwise.
      */
     public WatorCell reproduce() {
-        if (this.health == this.maxHealth) {
-            this.health = this.maxHealth / 2;
-            return new WatorCell(this.getState(), this.maxHealth / 2, this.maxHealth);
+        if (this.health == MAX_HEALTH) {
+            this.health = MAX_HEALTH / 2;
+            return new WatorCell(this.getState(), MAX_HEALTH / 2);
         } else {
-            return new WatorCell(CellState.DEAD, MIN_HEALTH, this.maxHealth);
+            return new WatorCell(CellState.DEAD, MIN_HEALTH);
         }
     }
 
     /**
      * Returns true if the {@link WatorCell} can move.
      * 
-     * @return true if the cell can performe a movement,
+     * @return true if the cell can perform a movement,
      * false otherwise.
      */
     public boolean hasMoved() {

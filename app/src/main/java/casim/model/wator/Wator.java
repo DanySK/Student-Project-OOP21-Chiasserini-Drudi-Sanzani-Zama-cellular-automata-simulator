@@ -16,7 +16,6 @@ import casim.utils.range.Ranges;
 @PlayableAutomaton(AutomatonName = "Predators and Preys")
 public class Wator extends AbstractAutomaton<CellState, WatorCell> {
 
-    private static final int MAX_HEALTH = 10;
     private static final int INIT_HEALTH = 5;
     private static final int DEAD_HEALTH = 0;
 
@@ -29,7 +28,7 @@ public class Wator extends AbstractAutomaton<CellState, WatorCell> {
      * initial state of the automaton.
      */
     public Wator(final Grid2D<CellState> state) {
-        this.state = state.map(x -> new WatorCell(x, INIT_HEALTH, MAX_HEALTH));
+        this.state = state.map(x -> new WatorCell(x, INIT_HEALTH));
     }
 
     @Override
