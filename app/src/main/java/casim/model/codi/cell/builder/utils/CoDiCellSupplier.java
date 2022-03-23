@@ -15,11 +15,13 @@ import casim.model.codi.utils.CodiUtils;
  */
 public class CoDiCellSupplier implements Supplier<CoDiCell> {
 
+    private static final int CHROMOSOME_PROBABILITY = 50;
+
     @Override
     public CoDiCell get() {
         final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
         final EnumMap<Direction, Integer> neighborsPreviousInput = CodiUtils.newFilledEnumMap(() -> 0);
-        final EnumMap<Direction, Boolean> chromosome = CodiUtils.newFilledEnumMap(() -> CodiUtils.rand50());
+        final EnumMap<Direction, Boolean> chromosome = CodiUtils.newFilledEnumMap(() -> CodiUtils.booleanWithSpecificProbability(CHROMOSOME_PROBABILITY));
         builder.state(CellState.BLANK);
         builder.activationCounter(0);
         builder.chromosome(chromosome);
