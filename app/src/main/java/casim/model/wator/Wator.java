@@ -20,7 +20,7 @@ public class Wator extends AbstractAutomaton<CellState, WatorCell> {
     private static final int INIT_HEALTH = 5;
     private static final int DEAD_HEALTH = 0;
 
-    private Grid2D<WatorCell> state;
+    private final Grid2D<WatorCell> state;
 
     /**
      * Builds a new {@link Wator} automaton with initial state from input.
