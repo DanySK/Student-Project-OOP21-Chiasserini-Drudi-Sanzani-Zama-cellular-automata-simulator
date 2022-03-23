@@ -18,11 +18,8 @@ public class StateToCellFunction implements Function<CellState, CoDiCell> {
     @Override
     public CoDiCell apply(final CellState state) {
         final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
-        final EnumMap<Direction, Integer> neighborsPreviousInput = RulesUtils.newFilledEnumMap(0);
-        final EnumMap<Direction, Boolean> chromosome = new EnumMap<>(Direction.class);
-        for (final var d: Direction.values()) {
-            chromosome.put(d, RulesUtils.rand50());
-        }
+        final EnumMap<Direction, Integer> neighborsPreviousInput = RulesUtils.newFilledEnumMap(() -> 0);
+        final EnumMap<Direction, Boolean> chromosome = RulesUtils.newFilledEnumMap(() -> RulesUtils.rand50());
         builder.state(state);
         builder.activationCounter(0);
         builder.chromosome(chromosome);
