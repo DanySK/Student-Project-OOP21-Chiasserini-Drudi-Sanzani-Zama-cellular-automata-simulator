@@ -101,7 +101,7 @@ public class WatorCell extends AbstractCell<CellState> {
         } else {
             this.health += PRED_HEAL;
         }
-        int overflow = (this.health > this.maxHealth) ? this.health - this.maxHealth : 0;
+        final int overflow = this.health > this.maxHealth ? this.health - this.maxHealth : 0;
         this.health -= overflow;
     }
 
