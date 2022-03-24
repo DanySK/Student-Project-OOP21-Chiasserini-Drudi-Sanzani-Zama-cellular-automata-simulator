@@ -14,7 +14,7 @@ public class AlertBuilderImpl extends AbstractBuilder implements AlertBuilder {
     private static final String TITLE_NULL = "Title cannot be null.";
     private static final String MESSAGE_NULL = "Message cannot be null.";
     private static final String OWNER_NULL = "Owner cannot be null.";
-    private static final String DEFAULT_INFO_TITLE = "Title";
+    private static final String DEFAULT_INFO_TITLE = "Info";
     private static final String DEFAULT_ERROR_TITLE = "Error";
 
     private AlertType type;

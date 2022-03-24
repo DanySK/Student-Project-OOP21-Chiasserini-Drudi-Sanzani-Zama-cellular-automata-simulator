@@ -1,11 +1,9 @@
 package casim.controller.menu;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import org.reflections.Reflections;
-
-import casim.utils.PlayableAutomaton;
+import casim.model.Automata;
 
 /**
  * Implementation of {@link MenuController}.
@@ -14,11 +12,8 @@ import casim.utils.PlayableAutomaton;
 public class MenuControllerImpl implements MenuController {
 
     @Override
-    public List<MenuItem> getMenuItems() {
-        final var reflections = new Reflections("casim.model");
-        return reflections.getTypesAnnotatedWith(PlayableAutomaton.class).stream()
-            .map(cl -> new MenuItem(cl.getAnnotation(PlayableAutomaton.class).AutomatonName(), cl, null))
-            .collect(Collectors.toList());
+    public List<Automata> getMenuItems() {
+        return Arrays.asList(Automata.values());
     }
 
 }

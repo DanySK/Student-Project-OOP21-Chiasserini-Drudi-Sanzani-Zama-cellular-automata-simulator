@@ -3,19 +3,18 @@
  */
 package casim;
 
-import java.util.Random;
-
 import casim.controller.automaton.AutomatonController;
 import casim.controller.automaton.AutomatonControllerImpl;
-import casim.model.bryansbrain.BryansBrain;
-import casim.model.bryansbrain.CellState;
+import casim.model.codi.CoDi;
+import casim.model.codi.cell.attributes.CellState;
 import casim.ui.components.grid.CanvasGridBuilderImpl;
 import casim.ui.components.grid.CanvasGridImpl;
+import casim.ui.components.menu.automaton.AutomatonMenu;
 import casim.ui.components.page.PageContainer;
 import casim.ui.utils.StateColorMapper;
 import casim.ui.view.AutomatonView;
 import casim.utils.Colors;
-import casim.utils.grid.Grid2DImpl;
+import casim.utils.grid.Grid3DImpl;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -25,13 +24,13 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
-    final static int ROWS = 100;
-    final static int COLS = 100;
-    final static int CELL_SIZE = 10;
+    private static final int ROWS = 20;
+    private static final int COLS = 20;
+    private static final int DEPTH = 20;
+    private static final int CELL_SIZE = 40;
 
     private CanvasGridImpl getGrid() {
-        final var grid = new CanvasGridBuilderImpl().build(ROWS, COLS, CELL_SIZE);
-        return (CanvasGridImpl)grid;
+        return (CanvasGridImpl) new CanvasGridBuilderImpl().build(ROWS, COLS, CELL_SIZE);
     }
 
     private AutomatonView<CellState> getView(final Stage stage, final AutomatonController<CellState> controller, final CanvasGridImpl grid, final StateColorMapper<CellState> mapper) {
@@ -43,38 +42,56 @@ public class App extends Application {
      */
     @Override
     public void start(final Stage primaryStage) throws Exception {
-        final var state = new Grid2DImpl<CellState>(ROWS, COLS, () -> {
-            final var rng = new Random();
-            final var val = rng.nextInt();
-
-            if (val % 6 <= 2) {
-                return CellState.DEAD;
-            } else if (val % 6 <= 5) {
-                return CellState.ALIVE;
-            } else {
-                return CellState.DEAD;
-            }
-        });
-        final var automaton = new BryansBrain(state);
+        final var state = new Grid3DImpl<CellState>(ROWS, COLS, DEPTH, () -> CellState.BLANK);
+        final var automaton = new CoDi(state);
         final var controller = new AutomatonControllerImpl<>(automaton);
         final var view = this.getView(primaryStage, controller, this.getGrid(), s -> {
             switch (s) {
-                case ALIVE:
-                    return Colors.WHITE;
-                case DEAD:
+                case BLANK:
                     return Colors.BLACK;
-                case DYING:
-                    return Colors.LIGHT_BLUE;
+                case AXON:
+                    return Colors.FUSCIA;
+                case DENDRITE:
+                    return Colors.ARCTIC;
+                case ACTIVATED_AXON:
+                    return Colors.CARROT;
+                case ACTIVATED_DENDRITE:
+                    return Colors.PARAKEET;
+                case NEURON:
+                    return Colors.AMETHYST;
                 default:
                     throw new IllegalArgumentException("Invalid state.");
             }
         });
 
-        final var root = new PageContainer();
+        final var root = new PageContainer(primaryStage);
         root.addPage(view);
         final var scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private void startMenu(final Stage primaryStage) {
+        final var graphics = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        final var width = graphics.getDisplayMode().getWidth();
+        final var height = graphics.getDisplayMode().getHeight();
+
+        primaryStage.setWidth(width / 2);
+        primaryStage.setHeight(height / 2);
+        
+        final var root = new PageContainer(primaryStage);
+        root.addPage(this.getMenu(root, new MenuControllerImpl()));
+        final var scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void start(final Stage primaryStage) throws Exception {
+        this.startMenu(primaryStage);
     }
 
     /**

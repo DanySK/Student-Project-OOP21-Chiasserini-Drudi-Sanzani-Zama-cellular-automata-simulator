@@ -1,7 +1,7 @@
 package casim.utils.grid;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -19,7 +19,7 @@ import casim.utils.range.Ranges;
 
     private final int rows;
     private final int columns;
-    private final Map<Coordinates2D<Integer>, T> grid = new HashMap<>();
+    private final List<List<T>> grid;
 
     /**
      * Construct a new {@link Grid2D} filled with nulls.
@@ -41,10 +41,12 @@ import casim.utils.range.Ranges;
     public Grid2DImpl(final int rows, final int columns, final Supplier<T> defaultValue) {
         this.rows = rows;
         this.columns = columns;
+        this.grid = new ArrayList<>();
 
         for (final var x : Ranges.of(0, rows)) {
+            this.grid.add(new ArrayList<>());
             for (final var y : Ranges.of(0, columns)) {
-                this.grid.put(CoordinatesUtil.of(x, y), defaultValue.get());
+                this.grid.get(x).add(defaultValue.get());
             }
         }
     }
@@ -59,11 +61,13 @@ import casim.utils.range.Ranges;
     public Grid2DImpl(final int rows, final int columns, final Function<Coordinates2D<Integer>, T> valueFunction) {
         this.rows = rows;
         this.columns = columns;
-
+        this.grid = new ArrayList<>();
+        
         for (final var x : Ranges.of(0, rows)) {
+            this.grid.add(new ArrayList<>());
             for (final var y : Ranges.of(0, columns)) {
                 final var coord = CoordinatesUtil.of(x, y);
-                this.grid.put(coord, valueFunction.apply(coord));
+                this.grid.get(x).add(valueFunction.apply(coord));
             }
         }
     }
@@ -89,15 +93,17 @@ import casim.utils.range.Ranges;
      */
     @Override
     public T get(final int row, final int column) {
-        return this.get(CoordinatesUtil.of(row, column));
+        this.throwIfOutOfBound(CoordinatesUtil.of(row, column));
+        return this.grid.get(row).get(column);
     }
-
+    
     /**
      * {@inheritDoc}
      */
     @Override
     public void set(final int row, final int column, final T value) {
-        this.set(CoordinatesUtil.of(row, column), value);
+        this.throwIfOutOfBound(CoordinatesUtil.of(row, column));
+        this.grid.get(row).set(column, value);
     }
 
     /**
@@ -106,7 +112,7 @@ import casim.utils.range.Ranges;
     @Override
     public T get(final Coordinates2D<Integer> coord) {
         this.throwIfOutOfBound(coord);
-        return this.grid.get(coord);
+        return this.grid.get(coord.getX()).get(coord.getY());
     }
 
     /**
@@ -114,8 +120,7 @@ import casim.utils.range.Ranges;
      */
     @Override
     public void set(final Coordinates2D<Integer> coord, final T value) {
-        this.throwIfOutOfBound(coord);
-        this.grid.put(coord, value);
+        this.set(coord.getX(), coord.getY(), value);
     }
 
     /**
@@ -131,12 +136,16 @@ import casim.utils.range.Ranges;
      */
     @Override
     public Stream<T> stream() {
-        return this.grid.values().stream();
+        return this.grid.stream().flatMap(List :: stream);
     }
 
     @Override
     public <O> Grid2D<O> map(final Function<T, O> mapper) {
-        return new Grid2DImpl<>(this.rows, this.columns, coord -> mapper.apply(this.grid.get(coord)));
+        return new Grid2DImpl<>(
+            this.rows, 
+            this.columns, 
+            coord -> mapper.apply(this.get(coord))
+        );
     }
 
     private void throwIfOutOfBound(final Coordinates2D<Integer> coord) {
