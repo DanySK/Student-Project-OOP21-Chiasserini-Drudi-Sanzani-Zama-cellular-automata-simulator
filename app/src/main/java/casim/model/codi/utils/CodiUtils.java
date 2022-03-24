@@ -57,6 +57,17 @@ public final class CodiUtils {
     }
 
     /**
+     * Make a copy of an {@link EnumMap}.
+     * 
+     * @param <T> the type of the values of the enumMap
+     * @param map the map to copy
+     * @return the new {@link EnumMap}
+     */
+    public static <T> EnumMap<Direction, T> enumMapCopy(final EnumMap<Direction, T> map) {
+        return new EnumMap<>(map);
+    }
+
+    /**
      * Return an {@link EnumMap} containing valueA if chromosome in that direction is true, else return valueB.
      * 
      * @param cell the cell of which calculate the neighbors previous input.
@@ -98,4 +109,5 @@ public final class CodiUtils {
         final Random random = new Random();
         return random.nextInt(MAX_PERCENTAGE) < probability;
     }
+    
 }
