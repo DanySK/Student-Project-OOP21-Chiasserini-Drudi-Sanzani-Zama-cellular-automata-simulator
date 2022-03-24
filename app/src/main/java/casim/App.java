@@ -9,7 +9,6 @@ import casim.model.codi.CoDi;
 import casim.model.codi.cell.attributes.CellState;
 import casim.ui.components.grid.CanvasGridBuilderImpl;
 import casim.ui.components.grid.CanvasGridImpl;
-import casim.ui.components.menu.automaton.AutomatonMenu;
 import casim.ui.components.page.PageContainer;
 import casim.ui.utils.StateColorMapper;
 import casim.ui.view.AutomatonView;
@@ -69,29 +68,6 @@ public class App extends Application {
         final var scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
-    }
-
-    private void startMenu(final Stage primaryStage) {
-        final var graphics = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-        final var width = graphics.getDisplayMode().getWidth();
-        final var height = graphics.getDisplayMode().getHeight();
-
-        primaryStage.setWidth(width / 2);
-        primaryStage.setHeight(height / 2);
-        
-        final var root = new PageContainer(primaryStage);
-        root.addPage(this.getMenu(root, new MenuControllerImpl()));
-        final var scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void start(final Stage primaryStage) throws Exception {
-        this.startMenu(primaryStage);
     }
 
     /**

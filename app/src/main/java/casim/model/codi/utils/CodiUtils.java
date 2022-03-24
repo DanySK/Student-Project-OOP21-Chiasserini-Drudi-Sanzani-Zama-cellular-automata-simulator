@@ -109,5 +109,5 @@ public final class CodiUtils {
         final Random random = new Random();
         return random.nextInt(MAX_PERCENTAGE) < probability;
     }
-    
+
 }
