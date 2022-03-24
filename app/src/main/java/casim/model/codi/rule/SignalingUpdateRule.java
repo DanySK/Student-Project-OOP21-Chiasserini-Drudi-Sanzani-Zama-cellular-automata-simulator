@@ -25,12 +25,12 @@ public class SignalingUpdateRule extends AbstractUpdateRule<Coordinates3D<Intege
     /**
      * Constructor of {@link SignalingUpdateRule}.
      * 
-     * @param neighborsFunction it takes as input a pair {@link Coordinates3D}+{@link CoDiCell} and the {@link Grid} of the 
-     *     automaton and return a list of pair {@link Coordinates3D}+{@link CoDiCell} of all the neighbors of the cell taken
-     *     as input.
+     * @param neighborsFunction it takes as input a pair {@link Coordinates3D}+{@link CoDiCell} 
+     * and the {@link Grid} of the automaton and return a list of pair {@link Coordinates3D}+{@link CoDiCell}
+     * of all the neighbors of the cell taken as input.
      */
-    public SignalingUpdateRule(
-            final BiFunction<Pair<Coordinates3D<Integer>, CoDiCell>, Grid<Coordinates3D<Integer>, CoDiCell>, List<Pair<Coordinates3D<Integer>, CoDiCell>>> neighborsFunction) {
+    public SignalingUpdateRule(final BiFunction<Pair<Coordinates3D<Integer>, CoDiCell>,
+            Grid<Coordinates3D<Integer>, CoDiCell>, List<Pair<Coordinates3D<Integer>, CoDiCell>>> neighborsFunction) {
         super(neighborsFunction);
     }
 
@@ -82,7 +82,8 @@ public class SignalingUpdateRule extends AbstractUpdateRule<Coordinates3D<Intege
 
     private CoDiCellBuilder axonSignal(final CoDiCell cell) {
         final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
-        final EnumMap<Direction, Integer> neighborsPreviousInput = CodiUtils.newFilledEnumMap(() -> cell.getActivationCounter());
+        final EnumMap<Direction, Integer> neighborsPreviousInput =
+                CodiUtils.newFilledEnumMap(() -> cell.getActivationCounter());
         builder.activationCounter((cell.getNeighborsPreviousInput().get(cell.getGate().get()) != 0) ? 1 : 0);
         return builder.neighborsPreviousInput(neighborsPreviousInput);
     }

@@ -41,7 +41,8 @@ public class CoDiCell extends AbstractCell<CellState> {
      *  Axon -> direction where it receives the signal;
      *  Dendrite -> direction where it transmits the signal.
      *
-     * @return an {@link Optional} which contain the {@link Direction} of the gate, it's empty if it's not already defined.
+     * @return an {@link Optional} which contain the {@link Direction} of the gate,
+     *  it's empty if it's not already defined.
      */
     public Optional<Direction> getGate() {
         return gate;
@@ -57,7 +58,8 @@ public class CoDiCell extends AbstractCell<CellState> {
     }
 
     /**
-     * The current value of the activation counter, the cell can transmit the signal only if a predetermined value is reached.
+     * The current value of the activation counter, 
+     * the cell can transmit the signal only if a predetermined value is reached.
      * 
      * @return the current value of the activation counter.
      */

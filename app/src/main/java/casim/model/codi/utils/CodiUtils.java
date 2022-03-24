@@ -64,7 +64,8 @@ public final class CodiUtils {
      * @param valueB the value put in the map if chromosome direction is false.
      * @return the filled {@link EnumMap}.
      */
-    public static EnumMap<Direction, Integer> conditionalFillNeighborsPreviosInput(final CoDiCell cell, final int valueA, final int valueB) {
+    public static EnumMap<Direction, Integer> conditionalFillNeighborsPreviosInput(final CoDiCell cell,
+            final int valueA, final int valueB) {
         final EnumMap<Direction, Integer> map = new EnumMap<>(Direction.class);
         for (final var d: Direction.values()) {
             map.put(d, cell.getChromosome().get(d) ? valueA : valueB);
@@ -79,7 +80,8 @@ public final class CodiUtils {
      * @param direction the direction of the neighbour.
      * @return the resultant {@link Coordinates3D}.
      */
-    public static Coordinates3D<Integer> getNeighbourCoordinates(final Coordinates3D<Integer> coord, final Direction direction) {
+    public static Coordinates3D<Integer> getNeighbourCoordinates(final Coordinates3D<Integer> coord,
+            final Direction direction) {
         return CoordinatesUtil.sumInt(coord, direction.getDirectionOffset());
     }
 

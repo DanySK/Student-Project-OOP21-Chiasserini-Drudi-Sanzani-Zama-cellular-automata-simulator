@@ -21,7 +21,8 @@ public class StateToCellFunction implements Function<CellState, CoDiCell> {
     public CoDiCell apply(final CellState state) {
         final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
         final EnumMap<Direction, Integer> neighborsPreviousInput = CodiUtils.newFilledEnumMap(() -> 0);
-        final EnumMap<Direction, Boolean> chromosome = CodiUtils.newFilledEnumMap(() -> CodiUtils.booleanWithSpecificProbability(CHROMOSOME_PROBABILITY));
+        final EnumMap<Direction, Boolean> chromosome =
+                CodiUtils.newFilledEnumMap(() -> CodiUtils.booleanWithSpecificProbability(CHROMOSOME_PROBABILITY));
         builder.state(state);
         builder.activationCounter(0);
         builder.chromosome(chromosome);
