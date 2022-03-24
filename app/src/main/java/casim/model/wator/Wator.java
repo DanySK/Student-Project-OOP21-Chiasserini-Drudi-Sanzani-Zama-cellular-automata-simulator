@@ -4,7 +4,11 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.tuple.Pair;
+
 import casim.model.abstraction.automaton.AbstractAutomaton;
+import casim.model.abstraction.utils.NeighborsFunctions;
 import casim.utils.PlayableAutomaton;
 import casim.utils.coordinate.CoordinatesUtil;
 import casim.utils.grid.Grid2D;
@@ -43,9 +47,9 @@ public class Wator extends AbstractAutomaton<CellState, WatorCell> {
             for (final var y : Ranges.of(0, this.state.getWidth())) {
                 final var coord = CoordinatesUtil.of(x, y);
                 final var currCell = this.state.get(coord);
-                final var neighborsList = CoordinatesUtil.get2DNeighbors(coord).stream()
-                        .filter(c -> this.state.isCoordValid(c))
-                        .map(c -> this.state.get(c))
+                final var neighborsList = NeighborsFunctions.neighbors2DFunction(Pair.of(coord, currCell), this.state)
+                        .stream()
+                        .map(Pair::getRight)
                         .collect(Collectors.toList());
                 final var preyNeighbors = neighborsList.stream()
                         .filter(w -> w.getState().equals(CellState.PREY))
@@ -55,18 +59,29 @@ public class Wator extends AbstractAutomaton<CellState, WatorCell> {
                         .collect(Collectors.toList());
                 switch (currCell.getState()) {
                     case PREY:
-                        if (deadNeighbors.size() > 0) {
-                            this.cellStep(currCell, deadNeighbors, WatorCell::heal);
-                        } else {
-                            currCell.heal();
-                            currCell.move();
+                        final var neighborsCoords = CoordinatesUtil.get2DNeighbors(coord);
+                        final var rand = new Random();
+                        final var chosenNeighborCoord = neighborsCoords.get(rand.nextInt(neighborsCoords.size()));
+                        if (this.state.isCoordValid(chosenNeighborCoord)) {
+                            final var chosenNeighbor = this.state.get(chosenNeighborCoord);
+                            if (chosenNeighbor.getState().equals(CellState.DEAD)) {
+                                chosenNeighbor.clone(currCell);
+                                chosenNeighbor.move();
+                                chosenNeighbor.heal();
+                                final var spawn = currCell.reproduce();
+                                currCell.clone(spawn);
+                                System.out.println("Prey moved to dead cell.");
+                                System.out.println("spawn: " + spawn.getState());
+                            }
                         }
+                        currCell.heal();
+                        currCell.move();
                         break;
                     case PREDATOR:
                         if (preyNeighbors.size() > 0) {
-                            this.cellStep(currCell, preyNeighbors, WatorCell::heal);
+                            this.predatorStep(currCell, preyNeighbors, WatorCell::heal);
                         } else if (deadNeighbors.size() > 0) {
-                            this.cellStep(currCell, deadNeighbors, WatorCell::starve);
+                            this.predatorStep(currCell, deadNeighbors, WatorCell::starve);
                         } else {
                             currCell.starve();
                             this.applyDeath(currCell);
@@ -88,7 +103,8 @@ public class Wator extends AbstractAutomaton<CellState, WatorCell> {
         return this.state;
     }
 
-    private void cellStep(final WatorCell currentCell, final List<WatorCell> neighbors, final Consumer<WatorCell> movementAction) {
+    private void predatorStep(final WatorCell currentCell, final List<WatorCell> neighbors,
+            final Consumer<WatorCell> movementAction) {
         if (this.applyDeath(currentCell)) {
             return;
         } else if (currentCell.hasMoved()) {
@@ -96,11 +112,11 @@ public class Wator extends AbstractAutomaton<CellState, WatorCell> {
         }
         final var rand = new Random();
         final var toChange = neighbors.get(rand.nextInt(neighbors.size()));
-        this.changeCell(currentCell, toChange);
+        toChange.clone(currentCell);
         movementAction.accept(toChange);
         toChange.move();
         final var spawn = toChange.reproduce();
-        this.changeCell(spawn, currentCell);
+        currentCell.clone(spawn);
         currentCell.move();
     }
 
@@ -112,11 +128,6 @@ public class Wator extends AbstractAutomaton<CellState, WatorCell> {
         } else {
             return false;
         }
-    }
-
-    private void changeCell(final WatorCell from, final WatorCell into) {
-        into.setState(from.getState());
-        into.setHealth(from.getHealth());
     }
 
 }
