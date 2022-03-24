@@ -111,8 +111,15 @@ public class WatorCell extends AbstractCell<CellState> {
      */
     public WatorCell reproduce() {
         if (this.health == MAX_HEALTH) {
-            this.health = MAX_HEALTH / 2;
-            return new WatorCell(this.getState(), MAX_HEALTH / 2);
+            this.health = MIN_HEALTH + 1;
+            switch (this.state) {
+                case PREY:
+                    return new WatorCell(this.getState(), MIN_HEALTH + 1);
+                case PREDATOR:
+                    return new WatorCell(this.getState(), MAX_HEALTH / 2);
+                default:
+                throw new UnsupportedOperationException("The CellState " + this.state + " has no reproduce operation.");
+            }
         } else {
             return new WatorCell(CellState.DEAD, MIN_HEALTH);
         }
@@ -140,6 +147,20 @@ public class WatorCell extends AbstractCell<CellState> {
      */
     public void resetMovement() {
         this.moved = false;
+    }
+
+    /**
+     * Copies the state, health and moved fields
+     * of another {@link WatorCell} into the
+     * calling {@link WatorCell}.
+     * 
+     * @param otherCell the {@link WatorCell} to
+     *          copy the fields from.
+     */
+    public void clone(final WatorCell otherCell) {
+        this.setHealth(otherCell.getHealth());
+        this.setState(otherCell.getState());
+        this.moved = otherCell.hasMoved();
     }
 
 }
