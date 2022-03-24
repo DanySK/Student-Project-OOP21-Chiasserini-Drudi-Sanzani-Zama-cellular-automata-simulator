@@ -26,7 +26,7 @@ import casim.utils.grid.Grid;
  */
 public class GrowthUpdateRule extends AbstractUpdateRule<Coordinates3D<Integer>, CoDiCell> {
 
-    private static final int NEURON_GENERATION_PROBABILITY = 10;
+    private static final int NEURON_GENERATION_PROBABILITY = 5;
 
     /**
      * Constructor of {@link SignalingUpdateRule}.
@@ -72,7 +72,7 @@ public class GrowthUpdateRule extends AbstractUpdateRule<Coordinates3D<Integer>,
             return this.blankToNeuron(cellCoord, neighborsPairs);
         }
         final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
-        EnumMap<Direction, Integer> neighborsPreviousInput = cell.getNeighborsPreviousInput();
+        final EnumMap<Direction, Integer> neighborsPreviousInput = cell.getNeighborsPreviousInput();
         int inputSum = CodiUtils.sumEnumMapValues(cell.getNeighborsPreviousInput());
         if (inputSum == 0) {
             builder.state(CellState.BLANK);
@@ -83,17 +83,13 @@ public class GrowthUpdateRule extends AbstractUpdateRule<Coordinates3D<Integer>,
             return this.blankToAxon(cell);
         }
         if (inputSum > Signal.AXON_SIGNAL.getValue()) {
-            builder.state(CellState.BLANK);
-            neighborsPreviousInput = CodiUtils.newFilledEnumMap(() -> 0);
-            return builder.neighborsPreviousInput(neighborsPreviousInput);
+            return this.blankCell();
         }
         inputSum = CodiUtils.sumEnumMapSpecificValues(neighborsPreviousInput, Signal.DENDRITE_SIGNAL.getValue());
         if (inputSum == Signal.DENDRITE_SIGNAL.getValue()) {
             return this.blankToDendrite(cell);
         }
-        builder.state(CellState.BLANK);
-        neighborsPreviousInput = CodiUtils.newFilledEnumMap(() -> 0);
-        return builder.neighborsPreviousInput(neighborsPreviousInput);
+        return this.blankCell();
     }
 
     private CoDiCellBuilder blankToNeuron(final Coordinates3D<Integer> cellCoord,
@@ -102,62 +98,68 @@ public class GrowthUpdateRule extends AbstractUpdateRule<Coordinates3D<Integer>,
         final List<Coordinates3D<Integer>> neighborsCoordinates = neighborsPairs.stream()
                 .map(p -> p.getLeft()).collect(Collectors.toList());
         final Direction gate = this.getNeuronGate(cellCoord, neighborsCoordinates); 
-        builder.state(CellState.NEURON)
-               .gate(Optional.of(gate));
         final EnumMap<Direction, Integer> neighborsPreviousInput =
                 CodiUtils.newFilledEnumMap(() -> Signal.DENDRITE_SIGNAL.getValue());
         neighborsPreviousInput.put(gate, Signal.AXON_SIGNAL.getValue());
         neighborsPreviousInput.put(gate.getOpposite(), Signal.AXON_SIGNAL.getValue());
-        return builder.neighborsPreviousInput(neighborsPreviousInput);
+        return builder.neighborsPreviousInput(neighborsPreviousInput)
+                .state(CellState.NEURON)
+                .gate(Optional.of(gate));
     }
 
     private CoDiCellBuilder blankToAxon(final CoDiCell cell) {
         final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
         final Direction direction = this.findSignalDirection(cell, Signal.AXON_SIGNAL).get();
-        builder.state(CellState.AXON)
-               .gate(Optional.of(direction));
         final EnumMap<Direction, Integer> neighborsPreviousInput =
                 CodiUtils.conditionalFillNeighborsPreviosInput(cell, Signal.DENDRITE_SIGNAL.getValue(), 0);
-        return builder.neighborsPreviousInput(neighborsPreviousInput);
+        return builder.neighborsPreviousInput(neighborsPreviousInput)
+                .state(CellState.AXON)
+                .gate(Optional.of(direction));
     }
 
     private CoDiCellBuilder blankToDendrite(final CoDiCell cell) {
         final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
         final Direction direction = this.findSignalDirection(cell, Signal.DENDRITE_SIGNAL).get();
-        builder.state(CellState.DENDRITE)
-               .gate(Optional.of(direction.getOpposite()));
         final EnumMap<Direction, Integer> neighborsPreviousInput =
                 CodiUtils.conditionalFillNeighborsPreviosInput(cell, Signal.DENDRITE_SIGNAL.getValue(), 0);
-        return builder.neighborsPreviousInput(neighborsPreviousInput);
+        return builder.neighborsPreviousInput(neighborsPreviousInput)
+                .state(CellState.DENDRITE)
+                .gate(Optional.of(direction.getOpposite()));
+    }
+
+    private CoDiCellBuilder blankCell() {
+        final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
+        final EnumMap<Direction, Integer> neighborsPreviousInput = CodiUtils.newFilledEnumMap(() -> 0);
+        return builder.neighborsPreviousInput(neighborsPreviousInput)
+                .state(CellState.BLANK);
     }
 
     private CoDiCellBuilder neuronCellGrowth(final CoDiCell cell) {
-        final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
-        builder.state(cell.getState())
-            .gate(cell.getGate());
         final EnumMap<Direction, Integer> neighborsPreviousInput =
                 CodiUtils.newFilledEnumMap(() -> Signal.DENDRITE_SIGNAL.getValue());
         neighborsPreviousInput.put(cell.getGate().get(), Signal.AXON_SIGNAL.getValue());
         neighborsPreviousInput.put(cell.getOppositeToGate().get(), Signal.AXON_SIGNAL.getValue());
-        return builder.neighborsPreviousInput(neighborsPreviousInput);
+        return this.buildStateGateNeighborsInput(cell, neighborsPreviousInput);
     }
 
     private CoDiCellBuilder axonCellGrowth(final CoDiCell cell) {
-        final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
-        builder.state(cell.getState())
-            .gate(cell.getGate());
         final EnumMap<Direction, Integer> neighborsPreviousInput =
                 CodiUtils.conditionalFillNeighborsPreviosInput(cell, Signal.AXON_SIGNAL.getValue(), 0);
-        return builder.neighborsPreviousInput(neighborsPreviousInput);
+        return this.buildStateGateNeighborsInput(cell, neighborsPreviousInput);
     }
 
     private CoDiCellBuilder dendriteCellGrowth(final CoDiCell cell) {
-        final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
-        builder.state(cell.getState())
-        .gate(cell.getGate());
         final EnumMap<Direction, Integer> neighborsPreviousInput =
                 CodiUtils.conditionalFillNeighborsPreviosInput(cell, Signal.DENDRITE_SIGNAL.getValue(), 0);
-        return builder.neighborsPreviousInput(neighborsPreviousInput);
+        return this.buildStateGateNeighborsInput(cell, neighborsPreviousInput);
+    }
+
+    private CoDiCellBuilder buildStateGateNeighborsInput(final CoDiCell cell,
+            final EnumMap<Direction, Integer> neighborsPreviousInput) {
+        final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
+        return builder.neighborsPreviousInput(neighborsPreviousInput)
+                .state(cell.getState())
+                .gate(cell.getGate());
     }
 
     private Optional<Direction> findSignalDirection(final CoDiCell cell, final Signal signal) {

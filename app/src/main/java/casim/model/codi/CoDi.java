@@ -181,9 +181,11 @@ public class CoDi extends AbstractAutomaton<CellState, CoDiCell> {
         }
     }
 
-    private void setStateValueWithCheck(final Coordinates3D<Integer> coord, final Coordinates3D<Integer> neighbourCoord, final Direction direction) {
+    private void setStateValueWithCheck(final Coordinates3D<Integer> coord, final Coordinates3D<Integer> neighbourCoord,
+            final Direction direction) {
         if (this.state.isCoordValid(neighbourCoord) && this.state.get(coord).getNeighborsPreviousInput().containsKey(direction)) {
-            this.state.get(coord).setNeighborsPreviousInputDirection(direction, this.state.get(neighbourCoord).getSpecificNeighborsPreviousInput(direction).get());
+            this.state.get(coord).setNeighborsPreviousInputDirection(direction,
+                    this.state.get(neighbourCoord).getSpecificNeighborsPreviousInput(direction).get());
         } else {
             this.state.get(coord).setNeighborsPreviousInputDirection(direction, 0);
         }
