@@ -49,15 +49,15 @@ public class App extends Application {
                 case BLANK:
                     return Colors.BLACK;
                 case AXON:
-                    return Colors.RED;
+                    return Colors.FUSCIA;
                 case DENDRITE:
-                    return Colors.BLUE;
+                    return Colors.ARCTIC;
                 case ACTIVATED_AXON:
-                    return Colors.LIGHT_RED;
+                    return Colors.CARROT;
                 case ACTIVATED_DENDRITE:
-                    return Colors.LIGHT_BLUE;
+                    return Colors.PARAKEET;
                 case NEURON:
-                    return Colors.WHITE;
+                    return Colors.AMETHYST;
                 default:
                     throw new IllegalArgumentException("Invalid state.");
             }
