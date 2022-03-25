@@ -37,7 +37,6 @@ public class Wator extends AbstractAutomaton<CellState, WatorCell> {
 
     @Override
     public boolean hasNext() {
-        // return this.state.stream().anyMatch(x -> !x.getState().equals(CellState.DEAD));
         return true;
     }
 
@@ -51,9 +50,6 @@ public class Wator extends AbstractAutomaton<CellState, WatorCell> {
                         .stream()
                         .map(Pair::getRight)
                         .collect(Collectors.toList());
-                if (neighborsList.isEmpty()) {
-                    System.out.println("uffa");
-                }
                 final var preyNeighbors = neighborsList.stream()
                         .filter(w -> w.getState().equals(CellState.PREY))
                         .collect(Collectors.toList());
