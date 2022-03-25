@@ -1,10 +1,7 @@
 package casim.model.langtonsant;
 
-import java.util.Random;
-
 import casim.utils.coordinate.Coordinates2D;
 import casim.utils.coordinate.CoordinatesUtil;
-import casim.utils.grid.Grid;
 
 /**
  * An ant contained in {@link casim.model.langtonsant.LangtonsAnt}.

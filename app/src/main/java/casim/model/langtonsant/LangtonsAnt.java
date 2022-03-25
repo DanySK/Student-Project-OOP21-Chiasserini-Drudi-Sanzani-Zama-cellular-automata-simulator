@@ -61,13 +61,7 @@ public class LangtonsAnt extends AbstractAutomaton<CellState, LangtonsAntCell>{
     }
 
     private void removeAnts() {
-        // final List<Ant> toBeRemoved = this.ants.stream()
-            // .filter(x -> !this.state.isCoordValid(x.getPosition()))
-            // .collect(Collectors.toList());
-        // this.ants.removeAll(toBeRemoved);
         this.ants.removeIf(x -> !this.state.isCoordValid(x.getPosition()));
-        // toBeRemoved.stream()
-            // .forEach(x -> this.ants.remove(x));
     }
 
     /**
