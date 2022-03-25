@@ -4,13 +4,11 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import casim.model.abstraction.automaton.AbstractAutomaton;
 import casim.model.abstraction.utils.NeighborsFunctions;
-import casim.utils.PlayableAutomaton;
 import casim.utils.coordinate.CoordinatesUtil;
 import casim.utils.grid.Grid2D;
 import casim.utils.grid.Grid2DImpl;
 import casim.utils.range.Ranges;
 
-@PlayableAutomaton(AutomatonName = "Bryan's Brain")
 public class BryansBrain extends AbstractAutomaton<CellState, BryansBrainCell> {
 
     private Grid2D<BryansBrainCell> state;

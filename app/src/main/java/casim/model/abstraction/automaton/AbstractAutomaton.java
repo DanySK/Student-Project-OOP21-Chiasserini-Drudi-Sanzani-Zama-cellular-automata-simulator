@@ -11,7 +11,8 @@ import casim.utils.grid.Grid2D;
 /**
  * Abstract class for {@link Automaton}.
  *
- * @param <T> the enumeration which contains the finite states of the {@link Automaton}'s {@link casim.model.abstraction.cell.Cell}.
+ *  @param <T> the {@link AbstractCell} implementation used by the {@link Automaton}.
+ *  @param <S> the states type for the states an {@link Automaton} cell can assume.
  */
 public abstract class AbstractAutomaton<S, T extends AbstractCell<S>> implements Automaton<S, T> {
 

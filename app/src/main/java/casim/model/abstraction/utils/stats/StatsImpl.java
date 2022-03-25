@@ -17,7 +17,7 @@ public class StatsImpl<T> implements Stats<T> {
      * Construct a new {@link StatsImpl}.
      * 
      * @param iterationCounter the counter of the {@link casim.model.abstraction.automaton.Automaton} iterations.
-     * @param statesMap the enumMap which describes the number of cells for each type.
+     * @param statesMap the map which describes the number of cells for each type.
      */
     public StatsImpl(final int iterationCounter, final Map<T, Integer> statesMap) {
         this.iterationCounter = iterationCounter;

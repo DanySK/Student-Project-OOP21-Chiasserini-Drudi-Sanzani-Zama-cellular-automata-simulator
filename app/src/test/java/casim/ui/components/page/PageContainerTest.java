@@ -13,7 +13,6 @@ import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.shape.Circle;
 
-
 /**
  * Test class for {@link PageContainer}.
  */
@@ -27,7 +26,7 @@ class PageContainerTest {
      */ 
     @Test
     void testPopPage() {
-        final var container = new PageContainer();
+        final var container = new PageContainer(null);
         assertThrows(NoSuchElementException.class, () -> container.popPage().getValue());
         assertEquals(IllegalStateException.class, container.popPage().getError().getClass());
         container.addPage(this.testCanvas);

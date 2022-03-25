@@ -57,15 +57,13 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
     }
 
     @Override
-    public void onCellClick(MouseButton button, CanvasGridCell cell, Coordinates2D<Integer> coord) {
-        // TODO Auto-generated method stub
-        
+    public void onCellClick(final MouseButton button, final CanvasGridCell cell, final Coordinates2D<Integer> coord) {
+        throw new UnsupportedOperationException();
     }
 
     @Override
-    public void onCellHover(CanvasGridCell cell, Coordinates2D<Integer> coord) {
-        // TODO Auto-generated method stub
-        
+    public void onCellHover(final CanvasGridCell cell, final Coordinates2D<Integer> coord) {
+        throw new UnsupportedOperationException();
     }
 
     /**

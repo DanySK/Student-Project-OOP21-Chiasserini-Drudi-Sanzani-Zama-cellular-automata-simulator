@@ -20,10 +20,11 @@ public abstract class AbstractMenuButton<T> extends Button {
         super(text);
         this.data = data;
         this.menu = menu;
+        this.setOnAction(e -> this.onClick());
     }
 
     /**
-     * The funciton called when the menu button is pressed.
+     * The function called when the menu button is pressed.
      */
     public abstract void onClick();
 
