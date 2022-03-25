@@ -7,7 +7,7 @@ package casim.model.abstraction.cell;
  */
 public abstract class AbstractCell<T> implements Cell<T> {
 
-    private final T state;
+    protected T state; //TODO improve
 
     /**
      * Construct a new {@link AbstractCell}.
