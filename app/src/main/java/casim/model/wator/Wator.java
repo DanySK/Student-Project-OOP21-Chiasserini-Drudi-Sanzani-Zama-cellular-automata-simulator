@@ -50,12 +50,6 @@ public class Wator extends AbstractAutomaton<CellState, WatorCell> {
                         .stream()
                         .map(Pair::getRight)
                         .collect(Collectors.toList());
-                final var preyNeighbors = neighborsList.stream()
-                        .filter(w -> w.getState().equals(CellState.PREY))
-                        .collect(Collectors.toList());
-                final var deadNeighbors = neighborsList.stream()
-                        .filter(w -> w.getState().equals(CellState.DEAD))
-                        .collect(Collectors.toList());
                 switch (currCell.getState()) {
                     case PREY:
                         this.preyStep(currCell, neighborsList);
@@ -63,6 +57,12 @@ public class Wator extends AbstractAutomaton<CellState, WatorCell> {
                         currCell.move();
                         break;
                     case PREDATOR:
+                        final var preyNeighbors = neighborsList.stream()
+                            .filter(w -> w.getState().equals(CellState.PREY))
+                            .collect(Collectors.toList());
+                        final var deadNeighbors = neighborsList.stream()
+                            .filter(w -> w.getState().equals(CellState.DEAD))
+                            .collect(Collectors.toList());
                         if (preyNeighbors.size() > 0) {
                             this.predatorStep(currCell, preyNeighbors, WatorCell::heal);
                         } else if (deadNeighbors.size() > 0) {
