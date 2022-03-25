@@ -12,21 +12,47 @@ import casim.utils.coordinate.Coordinates2D;
 import casim.utils.coordinate.CoordinatesUtil;
 import casim.utils.grid.Grid2D;
 
+/**
+ * Langton's Ant automaton, composed of a {@link Grid2D} of
+ * {@link LangtonsAntCell}s and a list of {@link Ant}.
+ */
 @PlayableAutomaton(AutomatonName = "Langton's Ant")
-public class LangtonsAnt extends AbstractAutomaton<CellState, LangtonsAntCell>{
+public class LangtonsAnt extends AbstractAutomaton<CellState, LangtonsAntCell> {
 
     private final List<Ant> ants = new ArrayList<>();
     private final Grid2D<LangtonsAntCell> state;
 
+    /**
+     * Constructs a new Langont's Ant automaton.
+     * 
+     * @param state a {@link Grid2D} of {@link CellState}
+     * representing the initial state of the Automaton.
+     */
     public LangtonsAnt(final Grid2D<CellState> state) {
         this.state = state.map(x -> new LangtonsAntCell(x));
     }
 
+    /**
+     * Constructs a new Langton's Ant automaton.
+     * 
+     * @param state a {@link Grid2D} of {@link CellState}
+     *          representing the initial state of the Automaton.
+     * @param ants a {@link List} of {@link Ants} representing
+     *          the initial ants in the Automaton.
+     */
     public LangtonsAnt(final Grid2D<CellState> state, final List<Ant> ants) {
         this(state);
         this.ants.addAll(ants);
     }
 
+    /**
+     * Constructs a new Langton's Ant automaton.
+     * 
+     * @param state a {@link Grid2D} of {@link CellState}
+     *          representing the initial state of the Automaton.
+     * @param antNumber the number of ants that will be randomly
+     *          generated and will populate the Automaton.
+     */
     public LangtonsAnt(final Grid2D<CellState> state, final int antNumber) {
         this(state);
         final var randAntList = IntStream.range(0, antNumber)
@@ -98,5 +124,5 @@ public class LangtonsAnt extends AbstractAutomaton<CellState, LangtonsAntCell>{
         return this.state;
         // TODO return unmodifiable copy
     }
-    
+
 }
