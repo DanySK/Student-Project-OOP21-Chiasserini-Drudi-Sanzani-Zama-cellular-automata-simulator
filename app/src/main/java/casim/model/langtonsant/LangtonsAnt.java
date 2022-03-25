@@ -1,7 +1,10 @@
 package casim.model.langtonsant;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import casim.model.abstraction.automaton.AbstractAutomaton;
 import casim.utils.PlayableAutomaton;
@@ -12,12 +15,29 @@ import casim.utils.grid.Grid2D;
 @PlayableAutomaton(AutomatonName = "Langton's Ant")
 public class LangtonsAnt extends AbstractAutomaton<CellState, LangtonsAntCell>{
 
-    private final List<Ant> ants;
+    private final List<Ant> ants = new ArrayList<>();
     private final Grid2D<LangtonsAntCell> state;
 
-    public LangtonsAnt(final Grid2D<CellState> state, final List<Ant> ants) {
+    public LangtonsAnt(final Grid2D<CellState> state) {
         this.state = state.map(x -> new LangtonsAntCell(x));
-        this.ants = ants;
+    }
+
+    public LangtonsAnt(final Grid2D<CellState> state, final List<Ant> ants) {
+        this(state);
+        this.ants.addAll(ants);
+    }
+
+    public LangtonsAnt(final Grid2D<CellState> state, final int antNumber) {
+        this(state);
+        final var randAntList = IntStream.range(0, antNumber)
+                .mapToObj(x -> {
+                    final var rand = new Random();
+                    final var position = CoordinatesUtil.random(state.getHeight(), state.getWidth());
+                    final var direction = Direction.values()[rand.nextInt(Direction.values().length)];
+                    return new Ant(direction, position);
+                })
+                .collect(Collectors.toList());
+        this.ants.addAll(randAntList);
     }
 
     @Override
