@@ -30,7 +30,6 @@ public final class NeighborsFunctions {
      */ 
     public static <T extends AbstractCell<?>> List<Pair<Coordinates2D<Integer>, T>> neighbors2DFunction(final Pair<Coordinates2D<Integer>, T> cellPair, final Grid<Coordinates2D<Integer>, T> grid) {
          return CoordinatesUtil.get2DNeighbors(cellPair.getLeft()).stream()
-            .map(coord -> CoordinatesUtil.sumInt(coord, cellPair.getLeft()))
             .filter(grid::isCoordValid)
             .map(coord -> Pair.of(coord, grid.get(coord))) 
             .collect(Collectors.toList());
