@@ -23,11 +23,11 @@ public class StateToCellFunction implements Function<CellState, CoDiCell> {
         final EnumMap<Direction, Integer> neighborsPreviousInput = CodiUtils.newFilledEnumMap(() -> 0);
         final EnumMap<Direction, Boolean> chromosome =
                 CodiUtils.newFilledEnumMap(() -> CodiUtils.booleanWithSpecificProbability(CHROMOSOME_PROBABILITY));
-        builder.state(state);
-        builder.activationCounter(0);
-        builder.chromosome(chromosome);
-        builder.neighborsPreviousInput(neighborsPreviousInput);
-        return builder.build();
+        return builder.state(state)
+            .activationCounter(0)
+            .chromosome(chromosome)
+            .neighborsPreviousInput(neighborsPreviousInput)
+            .build();
     }
 
 }
