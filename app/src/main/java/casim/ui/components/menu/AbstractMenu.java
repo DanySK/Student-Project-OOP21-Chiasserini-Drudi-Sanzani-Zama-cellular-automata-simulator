@@ -4,7 +4,7 @@ import java.util.List;
 
 import casim.controller.menu.MenuController;
 import casim.ui.components.page.PageContainer;
-import javafx.scene.control.Control;
+import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 
 public abstract class AbstractMenu extends VBox {
@@ -17,21 +17,21 @@ public abstract class AbstractMenu extends VBox {
     }
 
     /**
-     * Add a new control component to the menu.
+     * Add a new node component to the menu.
      * 
-     * @param control the control component that has to be added to the menu.
+     * @param node the node component that has to be added to the menu.
      */
-    public void addControl(final Control control) {
-        this.getChildren().add(control);
+    public void addNode(final Node node) {
+        this.getChildren().add(node);
     }
 
     /**
-     * Add a new control component to the menu.
+     * Add new nodes components to the menu.
      * 
-     * @param control the control component that has to be added to the menu.
+     * @param nodes the nodes components that have to be added to the menu.
      */
-    public void addControls(final List<Control> controls) {
-        controls.forEach(this::addControl);
+    public void addNodes(final List<Node> nodes) {
+        nodes.forEach(this::addNode);
     }
 
     /**
