@@ -22,6 +22,7 @@ public class Wator extends AbstractAutomaton<CellState, WatorCell> {
 
     private static final int INIT_HEALTH = 5;
     private static final int DEAD_HEALTH = 0;
+    private static final String UNKNOWN_STATE = "Unknown state.";
 
     private final Grid2D<WatorCell> state;
 
@@ -73,9 +74,10 @@ public class Wator extends AbstractAutomaton<CellState, WatorCell> {
                             currCell.move();
                         }
                         break;
-                    default:
+                    case DEAD:
                         break;
-
+                    default:
+                        throw new IllegalStateException(UNKNOWN_STATE);
                 }
             }
         }
