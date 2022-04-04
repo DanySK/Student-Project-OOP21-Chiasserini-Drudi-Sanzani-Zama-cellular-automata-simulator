@@ -3,7 +3,7 @@ package casim.model.wator;
 /**
  * Enum representing the state of a {@link casim.model.wator.WatorCell}.
  */
-public enum CellState {
+public enum WatorCellState {
     /**
      * Predator state.
      */

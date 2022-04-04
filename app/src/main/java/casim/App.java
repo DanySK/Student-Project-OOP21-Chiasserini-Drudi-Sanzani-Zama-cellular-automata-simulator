@@ -3,6 +3,7 @@
  */
 package casim;
 
+import java.util.Random;
 import casim.controller.automaton.AutomatonController;
 import casim.controller.automaton.AutomatonControllerImpl;
 import casim.model.bryansbrain.BryansBrain;
