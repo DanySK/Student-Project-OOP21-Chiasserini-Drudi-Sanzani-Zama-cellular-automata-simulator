@@ -11,6 +11,7 @@ import casim.utils.PlayableAutomaton;
 import casim.utils.coordinate.Coordinates2D;
 import casim.utils.coordinate.CoordinatesUtil;
 import casim.utils.grid.Grid2D;
+import casim.utils.grid.WrappingGrid;
 
 /**
  * Langton's Ant automaton, composed of a {@link Grid2D} of
@@ -28,8 +29,9 @@ public class LangtonsAnt extends AbstractAutomaton<LangtonsAntCellState, Langton
      * @param state a {@link Grid2D} of {@link LangtonsAntCellState}
      * representing the initial state of the Automaton.
      */
-    public LangtonsAnt(final Grid2D<LangtonsAntCellState> state) {
-        this.state = state.map(x -> new LangtonsAntCell(x));
+    public LangtonsAnt(final Grid2D<LangtonsAntCellState> state, final boolean wrapping) {
+        this.state = wrapping == true ? new WrappingGrid<>(state.map(x -> new LangtonsAntCell(x))) : 
+                state.map(x -> new LangtonsAntCell(x));
     }
 
     /**
@@ -40,8 +42,8 @@ public class LangtonsAnt extends AbstractAutomaton<LangtonsAntCellState, Langton
      * @param ants a {@link List} of {@link Ants} representing
      *          the initial ants in the Automaton.
      */
-    public LangtonsAnt(final Grid2D<LangtonsAntCellState> state, final List<Ant> ants) {
-        this(state);
+    public LangtonsAnt(final Grid2D<LangtonsAntCellState> state, final List<Ant> ants, final boolean wrapping) {
+        this(state, wrapping);
         this.ants.addAll(ants);
     }
 
@@ -53,8 +55,8 @@ public class LangtonsAnt extends AbstractAutomaton<LangtonsAntCellState, Langton
      * @param antNumber the number of ants that will be randomly
      *          generated and will populate the Automaton.
      */
-    public LangtonsAnt(final Grid2D<LangtonsAntCellState> state, final int antNumber) {
-        this(state);
+    public LangtonsAnt(final Grid2D<LangtonsAntCellState> state, final int antNumber, final boolean wrapping) {
+        this(state, wrapping);
         final var randAntList = IntStream.range(0, antNumber)
                 .mapToObj(x -> {
                     final var rand = new Random();
@@ -82,7 +84,8 @@ public class LangtonsAnt extends AbstractAutomaton<LangtonsAntCellState, Langton
     private void antStep(final Ant ant) {
         ant.turn(this.state.get(ant.getPosition()).getState());
         this.state.set(ant.getPosition(), new LangtonsAntCell(
-                (this.state.get(ant.getPosition()).getState() == LangtonsAntCellState.OFF) ? LangtonsAntCellState.ON : LangtonsAntCellState.OFF));
+                (this.state.get(ant.getPosition()).getState() == LangtonsAntCellState.OFF) ? 
+                        LangtonsAntCellState.ON : LangtonsAntCellState.OFF));
         ant.move();
     }
 
