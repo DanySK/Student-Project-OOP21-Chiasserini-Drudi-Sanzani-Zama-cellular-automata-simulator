@@ -10,6 +10,9 @@ import casim.utils.grid.Grid2DImpl;
 import casim.utils.grid.RowGrid;
 import casim.utils.range.Ranges;
 
+/**
+ * Rule 110 automaton, composed of a {@link RowGrid} of {@link Rule110Cell}.
+ */
 public class Rule110 extends AbstractAutomaton<Rule110CellState, Rule110Cell>{
     private static final Map<Integer, Rule110CellState> updateMap = Map.of(
         0, Rule110CellState.DEAD,
@@ -26,6 +29,11 @@ public class Rule110 extends AbstractAutomaton<Rule110CellState, Rule110Cell>{
     private final RowGrid<Rule110Cell> grid;
     private int last;
 
+    /**
+     * Costructs a new Rule110 automaton.
+     * 
+     * @param maxRows rows' number of the grid.
+     */
     public Rule110(final int maxRows) {
         this.maxRows = maxRows;
         this.grid = new RowGrid<>(new Grid2DImpl<>(maxRows, maxRows, () -> new Rule110Cell(Rule110CellState.DEAD)));
@@ -54,10 +62,25 @@ public class Rule110 extends AbstractAutomaton<Rule110CellState, Rule110Cell>{
         return this.grid;
     }
 
+    /**
+     * Method for take the value of the neighbours of a {@link Rule110Cell}.
+     * 
+     * @param left value of the left {@link Rule110Cell}.
+     * @param center value of the {@link Rule110Cell} we are analyzing.
+     * @param right value of the right {@link Rule110Cell}.
+     * @return the base number 10 represented by the 3 bits.
+     */
     private int getValueFromNeighbours(final Rule110CellState left, final Rule110CellState center, final Rule110CellState right) {
         return left.getValue() + 2 * center.getValue() + 4 * right.getValue();
     }
 
+    /**
+     * Method that update the {@link Rule110Cell} we are analyzing.
+     * 
+     * @param index of the {@link Rule110Cell} we are analyzing.
+     * @param row current row.
+     * @return the updated {@link Rule110Cell}.
+     */
     private Rule110Cell getNewCell(final int index, final List<Rule110Cell> row) {
         final int value = this.getValueFromNeighbours(
             index == 0 ? Rule110CellState.DEAD : row.get(index - 1).getState(),
