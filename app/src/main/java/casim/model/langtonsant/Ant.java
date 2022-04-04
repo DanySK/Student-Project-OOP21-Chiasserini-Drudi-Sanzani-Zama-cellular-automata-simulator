@@ -11,6 +11,14 @@ public class Ant {
     private Coordinates2D<Integer> position;
     private Direction direction;
 
+    /**
+     * Constructs a new {@link Ant} with given {@link Direction}
+     * and position.
+     * 
+     * @param direction the {@link Direction} of the {@link Ant}.
+     * @param position {@link Coordinates2D} representing the
+     *          position of the {@link Ant}.
+     */
     public Ant(final Direction direction, final Coordinates2D<Integer> position) {
         this.direction = direction;
         this.position = position;
@@ -63,6 +71,7 @@ public class Ant {
       */
     public void turn(final LangtonsAntCellState state) {
         this.direction = Direction.values()[(this.direction.ordinal()
-                + (state.equals(LangtonsAntCellState.ON) ? Direction.values().length -1 : +1)) % Direction.values().length];
+                + (state.equals(LangtonsAntCellState.ON)
+                        ? Direction.values().length - 1 : 1)) % Direction.values().length];
     }
 }
