@@ -31,8 +31,8 @@ public class LangtonsAnt extends AbstractAutomaton<LangtonsAntCellState, Langton
      * representing the initial state of the Automaton.
      */
     public LangtonsAnt(final Grid2D<LangtonsAntCellState> state, final boolean wrapping) {
-        this.state = wrapping == true ? new WrappingGrid<>(state.map(x -> new LangtonsAntCell(x))) : 
-                state.map(x -> new LangtonsAntCell(x));
+        final Grid2D<LangtonsAntCell> tmpState = state.map(x -> new LangtonsAntCell(x));
+        this.state = wrapping ? new WrappingGrid<>(tmpState) : tmpState;
     }
 
     /**
@@ -89,8 +89,8 @@ public class LangtonsAnt extends AbstractAutomaton<LangtonsAntCellState, Langton
     private void antStep(final Ant ant) {
         ant.turn(this.state.get(ant.getPosition()).getState());
         this.state.set(ant.getPosition(), new LangtonsAntCell(
-                (this.state.get(ant.getPosition()).getState() == LangtonsAntCellState.OFF) ? 
-                        LangtonsAntCellState.ON : LangtonsAntCellState.OFF));
+                (this.state.get(ant.getPosition()).getState() == LangtonsAntCellState.OFF)
+                        ? LangtonsAntCellState.ON : LangtonsAntCellState.OFF));
         ant.move();
     }
 
