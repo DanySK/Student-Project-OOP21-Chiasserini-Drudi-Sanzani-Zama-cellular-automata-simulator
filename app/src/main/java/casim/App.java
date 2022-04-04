@@ -7,6 +7,7 @@ import casim.controller.automaton.AutomatonController;
 import casim.controller.automaton.AutomatonControllerImpl;
 import casim.model.bryansbrain.BryansBrain;
 import casim.model.bryansbrain.BryansBrainCellState;
+import casim.model.rule110.Rule110;
 import casim.ui.components.grid.CanvasGridBuilderImpl;
 import casim.ui.components.grid.CanvasGridImpl;
 import casim.ui.components.page.PageContainer;
@@ -72,7 +73,34 @@ public class App extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-        
+    
+    private void startRule(final Stage primaryStage) {
+        final var automaton = new Rule110(100);
+        final var controller = new AutomatonControllerImpl<>(automaton);
+        final var view = this.getView(primaryStage, controller, this.getGrid(), s -> {
+            switch (s) {
+            case ALIVE:
+                return Colors.WHITE;
+            case DEAD:
+                return Colors.BLACK;
+            default:
+                throw new IllegalArgumentException("Invalid state.");
+            }
+        });
+
+        final var graphics = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        final var width = graphics.getDisplayMode().getWidth();
+        final var height = graphics.getDisplayMode().getHeight();
+
+        primaryStage.setWidth(width / 2);
+        primaryStage.setHeight(height / 2);
+
+        final var root = new PageContainer(primaryStage);
+        root.addPage(view);
+        final var scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
 
     /**
      * Entry point.
@@ -85,6 +113,6 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        this.startBryansBrain(primaryStage);
+        this.startRule(primaryStage);
     }
 }
