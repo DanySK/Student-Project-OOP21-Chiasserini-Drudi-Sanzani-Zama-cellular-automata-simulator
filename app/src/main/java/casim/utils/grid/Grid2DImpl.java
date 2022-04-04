@@ -1,9 +1,9 @@
 package casim.utils.grid;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import casim.utils.coordinate.Coordinates2D;
@@ -41,14 +41,11 @@ import casim.utils.range.Ranges;
     public Grid2DImpl(final int rows, final int columns, final Supplier<T> defaultValue) {
         this.rows = rows;
         this.columns = columns;
-        this.grid = new ArrayList<>();
-
-        for (final var x : Ranges.of(0, rows)) {
-            this.grid.add(new ArrayList<>());
-            for (final var y : Ranges.of(0, columns)) {
-                this.grid.get(x).add(defaultValue.get());
-            }
-        }
+        this.grid = Ranges.of(0, rows).stream()
+            .map(x -> Ranges.of(0, columns).stream()
+                .map(y -> defaultValue.get())
+                .collect(Collectors.toList()))
+            .collect(Collectors.toList());
     }
 
     /**
@@ -61,15 +58,11 @@ import casim.utils.range.Ranges;
     public Grid2DImpl(final int rows, final int columns, final Function<Coordinates2D<Integer>, T> valueFunction) {
         this.rows = rows;
         this.columns = columns;
-        this.grid = new ArrayList<>();
-        
-        for (final var x : Ranges.of(0, rows)) {
-            this.grid.add(new ArrayList<>());
-            for (final var y : Ranges.of(0, columns)) {
-                final var coord = CoordinatesUtil.of(x, y);
-                this.grid.get(x).add(valueFunction.apply(coord));
-            }
-        }
+        this.grid = Ranges.of(0, rows).stream()
+            .map(x -> Ranges.of(0, columns).stream()
+                .map(y -> valueFunction.apply(CoordinatesUtil.of(x, y)))
+                .collect(Collectors.toList()))
+            .collect(Collectors.toList());
     }
 
     /**

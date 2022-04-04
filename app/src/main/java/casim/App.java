@@ -5,19 +5,20 @@ package casim;
 
 import casim.controller.automaton.AutomatonController;
 import casim.controller.automaton.AutomatonControllerImpl;
-import casim.model.codi.CoDi;
-import casim.model.codi.cell.attributes.CellState;
+import casim.model.bryansbrain.BryansBrain;
+import casim.model.bryansbrain.BryansBrainCellState;
 import casim.ui.components.grid.CanvasGridBuilderImpl;
 import casim.ui.components.grid.CanvasGridImpl;
 import casim.ui.components.page.PageContainer;
 import casim.ui.utils.StateColorMapper;
 import casim.ui.view.AutomatonView;
 import casim.utils.Colors;
-import casim.utils.grid.Grid3DImpl;
+import casim.utils.grid.Grid2DImpl;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.awt.GraphicsEnvironment;
+import java.util.Random;
 
 /**
  * Main project class.
@@ -33,34 +34,28 @@ public class App extends Application {
         return (CanvasGridImpl)grid;
     }
 
-    private AutomatonView<CellState> getView(final Stage stage, final AutomatonController<CellState> controller, final CanvasGridImpl grid, final StateColorMapper<CellState> mapper) {
-        return new AutomatonView<>(stage, controller, grid, mapper);
+    private <T> AutomatonView<T> getView(final Stage stage, final AutomatonController<T> controller, final CanvasGridImpl grid, final StateColorMapper<T> mapper) {
+        return new AutomatonView<T>(stage, controller, grid, mapper);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void start(final Stage primaryStage) throws Exception {
-        final var state = new Grid3DImpl<CellState>(ROWS, COLS, DEPTH, () -> CellState.BLANK);
-        final var automaton = new CoDi(state);
+    private void startBryansBrain(final Stage primaryStage) {
+        final var rng = new Random();
+        final var grid = new Grid2DImpl<BryansBrainCellState>(ROWS, COLS, () -> {
+            final var states = BryansBrainCellState.values();
+            return states[rng.nextInt(states.length)];
+        });
+        final var automaton = new BryansBrain(grid, true);
         final var controller = new AutomatonControllerImpl<>(automaton);
         final var view = this.getView(primaryStage, controller, this.getGrid(), s -> {
             switch (s) {
-                case BLANK:
-                    return Colors.BLACK;
-                case AXON:
-                    return Colors.FUSCIA;
-                case DENDRITE:
-                    return Colors.ARCTIC;
-                case ACTIVATED_AXON:
-                    return Colors.CARROT;
-                case ACTIVATED_DENDRITE:
-                    return Colors.PARAKEET;
-                case NEURON:
-                    return Colors.AMETHYST;
-                default:
-                    throw new IllegalArgumentException("Invalid state.");
+            case ALIVE:
+                return Colors.WHITE;
+            case DEAD:
+                return Colors.BLACK;
+            case DYING:
+                return Colors.LIGHT_BLUE;
+            default:
+                throw new IllegalArgumentException("Invalid state.");
             }
         });
 
@@ -77,6 +72,7 @@ public class App extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+        
 
     /**
      * Entry point.
@@ -85,5 +81,10 @@ public class App extends Application {
      */
     public static void main(final String[] args) {
         launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        this.startBryansBrain(primaryStage);
     }
 }

@@ -4,7 +4,6 @@ import casim.model.abstraction.automaton.AbstractAutomaton;
 import casim.utils.grid.Grid2D;
 import casim.model.abstraction.cell.AbstractCell;
 import casim.model.abstraction.utils.stats.Stats;
-import casim.model.abstraction.utils.stats.StatsImpl;
 
 /**
  * Implementation of {@link AutomatonController}.

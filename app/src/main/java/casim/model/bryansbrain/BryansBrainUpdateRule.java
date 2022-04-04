@@ -10,9 +10,9 @@ import casim.utils.coordinate.Coordinates2D;
 import casim.utils.grid.Grid;
 
 /**
- * Bryan's Brain's {@link UpdateRule} implementation.
+ * Bryan's Brain's {@link BryansBrainUpdateRule} implementation.
  */
-public class UpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, BryansBrainCell> {
+public class BryansBrainUpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, BryansBrainCell> {
 
     private static final String UNKNOWN_STATE = "Unknown state.";
     private static final int ALIVE_NEIGHBOUR_BIRTH_VALUE = 2;
@@ -22,7 +22,7 @@ public class UpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, Bryan
      * 
      * @param neighborsFunction
      */
-    public UpdateRule(
+    public BryansBrainUpdateRule(
         final BiFunction<
             Pair<Coordinates2D<Integer>, BryansBrainCell>, 
             Grid<Coordinates2D<Integer>, BryansBrainCell>, 
@@ -35,13 +35,13 @@ public class UpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, Bryan
             final List<Pair<Coordinates2D<Integer>, BryansBrainCell>> neighborsPairs) {
         switch (cellPair.getRight().getState()) {
             case ALIVE:
-                return new BryansBrainCell(CellState.DYING);
+                return new BryansBrainCell(BryansBrainCellState.DYING);
             case DYING:
-                return new BryansBrainCell(CellState.DEAD);
+                return new BryansBrainCell(BryansBrainCellState.DEAD);
             case DEAD:
                 int aliveCells = countAliveNeighbors(neighborsPairs);
                 return new BryansBrainCell(
-                    aliveCells == ALIVE_NEIGHBOUR_BIRTH_VALUE ? CellState.ALIVE : CellState.DEAD);
+                    aliveCells == ALIVE_NEIGHBOUR_BIRTH_VALUE ? BryansBrainCellState.ALIVE : BryansBrainCellState.DEAD);
             default:
                 throw new IllegalStateException(UNKNOWN_STATE);
         }
@@ -50,7 +50,7 @@ public class UpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, Bryan
     private int countAliveNeighbors(final Iterable<Pair<Coordinates2D<Integer>, BryansBrainCell>> neighborsPairs) {
         int count = 0;
         for (final var neighbor : neighborsPairs) {
-            if (neighbor.getRight().getState() == CellState.ALIVE) {
+            if (neighbor.getRight().getState() == BryansBrainCellState.ALIVE) {
                 count++;
             }
         }
