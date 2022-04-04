@@ -12,7 +12,7 @@ import casim.utils.coordinate.CoordinatesUtil;
 /**
  * Test class for {@link Ant}.
  */
-public class AntTest {
+class AntTest {
 
     private static final Coordinates2D<Integer> STARTINGPOSITION = CoordinatesUtil.of(0, 0);
     private static final Coordinates2D<Integer> NORTHRESULT = CoordinatesUtil.of(0, 1);
@@ -33,7 +33,7 @@ public class AntTest {
         ANT.move();
         Assert.assertEquals(EASTRESULT, ANT.getPosition());
     }
-    
+
     /**
      * Test for {@link Ant#turn(LangtonsAntCellState)} method.
      */
