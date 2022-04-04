@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
 import casim.model.abstraction.automaton.AbstractAutomaton;
 import casim.utils.PlayableAutomaton;
 import casim.utils.coordinate.Coordinates2D;
@@ -27,6 +26,8 @@ public class LangtonsAnt extends AbstractAutomaton<LangtonsAntCellState, Langton
      * Constructs a new Langont's Ant automaton.
      * 
      * @param state a {@link Grid2D} of {@link LangtonsAntCellState}
+     * @param wrapping if true ants will warp to opposite side of
+     *              the grid instead of dying when reaching edge.
      * representing the initial state of the Automaton.
      */
     public LangtonsAnt(final Grid2D<LangtonsAntCellState> state, final boolean wrapping) {
@@ -39,8 +40,10 @@ public class LangtonsAnt extends AbstractAutomaton<LangtonsAntCellState, Langton
      * 
      * @param state a {@link Grid2D} of {@link LangtonsAntCellState}
      *          representing the initial state of the Automaton.
-     * @param ants a {@link List} of {@link Ants} representing
-     *          the initial ants in the Automaton.
+     * @param ants a {@link List} of {@link Ant} 
+     *          representing the initial ants in the Automaton.
+     * @param wrapping if true ants will warp to opposite side of
+     *              the grid instead of dying when reaching edge.
      */
     public LangtonsAnt(final Grid2D<LangtonsAntCellState> state, final List<Ant> ants, final boolean wrapping) {
         this(state, wrapping);
@@ -54,6 +57,8 @@ public class LangtonsAnt extends AbstractAutomaton<LangtonsAntCellState, Langton
      *          representing the initial state of the Automaton.
      * @param antNumber the number of ants that will be randomly
      *          generated and will populate the Automaton.
+     * @param wrapping if true ants will warp to opposite side of
+     *              the grid instead of dying when reaching edge.
      */
     public LangtonsAnt(final Grid2D<LangtonsAntCellState> state, final int antNumber, final boolean wrapping) {
         this(state, wrapping);
@@ -111,7 +116,7 @@ public class LangtonsAnt extends AbstractAutomaton<LangtonsAntCellState, Langton
     }
 
     /**
-     * Adds an {@link Ant} at a random position with a random {@Link Direction}.
+     * Adds an {@link Ant} at a random position with a random {@link Direction}.
      * @return the {@link Coordinates2D} representig the position of the new {@link Ant}.
      */
     public Coordinates2D<Integer> addAnt() {
