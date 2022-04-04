@@ -1,6 +1,6 @@
 package casim.model.bryansbrain;
 
-public enum CellState {
+public enum BryansBrainCellState {
     ALIVE,
     DYING,
     DEAD;

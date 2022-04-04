@@ -2,9 +2,12 @@ package casim.ui.view;
 
 import casim.controller.automaton.AutomatonController;
 import casim.ui.components.grid.CanvasGridImpl;
+import casim.ui.utils.AlertBuilderImpl;
 import casim.ui.utils.StateColorMapper;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Window;
 
@@ -30,6 +33,13 @@ public class AutomatonView<T> extends BorderPane {
         this.grid = grid;
         this.colorMapper = colorMapper;
         this.init();
+
+        AnchorPane.setLeftAnchor(this, 0.0);
+        AnchorPane.setRightAnchor(this, 0.0);
+        AnchorPane.setTopAnchor(this, 0.0);
+        AnchorPane.setBottomAnchor(this, 0.0);
+
+        this.widthProperty().addListener(this::onSizeChange);
     }
 
     private AutomatonController<T> getController() {
@@ -42,14 +52,21 @@ public class AutomatonView<T> extends BorderPane {
     }
 
     private void render() {
-        //TODO: Check for hasNext
-        final var state = this.controller.next();
-        this.grid.setCells(state.map(this.colorMapper::toColor));  
-        this.grid.draw();
+        if (this.controller.hasNext()) {
+            final var state = this.controller.next();
+            this.grid.setCells(state.map(this.colorMapper::toColor));  
+            this.grid.draw();
+        } else {
+            final var builder = new AlertBuilderImpl();
+            builder.buildDefaultInfo("No next step available.", this.owner)
+                .show();
+        }
     }
 
     private void init() {
-        this.setCenter(this.grid);
+        final var pane = new AnchorPane();
+        pane.getChildren().add(this.grid);
+        this.setCenter(pane);
         this.setTop(this.statsLabel);
         this.setBottom(this.nextStepBtn);
         this.nextStepBtn.setOnAction(e -> {
@@ -59,5 +76,9 @@ public class AutomatonView<T> extends BorderPane {
         this.grid.setCells(this.controller.getGrid().map(this.colorMapper::toColor));
         this.grid.draw();
         this.updateStats();
+    }
+
+    private void onSizeChange(ObservableValue<? extends Number> obs, final Number oldVal, final Number newVal) {
+        this.grid.handleSizeChange(this.getWidth(), this.getHeight());
     }
 }

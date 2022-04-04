@@ -6,8 +6,8 @@ package casim;
 import java.util.Random;
 import casim.controller.automaton.AutomatonController;
 import casim.controller.automaton.AutomatonControllerImpl;
-import casim.model.wator.CellState;
-import casim.model.wator.Wator;
+import casim.model.bryansbrain.BryansBrain;
+import casim.model.bryansbrain.BryansBrainCellState;
 import casim.ui.components.grid.CanvasGridBuilderImpl;
 import casim.ui.components.grid.CanvasGridImpl;
 import casim.ui.components.page.PageContainer;
@@ -18,53 +18,54 @@ import casim.utils.grid.Grid2DImpl;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import java.awt.GraphicsEnvironment;
+import java.util.Random;
 
 /**
  * Main project class.
  */
 public class App extends Application {
 
-    private static final int ROWS = 600;
-    private static final int COLS = 600;
-    private static final int CELL_SIZE = 2;
+    final static int ROWS = 100;
+    final static int COLS = 100;
+    final static int DEPTH = 100;
 
     private CanvasGridImpl getGrid() {
-        return (CanvasGridImpl) new CanvasGridBuilderImpl().build(ROWS, COLS, CELL_SIZE);
+        final var grid = new CanvasGridBuilderImpl().build(ROWS, COLS);
+        return (CanvasGridImpl)grid;
     }
 
-    private AutomatonView<CellState> getView(final Stage stage, final AutomatonController<CellState> controller, final CanvasGridImpl grid, final StateColorMapper<CellState> mapper) {
-        return new AutomatonView<>(stage, controller, grid, mapper);
+    private <T> AutomatonView<T> getView(final Stage stage, final AutomatonController<T> controller, final CanvasGridImpl grid, final StateColorMapper<T> mapper) {
+        return new AutomatonView<T>(stage, controller, grid, mapper);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void start(final Stage primaryStage) throws Exception {
-        final var state = new Grid2DImpl<CellState>(ROWS, COLS, () -> {
-            final var rand = new Random();
-            final var val = rand.nextInt(1_000);
-            if (val < 25) {
-                return CellState.PREY;
-            } else if (val < 100) {
-                return CellState.PREDATOR;
-            }
-            return CellState.DEAD;
+    private void startBryansBrain(final Stage primaryStage) {
+        final var rng = new Random();
+        final var grid = new Grid2DImpl<BryansBrainCellState>(ROWS, COLS, () -> {
+            final var states = BryansBrainCellState.values();
+            return states[rng.nextInt(states.length)];
         });
-        final var automaton = new Wator(state);
+        final var automaton = new BryansBrain(grid, true);
         final var controller = new AutomatonControllerImpl<>(automaton);
         final var view = this.getView(primaryStage, controller, this.getGrid(), s -> {
             switch (s) {
-                case PREY:
-                    return Colors.GREEN;
-                case PREDATOR:
-                    return Colors.RED;
-                case DEAD:
-                    return Colors.BLACK;
-                default:
-                    throw new IllegalArgumentException("Invalid state.");
+            case ALIVE:
+                return Colors.WHITE;
+            case DEAD:
+                return Colors.BLACK;
+            case DYING:
+                return Colors.LIGHT_BLUE;
+            default:
+                throw new IllegalArgumentException("Invalid state.");
             }
         });
+
+        final var graphics = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        final var width = graphics.getDisplayMode().getWidth();
+        final var height = graphics.getDisplayMode().getHeight();
+
+        primaryStage.setWidth(width / 2);
+        primaryStage.setHeight(height / 2);
 
         final var root = new PageContainer(primaryStage);
         root.addPage(view);
@@ -72,6 +73,7 @@ public class App extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+        
 
     /**
      * Entry point.
@@ -80,5 +82,10 @@ public class App extends Application {
      */
     public static void main(final String[] args) {
         launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        this.startBryansBrain(primaryStage);
     }
 }

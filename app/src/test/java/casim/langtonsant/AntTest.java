@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import casim.model.langtonsant.Ant;
-import casim.model.langtonsant.CellState;
+import casim.model.langtonsant.LangtonsAntCellState;
 import casim.model.langtonsant.Direction;
 import casim.utils.coordinate.Coordinates2D;
 import casim.utils.coordinate.CoordinatesUtil;
@@ -36,18 +36,18 @@ public class AntTest {
     
     
     /**
-     * Test for {@link Ant#turn(CellState)} method.
+     * Test for {@link Ant#turn(LangtonsAntCellState)} method.
      */
     @Test
     void testTurn() {
         ANT.setDirection(Direction.NORTH);
-        ANT.turn(CellState.OFF);
+        ANT.turn(LangtonsAntCellState.OFF);
         Assert.assertEquals(Direction.EAST, ANT.getDirection());
         ANT.setDirection(Direction.NORTH);
-        ANT.turn(CellState.ON);
+        ANT.turn(LangtonsAntCellState.ON);
         Assert.assertEquals(Direction.WEST, ANT.getDirection());
         ANT.setDirection(Direction.WEST);
-        ANT.turn(CellState.OFF);
+        ANT.turn(LangtonsAntCellState.OFF);
         Assert.assertEquals(Direction.NORTH, ANT.getDirection());
     }
 
