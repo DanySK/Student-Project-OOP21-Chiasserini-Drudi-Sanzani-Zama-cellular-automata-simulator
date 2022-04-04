@@ -3,6 +3,7 @@ package casim.utils.automaton;
 import casim.model.bryansbrain.BryansBrain;
 import casim.model.codi.CoDi;
 import casim.model.langtonsant.LangtonsAnt;
+import casim.model.wator.Wator;
 
 /**
  * A factory for the automaton creation.
@@ -43,4 +44,13 @@ public interface AutomatonFactory {
      * @return a new {@link LangtonsAnt} automaton.
      */
     LangtonsAnt getLangtonsAnt(int cols, int rows, int antNumber, boolean wrapping);
+
+    /**
+     * Returns a new {@link Wator} automaton.
+     * 
+     * @param cols the colums of the automaton grid.
+     * @param rows the rows of the automaton grid.
+     * @return a new {@link Wator} autmaton.
+     */
+    Wator getWator(int cols, int rows);
 }
