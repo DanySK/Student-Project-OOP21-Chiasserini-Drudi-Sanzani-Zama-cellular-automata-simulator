@@ -62,7 +62,7 @@ public class WatorCell extends AbstractCell<CellState> {
     public void setHealth(final int health) {
         if (health < MIN_HEALTH || health > MAX_HEALTH) {
             throw new IllegalArgumentException("Heath value out of valid limits: MAX: " + MAX_HEALTH
-                + " MIN: " + MIN_HEALTH + " GIVEN: " + health);
+                    + " MIN: " + MIN_HEALTH + " GIVEN: " + health);
         }
         this.health = health;
     }
