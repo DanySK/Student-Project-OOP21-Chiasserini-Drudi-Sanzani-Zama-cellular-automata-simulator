@@ -5,8 +5,8 @@ package casim;
 
 import casim.controller.automaton.AutomatonController;
 import casim.controller.automaton.AutomatonControllerImpl;
-import casim.model.langtonsant.LangtonsAntCellState;
-import casim.model.langtonsant.LangtonsAnt;
+import casim.model.bryansbrain.BryansBrain;
+import casim.model.bryansbrain.BryansBrainCellState;
 import casim.ui.components.grid.CanvasGridBuilderImpl;
 import casim.ui.components.grid.CanvasGridImpl;
 import casim.ui.components.page.PageContainer;
@@ -25,9 +25,9 @@ import java.util.Random;
  */
 public class App extends Application {
 
-    private static final int ROWS = 100;
-    private static final int COLS = 100;
-    private static final int CELL_SIZE = 10;
+    final static int ROWS = 100;
+    final static int COLS = 100;
+    final static int DEPTH = 100;
 
     private CanvasGridImpl getGrid() {
         final var grid = new CanvasGridBuilderImpl().build(ROWS, COLS);
@@ -38,22 +38,24 @@ public class App extends Application {
         return new AutomatonView<T>(stage, controller, grid, mapper);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void start(final Stage primaryStage) throws Exception {
-        final var state = new Grid2DImpl<LangtonsAntCellState>(ROWS, COLS, () -> LangtonsAntCellState.OFF);
-        final var automaton = new LangtonsAnt(state, 50);
+    private void startBryansBrain(final Stage primaryStage) {
+        final var rng = new Random();
+        final var grid = new Grid2DImpl<BryansBrainCellState>(ROWS, COLS, () -> {
+            final var states = BryansBrainCellState.values();
+            return states[rng.nextInt(states.length)];
+        });
+        final var automaton = new BryansBrain(grid, true);
         final var controller = new AutomatonControllerImpl<>(automaton);
         final var view = this.getView(primaryStage, controller, this.getGrid(), s -> {
             switch (s) {
-                case ON:
-                    return Colors.WHITE;
-                case OFF:
-                    return Colors.BLACK;
-                default:
-                    throw new IllegalArgumentException("Invalid state.");
+            case ALIVE:
+                return Colors.WHITE;
+            case DEAD:
+                return Colors.BLACK;
+            case DYING:
+                return Colors.LIGHT_BLUE;
+            default:
+                throw new IllegalArgumentException("Invalid state.");
             }
         });
 
@@ -79,5 +81,10 @@ public class App extends Application {
      */
     public static void main(final String[] args) {
         launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        this.startBryansBrain(primaryStage);
     }
 }
