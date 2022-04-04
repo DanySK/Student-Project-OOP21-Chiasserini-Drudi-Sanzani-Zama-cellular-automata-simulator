@@ -11,13 +11,11 @@ public class CanvasGridBuilderImpl extends AbstractBuilder implements CanvasGrid
 
     private static final String INVALID_ROWS_NUMBER = "The number of rows must be greater than zero.";
     private static final String INVALID_COLUMNS_NUMBER = "The number of columns must be greater than zero.";
-    private static final String INVALID_CELL_SIZE = "The cell size must be greater than zero.";
     private static final String INVALID_SEPARATOR_WIDTH = "The separator width must be equal or greater than zero.";
     private static final String SEPARATOR_COLOR_NULL = "The separator color cannot be null.";
 
     private int rows;
     private int columns;
-    private int cellSize;
     private Color separatorColor = Colors.BLACK;
     private double separatorWidth;
 
@@ -36,15 +34,13 @@ public class CanvasGridBuilderImpl extends AbstractBuilder implements CanvasGrid
     }
 
     @Override
-    public CanvasGrid build(final int rows, final int columns, final int cellSize) {
+    public CanvasGrid build(final int rows, final int columns) {
         this.registerCall();
         this.rows(rows)
-            .columns(columns)
-            .cellSize(cellSize);
+            .columns(columns);
         return new CanvasGridImpl(
             this.rows, 
             this.columns, 
-            this.cellSize, 
             this.separatorColor, 
             this.separatorWidth, 
             this.getSeparatorOffset());
@@ -63,12 +59,6 @@ public class CanvasGridBuilderImpl extends AbstractBuilder implements CanvasGrid
     private CanvasGridBuilderImpl columns(final int columns) {
         this.registerCall();
         this.columns = this.checkValue(columns, x -> x > 0, INVALID_COLUMNS_NUMBER);
-        return this;
-    }
-
-    private CanvasGridBuilderImpl cellSize(final int cellSize) {
-        this.registerCall();
-        this.cellSize = this.checkValue(cellSize, x -> x > 0, INVALID_CELL_SIZE);
         return this;
     }
 }

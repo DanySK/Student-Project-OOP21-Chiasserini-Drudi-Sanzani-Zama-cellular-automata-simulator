@@ -31,10 +31,9 @@ public class App extends Application {
 
     final static int ROWS = 100;
     final static int COLS = 100;
-    final static int CELL_SIZE = 10;
 
     private CanvasGridImpl getGrid() {
-        final var grid = new CanvasGridBuilderImpl().build(ROWS, COLS, CELL_SIZE);
+        final var grid = new CanvasGridBuilderImpl().build(ROWS, COLS);
         return (CanvasGridImpl)grid;
     }
 
@@ -75,6 +74,13 @@ public class App extends Application {
             }
         });
 
+        final var graphics = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        final var width = graphics.getDisplayMode().getWidth();
+        final var height = graphics.getDisplayMode().getHeight();
+
+        primaryStage.setWidth(width / 2);
+        primaryStage.setHeight(height / 2);
+
         final var root = new PageContainer(primaryStage);
         root.addPage(view);
         final var scene = new Scene(root);
@@ -102,7 +108,7 @@ public class App extends Application {
      */
     @Override
     public void start(final Stage primaryStage) throws Exception {
-        this.startMenu(primaryStage);
+        this.startBryansBrain(primaryStage);
     }
 
     /**

@@ -54,13 +54,6 @@ public interface CanvasGrid {
     double getCellSize();
 
     /**
-     * Return the grid with all the cells.
-     * 
-     * @return a {@link casim.utils.grid.Grid} containing the cells of the {@link CanvasGrid}.
-     */
-    Grid2D<CanvasGridCell> getCells();
-
-    /**
      * Set the {@link CanvasGrid}'s grid.
      * 
      * @param cells a {@link casim.utils.grid.Grid} containing the cells.

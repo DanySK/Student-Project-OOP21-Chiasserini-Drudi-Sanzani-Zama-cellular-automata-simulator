@@ -29,8 +29,7 @@ public interface CanvasGridBuilder {
      * 
      * @param rows the number of rows in the {@link CanvasGrid}
      * @param columns the number of columns in the {@link CanvasGrid}
-     * @param cellSize the size of each cell in the {@link CanvasGrid}
      * @return a {@link CanvasGrid} if the parameters are valid.
      */
-    CanvasGrid build(int rows, int columns, int cellSize);
+    CanvasGrid build(int rows, int columns);
 }
