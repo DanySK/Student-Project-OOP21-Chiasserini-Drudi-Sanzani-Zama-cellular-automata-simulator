@@ -5,7 +5,7 @@ import casim.model.abstraction.cell.AbstractCell;
 /**
  * A cell of the {@link casim.model.wator.Wator} Automaton.
  */
-public class WatorCell extends AbstractCell<CellState> {
+public class WatorCell extends AbstractCell<WatorCellState> {
 
     private static final int MIN_HEALTH = 0;
     private static final int MAX_HEALTH = 10;
@@ -19,10 +19,10 @@ public class WatorCell extends AbstractCell<CellState> {
     /**
      * Constructs a new {@link WatorCell}.
      * 
-     * @param state the {@link CellState} of the cell.
+     * @param state the {@link WatorCellState} of the cell.
      * @param health the int value representing the health of the cell.
      */
-    public WatorCell(final CellState state, final int health) {
+    public WatorCell(final WatorCellState state, final int health) {
         super(state);
         this.health = health;
     }
@@ -38,12 +38,12 @@ public class WatorCell extends AbstractCell<CellState> {
     }
 
     /**
-     * Sets the {@link CellState} of the {@link WatorCell}.
+     * Sets the {@link WatorCellState} of the {@link WatorCell}.
      * 
-     * @param state the {@link CellState} to be set as the new
+     * @param state the {@link WatorCellState} to be set as the new
      * state of the {@link WatorCell}
      */
-    public void setState(final CellState state) {
+    public void setState(final WatorCellState state) {
         this.state = state;
     }
 
@@ -83,7 +83,7 @@ public class WatorCell extends AbstractCell<CellState> {
      * maximum.
      */
     public void heal() {
-        if (this.getState().equals(CellState.PREY)) {
+        if (this.getState().equals(WatorCellState.PREY)) {
             this.health += PREY_HEAL;
         } else {
             this.health += PRED_HEAL;
@@ -118,10 +118,10 @@ public class WatorCell extends AbstractCell<CellState> {
                 case PREDATOR:
                     return new WatorCell(this.getState(), MAX_HEALTH / 2);
                 default:
-                throw new UnsupportedOperationException("The CellState " + this.state + " has no reproduce operation.");
+                throw new UnsupportedOperationException("The state " + this.state + " has no reproduce operation.");
             }
         } else {
-            return new WatorCell(CellState.DEAD, MIN_HEALTH);
+            return new WatorCell(WatorCellState.DEAD, MIN_HEALTH);
         }
     }
 
