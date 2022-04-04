@@ -3,7 +3,7 @@ package casim.model.langtonsant;
 /**
  * The state of a {@link casim.model.langtonsant.Ant}.
  */
-public enum CellState {
+public enum LangtonsAntCellState {
     /**
      * The activated state, an ant on this state
      * will turn left.

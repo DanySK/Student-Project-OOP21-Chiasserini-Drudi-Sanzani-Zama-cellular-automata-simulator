@@ -17,7 +17,7 @@ import casim.utils.grid.Grid2D;
  * {@link LangtonsAntCell}s and a list of {@link Ant}.
  */
 @PlayableAutomaton(AutomatonName = "Langton's Ant")
-public class LangtonsAnt extends AbstractAutomaton<CellState, LangtonsAntCell> {
+public class LangtonsAnt extends AbstractAutomaton<LangtonsAntCellState, LangtonsAntCell> {
 
     private final List<Ant> ants = new ArrayList<>();
     private final Grid2D<LangtonsAntCell> state;
@@ -25,22 +25,22 @@ public class LangtonsAnt extends AbstractAutomaton<CellState, LangtonsAntCell> {
     /**
      * Constructs a new Langont's Ant automaton.
      * 
-     * @param state a {@link Grid2D} of {@link CellState}
+     * @param state a {@link Grid2D} of {@link LangtonsAntCellState}
      * representing the initial state of the Automaton.
      */
-    public LangtonsAnt(final Grid2D<CellState> state) {
+    public LangtonsAnt(final Grid2D<LangtonsAntCellState> state) {
         this.state = state.map(x -> new LangtonsAntCell(x));
     }
 
     /**
      * Constructs a new Langton's Ant automaton.
      * 
-     * @param state a {@link Grid2D} of {@link CellState}
+     * @param state a {@link Grid2D} of {@link LangtonsAntCellState}
      *          representing the initial state of the Automaton.
      * @param ants a {@link List} of {@link Ants} representing
      *          the initial ants in the Automaton.
      */
-    public LangtonsAnt(final Grid2D<CellState> state, final List<Ant> ants) {
+    public LangtonsAnt(final Grid2D<LangtonsAntCellState> state, final List<Ant> ants) {
         this(state);
         this.ants.addAll(ants);
     }
@@ -48,12 +48,12 @@ public class LangtonsAnt extends AbstractAutomaton<CellState, LangtonsAntCell> {
     /**
      * Constructs a new Langton's Ant automaton.
      * 
-     * @param state a {@link Grid2D} of {@link CellState}
+     * @param state a {@link Grid2D} of {@link LangtonsAntCellState}
      *          representing the initial state of the Automaton.
      * @param antNumber the number of ants that will be randomly
      *          generated and will populate the Automaton.
      */
-    public LangtonsAnt(final Grid2D<CellState> state, final int antNumber) {
+    public LangtonsAnt(final Grid2D<LangtonsAntCellState> state, final int antNumber) {
         this(state);
         final var randAntList = IntStream.range(0, antNumber)
                 .mapToObj(x -> {
@@ -82,7 +82,7 @@ public class LangtonsAnt extends AbstractAutomaton<CellState, LangtonsAntCell> {
     private void antStep(final Ant ant) {
         ant.turn(this.state.get(ant.getPosition()).getState());
         this.state.set(ant.getPosition(), new LangtonsAntCell(
-                (this.state.get(ant.getPosition()).getState() == CellState.OFF) ? CellState.ON : CellState.OFF));
+                (this.state.get(ant.getPosition()).getState() == LangtonsAntCellState.OFF) ? LangtonsAntCellState.ON : LangtonsAntCellState.OFF));
         ant.move();
     }
 

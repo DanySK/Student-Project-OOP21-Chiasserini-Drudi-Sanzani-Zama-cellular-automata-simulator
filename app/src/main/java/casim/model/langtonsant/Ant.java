@@ -57,12 +57,12 @@ public class Ant {
     }
 
     /**
-      * Given a  {@link CellState} changes the {@link Direction} of the {@link Ant}.
+      * Given a  {@link LangtonsAntCellState} changes the {@link Direction} of the {@link Ant}.
       * 
-      * @param state current {@link CellState} of the {@link LangtonsAntCell} the {@link Ant} is on.
+      * @param state current {@link LangtonsAntCellState} of the {@link LangtonsAntCell} the {@link Ant} is on.
       */
-    public void turn(final CellState state) {
+    public void turn(final LangtonsAntCellState state) {
         this.direction = Direction.values()[(this.direction.ordinal()
-                + (state.equals(CellState.ON) ? Direction.values().length -1 : +1)) % Direction.values().length];
+                + (state.equals(LangtonsAntCellState.ON) ? Direction.values().length -1 : +1)) % Direction.values().length];
     }
 }

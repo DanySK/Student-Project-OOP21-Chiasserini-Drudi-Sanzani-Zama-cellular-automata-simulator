@@ -5,7 +5,7 @@ package casim;
 
 import casim.controller.automaton.AutomatonController;
 import casim.controller.automaton.AutomatonControllerImpl;
-import casim.model.langtonsant.CellState;
+import casim.model.langtonsant.LangtonsAntCellState;
 import casim.model.langtonsant.LangtonsAnt;
 import casim.ui.components.grid.CanvasGridBuilderImpl;
 import casim.ui.components.grid.CanvasGridImpl;
@@ -43,7 +43,7 @@ public class App extends Application {
      */
     @Override
     public void start(final Stage primaryStage) throws Exception {
-        final var state = new Grid2DImpl<CellState>(ROWS, COLS, () -> CellState.OFF);
+        final var state = new Grid2DImpl<LangtonsAntCellState>(ROWS, COLS, () -> LangtonsAntCellState.OFF);
         final var automaton = new LangtonsAnt(state, 50);
         final var controller = new AutomatonControllerImpl<>(automaton);
         final var view = this.getView(primaryStage, controller, this.getGrid(), s -> {
