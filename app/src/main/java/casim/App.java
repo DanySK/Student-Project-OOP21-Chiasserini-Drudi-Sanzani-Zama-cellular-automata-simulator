@@ -17,6 +17,8 @@ import casim.utils.grid.Grid2DImpl;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import java.awt.GraphicsEnvironment;
+import java.util.Random;
 
 /**
  * Main project class.
@@ -28,11 +30,12 @@ public class App extends Application {
     private static final int CELL_SIZE = 10;
 
     private CanvasGridImpl getGrid() {
-        return (CanvasGridImpl) new CanvasGridBuilderImpl().build(ROWS, COLS, CELL_SIZE);
+        final var grid = new CanvasGridBuilderImpl().build(ROWS, COLS);
+        return (CanvasGridImpl)grid;
     }
 
-    private AutomatonView<CellState> getView(final Stage stage, final AutomatonController<CellState> controller, final CanvasGridImpl grid, final StateColorMapper<CellState> mapper) {
-        return new AutomatonView<>(stage, controller, grid, mapper);
+    private <T> AutomatonView<T> getView(final Stage stage, final AutomatonController<T> controller, final CanvasGridImpl grid, final StateColorMapper<T> mapper) {
+        return new AutomatonView<T>(stage, controller, grid, mapper);
     }
 
     /**
@@ -54,12 +57,20 @@ public class App extends Application {
             }
         });
 
+        final var graphics = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        final var width = graphics.getDisplayMode().getWidth();
+        final var height = graphics.getDisplayMode().getHeight();
+
+        primaryStage.setWidth(width / 2);
+        primaryStage.setHeight(height / 2);
+
         final var root = new PageContainer(primaryStage);
         root.addPage(view);
         final var scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+        
 
     /**
      * Entry point.

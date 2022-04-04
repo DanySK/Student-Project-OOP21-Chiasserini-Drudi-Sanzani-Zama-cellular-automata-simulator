@@ -2,9 +2,9 @@ package casim.model.bryansbrain;
 
 import casim.model.abstraction.cell.AbstractCell;
 
-public class BryansBrainCell extends AbstractCell<CellState> {
+public class BryansBrainCell extends AbstractCell<BryansBrainCellState> {
 
-    public BryansBrainCell(CellState state) {
+    public BryansBrainCell(BryansBrainCellState state) {
         super(state);
     }
     

@@ -22,7 +22,7 @@ public class AutomatonMenu extends AbstractMenu {
         AnchorPane.setTopAnchor(this, 0.0);
         AnchorPane.setBottomAnchor(this, 0.0);
 
-        this.addControls(this.getMenuController().getMenuItems().stream()
+        this.addNodes(this.getMenuController().getMenuItems().stream()
             .map(x -> new AutomatonMenuButton(x.getName(), x, this))
             .collect(Collectors.toList())
         );
