@@ -4,7 +4,7 @@ import java.util.EnumMap;
 import java.util.Optional;
 
 import casim.model.codi.cell.CoDiCell;
-import casim.model.codi.cell.attributes.CellState;
+import casim.model.codi.cell.attributes.CoDiCellState;
 import casim.model.codi.cell.attributes.Direction;
 
 /**
@@ -13,7 +13,7 @@ import casim.model.codi.cell.attributes.Direction;
 public class CoDiCellBuilderImpl implements CoDiCellBuilder {
 
     private boolean built;
-    private Optional<CellState> state;
+    private Optional<CoDiCellState> state;
     private Optional<Direction> gate;
     private Optional<Integer> activationCounter;
     private Optional<EnumMap<Direction, Boolean>> chromosome;
@@ -44,7 +44,7 @@ public class CoDiCellBuilderImpl implements CoDiCellBuilder {
     }
 
     @Override
-    public CoDiCellBuilder state(final CellState state) {
+    public CoDiCellBuilder state(final CoDiCellState state) {
         this.check(!built);
         this.state = Optional.of(state);
         return this;

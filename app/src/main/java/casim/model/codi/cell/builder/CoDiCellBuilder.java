@@ -4,7 +4,7 @@ import java.util.EnumMap;
 import java.util.Optional;
 
 import casim.model.codi.cell.CoDiCell;
-import casim.model.codi.cell.attributes.CellState;
+import casim.model.codi.cell.attributes.CoDiCellState;
 import casim.model.codi.cell.attributes.Direction;
 
 /**
@@ -13,12 +13,12 @@ import casim.model.codi.cell.attributes.Direction;
 public interface CoDiCellBuilder {
 
     /**
-     * Set the {@link CellState}.
+     * Set the {@link CoDiCellState}.
      * 
      * @param state the state of the cell.
      * @return the current {@link CoDiCellBuilder}. 
      */
-    CoDiCellBuilder state(CellState state);
+    CoDiCellBuilder state(CoDiCellState state);
 
     /**
      * Set the gate.

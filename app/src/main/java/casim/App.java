@@ -6,7 +6,7 @@ package casim;
 import casim.controller.automaton.AutomatonController;
 import casim.controller.automaton.AutomatonControllerImpl;
 import casim.model.codi.CoDi;
-import casim.model.codi.cell.attributes.CellState;
+import casim.model.codi.cell.attributes.CoDiCellState;
 import casim.ui.components.grid.CanvasGridBuilderImpl;
 import casim.ui.components.grid.CanvasGridImpl;
 import casim.ui.components.page.PageContainer;
@@ -32,7 +32,7 @@ public class App extends Application {
         return (CanvasGridImpl) new CanvasGridBuilderImpl().build(ROWS, COLS, CELL_SIZE);
     }
 
-    private AutomatonView<CellState> getView(final Stage stage, final AutomatonController<CellState> controller, final CanvasGridImpl grid, final StateColorMapper<CellState> mapper) {
+    private AutomatonView<CoDiCellState> getView(final Stage stage, final AutomatonController<CoDiCellState> controller, final CanvasGridImpl grid, final StateColorMapper<CoDiCellState> mapper) {
         return new AutomatonView<>(stage, controller, grid, mapper);
     }
 
@@ -41,7 +41,7 @@ public class App extends Application {
      */
     @Override
     public void start(final Stage primaryStage) throws Exception {
-        final var state = new Grid3DImpl<CellState>(ROWS, COLS, DEPTH, () -> CellState.BLANK);
+        final var state = new Grid3DImpl<CoDiCellState>(ROWS, COLS, DEPTH, () -> CoDiCellState.BLANK);
         final var automaton = new CoDi(state);
         final var controller = new AutomatonControllerImpl<>(automaton);
         final var view = this.getView(primaryStage, controller, this.getGrid(), s -> {

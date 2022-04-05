@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import casim.model.codi.cell.CoDiCell;
-import casim.model.codi.cell.attributes.CellState;
+import casim.model.codi.cell.attributes.CoDiCellState;
 import casim.model.codi.cell.attributes.Direction;
 import casim.model.codi.utils.CodiUtils;
 
@@ -15,13 +15,13 @@ import casim.model.codi.utils.CodiUtils;
  */
 class StateToCellFunctionTest {
 
-    private static final CellState STATE = CellState.BLANK;
+    private static final CoDiCellState STATE = CoDiCellState.BLANK;
     private static final int ACTIVATION_COUNTER = 0;
     private static final EnumMap<Direction, Integer> ENUMMAP = 
             CodiUtils.newFilledEnumMap(() -> 0);
 
     /**
-     * Test for {@link StateToCellFunction#apply(casim.model.codi.cell.attributes.CellState)}.
+     * Test for {@link StateToCellFunction#apply(casim.model.codi.cell.attributes.CoDiCellState)}.
      */
     @Test
     void testApply() {

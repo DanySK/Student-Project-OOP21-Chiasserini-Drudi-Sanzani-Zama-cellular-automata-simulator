@@ -3,7 +3,7 @@ package casim.model.codi.cell.attributes;
 /** 
  * The states a cell of CoDi Automaton can have.
  */
-public enum CellState {
+public enum CoDiCellState {
     /**
      * An empty cell.
      */

@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import casim.model.codi.cell.CoDiCell;
-import casim.model.codi.cell.attributes.CellState;
+import casim.model.codi.cell.attributes.CoDiCellState;
 import casim.model.codi.cell.attributes.Direction;
 import casim.model.codi.utils.CodiUtils;
 
@@ -16,7 +16,7 @@ import casim.model.codi.utils.CodiUtils;
 class CoDiCellBuilderTest {
 
     private static final int CHROMOSOME_PROBABILITY = 50;
-    private static final CellState STATE = CellState.BLANK;
+    private static final CoDiCellState STATE = CoDiCellState.BLANK;
 
     /**
      * Test for {@link CoDiCellBuilder#build()}.

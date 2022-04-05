@@ -4,13 +4,13 @@ import java.util.EnumMap;
 import java.util.Optional;
 
 import casim.model.abstraction.cell.AbstractCell;
-import casim.model.codi.cell.attributes.CellState;
+import casim.model.codi.cell.attributes.CoDiCellState;
 import casim.model.codi.cell.attributes.Direction;
 
 /**
  * The CoDi cells.
  */
-public class CoDiCell extends AbstractCell<CellState> {
+public class CoDiCell extends AbstractCell<CoDiCellState> {
 
     private int activationCounter;
     private final Optional<Direction> gate;
@@ -20,13 +20,13 @@ public class CoDiCell extends AbstractCell<CellState> {
     /**
      * Construct a new  {@link CoDiCell} with specific initial values.
      * 
-     * @param state the {@link CellState} of the cell.
+     * @param state the {@link CoDiCellState} of the cell.
      * @param activationCounter the value of the activation counter.
      * @param gate the gate of the cell (an empty optional if it's not defined).
      * @param neighborsPreviousInput the {@link EnumMap} containing the values of the prior inputs.
      * @param chromosome the {@link EnumMap} containing the growth instruction.
      */
-    public CoDiCell(final CellState state, final int activationCounter, final Optional<Direction> gate, 
+    public CoDiCell(final CoDiCellState state, final int activationCounter, final Optional<Direction> gate, 
             final EnumMap<Direction, Integer> neighborsPreviousInput, final EnumMap<Direction, Boolean> chromosome) {
         super(state);
         this.gate = gate;
@@ -36,7 +36,7 @@ public class CoDiCell extends AbstractCell<CellState> {
     }
 
     /**
-     * Return the gate of the {@link CoDiCell}, it's meaning depends from the {@link CellState} of the cell:
+     * Return the gate of the {@link CoDiCell}, it's meaning depends from the {@link CoDiCellState} of the cell:
      *  Neuron -> direction where the axon point to;
      *  Axon -> direction where it receives the signal;
      *  Dendrite -> direction where it transmits the signal.

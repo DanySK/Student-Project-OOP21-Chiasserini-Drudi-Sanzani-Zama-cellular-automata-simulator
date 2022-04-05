@@ -4,7 +4,7 @@ import java.util.EnumMap;
 import java.util.function.Supplier;
 
 import casim.model.codi.cell.CoDiCell;
-import casim.model.codi.cell.attributes.CellState;
+import casim.model.codi.cell.attributes.CoDiCellState;
 import casim.model.codi.cell.attributes.Direction;
 import casim.model.codi.cell.builder.CoDiCellBuilder;
 import casim.model.codi.cell.builder.CoDiCellBuilderImpl;
@@ -23,7 +23,7 @@ public class CoDiCellSupplier implements Supplier<CoDiCell> {
         final EnumMap<Direction, Integer> neighborsPreviousInput = CodiUtils.newFilledEnumMap(() -> 0);
         final EnumMap<Direction, Boolean> chromosome =
                 CodiUtils.newFilledEnumMap(() -> CodiUtils.booleanWithSpecificProbability(CHROMOSOME_PROBABILITY));
-        return builder.state(CellState.BLANK)
+        return builder.state(CoDiCellState.BLANK)
                     .activationCounter(0)
                     .chromosome(chromosome)
                     .neighborsPreviousInput(neighborsPreviousInput)

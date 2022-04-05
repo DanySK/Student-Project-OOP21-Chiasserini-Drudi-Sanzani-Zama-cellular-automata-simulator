@@ -9,7 +9,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import casim.model.abstraction.automaton.AbstractAutomaton;
 import casim.model.abstraction.utils.NeighborsFunctions;
 import casim.model.codi.cell.CoDiCell;
-import casim.model.codi.cell.attributes.CellState;
+import casim.model.codi.cell.attributes.CoDiCellState;
 import casim.model.codi.cell.attributes.Direction;
 import casim.model.codi.cell.builder.CoDiCellBuilder;
 import casim.model.codi.cell.builder.CoDiCellBuilderImpl;
@@ -27,7 +27,7 @@ import casim.utils.range.Ranges;
 /**
  * Implementation of CoDi {@link casim.model.abstraction.automaton.Automaton}.
  */
-public class CoDi extends AbstractAutomaton<CellState, CoDiCell> {
+public class CoDi extends AbstractAutomaton<CoDiCellState, CoDiCell> {
 
     private boolean changed; 
     private Grid3D<CoDiCell> state;
@@ -39,12 +39,12 @@ public class CoDi extends AbstractAutomaton<CellState, CoDiCell> {
     /**
      * Constructor of {@link CoDi}.
      * 
-     * @param state the grid of {@link CellState} used to initialize the automaton.
+     * @param state the grid of {@link CoDiCellState} used to initialize the automaton.
      */
-    public CoDi(final Grid3D<CellState> state) {
+    public CoDi(final Grid3D<CoDiCellState> state) {
         this.changed = true;
         this.hasSetupSignaling = false;
-        final Function<CellState, CoDiCell> cellFunction = new StateToCellFunction();
+        final Function<CoDiCellState, CoDiCell> cellFunction = new StateToCellFunction();
         this.state = state.map(s -> cellFunction.apply(s));
         this.growthUpdateRule = new GrowthUpdateRule(NeighborsFunctions::neighbors3DFunction);
         this.signalingUpdateRule = new SignalingUpdateRule(NeighborsFunctions::neighbors3DFunction);
@@ -72,7 +72,7 @@ public class CoDi extends AbstractAutomaton<CellState, CoDiCell> {
         final var newState = new Grid3DImpl<CoDiCell>(this.state.getHeight(), this.state.getWidth(), this.state.getDepth());
         for (final var coord: this.visitGrid()) {
             CoDiCell cell = this.state.get(coord);
-            final CellState oldCellState = cell.getState();
+            final CoDiCellState oldCellState = cell.getState();
             cell = this.growthUpdateRule.getNextCell(Pair.of(coord, cell), this.state); 
             if (oldCellState != cell.getState()) {
                 this.changed = true;
@@ -100,7 +100,7 @@ public class CoDi extends AbstractAutomaton<CellState, CoDiCell> {
         this.hasSetupSignaling = true;
         for (final var coord: this.visitGrid()) {
             final CoDiCell cell = this.state.get(coord);
-            if (cell.getState() == CellState.NEURON) { 
+            if (cell.getState() == CoDiCellState.NEURON) { 
                 cell.setActivationCounter(random.nextInt(32));
             } else {
                 cell.setActivationCounter(0);
@@ -130,7 +130,7 @@ public class CoDi extends AbstractAutomaton<CellState, CoDiCell> {
                 final var coord2D = CoordinatesUtil.of(y, z);
                 final var coord3D = CoordinatesUtil.of(x, y, z);
                 CoDiCell cell = this.state.get(coord3D);
-                if ((cell.getState() == CellState.AXON || cell.getState() == CellState.DENDRITE) 
+                if ((cell.getState() == CoDiCellState.AXON || cell.getState() == CoDiCellState.DENDRITE) 
                         && cell.getActivationCounter() != 0) {
                     cell = this.getActiveCell(cell);
                 }
@@ -146,7 +146,7 @@ public class CoDi extends AbstractAutomaton<CellState, CoDiCell> {
                       .activationCounter(cell.getActivationCounter())
                       .chromosome(cell.getChromosome())
                       .neighborsPreviousInput(cell.getNeighborsPreviousInput())
-                      .state((cell.getState() == CellState.AXON) ? CellState.ACTIVATED_AXON : CellState.ACTIVATED_DENDRITE)
+                      .state((cell.getState() == CoDiCellState.AXON) ? CoDiCellState.ACTIVATED_AXON : CoDiCellState.ACTIVATED_DENDRITE)
                       .build();
     }
 
