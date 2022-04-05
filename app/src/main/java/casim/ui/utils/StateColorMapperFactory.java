@@ -3,7 +3,7 @@ package casim.ui.utils;
 import java.util.Arrays;
 import java.util.List;
 
-import casim.model.codi.cell.attributes.CellState;
+import casim.model.codi.cell.attributes.CoDiCellState;
 import casim.utils.Colors;
 import javafx.scene.paint.Color;
 
@@ -20,14 +20,14 @@ public final class StateColorMapperFactory {
      * 
      * @return the {@link StateColorMapper} for CoDi automaton.
      */
-    public static StateColorMapper<CellState> getCoDiStateColorMapper() {
-        return new StateColorMapper<CellState>() {
-            private final List<CellState> stateList = Arrays.asList(CellState.values());
+    public static StateColorMapper<CoDiCellState> getCoDiStateColorMapper() {
+        return new StateColorMapper<CoDiCellState>() {
+            private final List<CoDiCellState> stateList = Arrays.asList(CoDiCellState.values());
             private final List<Color> colorList = List.of(Colors.BLACK, Colors.AMETHYST, Colors.FUSCIA,
                     Colors.CARROT, Colors.ARCTIC, Colors.PARAKEET);
 
             @Override
-            public Color toColor(final CellState state) {
+            public Color toColor(final CoDiCellState state) {
                 throwsIfNotPresent(stateList, state);
                 return colorList.get(stateList.indexOf(state));
             }

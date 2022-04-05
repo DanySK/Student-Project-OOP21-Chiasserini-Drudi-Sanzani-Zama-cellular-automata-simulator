@@ -11,7 +11,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import casim.model.abstraction.rule.AbstractUpdateRule;
 import casim.model.codi.cell.CoDiCell;
-import casim.model.codi.cell.attributes.CellState;
+import casim.model.codi.cell.attributes.CoDiCellState;
 import casim.model.codi.cell.attributes.Direction;
 import casim.model.codi.cell.attributes.Signal;
 import casim.model.codi.cell.builder.CoDiCellBuilder;
@@ -75,7 +75,7 @@ public class GrowthUpdateRule extends AbstractUpdateRule<Coordinates3D<Integer>,
         final EnumMap<Direction, Integer> neighborsPreviousInput = cell.getNeighborsPreviousInput();
         int inputSum = CodiUtils.sumEnumMapValues(cell.getNeighborsPreviousInput());
         if (inputSum == 0) {
-            builder.state(CellState.BLANK);
+            builder.state(CoDiCellState.BLANK);
             return builder.neighborsPreviousInput(neighborsPreviousInput);
         }
         inputSum = CodiUtils.sumEnumMapSpecificValues(neighborsPreviousInput, Signal.AXON_SIGNAL.getValue());
@@ -103,7 +103,7 @@ public class GrowthUpdateRule extends AbstractUpdateRule<Coordinates3D<Integer>,
         neighborsPreviousInput.put(gate, Signal.AXON_SIGNAL.getValue());
         neighborsPreviousInput.put(gate.getOpposite(), Signal.AXON_SIGNAL.getValue());
         return builder.neighborsPreviousInput(neighborsPreviousInput)
-                .state(CellState.NEURON)
+                .state(CoDiCellState.NEURON)
                 .gate(Optional.of(gate));
     }
 
@@ -113,7 +113,7 @@ public class GrowthUpdateRule extends AbstractUpdateRule<Coordinates3D<Integer>,
         final EnumMap<Direction, Integer> neighborsPreviousInput =
                 CodiUtils.conditionalFillNeighborsPreviosInput(cell, Signal.DENDRITE_SIGNAL.getValue(), 0);
         return builder.neighborsPreviousInput(neighborsPreviousInput)
-                .state(CellState.AXON)
+                .state(CoDiCellState.AXON)
                 .gate(Optional.of(direction));
     }
 
@@ -123,7 +123,7 @@ public class GrowthUpdateRule extends AbstractUpdateRule<Coordinates3D<Integer>,
         final EnumMap<Direction, Integer> neighborsPreviousInput =
                 CodiUtils.conditionalFillNeighborsPreviosInput(cell, Signal.DENDRITE_SIGNAL.getValue(), 0);
         return builder.neighborsPreviousInput(neighborsPreviousInput)
-                .state(CellState.DENDRITE)
+                .state(CoDiCellState.DENDRITE)
                 .gate(Optional.of(direction.getOpposite()));
     }
 
@@ -131,7 +131,7 @@ public class GrowthUpdateRule extends AbstractUpdateRule<Coordinates3D<Integer>,
         final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
         final EnumMap<Direction, Integer> neighborsPreviousInput = CodiUtils.newFilledEnumMap(() -> 0);
         return builder.neighborsPreviousInput(neighborsPreviousInput)
-                .state(CellState.BLANK);
+                .state(CoDiCellState.BLANK);
     }
 
     private CoDiCellBuilder neuronCellGrowth(final CoDiCell cell) {

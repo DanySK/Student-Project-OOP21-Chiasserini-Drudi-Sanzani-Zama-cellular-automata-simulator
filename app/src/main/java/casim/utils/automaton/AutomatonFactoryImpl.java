@@ -6,7 +6,7 @@ import casim.model.bryansbrain.BryansBrain;
 import casim.model.codi.CoDi;
 import casim.utils.grid.Grid2DImpl;
 import casim.utils.grid.Grid3DImpl;
-import casim.model.codi.cell.attributes.CellState;
+import casim.model.codi.cell.attributes.CoDiCellState;
 import casim.model.langtonsant.LangtonsAnt;
 import casim.model.langtonsant.LangtonsAntCellState;
 import casim.model.wator.Wator;
@@ -25,7 +25,7 @@ public class AutomatonFactoryImpl implements AutomatonFactory {
 
     @Override
     public CoDi getCoDi(final int cols, final int rows, final int depth) {
-        final var state = new Grid3DImpl<CellState>(cols, rows, depth, () -> CellState.BLANK);
+        final var state = new Grid3DImpl<CoDiCellState>(cols, rows, depth, () -> CoDiCellState.BLANK);
         return new CoDi(state);
     }
 
