@@ -14,6 +14,7 @@ import casim.model.langtonsant.LangtonsAntCellState;
 import casim.model.langtonsant.LangtonsAntConfig;
 import casim.model.wator.Wator;
 import casim.model.wator.WatorCellState;
+import casim.model.wator.WatorConfig;
 
 /**
  * {@link AutomatonFactory} implementation.
@@ -43,9 +44,9 @@ public class AutomatonFactoryImpl implements AutomatonFactory {
     }
 
     @Override
-    public Wator getWator(int cols, int rows) {
+    public Wator getWator(final WatorConfig config) {
         final var rng = new Random();
-        final var state = new Grid2DImpl<>(rows, cols, () -> {
+        final var state = new Grid2DImpl<>(config.getRows(), config.getCols(), () -> {
             final var val = rng.nextInt(WatorCellState.values().length);
             return WatorCellState.values()[val];
         });

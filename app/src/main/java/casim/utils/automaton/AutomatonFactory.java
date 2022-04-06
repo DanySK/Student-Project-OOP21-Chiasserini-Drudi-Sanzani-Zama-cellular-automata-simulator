@@ -6,6 +6,7 @@ import casim.model.codi.CoDi;
 import casim.model.langtonsant.LangtonsAnt;
 import casim.model.langtonsant.LangtonsAntConfig;
 import casim.model.wator.Wator;
+import casim.model.wator.WatorConfig;
 
 /**
  * A factory for the automaton creation.
@@ -43,9 +44,9 @@ public interface AutomatonFactory {
     /**
      * Returns a new {@link Wator} automaton.
      * 
-     * @param cols the colums of the automaton grid.
-     * @param rows the rows of the automaton grid.
-     * @return a new {@link Wator} autmaton.
+     * @param config the {@link WatorConfig} containing
+     *          the automaton's configuration values.
+     * @return a new {@link Wator} automaton.
      */
-    Wator getWator(int cols, int rows);
+    Wator getWator(WatorConfig config);
 }
