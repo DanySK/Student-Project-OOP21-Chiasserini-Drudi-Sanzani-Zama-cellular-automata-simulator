@@ -49,11 +49,12 @@ public final class StateColorMapperFactory {
         return new StateColorMapper<LangtonsAntCellState>() {
             private final List<LangtonsAntCellState> stateList = Arrays.asList(LangtonsAntCellState.values());
             private final List<Color> colorList = List.of(Colors.WHITE, Colors.BLACK);
+            private final Map<LangtonsAntCellState, Color> stateToColor = zipToMap(stateList, colorList);
 
             @Override
             public Color toColor(final LangtonsAntCellState state) {
                 throwsIfNotPresent(stateList, state);
-                return colorList.get(stateList.indexOf(state));
+                return stateToColor.get(state);
             }
         };
     }
