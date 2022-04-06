@@ -1,6 +1,6 @@
 package casim.model.langtonsant;
 
-import casim.utils.config.WrappingConfig;
+import casim.utils.automaton.config.WrappingConfig;
 
 /**
  * {@link casim.model.langtonsant.LangtonsAnt}

@@ -1,4 +1,4 @@
-package casim.utils.config;
+package casim.utils.automaton.config;
 
 /**
  * Basic configuration class
