@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import casim.model.codi.cell.attributes.CoDiCellState;
+import casim.model.langtonsant.LangtonsAntCellState;
 import casim.utils.Colors;
 import javafx.scene.paint.Color;
 
@@ -35,6 +36,24 @@ public final class StateColorMapperFactory {
             public Color toColor(final CoDiCellState state) {
                 throwsIfNotPresent(stateList, state);
                 return stateToColor.get(state);
+            }
+        };
+    }
+
+    /**
+     * Returns the {@link StateColorMapper} for Langton's Ant automaton.
+     * 
+     * @return the {@link StateColorMapper} for Langton's Ant automaton.
+     */
+    public static StateColorMapper<LangtonsAntCellState> getLangtonsAntStateColorMapper() {
+        return new StateColorMapper<LangtonsAntCellState>() {
+            private final List<LangtonsAntCellState> stateList = Arrays.asList(LangtonsAntCellState.values());
+            private final List<Color> colorList = List.of(Colors.WHITE, Colors.BLACK);
+
+            @Override
+            public Color toColor(final LangtonsAntCellState state) {
+                throwsIfNotPresent(stateList, state);
+                return colorList.get(stateList.indexOf(state));
             }
         };
     }
