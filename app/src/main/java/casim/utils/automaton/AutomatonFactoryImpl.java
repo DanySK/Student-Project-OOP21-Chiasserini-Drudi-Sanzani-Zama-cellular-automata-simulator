@@ -3,10 +3,10 @@ package casim.utils.automaton;
 import java.util.Random;
 
 import casim.model.bryansbrain.BryansBrain;
-import casim.model.bryansbrain.BryansBrainConfig;
 import casim.model.bryansbrain.BryansBrainCellState;
 import casim.model.codi.CoDi;
 import casim.utils.automaton.config.BaseConfig;
+import casim.utils.automaton.config.WrappingConfig;
 import casim.utils.grid.Grid2DImpl;
 import casim.utils.grid.Grid3DImpl;
 import casim.model.codi.cell.attributes.CoDiCellState;
@@ -22,7 +22,7 @@ import casim.model.wator.WatorCellState;
 public class AutomatonFactoryImpl implements AutomatonFactory {
 
     @Override
-    public BryansBrain getBryansBrainRandom(final BryansBrainConfig config) {
+    public BryansBrain getBryansBrainRandom(final WrappingConfig config) {
         final var rand = new Random();
         final var state = new Grid2DImpl<>(config.getRows(), config.getCols(), () -> {
                 final var randValue = rand.nextInt();
