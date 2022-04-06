@@ -26,4 +26,43 @@ public class LangtonsAntConfig {
         this.wrapping = wrapping;
         this.antNumber = antNumber;
     }
+
+    /**
+     * Returns the number of rows.
+     * 
+     * @return the number of rows of the grid.
+     */
+    public int getRows() {
+        return this.rows;
+    }
+
+    /**
+     * Returns the number of columns.
+     * 
+     * @return the number of columns of the grid.
+     */
+    public int getCols() {
+        return this.cols;
+    }
+
+    /**
+     * Returns the wrapping value.
+     * 
+     * @return true if the grid is a wrapping
+     *          grid, false otherwise.
+     */
+    public boolean isWrapped() {
+        return this.wrapping;
+    }
+
+    /**
+     * Returns the number of ants in the
+     * automaton.
+     * 
+     * @return the number of ants in the
+     *          automaton.
+     */
+    public int getAntNumber() {
+        return this.antNumber;
+    }
 }
