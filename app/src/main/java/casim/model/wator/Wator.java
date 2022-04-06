@@ -9,7 +9,6 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import casim.model.abstraction.automaton.AbstractAutomaton;
 import casim.model.abstraction.utils.NeighborsFunctions;
-import casim.utils.PlayableAutomaton;
 import casim.utils.coordinate.CoordinatesUtil;
 import casim.utils.grid.Grid2D;
 import casim.utils.range.Ranges;
@@ -17,7 +16,6 @@ import casim.utils.range.Ranges;
 /**
  * Predators and Preys automaton.
  */
-@PlayableAutomaton(AutomatonName = "Predators and Preys")
 public class Wator extends AbstractAutomaton<WatorCellState, WatorCell> {
 
     private static final int INIT_HEALTH = 5;

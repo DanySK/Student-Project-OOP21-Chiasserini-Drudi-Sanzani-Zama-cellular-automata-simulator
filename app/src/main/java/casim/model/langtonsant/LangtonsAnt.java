@@ -6,7 +6,6 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import casim.model.abstraction.automaton.AbstractAutomaton;
-import casim.utils.PlayableAutomaton;
 import casim.utils.coordinate.Coordinates2D;
 import casim.utils.coordinate.CoordinatesUtil;
 import casim.utils.grid.Grid2D;
@@ -16,7 +15,6 @@ import casim.utils.grid.WrappingGrid;
  * Langton's Ant automaton, composed of a {@link Grid2D} of
  * {@link LangtonsAntCell}s and a list of {@link Ant}.
  */
-@PlayableAutomaton(AutomatonName = "Langton's Ant")
 public class LangtonsAnt extends AbstractAutomaton<LangtonsAntCellState, LangtonsAntCell> {
 
     private final List<Ant> ants = new ArrayList<>();
