@@ -3,10 +3,12 @@
  */
 package casim;
 
+import java.util.Random;
 import casim.controller.automaton.AutomatonController;
 import casim.controller.automaton.AutomatonControllerImpl;
 import casim.model.bryansbrain.BryansBrain;
 import casim.model.bryansbrain.BryansBrainCellState;
+import casim.model.rule110.Rule110;
 import casim.ui.components.grid.CanvasGridBuilderImpl;
 import casim.ui.components.grid.CanvasGridImpl;
 import casim.ui.components.page.PageContainer;
@@ -77,7 +79,6 @@ public class App extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-        
 
     /**
      * Entry point.

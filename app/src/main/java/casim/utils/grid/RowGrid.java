@@ -34,7 +34,7 @@ public class RowGrid<T> implements Grid2D<T> {
      */
     public List<T> getRow(final int row) {
         final List<T> list = new ArrayList<>();
-        Ranges.of(0, list.size())
+        Ranges.of(0, this.getWidth())
             .forEach(col -> list.add(this.get(row, col)));
         return list;
     }
