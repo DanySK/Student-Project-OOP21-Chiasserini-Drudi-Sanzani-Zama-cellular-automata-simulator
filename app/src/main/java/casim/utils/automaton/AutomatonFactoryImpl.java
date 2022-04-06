@@ -5,6 +5,7 @@ import java.util.Random;
 import casim.model.bryansbrain.BryansBrain;
 import casim.model.bryansbrain.BryansBrainCellState;
 import casim.model.codi.CoDi;
+import casim.model.codi.CoDiConfig;
 import casim.utils.automaton.config.BaseConfig;
 import casim.utils.automaton.config.WrappingConfig;
 import casim.utils.grid.Grid2DImpl;
@@ -32,8 +33,9 @@ public class AutomatonFactoryImpl implements AutomatonFactory {
     }
 
     @Override
-    public CoDi getCoDi(final int cols, final int rows, final int depth) {
-        final var state = new Grid3DImpl<CoDiCellState>(cols, rows, depth, () -> CoDiCellState.BLANK);
+    public CoDi getCoDi(final CoDiConfig config) {
+        final var state = new Grid3DImpl<CoDiCellState>(config.getCols(), config.getRows(), config.getDepth(),
+                () -> CoDiCellState.BLANK);
         return new CoDi(state);
     }
 
