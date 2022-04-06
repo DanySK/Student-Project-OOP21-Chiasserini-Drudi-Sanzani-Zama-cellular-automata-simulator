@@ -6,6 +6,7 @@ import casim.model.bryansbrain.BryansBrain;
 import casim.model.bryansbrain.BryansBrainConfig;
 import casim.model.bryansbrain.BryansBrainCellState;
 import casim.model.codi.CoDi;
+import casim.utils.automaton.config.BaseConfig;
 import casim.utils.grid.Grid2DImpl;
 import casim.utils.grid.Grid3DImpl;
 import casim.model.codi.cell.attributes.CoDiCellState;
@@ -14,7 +15,6 @@ import casim.model.langtonsant.LangtonsAntCellState;
 import casim.model.langtonsant.LangtonsAntConfig;
 import casim.model.wator.Wator;
 import casim.model.wator.WatorCellState;
-import casim.model.wator.WatorConfig;
 
 /**
  * {@link AutomatonFactory} implementation.
@@ -44,7 +44,7 @@ public class AutomatonFactoryImpl implements AutomatonFactory {
     }
 
     @Override
-    public Wator getWator(final WatorConfig config) {
+    public Wator getWator(final BaseConfig config) {
         final var rng = new Random();
         final var state = new Grid2DImpl<>(config.getRows(), config.getCols(), () -> {
             final var val = rng.nextInt(WatorCellState.values().length);
