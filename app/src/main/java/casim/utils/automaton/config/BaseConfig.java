@@ -5,7 +5,7 @@ package casim.utils.automaton.config;
  * for a {@link casim.model.abstraction.automaton.Automaton}.
  */
 public class BaseConfig {
-    
+
     private final int rows;
     private final int cols;
 

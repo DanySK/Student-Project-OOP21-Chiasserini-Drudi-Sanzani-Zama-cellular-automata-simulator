@@ -5,7 +5,7 @@ import casim.utils.automaton.config.BaseConfig;
 /**
  * {@link casim.model.codi.CoDi} config class.
  */
-public class CoDiConfig extends BaseConfig{
+public class CoDiConfig extends BaseConfig {
 
     private final int depth;
 
@@ -20,7 +20,7 @@ public class CoDiConfig extends BaseConfig{
         super(rows, cols);
         this.depth = depth;
     }
-    
+
     /**
      * Returns the depth of the grid.
      * 

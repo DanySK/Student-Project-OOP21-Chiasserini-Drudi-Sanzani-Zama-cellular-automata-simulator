@@ -5,7 +5,7 @@ package casim.utils.automaton.config;
  * wrapping value indicating if the grid used
  * is a wrapping grid or otherwise.
  */
-public class WrappingConfig extends BaseConfig{
+public class WrappingConfig extends BaseConfig {
 
     private final boolean wrapping;
 
@@ -20,7 +20,7 @@ public class WrappingConfig extends BaseConfig{
         super(rows, cols);
         this.wrapping = wrapping;
     }
-    
+
     /**
      * Retuns the wrapping value of the config.
      * 

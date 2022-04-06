@@ -89,7 +89,7 @@ import casim.utils.range.Ranges;
         this.throwIfOutOfBound(CoordinatesUtil.of(row, column));
         return this.grid.get(row).get(column);
     }
-    
+
     /**
      * {@inheritDoc}
      */
