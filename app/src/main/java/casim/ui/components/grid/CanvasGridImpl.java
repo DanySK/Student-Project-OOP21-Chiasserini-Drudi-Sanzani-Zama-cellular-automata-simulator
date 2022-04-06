@@ -3,6 +3,7 @@ package casim.ui.components.grid;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
+import casim.utils.ViewUtils;
 import casim.utils.coordinate.Coordinates2D;
 import casim.utils.coordinate.CoordinatesUtil;
 import casim.utils.grid.Grid2D;
@@ -12,7 +13,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 
 /**
@@ -53,10 +53,7 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
         this.cells = new Grid2DImpl<>(rows, columns);
         this.renderQueue = new ArrayDeque<>();
 
-        AnchorPane.setLeftAnchor(this, 0.0);
-        AnchorPane.setRightAnchor(this, 0.0);
-        AnchorPane.setTopAnchor(this, 0.0);
-        AnchorPane.setBottomAnchor(this, 0.0);
+        ViewUtils.fitToAnchorPane(this);
 
         final ChangeListener<Number> sizeListener = (observable, oldValue, newValue) -> {
             this.handleSizeChange(this.getWidth(), this.getHeight());
@@ -118,10 +115,6 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
         for (final var row : Ranges.of(0, this.getRows())) {
             for (final var column : Ranges.of(0, this.getColumns())) {
                 final var coords = CoordinatesUtil.of(row, column);
-                final var current = this.cells.get(coords);
-                if (current != null && current.getColor().equals(cellColors.get(coords))) {
-                    continue;
-                }
                 final var topLeft = CoordinatesUtil.of(row * ((int) this.cellSize), column * ((int) this.cellSize));
                 final var cell = new CanvasGridCellImpl(
                     cellColors.get(coords),

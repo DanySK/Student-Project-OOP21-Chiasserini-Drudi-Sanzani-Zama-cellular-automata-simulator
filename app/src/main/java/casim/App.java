@@ -11,13 +11,18 @@ import casim.ui.components.grid.CanvasGridBuilderImpl;
 import casim.ui.components.grid.CanvasGridImpl;
 import casim.ui.components.page.PageContainer;
 import casim.ui.utils.StateColorMapper;
-import casim.ui.view.AutomatonView;
+import casim.ui.view.AutomatonViewController;
 import casim.utils.Colors;
 import casim.utils.grid.Grid2DImpl;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.awt.GraphicsEnvironment;
+import java.io.IOError;
+import java.io.IOException;
 import java.util.Random;
 
 /**
@@ -25,8 +30,8 @@ import java.util.Random;
  */
 public class App extends Application {
 
-    final static int ROWS = 100;
-    final static int COLS = 100;
+    final static int ROWS = 200;
+    final static int COLS = 200;
     final static int DEPTH = 100;
 
     private CanvasGridImpl getGrid() {
@@ -34,11 +39,7 @@ public class App extends Application {
         return (CanvasGridImpl)grid;
     }
 
-    private <T> AutomatonView<T> getView(final Stage stage, final AutomatonController<T> controller, final CanvasGridImpl grid, final StateColorMapper<T> mapper) {
-        return new AutomatonView<T>(stage, controller, grid, mapper);
-    }
-
-    private void startBryansBrain(final Stage primaryStage) {
+    private void startBryansBrainFXML(final Stage primaryStage) throws IOException {
         final var rng = new Random();
         final var grid = new Grid2DImpl<BryansBrainCellState>(ROWS, COLS, () -> {
             final var states = BryansBrainCellState.values();
@@ -46,7 +47,12 @@ public class App extends Application {
         });
         final var automaton = new BryansBrain(grid, true);
         final var controller = new AutomatonControllerImpl<>(automaton);
-        final var view = this.getView(primaryStage, controller, this.getGrid(), s -> {
+        final var root = new PageContainer(primaryStage);
+        final var loader = new FXMLLoader(getClass().getResource("/automatonView.fxml"));
+        final var viewController = new AutomatonViewController<BryansBrainCellState>();
+        loader.setController(viewController);
+        final var view = (VBox) loader.load();
+        viewController.initData(root, controller, this.getGrid(), s -> {
             switch (s) {
             case ALIVE:
                 return Colors.WHITE;
@@ -66,7 +72,6 @@ public class App extends Application {
         primaryStage.setWidth(width / 2);
         primaryStage.setHeight(height / 2);
 
-        final var root = new PageContainer(primaryStage);
         root.addPage(view);
         final var scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -85,6 +90,6 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        this.startBryansBrain(primaryStage);
+        this.startBryansBrainFXML(primaryStage);
     }
 }
