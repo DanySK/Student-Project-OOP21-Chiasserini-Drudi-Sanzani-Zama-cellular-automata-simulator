@@ -1,7 +1,7 @@
 package casim.utils.automaton.config;
 
 /**
- * Configuration class that mant a boolean
+ * Configuration class with a boolean
  * wrapping value indicating if the grid used
  * is a wrapping grid or otherwise.
  */
