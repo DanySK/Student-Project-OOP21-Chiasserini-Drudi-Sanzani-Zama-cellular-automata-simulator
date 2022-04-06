@@ -31,7 +31,7 @@ public class RowGrid<T> implements Grid2D<T> {
      * Get one specific row of the {@link RowGrid}.
      * 
      * @param row the index of row to return.
-     * @return the values of the row in a {@link List}.
+     * @return list the specific row to return.
      */
     public List<T> getRow(final int row) {
         final List<T> list = new ArrayList<>();
