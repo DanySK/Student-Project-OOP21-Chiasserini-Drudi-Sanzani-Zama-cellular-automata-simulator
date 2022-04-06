@@ -13,13 +13,13 @@ import casim.utils.range.Ranges;
  * Class that models the Game Of Life.
  */
 public class GameOfLife extends AbstractAutomaton<GameOfLifeState, GameOfLifeCell> {
-    
+
     private Grid2D<GameOfLifeCell> state;
     private final UpdateRule updateRule
         = new UpdateRule(NeighborsFunctions::mooreNeighborsFunction);
 
     /**
-     * Costructor of the {@link Grid2D} filled with {@link GameOfLifeState}.
+     * Constructor of the {@link Grid2D} filled with {@link GameOfLifeState}.
      * 
      * @param state starting state for all {@link GameOfLifeCell}.
      */
@@ -46,7 +46,7 @@ public class GameOfLife extends AbstractAutomaton<GameOfLifeState, GameOfLifeCel
         for (final var x : Ranges.of(0, this.state.getHeight())) {
             for (final var y : Ranges.of(0, this.state.getWidth())) {
                 final var coord = CoordinatesUtil.of(x, y);
-                newState.set((coord), this.updateRule.getNextCell(Pair.of(coord, this.state.get(coord)), this.state));
+                newState.set(coord, this.updateRule.getNextCell(Pair.of(coord, this.state.get(coord)), this.state));
             }
         }
 

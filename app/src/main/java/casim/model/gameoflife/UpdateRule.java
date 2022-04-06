@@ -12,12 +12,13 @@ import casim.utils.grid.Grid;
 /**
  * The {@link casim.model.gameoflife.GameOfLife}'s rule used to update the {@link casim.model.gameoflife.GameOfLifeCell}'s state.
  * 
- * @param Coordinates2D<Integer> the {@link Coordinates2D} of the {@link GameOfLifeCell}.
- * @param GameOfLifeCell the cell to update.
  */
 public class UpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, GameOfLifeCell> {
-
-    public UpdateRule(BiFunction<Pair<Coordinates2D<Integer>, GameOfLifeCell>, Grid<Coordinates2D<Integer>, GameOfLifeCell>, List<Pair<Coordinates2D<Integer>, GameOfLifeCell>>> neighborsFunction) {
+    /**
+     * Rule for update the {@link GameOfLifeCell}.
+     * @param neighborsFunction function for get the neighboring cells.
+     */
+    public UpdateRule(final BiFunction<Pair<Coordinates2D<Integer>, GameOfLifeCell>, Grid<Coordinates2D<Integer>, GameOfLifeCell>, List<Pair<Coordinates2D<Integer>, GameOfLifeCell>>> neighborsFunction) {
         super(neighborsFunction);
     }
 
@@ -28,19 +29,19 @@ public class UpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, GameO
      * @param neighborsPairs a {@link List} of all the {@lonk GameOfLifeCell} neighbors and hsi {@link Coordinates2D}.
      */
     @Override
-    protected GameOfLifeCell nextCell(Pair<Coordinates2D<Integer>, GameOfLifeCell> cellPair,
-        List<Pair<Coordinates2D<Integer>, GameOfLifeCell>> neighborsPairs) {
-        
-        int aliveCells = this.countAliveNeighbors(neighborsPairs);
+    protected GameOfLifeCell nextCell(final Pair<Coordinates2D<Integer>, GameOfLifeCell> cellPair,
+        final List<Pair<Coordinates2D<Integer>, GameOfLifeCell>> neighborsPairs) {
 
-        if(cellPair.getRight().getState() == GameOfLifeState.ALIVE) {
-            if(aliveCells == 2 || aliveCells == 3) {
+        final int aliveCells = this.countAliveNeighbors(neighborsPairs);
+
+        if (cellPair.getRight().getState() == GameOfLifeState.ALIVE) {
+            if (aliveCells == 2 || aliveCells == 3) {
                 return new GameOfLifeCell(GameOfLifeState.ALIVE);
             } else {
                 return new GameOfLifeCell(GameOfLifeState.DEAD);
             }
         } else {
-            if(aliveCells == 3) {
+            if (aliveCells == 3) {
                 return new GameOfLifeCell(GameOfLifeState.ALIVE);
             } else {
                 return new GameOfLifeCell(GameOfLifeState.DEAD);
@@ -52,8 +53,9 @@ public class UpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, GameO
      * Utility function for count the number of neighbors alive of one {@link Cell}.
      * 
      * @param neighborsPairs an {@link Iterable} {@link Pair} of {@link GameOfLifeCell} and his {@link Coordinates2D}.
+     * @return count the number of the neighboring cells.
      */
-    private int countAliveNeighbors(Iterable<Pair<Coordinates2D<Integer>, GameOfLifeCell>> neighborsPairs) {
+    private int countAliveNeighbors(final Iterable<Pair<Coordinates2D<Integer>, GameOfLifeCell>> neighborsPairs) {
         int count = 0;
         for (final var neighbor : neighborsPairs) {
             if (neighbor.getRight().getState() == GameOfLifeState.ALIVE) {
