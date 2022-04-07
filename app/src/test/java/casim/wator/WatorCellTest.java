@@ -17,6 +17,9 @@ class WatorCellTest {
     private static final WatorCell pred = new WatorCell(WatorCellState.PREDATOR, PREY_HEAL);
     private static final WatorCell dead = new WatorCell(WatorCellState.DEAD, DEAD_HEALTH);
 
+    /**
+     * Test for {@link WatorCell#heal} method.
+     */
     @Test
     void testHeal() {
         prey.heal();
@@ -27,6 +30,9 @@ class WatorCellTest {
         Assert.assertEquals(DEAD_HEALTH, dead.getHealth());
     }
 
+    /**
+     * Test for {@link WatorCell#setHealth(int)} method.
+     */
     @Test
     void testSetHealth() {
         prey.setHealth(PRED_HEAL);
@@ -34,5 +40,15 @@ class WatorCellTest {
         Assert.assertThrows(IllegalArgumentException.class, () -> {
             prey.setHealth(MAX_HEALTH + PREY_HEAL);
         });
+    }
+
+    /**
+     * Test for {@link WatorCell#starve} method.
+     */
+    @Test
+    void testStarve() {
+        final var initHealth = pred.getHealth();
+        prey.starve();
+        Assert.assertEquals(initHealth - PREY_HEAL, prey.getHealth());
     }
 }
