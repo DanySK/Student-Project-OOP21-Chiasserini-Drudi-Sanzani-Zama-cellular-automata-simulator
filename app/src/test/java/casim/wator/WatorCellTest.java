@@ -52,6 +52,9 @@ class WatorCellTest {
         Assert.assertEquals(initHealth - PREY_HEAL, prey.getHealth());
     }
 
+    /**
+     * Test for {@link WatorCell#reproduce()} method.
+     */
     @Test
     void testReproduce() {
         final var deadPreySpawn = prey.reproduce();
@@ -70,5 +73,16 @@ class WatorCellTest {
         Assert.assertEquals(MAX_HEALTH / 2, predSpawn.getHealth());
         Assert.assertEquals(WatorCellState.PREDATOR, predSpawn.getState());
         Assert.assertEquals(MAX_HEALTH / 2, pred.getHealth());
+    }
+
+    /**
+     * Test for {@link WatorCell#clone(WatorCell)} method.
+     */
+    @Test
+    void testClone() {
+        dead.clone(prey);
+        Assert.assertEquals(prey.getState(), dead.getState());
+        Assert.assertEquals(prey.getHealth(), dead.getHealth());
+        Assert.assertEquals(prey.hasMoved(), dead.hasMoved());
     }
 }
