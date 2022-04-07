@@ -1,9 +1,11 @@
 package casim.wator;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import casim.model.wator.WatorCell;
 import casim.model.wator.WatorCellState;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Test class for {@link WatorCell}.
@@ -33,13 +35,13 @@ class WatorCellTest {
     void testHeal() {
         final var prey = this.getPrey();
         prey.heal();
-        Assert.assertEquals(PREY_HEAL + PREY_HEAL, prey.getHealth());
+        assertEquals(PREY_HEAL + PREY_HEAL, prey.getHealth());
         final var pred = this.getPred();
         pred.heal();
-        Assert.assertEquals(PREY_HEAL + PRED_HEAL, pred.getHealth());
+        assertEquals(PREY_HEAL + PRED_HEAL, pred.getHealth());
         final var dead = this.getDead();
         dead.heal();
-        Assert.assertEquals(DEAD_HEALTH, dead.getHealth());
+        assertEquals(DEAD_HEALTH, dead.getHealth());
     }
 
     /**
@@ -49,8 +51,8 @@ class WatorCellTest {
     void testSetHealth() {
         final var prey = this.getPrey();
         prey.setHealth(PRED_HEAL);
-        Assert.assertEquals(PRED_HEAL, prey.getHealth());
-        Assert.assertThrows(IllegalArgumentException.class, () -> {
+        assertEquals(PRED_HEAL, prey.getHealth());
+        assertThrows(IllegalArgumentException.class, () -> {
             prey.setHealth(MAX_HEALTH + PREY_HEAL);
         });
     }
@@ -64,7 +66,7 @@ class WatorCellTest {
         final var prey = this.getPrey();
         final var initHealth = pred.getHealth();
         prey.starve();
-        Assert.assertEquals(initHealth - PREY_HEAL, prey.getHealth());
+        assertEquals(initHealth - PREY_HEAL, prey.getHealth());
     }
 
     /**
@@ -75,13 +77,13 @@ class WatorCellTest {
     void testPreyReproduce() {
         final var prey = this.getPrey();
         final var deadPreySpawn = prey.reproduce();
-        Assert.assertTrue(deadPreySpawn.isDead());
-        Assert.assertEquals(WatorCellState.DEAD, deadPreySpawn.getState());
+        assertTrue(deadPreySpawn.isDead());
+        assertEquals(WatorCellState.DEAD, deadPreySpawn.getState());
         prey.setHealth(MAX_HEALTH);
         final var preySpawn = prey.reproduce();
-        Assert.assertEquals(PREY_HEAL, prey.getHealth());
-        Assert.assertEquals(WatorCellState.PREY, preySpawn.getState());
-        Assert.assertEquals(PREY_HEAL, preySpawn.getHealth());
+        assertEquals(PREY_HEAL, prey.getHealth());
+        assertEquals(WatorCellState.PREY, preySpawn.getState());
+        assertEquals(PREY_HEAL, preySpawn.getHealth());
     }
 
     /**
@@ -92,13 +94,13 @@ class WatorCellTest {
     void testPredReproduce() {
         final var pred = this.getPred();
         final var deadPredSpawn = pred.reproduce();
-        Assert.assertTrue(deadPredSpawn.isDead());
-        Assert.assertEquals(WatorCellState.DEAD, deadPredSpawn.getState());
+        assertTrue(deadPredSpawn.isDead());
+        assertEquals(WatorCellState.DEAD, deadPredSpawn.getState());
         pred.setHealth(MAX_HEALTH);
         final var predSpawn = pred.reproduce();
-        Assert.assertEquals(MAX_HEALTH / 2, predSpawn.getHealth());
-        Assert.assertEquals(WatorCellState.PREDATOR, predSpawn.getState());
-        Assert.assertEquals(MAX_HEALTH / 2, pred.getHealth());
+        assertEquals(MAX_HEALTH / 2, predSpawn.getHealth());
+        assertEquals(WatorCellState.PREDATOR, predSpawn.getState());
+        assertEquals(MAX_HEALTH / 2, pred.getHealth());
     }
 
     /**
@@ -109,9 +111,9 @@ class WatorCellTest {
     void testDeadReproduce() {
         final var dead = this.getDead();
         final var deadSpawn = dead.reproduce();
-        Assert.assertEquals(WatorCellState.DEAD, deadSpawn.getState());
+        assertEquals(WatorCellState.DEAD, deadSpawn.getState());
         dead.setHealth(MAX_HEALTH);
-        Assert.assertThrows(UnsupportedOperationException.class, () -> {
+        assertThrows(UnsupportedOperationException.class, () -> {
             dead.reproduce();
         });
     }
@@ -124,8 +126,8 @@ class WatorCellTest {
         final var dead = this.getDead();
         final var prey = this.getPrey();
         dead.clone(prey);
-        Assert.assertEquals(prey.getState(), dead.getState());
-        Assert.assertEquals(prey.getHealth(), dead.getHealth());
-        Assert.assertEquals(prey.hasMoved(), dead.hasMoved());
+        assertEquals(prey.getState(), dead.getState());
+        assertEquals(prey.getHealth(), dead.getHealth());
+        assertEquals(prey.hasMoved(), dead.hasMoved());
     }
 }
