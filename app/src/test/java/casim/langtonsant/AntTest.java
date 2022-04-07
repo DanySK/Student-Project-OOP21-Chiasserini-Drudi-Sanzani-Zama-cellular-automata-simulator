@@ -2,8 +2,6 @@ package casim.langtonsant;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import casim.model.langtonsant.Ant;
 import casim.model.langtonsant.LangtonsAntCellState;
 import casim.model.langtonsant.Direction;
