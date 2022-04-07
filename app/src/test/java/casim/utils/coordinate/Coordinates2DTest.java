@@ -1,6 +1,8 @@
 package casim.utils.coordinate;
 
-import org.junit.Assert;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -17,7 +19,7 @@ class Coordinates2DTest {
      */
     @Test
     void testGetX() {
-        Assert.assertEquals((int) COORD.getX(), XVALUE);
+        assertEquals((int) COORD.getX(), XVALUE);
     }
 
     /**
@@ -25,7 +27,7 @@ class Coordinates2DTest {
      */
     @Test
     void testGetY() {
-        Assert.assertEquals((int) COORD.getY(), YVALUE);
+        assertEquals((int) COORD.getY(), YVALUE);
     }
 
     /**
@@ -33,10 +35,10 @@ class Coordinates2DTest {
      */
     @Test
     void testEquals() {
-        Assert.assertTrue(COORD.equals(COORD));
+        assertTrue(COORD.equals(COORD));
         var coord01 = CoordinatesUtil.of(XVALUE, YVALUE);
-        Assert.assertTrue(COORD.equals(coord01));
+        assertTrue(COORD.equals(coord01));
         coord01 = CoordinatesUtil.of(YVALUE, XVALUE);
-        Assert.assertFalse(COORD.equals(coord01));
+        assertFalse(COORD.equals(coord01));
     }
 }
