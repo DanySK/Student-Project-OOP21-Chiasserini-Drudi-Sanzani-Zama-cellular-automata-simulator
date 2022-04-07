@@ -13,19 +13,31 @@ class WatorCellTest {
     private static final int DEAD_HEALTH = 0;
     private static final int PREY_HEAL = 1;
     private static final int PRED_HEAL = 5;
-    private static final WatorCell prey = new WatorCell(WatorCellState.PREY, PREY_HEAL);
-    private static final WatorCell pred = new WatorCell(WatorCellState.PREDATOR, PREY_HEAL);
-    private static final WatorCell dead = new WatorCell(WatorCellState.DEAD, DEAD_HEALTH);
+
+    private WatorCell getPrey() {
+        return new WatorCell(WatorCellState.PREY, PREY_HEAL);
+    }
+
+    private WatorCell getPred() {
+        return new WatorCell(WatorCellState.PREDATOR, PREY_HEAL);
+    }
+
+    private WatorCell getDead() {
+        return new WatorCell(WatorCellState.DEAD, DEAD_HEALTH);
+    }
 
     /**
      * Test for {@link WatorCell#heal} method.
      */
     @Test
     void testHeal() {
+        final var prey = this.getPrey();
         prey.heal();
         Assert.assertEquals(PREY_HEAL + PREY_HEAL, prey.getHealth());
+        final var pred = this.getPred();
         pred.heal();
         Assert.assertEquals(PREY_HEAL + PRED_HEAL, pred.getHealth());
+        final var dead = this.getDead();
         dead.heal();
         Assert.assertEquals(DEAD_HEALTH, dead.getHealth());
     }
@@ -35,6 +47,7 @@ class WatorCellTest {
      */
     @Test
     void testSetHealth() {
+        final var prey = this.getPrey();
         prey.setHealth(PRED_HEAL);
         Assert.assertEquals(PRED_HEAL, prey.getHealth());
         Assert.assertThrows(IllegalArgumentException.class, () -> {
@@ -47,6 +60,8 @@ class WatorCellTest {
      */
     @Test
     void testStarve() {
+        final var pred = this.getPred();
+        final var prey = this.getPrey();
         final var initHealth = pred.getHealth();
         prey.starve();
         Assert.assertEquals(initHealth - PREY_HEAL, prey.getHealth());
@@ -57,6 +72,8 @@ class WatorCellTest {
      */
     @Test
     void testReproduce() {
+        final var prey = this.getPrey();
+        final var pred = this.getPred();
         final var deadPreySpawn = prey.reproduce();
         Assert.assertTrue(deadPreySpawn.isDead());
         Assert.assertEquals(WatorCellState.DEAD, deadPreySpawn.getState());
@@ -80,6 +97,8 @@ class WatorCellTest {
      */
     @Test
     void testClone() {
+        final var dead = this.getDead();
+        final var prey = this.getPrey();
         dead.clone(prey);
         Assert.assertEquals(prey.getState(), dead.getState());
         Assert.assertEquals(prey.getHealth(), dead.getHealth());
