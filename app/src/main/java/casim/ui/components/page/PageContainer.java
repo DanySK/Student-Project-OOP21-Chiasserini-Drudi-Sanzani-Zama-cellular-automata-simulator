@@ -21,6 +21,8 @@ public class PageContainer extends AnchorPane {
 
     /**
      * Construct a {@link PageContainer}.
+     * 
+     * @param owner the {@link Window} which own the {@link PageContainer}.
      */
     public PageContainer(final Window owner) {
         this.pages = new ArrayDeque<>();
