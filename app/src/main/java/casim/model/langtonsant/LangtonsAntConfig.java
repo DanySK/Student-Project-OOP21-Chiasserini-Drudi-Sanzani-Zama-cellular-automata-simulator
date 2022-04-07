@@ -6,7 +6,7 @@ import casim.utils.automaton.config.WrappingConfig;
  * {@link casim.model.langtonsant.LangtonsAnt}
  * configuration class.
  */
-public class LangtonsAntConfig extends WrappingConfig{
+public class LangtonsAntConfig extends WrappingConfig {
 
     private final int antNumber;
 
