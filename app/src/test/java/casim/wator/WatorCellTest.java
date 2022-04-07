@@ -51,4 +51,24 @@ class WatorCellTest {
         prey.starve();
         Assert.assertEquals(initHealth - PREY_HEAL, prey.getHealth());
     }
+
+    @Test
+    void testReproduce() {
+        final var deadPreySpawn = prey.reproduce();
+        Assert.assertTrue(deadPreySpawn.isDead());
+        Assert.assertEquals(WatorCellState.DEAD, deadPreySpawn.getState());
+        prey.setHealth(MAX_HEALTH);
+        final var preySpawn = prey.reproduce();
+        Assert.assertEquals(PREY_HEAL, prey.getHealth());
+        Assert.assertEquals(WatorCellState.PREY, preySpawn.getState());
+        Assert.assertEquals(PREY_HEAL, preySpawn.getHealth());
+        final var deadPredSpawn = pred.reproduce();
+        Assert.assertTrue(deadPredSpawn.isDead());
+        Assert.assertEquals(WatorCellState.DEAD, deadPredSpawn.getState());
+        pred.setHealth(MAX_HEALTH);
+        final var predSpawn = pred.reproduce();
+        Assert.assertEquals(MAX_HEALTH / 2, predSpawn.getHealth());
+        Assert.assertEquals(WatorCellState.PREDATOR, predSpawn.getState());
+        Assert.assertEquals(MAX_HEALTH / 2, pred.getHealth());
+    }
 }
