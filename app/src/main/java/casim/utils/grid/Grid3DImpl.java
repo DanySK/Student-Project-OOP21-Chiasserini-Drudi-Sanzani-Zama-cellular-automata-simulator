@@ -1,9 +1,9 @@
 package casim.utils.grid;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import casim.utils.coordinate.Coordinates3D;
@@ -20,7 +20,7 @@ import casim.utils.range.Ranges;
     private final int rows;
     private final int columns;
     private final int depth;
-    private final Map<Coordinates3D<Integer>, T> grid = new HashMap<>();
+    private  final List<List<List<T>>> grid;
 
     /**
      * Construct a new {@link Grid3D} filled with nulls.
@@ -46,13 +46,13 @@ import casim.utils.range.Ranges;
         this.columns = columns;
         this.depth = depth;
 
-        for (final var x : Ranges.of(0, rows)) {
-            for (final var y : Ranges.of(0, columns)) {
-                for (final var z : Ranges.of(0, depth)) {
-                    this.grid.put(CoordinatesUtil.of(x, y, z), defaultValue.get());
-                }
-            }
-        }
+        this.grid = Ranges.of(0, depth).stream()
+                .map(z -> Ranges.of(0, rows).stream()
+                .map(x -> Ranges.of(0, columns).stream()
+                .map(y -> defaultValue.get())
+                .collect(Collectors.toList()))
+                .collect(Collectors.toList()))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -68,14 +68,13 @@ import casim.utils.range.Ranges;
         this.columns = columns;
         this.depth = depth;
 
-        for (final var x : Ranges.of(0, rows)) {
-            for (final var y : Ranges.of(0, columns)) {
-                for (final var z : Ranges.of(0, depth)) {
-                    final var coord = CoordinatesUtil.of(x, y, z);
-                    this.grid.put(coord, valueFunction.apply(coord));
-                }
-            }
-        }
+        this.grid = Ranges.of(0, depth).stream()
+                .map(z -> Ranges.of(0, rows).stream()
+                .map(x -> Ranges.of(0, columns).stream()
+                .map(y -> valueFunction.apply(CoordinatesUtil.of(x, y, z)))
+                .collect(Collectors.toList()))
+                .collect(Collectors.toList()))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -107,7 +106,8 @@ import casim.utils.range.Ranges;
      */
     @Override
     public T get(final int row, final int column, final int depth) {
-        return this.get(CoordinatesUtil.of(row, column, depth));
+        this.throwIfOutOfBound(CoordinatesUtil.of(row, column, depth));
+        return this.grid.get(depth).get(row).get(column);
     }
 
     /**
@@ -115,7 +115,8 @@ import casim.utils.range.Ranges;
      */
     @Override
     public void set(final int row, final int column, final int depth, final T value) {
-        this.set(CoordinatesUtil.of(row, column, depth), value);
+        this.throwIfOutOfBound(CoordinatesUtil.of(row, column, depth));
+        this.grid.get(depth).get(row).set(column, value);
     }
 
     /**
@@ -124,7 +125,7 @@ import casim.utils.range.Ranges;
     @Override
     public T get(final Coordinates3D<Integer> coord) {
         this.throwIfOutOfBound(coord);
-        return this.grid.get(coord);
+        return this.get(coord.getX(), coord.getY(), coord.getZ());
     }
 
     /**
@@ -133,7 +134,7 @@ import casim.utils.range.Ranges;
     @Override
     public void set(final Coordinates3D<Integer> coord, final T value) {
         this.throwIfOutOfBound(coord);
-        this.grid.put(coord, value);
+        this.set(coord.getX(), coord.getY(), coord.getZ(), value);
     }
 
     /**
@@ -149,17 +150,17 @@ import casim.utils.range.Ranges;
      */
     @Override
     public Stream<T> stream() {
-        return this.grid.values().stream();
+        return this.grid.stream().flatMap(e -> e.stream().flatMap(List::stream));
     }
 
     @Override
     public <O> Grid3D<O> map(final Function<T, O> mapper) {
-        return new Grid3DImpl<>(this.rows, this.columns, this.depth, coord -> mapper.apply(this.grid.get(coord)));
+        return new Grid3DImpl<>(this.rows, this.columns, this.depth, coord -> mapper.apply(this.get(coord)));
     }
 
     private void throwIfOutOfBound(final Coordinates3D<Integer> coord) {
         if (!this.isCoordValid(coord)) {
-            throw new IndexOutOfBoundsException("Size: " + this.getHeight() + " x " + this.getWidth() + " x " + this.getDepth() + "Coord: " + coord);
+            throw new IndexOutOfBoundsException("Size: " + this.getHeight() + " x " + this.getWidth() + "Coord: " + coord);
         }
     }
 

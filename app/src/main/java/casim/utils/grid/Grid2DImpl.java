@@ -43,8 +43,8 @@ import casim.utils.range.Ranges;
         this.columns = columns;
         this.grid = Ranges.of(0, rows).stream()
             .map(x -> Ranges.of(0, columns).stream()
-                .map(y -> defaultValue.get())
-                .collect(Collectors.toList()))
+            .map(y -> defaultValue.get())
+            .collect(Collectors.toList()))
             .collect(Collectors.toList());
     }
 
@@ -146,4 +146,5 @@ import casim.utils.range.Ranges;
             throw new IndexOutOfBoundsException("Size: " + this.getHeight() + " x " + this.getWidth() + "Coord: " + coord);
         }
     }
+
 }
