@@ -23,7 +23,8 @@ public abstract class AbstractUpdateRule<C extends Coordinates<? extends Number>
      * Constructor of an abstract {@link UpdateRule}.
      * 
      * @param neighborsFunction used to take the neighbors of a given cell:
-     *  - First Argument -> a pair {@link Coordinates} + {@link AbstractCell} implementation of the cell of which we want to obtain the neighbors;
+     *  - First Argument -> a pair {@link Coordinates} + {@link AbstractCell} implementation 
+     *                          of the cell of which we want to obtain the neighbors;
      *  - Second Argument -> the {@link Grid} where the cells are contained;
      *  -.Return type -> a list containing all the neighbors.
      */
@@ -40,7 +41,8 @@ public abstract class AbstractUpdateRule<C extends Coordinates<? extends Number>
      * Abstract method used to calculate the updated cell of the one taken as input. 
      * 
      * @param cellPair pair of {@link Coordinates} and {@link casim.model.abstraction.cell.Cell} to updates;
-     * @param neighborsPairs a list containing all the pairs {@link Coordinates} + {@link casim.model.abstraction.cell.Cell} neighbors of the cellPair .
+     * @param neighborsPairs a list containing all the pairs {@link Coordinates} + 
+ *          {@link casim.model.abstraction.cell.Cell} neighbors of the cellPair .
      * @return the new updated {@link casim.model.abstraction.cell.Cell}.
      */
     protected abstract T nextCell(Pair<C, T> cellPair, List<Pair<C, T>> neighborsPairs);

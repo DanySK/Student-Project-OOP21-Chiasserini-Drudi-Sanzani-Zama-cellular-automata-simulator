@@ -3,7 +3,8 @@ package casim.model.abstraction.cell;
 /**
  * An abstract implementation of a {@link Cell}.
  * 
- *  @param <T> the enumeration which contains the finite states of the {@link casim.model.abstraction.automaton.Automaton}'s {@link Cell}.
+ *  @param <T> the enumeration which contains the finite states of the 
+ *  {@link casim.model.abstraction.automaton.Automaton}'s {@link Cell}.
  */
 public abstract class AbstractCell<T> implements Cell<T> {
 
