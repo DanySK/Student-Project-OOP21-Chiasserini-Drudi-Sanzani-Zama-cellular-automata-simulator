@@ -110,11 +110,12 @@ public class WatorCell extends AbstractCell<WatorCellState> {
      */
     public WatorCell reproduce() {
         if (this.health == MAX_HEALTH) {
-            this.health = MIN_HEALTH + 1;
             switch (this.state) {
                 case PREY:
+                    this.health = MIN_HEALTH + 1;
                     return new WatorCell(this.getState(), MIN_HEALTH + 1);
                 case PREDATOR:
+                    this.health = MAX_HEALTH / 2;
                     return new WatorCell(this.getState(), MAX_HEALTH / 2);
                 default:
                 throw new UnsupportedOperationException("The state " + this.state + " has no reproduce operation.");
