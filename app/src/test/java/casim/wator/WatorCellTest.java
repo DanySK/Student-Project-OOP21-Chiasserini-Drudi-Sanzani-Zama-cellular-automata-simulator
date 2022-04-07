@@ -69,11 +69,11 @@ class WatorCellTest {
 
     /**
      * Test for {@link WatorCell#reproduce()} method.
+     * {@link WatorCellState#PREY} case.
      */
     @Test
-    void testReproduce() {
+    void testPreyReproduce() {
         final var prey = this.getPrey();
-        final var pred = this.getPred();
         final var deadPreySpawn = prey.reproduce();
         Assert.assertTrue(deadPreySpawn.isDead());
         Assert.assertEquals(WatorCellState.DEAD, deadPreySpawn.getState());
@@ -82,6 +82,15 @@ class WatorCellTest {
         Assert.assertEquals(PREY_HEAL, prey.getHealth());
         Assert.assertEquals(WatorCellState.PREY, preySpawn.getState());
         Assert.assertEquals(PREY_HEAL, preySpawn.getHealth());
+    }
+
+    /**
+     * Test for {@link WatorCell#reproduce()} method.
+     * {@link WatorCellState#PREDATOR} case.
+     */
+    @Test
+    void testPredReproduce() {
+        final var pred = this.getPred();
         final var deadPredSpawn = pred.reproduce();
         Assert.assertTrue(deadPredSpawn.isDead());
         Assert.assertEquals(WatorCellState.DEAD, deadPredSpawn.getState());
@@ -90,6 +99,21 @@ class WatorCellTest {
         Assert.assertEquals(MAX_HEALTH / 2, predSpawn.getHealth());
         Assert.assertEquals(WatorCellState.PREDATOR, predSpawn.getState());
         Assert.assertEquals(MAX_HEALTH / 2, pred.getHealth());
+    }
+
+    /**
+     * Test for {@link WatorCell#reproduce()} method.
+     * {@link WatorCellState#DEAD} case.
+     */
+    @Test
+    void testDeadReproduce() {
+        final var dead = this.getDead();
+        final var deadSpawn = dead.reproduce();
+        Assert.assertEquals(WatorCellState.DEAD, deadSpawn.getState());
+        dead.setHealth(MAX_HEALTH);
+        Assert.assertThrows(UnsupportedOperationException.class, () -> {
+            dead.reproduce();
+        });
     }
 
     /**
