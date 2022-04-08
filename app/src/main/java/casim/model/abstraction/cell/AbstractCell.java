@@ -8,7 +8,7 @@ package casim.model.abstraction.cell;
  */
 public abstract class AbstractCell<T> implements Cell<T> {
 
-    protected T state; //TODO improve
+    private T state; //TODO improve
 
     /**
      * Construct a new {@link AbstractCell}.
@@ -24,4 +24,11 @@ public abstract class AbstractCell<T> implements Cell<T> {
         return this.state;
     }
 
+    /**
+     * Sets the state of the cell.
+     * @param state
+     */
+    protected void setState(final T state) {
+        this.state = state;
+    }
 }
