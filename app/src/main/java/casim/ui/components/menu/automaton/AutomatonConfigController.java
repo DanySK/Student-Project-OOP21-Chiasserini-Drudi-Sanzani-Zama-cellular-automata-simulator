@@ -1,7 +1,5 @@
 package casim.ui.components.menu.automaton;
 
-import java.util.List;
-
 import org.apache.commons.lang3.math.NumberUtils;
 
 import casim.controller.menu.MenuController;
@@ -11,11 +9,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
@@ -41,6 +41,9 @@ public class AutomatonConfigController {
 
     @FXML
     private Button nextButton;
+
+    @FXML
+    private HBox extension;
 
     private final PageContainer container;
     private final MenuController controller;
@@ -74,12 +77,25 @@ public class AutomatonConfigController {
         return this.container;
     }
 
+    /**
+     * Initialize the controller.
+     */
     @FXML
-    private void initialize() {
+    protected void initialize() {
         ViewUtils.fitToAnchorPane(this.configView);
         this.backButton.setDisable(this.checkContainerPreviousPageNotExist());
         final ObservableList<String> names = FXCollections.observableArrayList("Automatic", "Manual");
         this.modeSelector.setItems(names);
+    }
+
+    /**
+     * Add a {@link Node} to the view.
+     * Permits (also to the subclasses) to add a component to the view.
+     * 
+     * @param node the component to add
+     */
+    protected void addExtension(final Node node) {
+        this.extension.getChildren().add(node);
     }
 
     private boolean checkContainerPreviousPageNotExist() {
@@ -94,8 +110,13 @@ public class AutomatonConfigController {
     @FXML
     private void onNextBtnClick(final ActionEvent event) {
         if (this.showAlertAndCheck(this.sizeField.getText())) {
+            this.valuesToController();
             //TODO: send the size and the mode to the controller (DTO)?
         }
+    }
+
+    protected void valuesToController() {
+
     }
 
     private boolean showAlertAndCheck(final String gridSize) {
