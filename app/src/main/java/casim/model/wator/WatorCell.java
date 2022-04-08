@@ -94,8 +94,14 @@ public class WatorCell extends AbstractCell<WatorCellState> {
     /**
      * Diminishes the health of the {@link WatorCell} by
      * 1 if health isn't at minimum.
+     * 
+     * @throws IllegalStateException if the state of the cell
+     *          is {@link WatorCellState#PREY}.
      */
     public void starve() {
+        if (this.state.equals(WatorCellState.PREY)) {
+            throw new IllegalStateException(this.getState() + " cell cannot starve.");
+        }
         this.health -= this.isDead() ? 0 : 1;
     }
 

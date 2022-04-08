@@ -63,10 +63,16 @@ class WatorCellTest {
     @Test
     void testStarve() {
         final var pred = this.getPred();
-        final var prey = this.getPrey();
         final var initHealth = pred.getHealth();
-        prey.starve();
-        assertEquals(initHealth - PREY_HEAL, prey.getHealth());
+        pred.starve();
+        assertEquals(initHealth - PREY_HEAL, pred.getHealth());
+        pred.setHealth(DEAD_HEALTH);
+        pred.starve();
+        assertEquals(DEAD_HEALTH, pred.getHealth());
+        final var prey = this.getPrey();
+        assertThrows(IllegalStateException.class, () -> {
+            prey.starve();
+        });
     }
 
     /**
