@@ -7,7 +7,7 @@ import casim.utils.coordinate.Coordinates2D;
 import casim.utils.coordinate.CoordinatesUtil;
 
 /**
- * An N x M wrapped grid of elements of type <T>.
+ * An N x M wrapped grid of elements of type {@link T}.
  * 
  * @param <T> the type contained in the {@link WrappingGrid}.
  */
