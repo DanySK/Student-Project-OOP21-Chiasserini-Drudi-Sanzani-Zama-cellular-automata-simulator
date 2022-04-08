@@ -15,7 +15,6 @@ public class WatorCell extends AbstractCell<WatorCellState> {
     private int health;
     private boolean moved;
 
-
     /**
      * Constructs a new {@link WatorCell}.
      * 
@@ -27,7 +26,6 @@ public class WatorCell extends AbstractCell<WatorCellState> {
         this.health = health;
     }
 
-
     /**
      * Returns the health value of the {@link WatorCell}.
      * @return integer value representing the current health
@@ -35,16 +33,6 @@ public class WatorCell extends AbstractCell<WatorCellState> {
      */
     public int getHealth() {
         return this.health;
-    }
-
-    /**
-     * Sets the {@link WatorCellState} of the {@link WatorCell}.
-     * 
-     * @param state the {@link WatorCellState} to be set as the new
-     * state of the {@link WatorCell}
-     */
-    public void setState(final WatorCellState state) {
-        this.state = state;
     }
 
     /**

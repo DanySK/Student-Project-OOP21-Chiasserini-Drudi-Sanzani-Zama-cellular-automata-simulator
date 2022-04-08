@@ -101,8 +101,8 @@ public class Wator extends AbstractAutomaton<WatorCellState, WatorCell> {
 
     private boolean applyDeath(final WatorCell currentCell) {
         if (!currentCell.getState().equals(WatorCellState.DEAD) && currentCell.isDead()) {
-            currentCell.setState(WatorCellState.DEAD);
-            currentCell.setHealth(DEAD_HEALTH);
+            final var dead = new WatorCell(WatorCellState.DEAD, DEAD_HEALTH);
+            currentCell.clone(dead);
             return true;
         } else {
             return false;
