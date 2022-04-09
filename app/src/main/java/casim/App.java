@@ -4,36 +4,30 @@
 package casim;
 
 import java.util.Random;
-import casim.controller.automaton.AutomatonController;
 import casim.controller.automaton.AutomatonControllerImpl;
 import casim.model.bryansbrain.BryansBrain;
 import casim.model.bryansbrain.BryansBrainCellState;
-import casim.model.rule110.Rule110;
 import casim.ui.components.grid.CanvasGridBuilderImpl;
 import casim.ui.components.grid.CanvasGridImpl;
 import casim.ui.components.page.PageContainer;
-import casim.ui.utils.StateColorMapper;
-import casim.ui.view.AutomatonViewController;
+import casim.ui.view.ConcurrentAutomatonViewController;
 import casim.utils.Colors;
 import casim.utils.grid.Grid2DImpl;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.awt.GraphicsEnvironment;
-import java.io.IOError;
 import java.io.IOException;
-import java.util.Random;
 
 /**
  * Main project class.
  */
 public class App extends Application {
 
-    final static int ROWS = 200;
-    final static int COLS = 200;
+    final static int ROWS = 250;
+    final static int COLS = 250;
     final static int DEPTH = 100;
 
     private CanvasGridImpl getGrid() {
@@ -51,10 +45,7 @@ public class App extends Application {
         final var controller = new AutomatonControllerImpl<>(automaton);
         final var root = new PageContainer(primaryStage);
         final var loader = new FXMLLoader(getClass().getResource("/automatonView.fxml"));
-        final var viewController = new AutomatonViewController<BryansBrainCellState>();
-        loader.setController(viewController);
-        final var view = (VBox) loader.load();
-        viewController.initData(root, controller, this.getGrid(), s -> {
+        final var viewController = new ConcurrentAutomatonViewController<BryansBrainCellState>(root, controller, this.getGrid(), s -> {
             switch (s) {
             case ALIVE:
                 return Colors.WHITE;
@@ -66,13 +57,15 @@ public class App extends Application {
                 throw new IllegalArgumentException("Invalid state.");
             }
         });
+        loader.setController(viewController);
+        final var view = (VBox) loader.load();
 
         final var graphics = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-        final var width = graphics.getDisplayMode().getWidth();
-        final var height = graphics.getDisplayMode().getHeight();
+        final var width = graphics.getDisplayMode().getWidth() / 2;
+        final var height = graphics.getDisplayMode().getHeight() / 2;
 
-        primaryStage.setWidth(width / 2);
-        primaryStage.setHeight(height / 2);
+        primaryStage.setWidth(width);
+        primaryStage.setHeight(height);
 
         root.addPage(view);
         final var scene = new Scene(root);

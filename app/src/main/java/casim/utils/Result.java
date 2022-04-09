@@ -26,6 +26,23 @@ public final class Result<T> {
         this.exception = exception;
     }
 
+    public static <T> Result<T> executeSupplier(Supplier<T> function) {
+        try {
+            return Result.of(function.get());
+        } catch (Exception ex) {
+            return Result.error(ex);
+        }
+    }
+
+    public static <E extends Exception> Result<Empty> executeTask(Task<E> function) {
+        try {
+            function.execute();
+            return Result.ofEmpty();
+        } catch (Exception ex) {
+            return Result.error(ex);
+        }
+    }
+
     /** 
      * Create a {@link Result} that contains value.
      * 
