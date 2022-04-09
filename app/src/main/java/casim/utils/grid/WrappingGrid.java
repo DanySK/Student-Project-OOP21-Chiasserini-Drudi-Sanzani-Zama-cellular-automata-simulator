@@ -6,6 +6,11 @@ import java.util.stream.Stream;
 import casim.utils.coordinate.Coordinates2D;
 import casim.utils.coordinate.CoordinatesUtil;
 
+/**
+ * An N x M wrapped grid of elements of type {@link T}.
+ * 
+ * @param <T> the type contained in the {@link WrappingGrid}.
+ */
 public class WrappingGrid<T> implements Grid2D<T> {
 
     private final Grid2D<T> grid;
@@ -30,17 +35,17 @@ public class WrappingGrid<T> implements Grid2D<T> {
     }
 
     @Override
-    public T get(Coordinates2D<Integer> coord) {
+    public T get(final Coordinates2D<Integer> coord) {
         return this.get(coord.getX(), coord.getY());
     }
 
     @Override
-    public void set(Coordinates2D<Integer> coord, T value) {
+    public void set(final Coordinates2D<Integer> coord, final T value) {
         this.set(coord.getX(), coord.getY(), value);
     }
 
     @Override
-    public boolean isCoordValid(Coordinates2D<Integer> coord) {
+    public boolean isCoordValid(final Coordinates2D<Integer> coord) {
         return true;
     }
 
@@ -50,17 +55,17 @@ public class WrappingGrid<T> implements Grid2D<T> {
     }
 
     @Override
-    public T get(int row, int column) {
+    public T get(final int row, final int column) {
         return this.grid.get(this.getWrappedCoordinates(row, column));
     }
 
     @Override
-    public void set(int row, int column, T value) {
+    public void set(final int row, final int column, final T value) {
         this.grid.set(this.getWrappedCoordinates(row, column), value);
     }
 
     @Override
-    public <O> Grid2D<O> map(Function<T, O> mapper) {
+    public <O> Grid2D<O> map(final Function<T, O> mapper) {
         return this.grid.map(mapper);
     }
 
@@ -71,6 +76,6 @@ public class WrappingGrid<T> implements Grid2D<T> {
     }
 
     private int wrap(final int coord, final int maxValue) {
-        return (coord < 0) ? (coord % maxValue) + maxValue : coord % maxValue;
+        return coord < 0 ? coord % maxValue + maxValue : coord % maxValue;
     }
 }

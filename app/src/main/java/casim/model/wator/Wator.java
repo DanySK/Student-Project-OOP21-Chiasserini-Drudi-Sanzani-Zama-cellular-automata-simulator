@@ -56,21 +56,17 @@ public class Wator extends AbstractAutomaton<WatorCellState, WatorCell> {
                         currCell.move();
                         break;
                     case PREDATOR:
-                        final var preyNeighbors = neighborsList.stream()
-                                .filter(w -> w.getState().equals(WatorCellState.PREY))
-                                .collect(Collectors.toList());
-                        final var deadNeighbors = neighborsList.stream()
-                                .filter(w -> w.getState().equals(WatorCellState.DEAD))
-                                .collect(Collectors.toList());
+                        final var preyNeighbors = this.getFilteredNeighbors(neighborsList, WatorCellState.PREY);
+                        final var deadNeighbors = this.getFilteredNeighbors(neighborsList, WatorCellState.DEAD);
                         if (preyNeighbors.size() > 0) {
                             this.predatorStep(currCell, preyNeighbors, WatorCell::heal);
                         } else if (deadNeighbors.size() > 0) {
                             this.predatorStep(currCell, deadNeighbors, WatorCell::starve);
                         } else {
                             currCell.starve();
-                            this.applyDeath(currCell);
                             currCell.move();
                         }
+                        this.applyDeath(currCell);
                         break;
                     case DEAD:
                         break;
@@ -90,9 +86,7 @@ public class Wator extends AbstractAutomaton<WatorCellState, WatorCell> {
 
     private void predatorStep(final WatorCell currentCell, final List<WatorCell> neighbors,
             final Consumer<WatorCell> movementAction) {
-        if (this.applyDeath(currentCell)) {
-            return;
-        } else if (currentCell.hasMoved()) {
+        if (this.applyDeath(currentCell) || currentCell.hasMoved()) {
             return;
         }
         final var rand = new Random();
@@ -106,9 +100,9 @@ public class Wator extends AbstractAutomaton<WatorCellState, WatorCell> {
     }
 
     private boolean applyDeath(final WatorCell currentCell) {
-        if (currentCell.isDead()) {
-            currentCell.setState(WatorCellState.DEAD);
-            currentCell.setHealth(DEAD_HEALTH);
+        if (!currentCell.getState().equals(WatorCellState.DEAD) && currentCell.isDead()) {
+            final var dead = new WatorCell(WatorCellState.DEAD, DEAD_HEALTH);
+            currentCell.clone(dead);
             return true;
         } else {
             return false;
@@ -125,6 +119,12 @@ public class Wator extends AbstractAutomaton<WatorCellState, WatorCell> {
             final var spawn = currentCell.reproduce();
             currentCell.clone(spawn);
         }
+    }
+
+    private List<WatorCell> getFilteredNeighbors(final List<WatorCell> neighbors, final WatorCellState filter) {
+        return neighbors.stream()
+                .filter(x -> x.getState().equals(filter))
+                .collect(Collectors.toList());
     }
 
 }

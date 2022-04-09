@@ -13,8 +13,8 @@ import casim.utils.range.Ranges;
 /**
  * Rule 110 automaton, composed of a {@link RowGrid} of {@link Rule110Cell}.
  */
-public class Rule110 extends AbstractAutomaton<Rule110CellState, Rule110Cell>{
-    private static final Map<Integer, Rule110CellState> updateMap = Map.of(
+public class Rule110 extends AbstractAutomaton<Rule110CellState, Rule110Cell> {
+    private static final Map<Integer, Rule110CellState> UPDATE_MAP = Map.of(
         0, Rule110CellState.DEAD,
         1, Rule110CellState.ALIVE,
         2, Rule110CellState.ALIVE,
@@ -86,7 +86,6 @@ public class Rule110 extends AbstractAutomaton<Rule110CellState, Rule110Cell>{
             index == 0 ? Rule110CellState.DEAD : row.get(index - 1).getState(),
             row.get(index).getState(),
             index == row.size() - 1 ? Rule110CellState.DEAD : row.get(index + 1).getState());
-        return new Rule110Cell(updateMap.get(value));
+        return new Rule110Cell(UPDATE_MAP.get(value));
     }
-    
 }

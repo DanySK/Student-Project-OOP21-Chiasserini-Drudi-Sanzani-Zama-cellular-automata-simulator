@@ -31,6 +31,7 @@ public class RowGrid<T> implements Grid2D<T> {
      * Get one specific row of the {@link RowGrid}.
      * 
      * @param row the index of row to return.
+     * @return list the specific row to return.
      */
     public List<T> getRow(final int row) {
         final List<T> list = new ArrayList<>();
@@ -73,7 +74,7 @@ public class RowGrid<T> implements Grid2D<T> {
      * {@inheritDoc}
      */
     @Override
-    public T get(Coordinates2D<Integer> coord) {
+    public T get(final Coordinates2D<Integer> coord) {
         return this.grid.get(coord);
     }
 
@@ -81,7 +82,7 @@ public class RowGrid<T> implements Grid2D<T> {
      * {@inheritDoc}
      */
     @Override
-    public void set(Coordinates2D<Integer> coord, T value) {
+    public void set(final Coordinates2D<Integer> coord, final T value) {
         this.grid.set(coord, value);
     }
 
@@ -89,7 +90,7 @@ public class RowGrid<T> implements Grid2D<T> {
      * {@inheritDoc}
      */
     @Override
-    public boolean isCoordValid(Coordinates2D<Integer> coord) {
+    public boolean isCoordValid(final Coordinates2D<Integer> coord) {
         return this.grid.isCoordValid(coord);
     }
 
@@ -105,7 +106,7 @@ public class RowGrid<T> implements Grid2D<T> {
      * {@inheritDoc}
      */
     @Override
-    public T get(int row, int column) {
+    public T get(final int row, final int column) {
         return this.grid.get(row, column);
     }
 
@@ -113,7 +114,7 @@ public class RowGrid<T> implements Grid2D<T> {
      * {@inheritDoc}
      */
     @Override
-    public void set(int row, int column, T value) {
+    public void set(final int row, final int column, final T value) {
         this.grid.set(row, column, value);
     }
 
@@ -121,7 +122,7 @@ public class RowGrid<T> implements Grid2D<T> {
      * {@inheritDoc}
      */
     @Override
-    public <O> Grid2D<O> map(Function<T, O> mapper) {
+    public <O> Grid2D<O> map(final Function<T, O> mapper) {
         return this.grid.map(mapper);
     }
 }

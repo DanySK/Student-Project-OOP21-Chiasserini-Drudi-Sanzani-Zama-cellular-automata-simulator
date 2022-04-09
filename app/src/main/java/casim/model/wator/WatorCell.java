@@ -15,7 +15,6 @@ public class WatorCell extends AbstractCell<WatorCellState> {
     private int health;
     private boolean moved;
 
-
     /**
      * Constructs a new {@link WatorCell}.
      * 
@@ -27,7 +26,6 @@ public class WatorCell extends AbstractCell<WatorCellState> {
         this.health = health;
     }
 
-
     /**
      * Returns the health value of the {@link WatorCell}.
      * @return integer value representing the current health
@@ -35,16 +33,6 @@ public class WatorCell extends AbstractCell<WatorCellState> {
      */
     public int getHealth() {
         return this.health;
-    }
-
-    /**
-     * Sets the {@link WatorCellState} of the {@link WatorCell}.
-     * 
-     * @param state the {@link WatorCellState} to be set as the new
-     * state of the {@link WatorCell}
-     */
-    public void setState(final WatorCellState state) {
-        this.state = state;
     }
 
     /**
@@ -83,11 +71,10 @@ public class WatorCell extends AbstractCell<WatorCellState> {
      * maximum.
      */
     public void heal() {
-        if (this.getState().equals(WatorCellState.PREY)) {
-            this.health += PREY_HEAL;
-        } else {
-            this.health += PRED_HEAL;
+        if (this.getState().equals(WatorCellState.DEAD)) {
+            return;
         }
+        this.health += this.getState().equals(WatorCellState.PREY) ? PREY_HEAL : PRED_HEAL;
         final int overflow = this.health > MAX_HEALTH ? this.health - MAX_HEALTH : 0;
         this.health -= overflow;
     }
@@ -95,8 +82,14 @@ public class WatorCell extends AbstractCell<WatorCellState> {
     /**
      * Diminishes the health of the {@link WatorCell} by
      * 1 if health isn't at minimum.
+     * 
+     * @throws IllegalStateException if the state of the cell
+     *          is {@link WatorCellState#PREY}.
      */
     public void starve() {
+        if (this.getState().equals(WatorCellState.PREY)) {
+            throw new IllegalStateException(this.getState() + " cell cannot starve.");
+        }
         this.health -= this.isDead() ? 0 : 1;
     }
 
@@ -111,14 +104,15 @@ public class WatorCell extends AbstractCell<WatorCellState> {
      */
     public WatorCell reproduce() {
         if (this.health == MAX_HEALTH) {
-            this.health = MIN_HEALTH + 1;
-            switch (this.state) {
+            switch (this.getState()) {
                 case PREY:
+                    this.health = MIN_HEALTH + 1;
                     return new WatorCell(this.getState(), MIN_HEALTH + 1);
                 case PREDATOR:
+                    this.health = MAX_HEALTH / 2;
                     return new WatorCell(this.getState(), MAX_HEALTH / 2);
                 default:
-                throw new UnsupportedOperationException("The state " + this.state + " has no reproduce operation.");
+                throw new UnsupportedOperationException("The state " + this.getState() + " has no reproduce operation.");
             }
         } else {
             return new WatorCell(WatorCellState.DEAD, MIN_HEALTH);

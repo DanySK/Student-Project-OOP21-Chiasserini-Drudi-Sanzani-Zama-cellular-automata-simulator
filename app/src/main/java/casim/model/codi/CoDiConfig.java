@@ -1,0 +1,32 @@
+package casim.model.codi;
+
+import casim.utils.automaton.config.BaseConfig;
+
+/**
+ * {@link casim.model.codi.CoDi} config class.
+ */
+public class CoDiConfig extends BaseConfig {
+
+    private final int depth;
+
+    /**
+     * Constructs a {@link CoDiConfig} with given values.
+     * 
+     * @param rows the number of rows of the grid.
+     * @param cols the number of columns of the grid.
+     * @param depth the depth of the grid.
+     */
+    public CoDiConfig(final int rows, final int cols, final int depth) {
+        super(rows, cols);
+        this.depth = depth;
+    }
+
+    /**
+     * Returns the depth of the grid.
+     * 
+     * @return the depth of the grid.
+     */
+    public int getDepth() {
+        return this.depth;
+    }
+}

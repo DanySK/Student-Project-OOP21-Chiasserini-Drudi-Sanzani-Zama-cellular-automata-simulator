@@ -17,7 +17,7 @@ import casim.utils.range.Ranges;
 /**
  * Test class for {@link Grid3D}.
  */
-public class Grid3DTest {
+class Grid3DTest {
     private static final int DEFAULT_VALUE = 1;
     private static final int NEW_VALUE = 2;
     private static final int ROWS = 3;

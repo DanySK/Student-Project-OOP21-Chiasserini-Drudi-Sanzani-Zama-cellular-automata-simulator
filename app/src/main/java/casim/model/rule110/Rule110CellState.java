@@ -4,17 +4,23 @@ package casim.model.rule110;
  * The state of {@link casim.model.rule110.Rule110Cell}.
  */
 public enum Rule110CellState {
+    /**
+     * The active state of the cell.
+     */
     ALIVE(1),
+    /**
+     * The deactivated state of the cell.
+     */
     DEAD(0);
 
     private final int value;
 
     /**
      * Method associating an int to its state.
-     *  
+     * 
      * @param value int to associate.
      */
-    private Rule110CellState(final int value) {
+    Rule110CellState(final int value) {
         this.value = value;
     }
 

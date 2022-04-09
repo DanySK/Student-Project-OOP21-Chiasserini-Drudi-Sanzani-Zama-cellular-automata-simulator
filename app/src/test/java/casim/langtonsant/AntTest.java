@@ -1,8 +1,7 @@
 package casim.langtonsant;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import casim.model.langtonsant.Ant;
 import casim.model.langtonsant.LangtonsAntCellState;
 import casim.model.langtonsant.Direction;
@@ -25,13 +24,13 @@ class AntTest {
     @Test
     void testMove() {
         ANT.move();
-        Assert.assertEquals(NORTHRESULT, ANT.getPosition());
+        assertEquals(NORTHRESULT, ANT.getPosition());
         ANT.setDirection(Direction.SOUTH);
         ANT.move();
-        Assert.assertEquals(STARTINGPOSITION, ANT.getPosition());
+        assertEquals(STARTINGPOSITION, ANT.getPosition());
         ANT.setDirection(Direction.EAST);
         ANT.move();
-        Assert.assertEquals(EASTRESULT, ANT.getPosition());
+        assertEquals(EASTRESULT, ANT.getPosition());
     }
 
     /**
@@ -41,13 +40,13 @@ class AntTest {
     void testTurn() {
         ANT.setDirection(Direction.NORTH);
         ANT.turn(LangtonsAntCellState.OFF);
-        Assert.assertEquals(Direction.EAST, ANT.getDirection());
+        assertEquals(Direction.EAST, ANT.getDirection());
         ANT.setDirection(Direction.NORTH);
         ANT.turn(LangtonsAntCellState.ON);
-        Assert.assertEquals(Direction.WEST, ANT.getDirection());
+        assertEquals(Direction.WEST, ANT.getDirection());
         ANT.setDirection(Direction.WEST);
         ANT.turn(LangtonsAntCellState.OFF);
-        Assert.assertEquals(Direction.NORTH, ANT.getDirection());
+        assertEquals(Direction.NORTH, ANT.getDirection());
     }
 
 }

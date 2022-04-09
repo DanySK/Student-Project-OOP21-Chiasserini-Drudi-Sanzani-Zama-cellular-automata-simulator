@@ -3,11 +3,12 @@ package casim.model.abstraction.cell;
 /**
  * An abstract implementation of a {@link Cell}.
  * 
- *  @param <T> the enumeration which contains the finite states of the {@link casim.model.abstraction.automaton.Automaton}'s {@link Cell}.
+ *  @param <T> the enumeration which contains the finite states of the 
+ *  {@link casim.model.abstraction.automaton.Automaton}'s {@link Cell}.
  */
 public abstract class AbstractCell<T> implements Cell<T> {
 
-    protected T state; //TODO improve
+    private T state; //TODO improve
 
     /**
      * Construct a new {@link AbstractCell}.
@@ -23,4 +24,11 @@ public abstract class AbstractCell<T> implements Cell<T> {
         return this.state;
     }
 
+    /**
+     * Sets the state of the cell.
+     * @param state
+     */
+    protected void setState(final T state) {
+        this.state = state;
+    }
 }

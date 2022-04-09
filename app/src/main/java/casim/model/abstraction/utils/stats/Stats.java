@@ -5,7 +5,8 @@ import java.util.Map;
 /**
  * An interface used to describe stats about an {@link casim.model.abstraction.automaton.Automaton}.
  * 
- *  @param <T> the type of the finite states of the {@link casim.model.abstraction.automaton.Automaton}'s {@link casim.model.abstraction.cell.Cell}.
+ *  @param <T> the type of the finite states of the {@link casim.model.abstraction.automaton.Automaton}'s 
+ *      {@link casim.model.abstraction.cell.Cell}.
  */
 public interface Stats<T>   {
 
