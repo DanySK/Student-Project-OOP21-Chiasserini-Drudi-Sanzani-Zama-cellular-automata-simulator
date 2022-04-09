@@ -3,16 +3,15 @@
  */
 package casim;
 
-import java.util.Random;
 import casim.controller.automaton.AutomatonControllerImpl;
-import casim.model.bryansbrain.BryansBrain;
 import casim.model.bryansbrain.BryansBrainCellState;
 import casim.ui.components.grid.CanvasGridBuilderImpl;
 import casim.ui.components.grid.CanvasGridImpl;
 import casim.ui.components.page.PageContainer;
+import casim.ui.utils.StateColorMapperFactory;
 import casim.ui.view.ConcurrentAutomatonViewController;
-import casim.utils.Colors;
-import casim.utils.grid.Grid2DImpl;
+import casim.utils.automaton.AutomatonFactoryImpl;
+import casim.utils.automaton.config.WrappingConfig;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -36,27 +35,12 @@ public class App extends Application {
     }
 
     private void startBryansBrainFXML(final Stage primaryStage) throws IOException {
-        final var rng = new Random();
-        final var grid = new Grid2DImpl<BryansBrainCellState>(ROWS, COLS, () -> {
-            final var states = BryansBrainCellState.values();
-            return states[rng.nextInt(states.length)];
-        });
-        final var automaton = new BryansBrain(grid, true);
+        final var automaton = new AutomatonFactoryImpl().getBryansBrainRandom(new WrappingConfig(ROWS, COLS, true));
         final var controller = new AutomatonControllerImpl<>(automaton);
         final var root = new PageContainer(primaryStage);
         final var loader = new FXMLLoader(getClass().getResource("/automatonView.fxml"));
-        final var viewController = new ConcurrentAutomatonViewController<BryansBrainCellState>(root, controller, this.getGrid(), s -> {
-            switch (s) {
-            case ALIVE:
-                return Colors.WHITE;
-            case DEAD:
-                return Colors.BLACK;
-            case DYING:
-                return Colors.LIGHT_BLUE;
-            default:
-                throw new IllegalArgumentException("Invalid state.");
-            }
-        });
+        final var viewController = new ConcurrentAutomatonViewController<BryansBrainCellState>(
+            root, controller, this.getGrid(), StateColorMapperFactory.getBryansBrainStateColorMapper());
         loader.setController(viewController);
         final var view = (VBox) loader.load();
 
