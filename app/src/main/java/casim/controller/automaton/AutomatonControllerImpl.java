@@ -15,11 +15,21 @@ public class AutomatonControllerImpl<S, T extends AbstractCell<S>> implements Au
     private final AbstractAutomaton<S, T> automaton;
 
     /**
+     * Construct a new {@link AutomatonControllerImpl}.
      * 
-     * @param automaton
+     * @param automaton the automaton linked to the controller.
      */
     public AutomatonControllerImpl(final AbstractAutomaton<S, T> automaton) {
         this.automaton = automaton;
+    }
+
+    /**
+     * Return the automaton linked to the controller.
+     * 
+     * @return the automaton linked to the controller.
+     */
+    protected AbstractAutomaton<S, T> getAutomaton() {
+        return this.automaton;
     }
 
     @Override
