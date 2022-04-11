@@ -28,6 +28,15 @@ public abstract class AbstractAutomaton<S, T extends AbstractCell<S>> implements
     }
 
     /**
+     * Return the number of the current iteration.
+     * 
+     * @return the number of the current iteration.
+     */
+    protected int getIterationCounter() {
+        return this.iterationCounter;
+    }
+
+    /**
      * Method used to obtain the next {@link Automaton} step.
      * 
      * @return a {@link Grid2D} describing the next {@link Automaton} step.

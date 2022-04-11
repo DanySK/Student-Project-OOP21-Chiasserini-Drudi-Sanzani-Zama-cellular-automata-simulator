@@ -8,6 +8,8 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import casim.model.abstraction.automaton.AbstractAutomaton;
 import casim.model.abstraction.utils.NeighborsFunctions;
+import casim.model.abstraction.utils.stats.CoDiStatsImpl;
+import casim.model.abstraction.utils.stats.Stats;
 import casim.model.codi.cell.CoDiCell;
 import casim.model.codi.cell.attributes.CoDiCellState;
 import casim.model.codi.cell.attributes.Direction;
@@ -29,6 +31,10 @@ import casim.utils.range.Ranges;
  */
 public class CoDi extends AbstractAutomaton<CoDiCellState, CoDiCell> {
 
+    private static final int RIGHT_SLIDE = 1;
+    private static final int LEFT_SLIDE = -1;
+
+    private int outputLayer;
     private boolean changed; 
     private Grid3D<CoDiCell> state;
     private boolean hasSetupSignaling;
@@ -43,6 +49,7 @@ public class CoDi extends AbstractAutomaton<CoDiCellState, CoDiCell> {
      */
     public CoDi(final Grid3D<CoDiCellState> state) {
         this.changed = true;
+        this.outputLayer = 0;
         this.hasSetupSignaling = false;
         final Function<CoDiCellState, CoDiCell> cellFunction = new StateToCellFunction();
         this.state = state.map(s -> cellFunction.apply(s));
@@ -121,9 +128,40 @@ public class CoDi extends AbstractAutomaton<CoDiCellState, CoDiCell> {
         return coordList;
     }
 
+    /**
+     * Change the output layer of a delta variation.
+     * 
+     * @param delta the variation of the output layer.
+     * @return the {@link Grid2D} representing the new layer selected.
+     */
+    private Grid2D<CoDiCell> changeOutputLayer(final int delta) {
+        if (this.outputLayer + delta >= 0 && this.outputLayer + delta < this.state.getWidth()) {
+            this.outputLayer += delta;
+        }
+        return this.getGrid();
+    }
+
+    /** 
+     * Do a right shift of the output layer.
+     * 
+     * @return the {@link Grid2D} representing the new layer.
+     */
+    public Grid2D<CoDiCell> outputLayerRightShift() {
+        return this.changeOutputLayer(RIGHT_SLIDE);
+    }
+
+    /**
+     * Do a left shift of the output layer.
+     * 
+     * @return the {@link Grid2D} representing the new layer.
+     */
+    public Grid2D<CoDiCell> outputLayerLeftShift() {
+        return this.changeOutputLayer(LEFT_SLIDE);
+    }
+
     @Override
     public Grid2D<CoDiCell> getGrid() {
-        final int x = 0; //TODO per ora tengo un layer costante
+        final int x = this.outputLayer;
         final Grid2D<CoDiCell> gridLayer = new Grid2DImpl<>(this.state.getWidth(), this.state.getDepth());
         for (final var z: Ranges.of(0, this.state.getDepth())) {
             for (final var y: Ranges.of(0, this.state.getHeight())) {
@@ -190,6 +228,11 @@ public class CoDi extends AbstractAutomaton<CoDiCellState, CoDiCell> {
         } else {
             this.state.get(coord).setNeighborsPreviousInputDirection(direction, 0);
         }
+    }
+
+    @Override
+    public Stats<CoDiCellState> getStats() {
+        return new CoDiStatsImpl(this.getIterationCounter(), this.createStatesMap(), this.outputLayer);
     }
 
 }
