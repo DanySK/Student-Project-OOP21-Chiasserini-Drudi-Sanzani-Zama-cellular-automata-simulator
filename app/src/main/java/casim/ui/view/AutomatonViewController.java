@@ -15,8 +15,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+/**
+ * A generic view controller for an automaton.
+ * 
+ * @param <T> the type of the cell state that the view has to represent.
+ */
 public abstract class AutomatonViewController<T> {
-    private final static String NO_NEXT_STEP = "No next step available.";
+    private static final String NO_NEXT_STEP = "No next step available.";
 
     @FXML
     private VBox automatonView;
@@ -38,6 +43,14 @@ public abstract class AutomatonViewController<T> {
     private final StateColorMapper<T> colorMapper;
     private final AutomatonController<T> controller;
 
+    /**
+     * Build a new {@link AutomatonViewController}.
+     *
+     * @param container the {@link PageContainer} holding the view.
+     * @param controller the {@link AutomatonController} controlling the view.
+     * @param grid the {@link CanvasGridImpl} to be drawn.
+     * @param colorMapper the {@link StateColorMapper} that translates cell states to colors.
+     */
     public AutomatonViewController(final PageContainer container, final AutomatonController<T> controller,
             final CanvasGridImpl grid, final StateColorMapper<T> colorMapper) {
         this.container = container;
@@ -47,17 +60,30 @@ public abstract class AutomatonViewController<T> {
         this.grid.setCells(this.controller.getGrid().map(this.colorMapper::toColor));
     }
 
+    /**
+     * Handle the "exit button" click.
+     * 
+     * @param event click event.
+     */
     @FXML
     protected void onExitBtnClick(final ActionEvent event) {
         this.getContainer().popPage();
     }
 
+    /**
+     * Handle the "next button" click.
+     *
+     * @param event click event.
+     */
     @FXML
     protected void onNextBtnClick(final ActionEvent event) {
         this.render();
-        this.updateStats();        
+        this.updateStats();
     }
 
+    /**
+     * Initialize the view components.
+     */
     @FXML
     protected void initialize() {
         ViewUtils.fitToAnchorPane(this.automatonView);
@@ -66,6 +92,9 @@ public abstract class AutomatonViewController<T> {
         this.automatonPane.heightProperty().addListener(this::onSizeChange);
     }
 
+    /**
+     * Renders the new frame and updates the stats.
+     */
     protected void render() {
         if (this.controller.hasNext()) {
             this.updateGrid();
@@ -75,20 +104,40 @@ public abstract class AutomatonViewController<T> {
             .show();
         }
     }
-    
+
+    /**
+     * Update the simlation's stats.
+     */
     protected void updateStats() {
         final var s = this.controller.getStats();
         Platform.runLater(() -> this.statsLbl.setText(s.toString()));
     }
 
+    /**
+     * Get the {@link PageContainer} containing the view.
+     * 
+     * @return the {@link PageContainer}.
+     */
     protected PageContainer getContainer() {
         return this.container;
     }
 
+    /**
+     * Get the {@link AutomatonController} of the view.
+     * 
+     * @return the {@link AutomatonController}.
+     */
     protected AutomatonController<T> getController() {
         return this.controller;
     }
 
+    /**
+     * Handler for the size change property of the view.
+     * 
+     * @param obs the value to observe.
+     * @param oldVal the old value.
+     * @param newVal the new value.
+     */
     protected void onSizeChange(final ObservableValue<? extends Number> obs, final Number oldVal, final Number newVal) {
         this.grid.handleSizeChange(this.automatonPane.getWidth(), this.automatonPane.getHeight());
     }

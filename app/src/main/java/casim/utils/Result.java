@@ -26,7 +26,15 @@ public final class Result<T> {
         this.exception = exception;
     }
 
-    public static <T> Result<T> executeSupplier(Supplier<T> function) {
+    /**
+     * Execute a supplier of T and return a {@link Result} holding the value.
+     * The execution may throw an exception.
+     *
+     * @param <T> the return type of the supplier.
+     * @param function the supplier to be executed.
+     * @return a {@link Result} holding the value.
+     */
+    public static <T> Result<T> executeSupplier(final Supplier<T> function) {
         try {
             return Result.of(function.get());
         } catch (Exception ex) {
@@ -34,7 +42,14 @@ public final class Result<T> {
         }
     }
 
-    public static <E extends Exception> Result<Empty> executeTask(Task<E> function) {
+    /**
+     * Execute a task that may thow an exception and return a {@link Result} holding the value.
+     *
+     * @param <E> the exception that the task may throw.
+     * @param function the supplier to be executed.
+     * @return a {@link Result} holding {@link Empty} if the task is completed successfully.
+     */
+    public static <E extends Exception> Result<Empty> executeTask(final Task<E> function) {
         try {
             function.execute();
             return Result.ofEmpty();

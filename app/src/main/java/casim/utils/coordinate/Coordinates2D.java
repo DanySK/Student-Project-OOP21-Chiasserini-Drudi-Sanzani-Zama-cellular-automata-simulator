@@ -34,26 +34,17 @@ public class Coordinates2D<T extends Number> implements Coordinates<T> {
         return this.coords.getRight();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toString() {
         return "X: " + this.getX() + ", Y: " + this.getY();
     }
 
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int hashCode() {
         return this.coords.hashCode();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean equals(final Object obj) {
         if (this == obj) {

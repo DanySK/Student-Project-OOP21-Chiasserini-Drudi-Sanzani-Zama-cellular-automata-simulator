@@ -25,13 +25,13 @@ import java.io.IOException;
  */
 public class App extends Application {
 
-    final static int ROWS = 250;
-    final static int COLS = 250;
-    final static int DEPTH = 100;
+    private static final int ROWS = 250;
+    private static final int COLS = 250;
+    private static final int DEPTH = 100;
 
     private CanvasGridImpl getGrid() {
         final var grid = new CanvasGridBuilderImpl().build(ROWS, COLS);
-        return (CanvasGridImpl)grid;
+        return (CanvasGridImpl) grid;
     }
 
     private void startBryansBrainFXML(final Stage primaryStage) throws IOException {
@@ -67,7 +67,7 @@ public class App extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(final Stage primaryStage) throws Exception {
         this.startBryansBrainFXML(primaryStage);
     }
 }

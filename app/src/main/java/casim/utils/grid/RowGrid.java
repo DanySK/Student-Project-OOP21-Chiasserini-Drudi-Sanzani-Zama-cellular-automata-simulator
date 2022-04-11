@@ -54,73 +54,46 @@ public class RowGrid<T> implements Grid2D<T> {
             .forEach(col -> this.set(row, col, list.get(col)));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int getWidth() {
         return this.grid.getWidth();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int getHeight() {
         return this.grid.getHeight();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public T get(final Coordinates2D<Integer> coord) {
         return this.grid.get(coord);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void set(final Coordinates2D<Integer> coord, final T value) {
         this.grid.set(coord, value);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean isCoordValid(final Coordinates2D<Integer> coord) {
         return this.grid.isCoordValid(coord);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Stream<T> stream() {
         return this.grid.stream();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public T get(final int row, final int column) {
         return this.grid.get(row, column);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void set(final int row, final int column, final T value) {
         this.grid.set(row, column, value);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public <O> Grid2D<O> map(final Function<T, O> mapper) {
         return this.grid.map(mapper);

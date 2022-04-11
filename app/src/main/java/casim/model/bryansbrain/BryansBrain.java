@@ -10,6 +10,9 @@ import casim.utils.grid.Grid2DImpl;
 import casim.utils.grid.WrappingGrid;
 import casim.utils.range.Ranges;
 
+/**
+ * Bryan's Brain automaton.
+ */
 public class BryansBrain extends AbstractAutomaton<BryansBrainCellState, BryansBrainCell> {
     private final boolean wrapping;
 
@@ -17,6 +20,12 @@ public class BryansBrain extends AbstractAutomaton<BryansBrainCellState, BryansB
     private final BryansBrainUpdateRule updateRule
         = new BryansBrainUpdateRule(NeighborsFunctions::mooreNeighborsFunction);
 
+    /**
+     * Build a new {@link BryansBrain}.
+     * 
+     * @param state the initial state of the grid.
+     * @param wrapping true if the automaton has to wrap the grid.
+     */
     public BryansBrain(final Grid2D<BryansBrainCellState> state, final boolean wrapping) {
         this.wrapping = wrapping;
         this.state = this.wrapping 

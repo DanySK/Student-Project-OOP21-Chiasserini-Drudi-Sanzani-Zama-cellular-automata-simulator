@@ -44,12 +44,22 @@ public final class StateColorMapperFactory {
             List.of(Colors.WHITE, Colors.BLACK));
     }
 
+    /**
+     * Returns the {@link StateColorMapper} for Bryan's Brain automaton.
+     * 
+     * @return the {@link StateColorMapper} for Bryan's Brain automaton.
+     */
     public static StateColorMapper<BryansBrainCellState> getBryansBrainStateColorMapper() {
         return getColorMapperFromLists(
             Arrays.asList(BryansBrainCellState.values()),
             List.of(Colors.WHITE, Colors.LIGHT_BLUE, Colors.BLACK));
     }
 
+    /**
+     * Returns the {@link StateColorMapper} for Rule 110 automaton.
+     * 
+     * @return the {@link StateColorMapper} for Rule 110 automaton.
+     */
     public static StateColorMapper<Rule110CellState> getRule110StateColorMapper() {
         return getColorMapperFromLists(
             Arrays.asList(Rule110CellState.values()),

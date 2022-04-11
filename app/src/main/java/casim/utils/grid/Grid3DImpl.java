@@ -77,77 +77,50 @@ import casim.utils.range.Ranges;
                 .collect(Collectors.toList());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int getWidth() {
         return this.columns;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int getHeight() {
         return this.rows;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int getDepth() {
         return this.depth;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public T get(final int row, final int column, final int depth) {
         this.throwIfOutOfBound(CoordinatesUtil.of(row, column, depth));
         return this.grid.get(depth).get(row).get(column);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void set(final int row, final int column, final int depth, final T value) {
         this.throwIfOutOfBound(CoordinatesUtil.of(row, column, depth));
         this.grid.get(depth).get(row).set(column, value);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public T get(final Coordinates3D<Integer> coord) {
         this.throwIfOutOfBound(coord);
         return this.get(coord.getX(), coord.getY(), coord.getZ());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void set(final Coordinates3D<Integer> coord, final T value) {
         this.throwIfOutOfBound(coord);
         this.set(coord.getX(), coord.getY(), coord.getZ(), value);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean isCoordValid(final Coordinates3D<Integer> coord) {
         return CoordinatesUtil.isValid(coord, this.rows, this.columns, this.depth);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Stream<T> stream() {
         return this.grid.stream().flatMap(e -> e.stream().flatMap(List::stream));

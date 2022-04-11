@@ -9,11 +9,24 @@ import casim.utils.Result;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 
+/**
+ * A generic view controller for the automata that allows automatic simulation.
+ * 
+ * @param <T> the type of the cell state that the view has to represent.
+ */
 public class ConcurrentAutomatonViewController<T> extends AutomatonViewController<T> {
     private static final int STEP_DELAY_MS = 200;
 
     private final AbstractWorker automaticStepThread;
 
+    /**
+     * Build a new {@link ConcurrentAutomatonViewController}.
+     *
+     * @param container the {@link PageContainer} holding the view.
+     * @param controller the {@link AutomatonController} controlling the view.
+     * @param grid the {@link CanvasGridImpl} to be drawn.
+     * @param colorMapper the {@link StateColorMapper} that translates cell states to colors.
+     */
     public ConcurrentAutomatonViewController(final PageContainer container, final AutomatonController<T> controller,
             final CanvasGridImpl grid, final StateColorMapper<T> colorMapper) {
         super(container, controller, grid, colorMapper);
@@ -32,7 +45,7 @@ public class ConcurrentAutomatonViewController<T> extends AutomatonViewControlle
     protected void onNextBtnClick(final ActionEvent event) {
         synchronized (this) {
             super.onNextBtnClick(event);
-        }        
+        }
     }
 
     @Override
