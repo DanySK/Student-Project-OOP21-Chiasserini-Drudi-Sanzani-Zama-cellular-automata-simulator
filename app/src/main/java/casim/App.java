@@ -9,7 +9,7 @@ import casim.ui.components.grid.CanvasGridBuilderImpl;
 import casim.ui.components.grid.CanvasGridImpl;
 import casim.ui.components.page.PageContainer;
 import casim.ui.utils.StateColorMapperFactory;
-import casim.ui.view.ConcurrentAutomatonViewController;
+import casim.ui.view.implementation.ConcurrentAutomatonViewController;
 import casim.utils.automaton.AutomatonFactoryImpl;
 import casim.utils.automaton.config.WrappingConfig;
 import javafx.application.Application;
