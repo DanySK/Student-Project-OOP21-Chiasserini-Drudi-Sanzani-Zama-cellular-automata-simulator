@@ -15,7 +15,7 @@ public class LangtonsAntConfig extends WrappingConfig {
      * with given values.
      * 
      * @param rows the number of rows of the grid.
-     * @param cols the number of colums of the grid.
+     * @param cols the number of columns of the grid.
      * @param wrapping true if the grid is a wrapping grid.
      * @param antNumber the number of ants in the automaton.
      */

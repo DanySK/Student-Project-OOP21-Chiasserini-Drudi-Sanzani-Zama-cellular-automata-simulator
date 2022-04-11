@@ -24,10 +24,10 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
     private final Color separatorColor;
     private final double separatorWidth;
     private final double separatorOffset;
-    
+
     private final Grid2D<CanvasGridCell> cells;
     private final Queue<Coordinates2D<Integer>> renderQueue;
-    
+
     private double width;
     private double height;
     private double cellSize;
@@ -37,7 +37,6 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
      * 
      * @param rows number of rows of the grid (cells, not pixels).
      * @param columns number of columns of the grid (cells, not pixels).
-     * @param cellSize cell size in pixels.
      * @param separatorColor separator color.
      * @param separatorWidth separator width.
      * @param separatorOffset separator offset.
@@ -73,25 +72,16 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
         throw new UnsupportedOperationException();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int getColumns() {
         return this.columns;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int getRows() {
         return this.rows;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void draw() {
         final var graphics = this.getGraphicsContext2D();
@@ -99,17 +89,11 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
         this.drawGrid(graphics);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public double getCellSize() {
         return this.cellSize;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void setCells(final Grid2D<Color> cellColors) {
         for (final var row : Ranges.of(0, this.getRows())) {
@@ -126,12 +110,24 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public CanvasGridCell getCell(final Coordinates2D<Integer> coord) {
         return this.cells.get(coord);
+    }
+
+    @Override
+    public void handleSizeChange(final double width, final double height) {
+        if (width == 0 || height == 0) {
+            return;
+        }
+        this.width = width;
+        this.height = height;
+        this.cellSize = this.getNewPixelSize(width, height);
+        super.setWidth(width);
+        super.setHeight(height);
+        this.clearCanvas();
+        this.resizeCells();
+        this.draw();
     }
 
     private void drawCell(final GraphicsContext graphics, final CanvasGridCell cell) {
@@ -162,20 +158,6 @@ public class CanvasGridImpl extends Canvas implements CanvasGrid {
         for (final var y : Ranges.of(0.0, this.height, this.getCellSize())) {
             graphics.strokeLine(0, y + this.separatorOffset, width, y + this.separatorOffset);
         }
-    }
-
-    public void handleSizeChange(final double width, final double height) {
-        if (width == 0 || height == 0) {
-            return;
-        }
-        this.width = width;
-        this.height = height;
-        this.cellSize = this.getNewPixelSize(width, height);
-        super.setWidth(width);
-        super.setHeight(height);
-        this.clearCanvas();
-        this.resizeCells();
-        this.draw();
     }
 
     private double getNewPixelSize(final double width, final double height) {

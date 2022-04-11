@@ -25,41 +25,26 @@ public class CanvasGridCellImpl implements CanvasGridCell {
         this.size = size;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Color getColor() {
         return this.color;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void setColor(final Color color) {
         this.color = color;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Coordinates2D<Integer> getTopLeft() {
         return this.topLeft;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public double getSize() {
         return this.size;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toString() {
         return "CanvasGridCellImpl [color=" + color + ", size=" + size + ", topLeft=" + topLeft + "]";

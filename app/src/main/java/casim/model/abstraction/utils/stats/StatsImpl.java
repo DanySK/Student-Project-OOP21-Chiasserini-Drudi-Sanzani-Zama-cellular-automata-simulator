@@ -37,7 +37,7 @@ public class StatsImpl<T> implements Stats<T> {
 
     @Override
     public String toString() {
-        return "Stats [iterationCounter=" + iterationCounter + ", statesMap=" + statesMap + "]";
+        return "Iterations: " + this.iterationCounter + "\nStates: " + statesMap;
     }
 
 }

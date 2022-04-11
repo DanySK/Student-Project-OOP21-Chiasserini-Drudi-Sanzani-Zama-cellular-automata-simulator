@@ -67,4 +67,12 @@ public interface CanvasGrid {
      * @return the {@link CanvasGrid} of coordinates coord.
      */
     CanvasGridCell getCell(Coordinates2D<Integer> coord);
+
+    /**
+     * Resize the canvas based on the new size of the parent.
+     * 
+     * @param width of the parent.
+     * @param height of the parent.
+     */
+    void handleSizeChange(double width, double height);
 }

@@ -65,68 +65,44 @@ import casim.utils.range.Ranges;
             .collect(Collectors.toList());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int getWidth() {
         return this.columns;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public int getHeight() {
         return this.rows;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public T get(final int row, final int column) {
         this.throwIfOutOfBound(CoordinatesUtil.of(row, column));
         return this.grid.get(row).get(column);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void set(final int row, final int column, final T value) {
         this.throwIfOutOfBound(CoordinatesUtil.of(row, column));
         this.grid.get(row).set(column, value);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public T get(final Coordinates2D<Integer> coord) {
         this.throwIfOutOfBound(coord);
         return this.grid.get(coord.getX()).get(coord.getY());
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void set(final Coordinates2D<Integer> coord, final T value) {
         this.set(coord.getX(), coord.getY(), value);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public boolean isCoordValid(final Coordinates2D<Integer> coord) {
         return CoordinatesUtil.isValid(coord, this.rows, this.columns);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Stream<T> stream() {
         return this.grid.stream().flatMap(List :: stream);

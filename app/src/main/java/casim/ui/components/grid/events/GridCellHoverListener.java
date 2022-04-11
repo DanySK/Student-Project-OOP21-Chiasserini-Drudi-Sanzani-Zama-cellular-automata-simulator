@@ -17,9 +17,6 @@ public class GridCellHoverListener extends AbstractMouseEventHandler {
         super(grid);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void handle(final MouseEvent event) {
         final var coord = this.getCoordinatesFromEvent(event);
