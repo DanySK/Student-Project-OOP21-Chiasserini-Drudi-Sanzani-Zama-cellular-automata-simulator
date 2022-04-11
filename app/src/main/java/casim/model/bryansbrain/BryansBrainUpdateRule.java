@@ -39,7 +39,7 @@ public class BryansBrainUpdateRule extends AbstractUpdateRule<Coordinates2D<Inte
             case DYING:
                 return new BryansBrainCell(BryansBrainCellState.DEAD);
             case DEAD:
-                int aliveCells = countAliveNeighbors(neighborsPairs);
+                final int aliveCells = countAliveNeighbors(neighborsPairs);
                 return new BryansBrainCell(
                     aliveCells == ALIVE_NEIGHBOUR_BIRTH_VALUE ? BryansBrainCellState.ALIVE : BryansBrainCellState.DEAD);
             default:
