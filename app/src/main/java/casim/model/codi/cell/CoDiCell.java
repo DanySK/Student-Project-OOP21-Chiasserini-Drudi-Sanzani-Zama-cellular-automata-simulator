@@ -6,6 +6,7 @@ import java.util.Optional;
 import casim.model.abstraction.cell.AbstractCell;
 import casim.model.codi.cell.attributes.CoDiCellState;
 import casim.model.codi.cell.attributes.Direction;
+import casim.model.codi.utils.CodiUtils;
 
 /**
  * The CoDi cells.
@@ -14,7 +15,7 @@ public class CoDiCell extends AbstractCell<CoDiCellState> {
 
     private int activationCounter;
     private final Optional<Direction> gate;
-    private final EnumMap<Direction, Boolean> chromosome; //TODO se uso hashmap posso tornare copie difensive.
+    private final EnumMap<Direction, Boolean> chromosome; 
     private final EnumMap<Direction, Integer> neighborsPreviousInput;
 
     /**
@@ -82,7 +83,7 @@ public class CoDiCell extends AbstractCell<CoDiCellState> {
      * @return Return an {@link EnumMap} containing the previous output for each {@link Direction}.
      */
     public EnumMap<Direction, Integer> getNeighborsPreviousInput() {
-        return neighborsPreviousInput;
+        return CodiUtils.enumMapCopy(this.neighborsPreviousInput);
     }
 
     /**
@@ -118,7 +119,7 @@ public class CoDiCell extends AbstractCell<CoDiCellState> {
      * @return Return a {@link EnumMap} representing the chromosome of the cell.
      */
     public EnumMap<Direction, Boolean> getChromosome() {
-        return this.chromosome;
+        return CodiUtils.enumMapCopy(this.chromosome);
     }
 
 }
