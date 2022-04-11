@@ -1,9 +1,10 @@
-package casim.ui.view;
+package casim.ui.view.implementation;
 
 import casim.controller.automaton.AutomatonController;
 import casim.ui.components.grid.CanvasGridImpl;
 import casim.ui.components.page.PageContainer;
 import casim.ui.utils.StateColorMapper;
+import casim.ui.view.AutomatonViewController;
 import casim.utils.AbstractWorker;
 import casim.utils.Result;
 import javafx.beans.value.ObservableValue;
@@ -72,5 +73,9 @@ public class ConcurrentAutomatonViewController<T> extends AutomatonViewControlle
                 this.setStopped(true);
             }
         };
+    }
+
+    @Override
+    protected void viewConfig() {
     }
 }

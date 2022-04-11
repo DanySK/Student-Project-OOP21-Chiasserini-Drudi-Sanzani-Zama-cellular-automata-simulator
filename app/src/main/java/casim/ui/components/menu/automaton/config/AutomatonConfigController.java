@@ -1,9 +1,10 @@
-package casim.ui.components.menu.automaton;
+package casim.ui.components.menu.automaton.config;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
 import casim.controller.menu.MenuController;
 import casim.ui.components.page.PageContainer;
+import casim.utils.Alerts;
 import casim.utils.ViewUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -121,23 +122,16 @@ public class AutomatonConfigController {
 
     private boolean showAlertAndCheck(final String gridSize) {
         if (this.modeSelector.getSelectionModel().isEmpty()) {
-            this.showAlert(AlertType.ERROR, NO_MODES_SET);
+            Alerts.ofShowAndWait(AlertType.ERROR, NO_MODES_SET);
             return false;
         }
         if (!NumberUtils.isCreatable(gridSize) || Integer.parseInt(gridSize) < 0) {
-            this.showAlert(AlertType.ERROR, WRONG_SIZE);
+            Alerts.ofShowAndWait(AlertType.ERROR, WRONG_SIZE);
             return false;
         } else {
-            this.showAlert(AlertType.INFORMATION, SHOW_INFO + gridSize);
+            Alerts.ofShowAndWait(AlertType.INFORMATION, SHOW_INFO + gridSize);
             return true;
         }
-    }
-
-    private void showAlert(final AlertType type, final String content) {
-        final Alert alert = new Alert(type);
-        alert.setAlertType(type);
-        alert.setContentText(content);
-        alert.showAndWait();
     }
 
 }

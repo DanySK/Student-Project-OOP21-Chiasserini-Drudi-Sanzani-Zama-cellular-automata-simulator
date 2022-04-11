@@ -1,4 +1,4 @@
-package casim.ui.components.menu.automaton;
+package casim.ui.components.menu.automaton.config;
 
 import casim.controller.menu.MenuController;
 import casim.ui.components.page.PageContainer;

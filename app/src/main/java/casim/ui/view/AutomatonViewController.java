@@ -63,15 +63,6 @@ public abstract class AutomatonViewController<T> {
     }
 
     /**
-     * Return the {@link Node} which contains the view.
-     * 
-     * @return the {@link Node} which contains the view.
-     */
-    protected Node getView() {
-        return this.automatonView;
-    }
-
-    /**
      * Handle the "exit button" click.
      * 
      * @param event click event.
@@ -101,7 +92,13 @@ public abstract class AutomatonViewController<T> {
         this.automatonPane.getChildren().add(this.grid);
         this.automatonPane.widthProperty().addListener(this::onSizeChange);
         this.automatonPane.heightProperty().addListener(this::onSizeChange);
+        this.viewConfig();
     }
+
+    /**
+     *  Used to configure the view.
+     */
+    protected abstract void viewConfig();
 
     /**
      * Renders the new frame and updates the stats.
@@ -116,13 +113,18 @@ public abstract class AutomatonViewController<T> {
         }
     }
 
+    private void updateGrid() {
+        final var state = this.controller.next();
+        this.setCellsAndDraw(state);
+    }
+
     private void setCellsAndDraw(final Grid2D<T> state) {
         this.grid.setCells(state.map(this.colorMapper::toColor));
-        this.grid.draw();
+        Platform.runLater(() -> this.grid.draw());
     }
 
     /**
-     * Update the simlation's stats.
+     * Update the simulation's stats.
      */
     protected void updateStats() {
         final var s = this.controller.getStats();
@@ -158,6 +160,15 @@ public abstract class AutomatonViewController<T> {
     }
 
     /**
+     * Return the {@link Node} which contains the view.
+     * 
+     * @return the {@link Node} which contains the view.
+     */
+    protected Node getView() {
+        return this.automatonView;
+    }
+
+    /**
      * Handler for the size change property of the view.
      * 
      * @param obs the value to observe.
@@ -168,9 +179,4 @@ public abstract class AutomatonViewController<T> {
         this.grid.handleSizeChange(this.automatonPane.getWidth(), this.automatonPane.getHeight());
     }
 
-    private void updateGrid() {
-        final var state = this.controller.next();
-        this.grid.setCells(state.map(this.colorMapper::toColor));
-        Platform.runLater(() -> this.grid.draw());
-    }
 }
