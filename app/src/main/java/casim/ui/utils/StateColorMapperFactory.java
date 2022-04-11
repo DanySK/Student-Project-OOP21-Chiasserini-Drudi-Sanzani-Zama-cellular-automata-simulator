@@ -7,8 +7,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import casim.model.bryansbrain.BryansBrainCellState;
 import casim.model.codi.cell.attributes.CoDiCellState;
 import casim.model.langtonsant.LangtonsAntCellState;
+import casim.model.rule110.Rule110CellState;
 import casim.utils.Colors;
 import javafx.scene.paint.Color;
 
@@ -26,18 +28,9 @@ public final class StateColorMapperFactory {
      * @return the {@link StateColorMapper} for CoDi automaton.
      */
     public static StateColorMapper<CoDiCellState> getCoDiStateColorMapper() {
-        return new StateColorMapper<CoDiCellState>() {
-            private final List<CoDiCellState> stateList = Arrays.asList(CoDiCellState.values());
-            private final List<Color> colorList = List.of(Colors.BLACK, Colors.AMETHYST, Colors.FUSCIA,
-                    Colors.CARROT, Colors.ARCTIC, Colors.PARAKEET);
-            private final Map<CoDiCellState, Color> stateToColor = zipToMap(stateList, colorList);
-
-            @Override
-            public Color toColor(final CoDiCellState state) {
-                throwsIfNotPresent(stateList, state);
-                return stateToColor.get(state);
-            }
-        };
+        final var colorList = List.of(Colors.BLACK, Colors.AMETHYST, Colors.FUSCIA,
+            Colors.CARROT, Colors.ARCTIC, Colors.PARAKEET);
+        return getColorMapperFromLists(Arrays.asList(CoDiCellState.values()), colorList);
     }
 
     /**
@@ -46,23 +39,26 @@ public final class StateColorMapperFactory {
      * @return the {@link StateColorMapper} for Langton's Ant automaton.
      */
     public static StateColorMapper<LangtonsAntCellState> getLangtonsAntStateColorMapper() {
-        return new StateColorMapper<LangtonsAntCellState>() {
-            private final List<LangtonsAntCellState> stateList = Arrays.asList(LangtonsAntCellState.values());
-            private final List<Color> colorList = List.of(Colors.WHITE, Colors.BLACK);
-            private final Map<LangtonsAntCellState, Color> stateToColor = zipToMap(stateList, colorList);
-
-            @Override
-            public Color toColor(final LangtonsAntCellState state) {
-                throwsIfNotPresent(stateList, state);
-                return stateToColor.get(state);
-            }
-        };
+        return getColorMapperFromLists(
+            Arrays.asList(LangtonsAntCellState.values()), 
+            List.of(Colors.WHITE, Colors.BLACK));
     }
 
-    private static <T> void throwsIfNotPresent(final List<T> list, final T value) {
-        if (!list.contains(value)) {
-            throw new IllegalArgumentException("Invalid State");
-        }
+    public static StateColorMapper<BryansBrainCellState> getBryansBrainStateColorMapper() {
+        return getColorMapperFromLists(
+            Arrays.asList(BryansBrainCellState.values()),
+            List.of(Colors.WHITE, Colors.LIGHT_BLUE, Colors.BLACK));
+    }
+
+    public static StateColorMapper<Rule110CellState> getRule110StateColorMapper() {
+        return getColorMapperFromLists(
+            Arrays.asList(Rule110CellState.values()),
+            List.of(Colors.WHITE, Colors.BLACK));
+    }
+
+    private static <T> StateColorMapper<T> getColorMapperFromLists(final List<T> states, final List<Color> colors) {
+        final var stateToColor = zipToMap(states, colors);
+        return (state) -> stateToColor.get(state);
     }
 
     private static <T> Map<T, Color> zipToMap(final List<T> values, final List<Color> colors) {

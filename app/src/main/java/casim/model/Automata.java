@@ -5,7 +5,12 @@ package casim.model;
  * 
  */
 public enum Automata {
-    BRYANSBRAIN("Bryan's Brain");
+    BRYANS_BRAIN("Bryan's Brain"),
+    RULE110("Rule 110"),
+    WATOR("Predators and preys (Wator)"),
+    LANGTONS_ANT("Langton's ant"),
+    CODI("CoDi"),
+    GAME_OF_LIFE("Conway's game of life");
     
     private final String name;
     

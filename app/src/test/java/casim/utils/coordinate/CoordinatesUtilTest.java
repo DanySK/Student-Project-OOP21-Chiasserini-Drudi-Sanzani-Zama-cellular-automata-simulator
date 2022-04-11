@@ -1,9 +1,10 @@
 package casim.utils.coordinate;
 
 import java.util.List;
-
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 /**
  * Test class for {@link CoordinatesUtil}.
@@ -30,7 +31,7 @@ class CoordinatesUtilTest {
     @Test
     void testSum2D() {
         final Coordinates2D<Integer> intSum = CoordinatesUtil.sumInt(INTCOORD01, INTCOORD02);
-        Assert.assertEquals(intSum.getX().intValue(), INTCOORD01.getX() + INTCOORD02.getX());
+        assertEquals(intSum.getX().intValue(), INTCOORD01.getX() + INTCOORD02.getX());
     }
 
     /**
@@ -39,7 +40,7 @@ class CoordinatesUtilTest {
     @Test
     void testSum3D() {
         final Coordinates3D<Integer> intSum02 = CoordinatesUtil.sumInt(INTCOORD05, INTCOORD06);
-        Assert.assertEquals(intSum02.getX().intValue(), INTCOORD05.getX() + INTCOORD06.getX());
+        assertEquals(intSum02.getX().intValue(), INTCOORD05.getX() + INTCOORD06.getX());
     }
 
     /**
@@ -49,9 +50,9 @@ class CoordinatesUtilTest {
     void testIsValid2D() {
         final var coordI = CoordinatesUtil.of(10, 5);
         final var coordD = CoordinatesUtil.of(5.5, 10.5);
-        Assert.assertTrue(CoordinatesUtil.isValid(coordI, INTCOORD01, INTCOORD02));
-        Assert.assertFalse(CoordinatesUtil.isValid(coordI, INTCOORD03, INTCOORD04));
-        Assert.assertTrue(CoordinatesUtil.isValid(coordD, DOUBLECOORD01, DOUBLECOORD02));
+        assertTrue(CoordinatesUtil.isValid(coordI, INTCOORD01, INTCOORD02));
+        assertFalse(CoordinatesUtil.isValid(coordI, INTCOORD03, INTCOORD04));
+        assertTrue(CoordinatesUtil.isValid(coordD, DOUBLECOORD01, DOUBLECOORD02));
     }
 
     /**
@@ -61,9 +62,9 @@ class CoordinatesUtilTest {
     void testIsValid3D() {
         final var coord3DI = CoordinatesUtil.of(10, 5, 12);
         final var coord3DD = CoordinatesUtil.of(5.5, 10.5, 7.6);
-        Assert.assertTrue(CoordinatesUtil.isValid(coord3DI, INTCOORD05, INTCOORD06));
-        Assert.assertFalse(CoordinatesUtil.isValid(coord3DI, INTCOORD07, INTCOORD08));
-        Assert.assertTrue(CoordinatesUtil.isValid(coord3DD, DOUBLECOORD03, DOUBLECOORD04));
+        assertTrue(CoordinatesUtil.isValid(coord3DI, INTCOORD05, INTCOORD06));
+        assertFalse(CoordinatesUtil.isValid(coord3DI, INTCOORD07, INTCOORD08));
+        assertTrue(CoordinatesUtil.isValid(coord3DD, DOUBLECOORD03, DOUBLECOORD04));
     }
 
     /**
@@ -73,9 +74,9 @@ class CoordinatesUtilTest {
     void testIsValid2DWithOneCoord() {
         final var coordI = CoordinatesUtil.of(10, 5);
         final var coordD = CoordinatesUtil.of(5.5, 10.5);
-        Assert.assertTrue(CoordinatesUtil.isValid(coordI, INTCOORD02));
-        Assert.assertFalse(CoordinatesUtil.isValid(coordI, INTCOORD01));
-        Assert.assertTrue(CoordinatesUtil.isValid(coordD, DOUBLECOORD02));
+        assertTrue(CoordinatesUtil.isValid(coordI, INTCOORD02));
+        assertFalse(CoordinatesUtil.isValid(coordI, INTCOORD01));
+        assertTrue(CoordinatesUtil.isValid(coordD, DOUBLECOORD02));
     }
 
     /**
@@ -85,9 +86,9 @@ class CoordinatesUtilTest {
     void testIsValid3DWithOneCoord() {
         final var coord3DI = CoordinatesUtil.of(10, 5, 12);
         final var coord3DD = CoordinatesUtil.of(5.5, 10.5, 7.6);
-        Assert.assertTrue(CoordinatesUtil.isValid(coord3DI, INTCOORD06));
-        Assert.assertFalse(CoordinatesUtil.isValid(coord3DI, INTCOORD05));
-        Assert.assertTrue(CoordinatesUtil.isValid(coord3DD, DOUBLECOORD04));
+        assertTrue(CoordinatesUtil.isValid(coord3DI, INTCOORD06));
+        assertFalse(CoordinatesUtil.isValid(coord3DI, INTCOORD05));
+        assertTrue(CoordinatesUtil.isValid(coord3DD, DOUBLECOORD04));
     }
 
     /**
@@ -97,9 +98,9 @@ class CoordinatesUtilTest {
     void testIsValidOverload02() {
         final var coordI = CoordinatesUtil.of(10, 5);
         final var coordD = CoordinatesUtil.of(5.5, 10.5);
-        Assert.assertTrue(CoordinatesUtil.isValid(coordI, INTCOORD02.getX(), INTCOORD02.getY()));
-        Assert.assertFalse(CoordinatesUtil.isValid(coordI, INTCOORD01.getX(), INTCOORD01.getY()));
-        Assert.assertTrue(CoordinatesUtil.isValid(coordD, DOUBLECOORD02.getX(), DOUBLECOORD02.getY()));
+        assertTrue(CoordinatesUtil.isValid(coordI, INTCOORD02.getX(), INTCOORD02.getY()));
+        assertFalse(CoordinatesUtil.isValid(coordI, INTCOORD01.getX(), INTCOORD01.getY()));
+        assertTrue(CoordinatesUtil.isValid(coordD, DOUBLECOORD02.getX(), DOUBLECOORD02.getY()));
     }
 
     /**
@@ -109,9 +110,9 @@ class CoordinatesUtilTest {
     void testIsValid3DWithNumbers() {
         final var coord3DI = CoordinatesUtil.of(10, 5, 12);
         final var coord3DD = CoordinatesUtil.of(5.5, 10.5, 7.6);
-        Assert.assertTrue(CoordinatesUtil.isValid(coord3DI, INTCOORD06.getX(), INTCOORD06.getY(), INTCOORD06.getZ()));
-        Assert.assertFalse(CoordinatesUtil.isValid(coord3DI, INTCOORD05.getX(), INTCOORD05.getY(), INTCOORD05.getZ()));
-        Assert.assertTrue(CoordinatesUtil.isValid(coord3DD, DOUBLECOORD04.getX(), DOUBLECOORD04.getY(), DOUBLECOORD04.getZ()));
+        assertTrue(CoordinatesUtil.isValid(coord3DI, INTCOORD06.getX(), INTCOORD06.getY(), INTCOORD06.getZ()));
+        assertFalse(CoordinatesUtil.isValid(coord3DI, INTCOORD05.getX(), INTCOORD05.getY(), INTCOORD05.getZ()));
+        assertTrue(CoordinatesUtil.isValid(coord3DD, DOUBLECOORD04.getX(), DOUBLECOORD04.getY(), DOUBLECOORD04.getZ()));
     }
 
     /**
@@ -119,7 +120,7 @@ class CoordinatesUtilTest {
      */
     @Test
     void testGet2DNeighbors() {
-        Assert.assertEquals(CoordinatesUtil.get2DNeighbors(INTCOORD01), List.of(CoordinatesUtil.sumInt(INTCOORD01, CoordinatesUtil.of(1, 0)), 
+        assertEquals(CoordinatesUtil.get2DNeighbors(INTCOORD01), List.of(CoordinatesUtil.sumInt(INTCOORD01, CoordinatesUtil.of(1, 0)), 
             CoordinatesUtil.sumInt(INTCOORD01, CoordinatesUtil.of(0, 1)), CoordinatesUtil.sumInt(INTCOORD01, CoordinatesUtil.of(0, -1)),
             CoordinatesUtil.sumInt(INTCOORD01, CoordinatesUtil.of(-1, 0))));
     }
@@ -129,7 +130,7 @@ class CoordinatesUtilTest {
      */
     @Test
     void testGet3DNeighbors() {
-        Assert.assertEquals(List.of(CoordinatesUtil.sumInt(INTCOORD05, CoordinatesUtil.of(1, 0, 0)),
+        assertEquals(List.of(CoordinatesUtil.sumInt(INTCOORD05, CoordinatesUtil.of(1, 0, 0)),
         CoordinatesUtil.sumInt(INTCOORD05, CoordinatesUtil.of(-1, 0, 0)), CoordinatesUtil.sumInt(INTCOORD05, CoordinatesUtil.of(0, 1, 0)),
         CoordinatesUtil.sumInt(INTCOORD05, CoordinatesUtil.of(0, -1, 0)), CoordinatesUtil.sumInt(INTCOORD05, CoordinatesUtil.of(0, 0, 1)),
         CoordinatesUtil.sumInt(INTCOORD05, CoordinatesUtil.of(0, 0, -1))), CoordinatesUtil.get3DNeighbors(INTCOORD05));

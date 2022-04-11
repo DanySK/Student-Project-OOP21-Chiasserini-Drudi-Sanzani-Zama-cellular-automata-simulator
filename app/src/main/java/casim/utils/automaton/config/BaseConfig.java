@@ -1,22 +1,22 @@
-package casim.model.wator;
+package casim.utils.automaton.config;
 
 /**
- * {@link casim.model.wator.Wator}
- * configuration class.
+ * Basic configuration class
+ * for a {@link casim.model.abstraction.automaton.Automaton}.
  */
-public class WatorConfig {
+public class BaseConfig {
 
     private final int rows;
     private final int cols;
-    
+
     /**
-     * Constructs a new {@link WatorConfig}
-     * with given values.
+     * Constructs a {@link BaseConfig} with the
+     * given values.
      * 
      * @param rows the number of rows of the grid.
      * @param cols the number of columns of the grid.
      */
-    public WatorConfig(final int rows, final int cols) {
+    public BaseConfig(final int rows, final int cols) {
         this.rows = rows;
         this.cols = cols;
     }
@@ -24,7 +24,7 @@ public class WatorConfig {
     /**
      * Returns the number of rows.
      * 
-     * @return the number of rows of the grid.
+     * @return the number of rows in the grid.
      */
     public int getRows() {
         return this.rows;
@@ -33,7 +33,7 @@ public class WatorConfig {
     /**
      * Returns the number of columns.
      * 
-     * @return the number of columns of the grid.
+     * @return the number of columns in the grid.
      */
     public int getCols() {
         return this.cols;

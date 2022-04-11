@@ -3,7 +3,7 @@ package casim.ui.components.menu;
 import javafx.scene.control.Button;
 
 /**
- * An abstract button for {@link Menu}.
+ * An abstract button for {@link AbstractMenu}.
  */
 public abstract class AbstractMenuButton<T> extends Button {
     private final T data;

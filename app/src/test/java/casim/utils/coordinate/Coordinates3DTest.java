@@ -1,7 +1,9 @@
 package casim.utils.coordinate;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test for {@link Coordinates3D}.
@@ -17,7 +19,7 @@ class Coordinates3DTest {
      */
     @Test
     void testGetX() {
-        Assert.assertEquals(XVALUE, (int) COORD.getX());
+        assertEquals(XVALUE, (int) COORD.getX());
     }
 
     /**
@@ -25,7 +27,7 @@ class Coordinates3DTest {
      */
     @Test
     void testGetY() {
-        Assert.assertEquals(YVALUE, (int) COORD.getY());
+        assertEquals(YVALUE, (int) COORD.getY());
     }
 
     /**
@@ -33,7 +35,7 @@ class Coordinates3DTest {
      */
     @Test
     void testGetZ() {
-        Assert.assertEquals(ZVALUE, (int) COORD.getZ());
+        assertEquals(ZVALUE, (int) COORD.getZ());
     }
 
     /**
@@ -41,10 +43,10 @@ class Coordinates3DTest {
      */
     @Test
     void testEquals() {
-        Assert.assertTrue(COORD.equals(COORD));
+        assertEquals(COORD, COORD);
         var coord01 = CoordinatesUtil.of(XVALUE, YVALUE, ZVALUE);
-        Assert.assertTrue(COORD.equals(coord01));
+        assertEquals(COORD, coord01);
         coord01 = CoordinatesUtil.of(YVALUE, XVALUE, ZVALUE);
-        Assert.assertFalse(COORD.equals(coord01));
+        assertNotEquals(COORD, coord01);
     }
 }
