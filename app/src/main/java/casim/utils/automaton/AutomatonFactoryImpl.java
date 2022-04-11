@@ -26,8 +26,8 @@ public class AutomatonFactoryImpl implements AutomatonFactory {
     public BryansBrain getBryansBrainRandom(final WrappingConfig config) {
         final var rand = new Random();
         final var state = new Grid2DImpl<>(config.getRows(), config.getCols(), () -> {
-                final var randValue = rand.nextInt();
-                return BryansBrainCellState.values()[randValue % BryansBrainCellState.values().length];
+                final var randValue = rand.nextInt(BryansBrainCellState.values().length);
+                return BryansBrainCellState.values()[randValue];
         });
         return new BryansBrain(state, config.isWrapped());
     }
