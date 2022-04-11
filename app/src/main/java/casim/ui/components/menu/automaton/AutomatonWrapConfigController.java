@@ -8,7 +8,6 @@ import javafx.scene.control.CheckBox;
  * Controller class for the fxml AutomatonConfigMenu with also the wrap configuration.
  */
 public class AutomatonWrapConfigController extends AutomatonConfigController {
-
     private final CheckBox checkBox;
 
     /**

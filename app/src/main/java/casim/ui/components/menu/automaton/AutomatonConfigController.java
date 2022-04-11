@@ -25,7 +25,7 @@ public class AutomatonConfigController {
 
     private static final String NO_MODES_SET = "Please select a run mode";
     private static final String WRONG_SIZE = "Insert a valid integer number";
-    private static final String SHOW_SIZE = "The grid size is ";
+    private static final String SHOW_INFO = "The grid size is ";
 
     @FXML
     private VBox configView;
@@ -128,7 +128,7 @@ public class AutomatonConfigController {
             this.showAlert(AlertType.ERROR, WRONG_SIZE);
             return false;
         } else {
-            this.showAlert(AlertType.INFORMATION, SHOW_SIZE + gridSize);
+            this.showAlert(AlertType.INFORMATION, SHOW_INFO + gridSize);
             return true;
         }
     }
@@ -137,7 +137,7 @@ public class AutomatonConfigController {
         final Alert alert = new Alert(type);
         alert.setAlertType(type);
         alert.setContentText(content);
-        alert.show();
+        alert.showAndWait();
     }
 
 }
