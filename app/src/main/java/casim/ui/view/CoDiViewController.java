@@ -17,7 +17,9 @@ import javafx.stage.Modality;
  */
 public class CoDiViewController extends AutomatonViewController<CoDiCellState, CoDiControllerImpl> {
 
-    private static final String LAYER_INFO = "Remember you can change layer! (Default 0)\nA -> go left (-1)\nD -> go right (+1)";
+    private static final String LAYER_INFO = "Remember you can change layer! (Default 0)"
+            + "\nA -> go left (-1)"
+            + "\nD -> go right (+1)";
 
     @Override
     public void initData(
