@@ -8,6 +8,7 @@ public class BaseConfig {
 
     private final int rows;
     private final int cols;
+    private final boolean automatic;
 
     /**
      * Constructs a {@link BaseConfig} with the
@@ -16,9 +17,10 @@ public class BaseConfig {
      * @param rows the number of rows of the grid.
      * @param cols the number of columns of the grid.
      */
-    public BaseConfig(final int rows, final int cols) {
+    public BaseConfig(final int rows, final int cols, final boolean automatic) {
         this.rows = rows;
         this.cols = cols;
+        this.automatic = automatic;
     }
 
     /**
@@ -37,5 +39,9 @@ public class BaseConfig {
      */
     public int getCols() {
         return this.cols;
+    }
+
+    public boolean isAutomatic() {
+        return this.automatic;
     }
 }

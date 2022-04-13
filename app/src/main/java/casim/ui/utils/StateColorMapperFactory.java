@@ -9,8 +9,10 @@ import java.util.stream.IntStream;
 
 import casim.model.bryansbrain.BryansBrainCellState;
 import casim.model.codi.cell.attributes.CoDiCellState;
+import casim.model.gameoflife.GameOfLifeState;
 import casim.model.langtonsant.LangtonsAntCellState;
 import casim.model.rule110.Rule110CellState;
+import casim.model.wator.WatorCellState;
 import casim.utils.Colors;
 import javafx.scene.paint.Color;
 
@@ -42,6 +44,16 @@ public final class StateColorMapperFactory {
         return getColorMapperFromLists(
             Arrays.asList(LangtonsAntCellState.values()), 
             List.of(Colors.WHITE, Colors.BLACK));
+    }
+
+    public static StateColorMapper<WatorCellState> getWatorStateColorMapper() {
+        final var colorList = List.of(Colors.RED, Colors.GREEN, Colors.BLACK);
+        return getColorMapperFromLists(Arrays.asList(WatorCellState.values()), colorList);
+    }
+
+    public static StateColorMapper<GameOfLifeState> getGameOfLifeStateColorMapper() {
+        final var colorList = List.of(Colors.WHITE, Colors.BLACK);
+        return getColorMapperFromLists(Arrays.asList(GameOfLifeState.values()), colorList);
     }
 
     /**

@@ -34,9 +34,9 @@ public final class Result<T> {
      * @param function the supplier to be executed.
      * @return a {@link Result} holding the value.
      */
-    public static <T> Result<T> executeSupplier(final Supplier<T> function) {
+    public static <T, E extends Exception> Result<T> executeSupplier(final FailableSupplier<T, E> function) {
         try {
-            return Result.of(function.get());
+            return Result.of(function.run());
         } catch (Exception ex) {
             return Result.error(ex);
         }

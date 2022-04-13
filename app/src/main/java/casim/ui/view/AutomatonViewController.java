@@ -22,7 +22,7 @@ import javafx.scene.layout.VBox;
  * 
  * @param <T> the type of the cell state that the view has to represent.
  */
-public abstract class AutomatonViewController<T> {
+public class AutomatonViewController<T> {
     private static final String NO_NEXT_STEP = "No next step available.";
 
     @FXML
@@ -92,13 +92,7 @@ public abstract class AutomatonViewController<T> {
         this.automatonPane.getChildren().add(this.grid);
         this.automatonPane.widthProperty().addListener(this::onSizeChange);
         this.automatonPane.heightProperty().addListener(this::onSizeChange);
-        this.viewConfig();
     }
-
-    /**
-     *  Used to configure the view.
-     */
-    protected abstract void viewConfig();
 
     /**
      * Renders the new frame and updates the stats.

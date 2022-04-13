@@ -2,7 +2,7 @@ package casim.ui.components.menu.automaton;
 
 import casim.model.Automata;
 import casim.ui.components.menu.AbstractMenuButton;
-import casim.ui.utils.AlertBuilderImpl;
+import casim.utils.AppManager;
 
 /**
  * Bytton for the main menu.
@@ -21,8 +21,6 @@ public class AutomatonMenuButton extends AbstractMenuButton<Automata> {
 
     @Override
     public void onClick() {
-        //TODO: get the container from the menu and then push the automaton view (or the configuration) on top of the menu 
-        final var builder = new AlertBuilderImpl();
-        builder.buildDefaultInfo(this.getData().getName(), this.getMenu().getContainer().getOwner()).show();
+        AppManager.showConfigMenu(this.getData(), this.getMenu().getContainer());
     }
 }

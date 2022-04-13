@@ -36,7 +36,8 @@ public class Wator extends AbstractAutomaton<WatorCellState, WatorCell> {
 
     @Override
     public boolean hasNext() {
-        return true;
+        return this.state.stream()
+                .anyMatch(x -> !x.getState().equals(WatorCellState.DEAD));
     }
 
     @Override
