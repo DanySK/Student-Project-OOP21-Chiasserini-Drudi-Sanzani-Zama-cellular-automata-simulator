@@ -123,7 +123,7 @@ public class AutomatonConfigController {
 
     @FXML
     private void onBackBtnClick(final ActionEvent event) {
-        this.getContainer().popPage().getValue(); //check for error
+        this.getContainer().popPage().getValue(); //check for error //TODO: to check if exist a previous page maybe it's a good thing add a method to page container 
     }
 
     @FXML
@@ -139,8 +139,7 @@ public class AutomatonConfigController {
         if (this.modeSelector.getSelectionModel().isEmpty()) {
             Alerts.ofShowAndWait(AlertType.ERROR, NO_MODES_SET);
             return false;
-        }
-        if (!NumberUtils.isCreatable(gridSize) || Integer.parseInt(gridSize) < 0) { //TODO: Better handling maybe Result.execute
+        } else if (!NumberUtils.isCreatable(gridSize) || Integer.parseInt(gridSize) < 0) { //TODO: Better handling maybe Result.execute
             Alerts.ofShowAndWait(AlertType.ERROR, WRONG_SIZE);
             return false;
         } else {

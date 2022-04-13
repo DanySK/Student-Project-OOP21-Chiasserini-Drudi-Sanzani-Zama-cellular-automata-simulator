@@ -114,13 +114,13 @@ public class AutomatonViewController<T> {
 
     private void setCellsAndDraw(final Grid2D<T> state) {
         this.grid.setCells(state.map(this.colorMapper::toColor));
-        Platform.runLater(() -> this.grid.draw());
+        Platform.runLater(() -> this.grid.draw()); 
     }
 
     /**
      * Update the simulation's stats.
      */
-    protected void updateStats() {
+    private void updateStats() {
         final var s = this.controller.getStats();
         Platform.runLater(() -> this.statsLbl.setText(s.toString()));
     }

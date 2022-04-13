@@ -6,6 +6,7 @@ import casim.controller.menu.MenuControllerImpl;
 import casim.model.Automata;
 import casim.model.bryansbrain.BryansBrainCellState;
 import casim.model.codi.CoDiConfig;
+import casim.model.codi.cell.attributes.CoDiCellState;
 import casim.model.gameoflife.GameOfLifeState;
 import casim.model.langtonsant.LangtonsAntCellState;
 import casim.model.langtonsant.LangtonsAntConfig;
@@ -20,8 +21,9 @@ import casim.ui.components.page.PageContainer;
 import casim.ui.utils.StateColorMapperFactory;
 import casim.ui.utils.ViewEnum;
 import casim.ui.view.AutomatonViewController;
-import casim.ui.view.ConcurrentCoDiViewController;
 import casim.ui.view.ConcurrentAutomatonViewController;
+import casim.ui.view.codi.CoDiViewController;
+import casim.ui.view.codi.ConcurrentCoDiViewController;
 import casim.utils.automaton.AutomatonFactoryImpl;
 import casim.utils.automaton.config.BaseConfig;
 import casim.utils.automaton.config.WrappingConfig;
@@ -44,7 +46,7 @@ public final class AppManager {
         loader.setController(controller);
         final Result<VBox> view = Result.executeSupplier(() -> (VBox) loader.load());
         view.ifPresent(container::addPage);
-        return view.map(x -> new Empty() {});
+        return view.map(x -> new Empty() { });
     }
 
     public static Result<Empty> showSimulation(final Automata automata, final PageContainer container, final BaseConfig config) {
@@ -53,7 +55,7 @@ public final class AppManager {
         loader.setController(viewController);
         final Result<VBox> view = Result.executeSupplier(() -> (VBox) loader.load());
         view.ifPresent(container::addPage);
-        return view.map(x -> new Empty() {});
+        return view.map(x -> new Empty() { });
     }
 
     private static <T extends AutomatonViewController<?>> T getAutomatonViewControllerFromAutomata(final Automata automata, final PageContainer container, final BaseConfig config) {
@@ -85,15 +87,14 @@ public final class AppManager {
             : new AutomatonViewController<>(container, controller, grid, mapper);
     }
 
-    private static ConcurrentCoDiViewController getCoDiViewController(final PageContainer container, final CoDiConfig config) {
+    private static AutomatonViewController<CoDiCellState> getCoDiViewController(final PageContainer container, final CoDiConfig config) {
         final var automaton = AUTOMATON_FACTORY.getCoDi(config);
         final var controller = new CoDiControllerImpl(automaton);
         final var grid = getGrid(config.getCols(), config.getRows());
         final var mapper = StateColorMapperFactory.getCoDiStateColorMapper();
-        // return config.isAutomatic() TODO:
-        //     ? new ConcurrentAutomatonViewController<>(container, controller, grid, mapper)
-        //     : new AutomatonViewController<>(container, controller, grid, mapper);
-        return new ConcurrentCoDiViewController(container, controller, grid, mapper);
+        return config.isAutomatic()
+             ? new ConcurrentCoDiViewController(container, controller, grid, mapper)
+             : new CoDiViewController(container, controller, grid, mapper);
     }
 
     private static AutomatonViewController<WatorCellState> getWatorViewController(final PageContainer container, final BaseConfig config) {

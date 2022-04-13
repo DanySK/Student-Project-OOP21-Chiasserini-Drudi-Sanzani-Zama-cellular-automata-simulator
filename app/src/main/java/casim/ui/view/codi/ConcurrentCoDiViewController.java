@@ -1,13 +1,13 @@
-package casim.ui.view;
+package casim.ui.view.codi;
 
 import casim.controller.automaton.CoDiControllerImpl;
 import casim.model.codi.cell.attributes.CoDiCellState;
 import casim.ui.components.grid.CanvasGridImpl;
 import casim.ui.components.page.PageContainer;
 import casim.ui.utils.StateColorMapper;
-import casim.utils.Alerts;
+import casim.ui.view.ConcurrentAutomatonViewController;
+import casim.utils.grid.Grid2D;
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -15,10 +15,6 @@ import javafx.scene.input.KeyEvent;
  * Implementation of CoDi's {@link AutomatonViewController}.
  */
 public class ConcurrentCoDiViewController extends ConcurrentAutomatonViewController<CoDiCellState> {
-
-    private static final String LAYER_INFO = "Remember you can change layer! (Default 0)"
-            + "\nA -> go left (-1)"
-            + "\nD -> go right (+1)";
 
     /**
      * Construct a new {@link ConcurrentCoDiViewController}.
@@ -31,7 +27,7 @@ public class ConcurrentCoDiViewController extends ConcurrentAutomatonViewControl
     public ConcurrentCoDiViewController(final PageContainer container, final CoDiControllerImpl controller,
             final CanvasGridImpl grid, final StateColorMapper<CoDiCellState> colorMapper) {
         super(container, controller, grid, colorMapper);
-        Alerts.ofShowAndWait(AlertType.INFORMATION, LAYER_INFO);
+        CoDiViewUtils.showStartAlert(container);
     }
 
     @Override
@@ -39,16 +35,24 @@ public class ConcurrentCoDiViewController extends ConcurrentAutomatonViewControl
         super.initialize();
         this.getView().addEventFilter(KeyEvent.KEY_PRESSED, this.changeLayerHandler());
     }
+    @Override
+    protected synchronized void setCellsDrawUpdateStats(final Grid2D<CoDiCellState> state) {
+        synchronized (this) {
+            super.setCellsDrawUpdateStats(state);
+        }
+    }
 
     private EventHandler<KeyEvent> changeLayerHandler() {
         return new EventHandler<KeyEvent>() {
             @Override
             public void handle(final KeyEvent event) {
-                if (event.getCode() == KeyCode.A) {  //TODO: is that right or synchronyzed is needed?
-                    final var state = ((CoDiControllerImpl) ConcurrentCoDiViewController.this.getController()).outputLayerLeftShift();
+                if (event.getCode() == KeyCode.A) {
+                    final var state = ((CoDiControllerImpl) ConcurrentCoDiViewController.this.getController())
+                            .outputLayerLeftShift();
                     ConcurrentCoDiViewController.this.setCellsDrawUpdateStats(state);
                 } else if (event.getCode() == KeyCode.D) {
-                    final var state = ((CoDiControllerImpl) ConcurrentCoDiViewController.this.getController()).outputLayerRightShift();
+                    final var state = ((CoDiControllerImpl) ConcurrentCoDiViewController.this.getController())
+                            .outputLayerRightShift();
                     ConcurrentCoDiViewController.this.setCellsDrawUpdateStats(state);
                }
             }
