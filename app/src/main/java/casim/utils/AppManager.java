@@ -20,7 +20,7 @@ import casim.ui.components.page.PageContainer;
 import casim.ui.utils.StateColorMapperFactory;
 import casim.ui.utils.ViewEnum;
 import casim.ui.view.AutomatonViewController;
-import casim.ui.view.CoDiViewController;
+import casim.ui.view.ConcurrentCoDiViewController;
 import casim.ui.view.ConcurrentAutomatonViewController;
 import casim.utils.automaton.AutomatonFactoryImpl;
 import casim.utils.automaton.config.BaseConfig;
@@ -85,7 +85,7 @@ public final class AppManager {
             : new AutomatonViewController<>(container, controller, grid, mapper);
     }
 
-    private static CoDiViewController getCoDiViewController(final PageContainer container, final CoDiConfig config) {
+    private static ConcurrentCoDiViewController getCoDiViewController(final PageContainer container, final CoDiConfig config) {
         final var automaton = AUTOMATON_FACTORY.getCoDi(config);
         final var controller = new CoDiControllerImpl(automaton);
         final var grid = getGrid(config.getCols(), config.getRows());
@@ -93,7 +93,7 @@ public final class AppManager {
         // return config.isAutomatic() TODO:
         //     ? new ConcurrentAutomatonViewController<>(container, controller, grid, mapper)
         //     : new AutomatonViewController<>(container, controller, grid, mapper);
-        return new CoDiViewController(container, controller, grid, mapper);
+        return new ConcurrentCoDiViewController(container, controller, grid, mapper);
     }
 
     private static AutomatonViewController<WatorCellState> getWatorViewController(final PageContainer container, final BaseConfig config) {
