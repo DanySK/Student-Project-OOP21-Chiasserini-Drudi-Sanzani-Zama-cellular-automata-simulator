@@ -1,4 +1,4 @@
-package casim.ui.view.implementation;
+package casim.ui.view;
 
 import casim.controller.automaton.CoDiControllerImpl;
 import casim.model.codi.cell.attributes.CoDiCellState;
@@ -35,7 +35,8 @@ public class CoDiViewController extends ConcurrentAutomatonViewController<CoDiCe
     }
 
     @Override
-    protected void viewConfig() {
+    protected void initialize() {
+        super.initialize();
         this.getView().addEventFilter(KeyEvent.KEY_PRESSED, this.changeLayerHandler());
     }
 
