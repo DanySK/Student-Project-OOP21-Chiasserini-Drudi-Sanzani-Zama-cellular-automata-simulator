@@ -29,7 +29,7 @@ import casim.model.gameoflife.GameOfLifeState;
  */
 public class AutomatonFactoryImpl implements AutomatonFactory {
     private static final String UNKNOWN_AUTOMATON = "Unknown automaton.";
-    private static final int MAX_CHANCE = 101;
+    private static final int MAX_CHANCE = 100;
     private static final int PREY_CHANCE = 2;
     private static final int PREDATOR_CHANCE = 3;
 
