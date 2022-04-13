@@ -26,11 +26,12 @@ import javafx.scene.layout.VBox;
  */
 public class AutomatonConfigController {
 
-    private static final String UNKNOWN_AUTOMATON = "Unknown automaton.";
-    private static final String WRONG_MENU = "Wrong Configuration Menu.";
+    protected static final String WRONG_MENU = "Wrong Configuration Menu.";
     private static final String NO_MODES_SET = "Please select a run mode";
     private static final String WRONG_SIZE = "Insert a valid integer number";
     private static final String SHOW_INFO = "The grid size is ";
+    private static final String AUTOMATIC = "Automatic";
+    private static final String MANUAL = "Manual";
 
     @FXML
     private VBox configView;
@@ -79,7 +80,7 @@ public class AutomatonConfigController {
     @FXML
     protected void initialize() {
         ViewUtils.fitToAnchorPane(this.configView);
-        final ObservableList<String> names = FXCollections.observableArrayList("Automatic", "Manual");
+        final ObservableList<String> names = FXCollections.observableArrayList(AUTOMATIC, MANUAL);
         this.modeSelector.setItems(names);
     }
 
@@ -93,6 +94,33 @@ public class AutomatonConfigController {
         this.extension.getChildren().add(node);
     }
 
+    protected Automata getAutomata() {
+        return this.automata;
+    }
+
+    protected String getSizeText() {
+        return this.sizeField.getText();
+    }
+
+    protected boolean isAutomatic() {
+        return this.modeSelector.getValue().equals(AUTOMATIC);
+    }
+
+    protected BaseConfig getConfig() {
+        final var isAutomatic = this.isAutomatic();
+        final int size = Integer.parseInt(this.getSizeText());
+
+        switch (this.getAutomata()) {
+            case CODI:
+                return (BaseConfig) new CoDiConfig(size, size, size, isAutomatic);
+            case RULE110:
+            case WATOR:
+                return new BaseConfig(size, size, isAutomatic);
+            default:
+                throw new UnsupportedOperationException(WRONG_MENU);
+        }
+    }
+
     @FXML
     private void onBackBtnClick(final ActionEvent event) {
         this.getContainer().popPage().getValue(); //check for error
@@ -103,26 +131,7 @@ public class AutomatonConfigController {
         if (this.showAlertAndCheck(this.sizeField.getText())) {
             //TODO: Check if is automatic && check type of automata for config type
             final var config = this.getConfig();
-            AppManager.showSimulation(this.automata, this.getContainer(), config);
-        }
-    }
-
-    private BaseConfig getConfig() {
-        final var isAutomatic = true;
-        final int size = Integer.parseInt(this.sizeField.getText());
-
-        switch (this.automata) {
-            case CODI:
-                return (BaseConfig) new CoDiConfig(size, size, size, isAutomatic);
-            case RULE110:
-            case WATOR:
-                return new BaseConfig(size, size, isAutomatic);
-            case BRYANS_BRAIN:
-            case GAME_OF_LIFE:
-            case LANGTONS_ANT:
-                throw new UnsupportedOperationException(WRONG_MENU);
-            default:
-                throw new IllegalArgumentException(UNKNOWN_AUTOMATON);
+            AppManager.showSimulation(this.getAutomata(), this.getContainer(), config);
         }
     }
 
