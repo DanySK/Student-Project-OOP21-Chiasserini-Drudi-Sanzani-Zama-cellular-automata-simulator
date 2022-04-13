@@ -44,7 +44,7 @@ public class PageContainer extends AnchorPane {
      * @param page the page to add.
      */
     public void addPage(final Node page) {
-        this.pages.add(page);
+        this.pages.push(page);
         this.showCurrentPage();
     }
 
