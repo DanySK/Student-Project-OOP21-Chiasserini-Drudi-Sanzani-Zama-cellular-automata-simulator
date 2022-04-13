@@ -19,8 +19,9 @@ public class LangtonsAntConfig extends WrappingConfig {
      * @param wrapping true if the grid is a wrapping grid.
      * @param antNumber the number of ants in the automaton.
      */
-    public LangtonsAntConfig(final int rows, final int cols, final boolean wrapping, final int antNumber) {
-        super(rows, cols, wrapping);
+    public LangtonsAntConfig(
+            final int rows, final int cols, final boolean isAutomatic, final boolean wrapping, final int antNumber) {
+        super(rows, cols, isAutomatic, wrapping);
         this.antNumber = antNumber;
     }
 

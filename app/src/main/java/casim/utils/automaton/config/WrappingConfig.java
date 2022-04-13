@@ -16,8 +16,8 @@ public class WrappingConfig extends BaseConfig {
      * @param cols the number of columns of the grid.
      * @param wrapping true if the grid is a wrapping grid.
      */
-    public WrappingConfig(final int rows, final int cols, final boolean wrapping) {
-        super(rows, cols);
+    public WrappingConfig(final int rows, final int cols, final boolean isAutomatic, final boolean wrapping) {
+        super(rows, cols, isAutomatic);
         this.wrapping = wrapping;
     }
 

@@ -16,8 +16,8 @@ public class CoDiConfig extends BaseConfig {
      * @param cols the number of columns of the grid.
      * @param depth the depth of the grid.
      */
-    public CoDiConfig(final int rows, final int cols, final int depth) {
-        super(rows, cols);
+    public CoDiConfig(final int rows, final int cols, final int depth, final boolean isAutomatic) {
+        super(rows, cols, isAutomatic);
         this.depth = depth;
     }
 
