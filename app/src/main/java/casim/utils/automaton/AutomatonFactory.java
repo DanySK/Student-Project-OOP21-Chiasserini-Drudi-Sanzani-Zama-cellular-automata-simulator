@@ -1,10 +1,15 @@
 package casim.utils.automaton;
 
+import casim.model.Automata;
+import casim.model.abstraction.automaton.AbstractAutomaton;
+import casim.model.abstraction.cell.AbstractCell;
 import casim.model.bryansbrain.BryansBrain;
 import casim.model.codi.CoDi;
 import casim.model.codi.CoDiConfig;
+import casim.model.gameoflife.GameOfLife;
 import casim.model.langtonsant.LangtonsAnt;
 import casim.model.langtonsant.LangtonsAntConfig;
+import casim.model.rule110.Rule110;
 import casim.model.wator.Wator;
 import casim.utils.automaton.config.BaseConfig;
 import casim.utils.automaton.config.WrappingConfig;
@@ -13,6 +18,8 @@ import casim.utils.automaton.config.WrappingConfig;
  * A factory for the automaton creation.
  */
 public interface AutomatonFactory {
+
+    <S, T extends AbstractCell<S>, C extends BaseConfig, O extends AbstractAutomaton<S, T>> O getAutomatonFromAutomataEnum(final Automata automata, final C config);
 
     /**
      * Return a new {@link BryansBrain} automaton.
@@ -49,4 +56,8 @@ public interface AutomatonFactory {
      * @return a new {@link Wator} automaton.
      */
     Wator getWator(BaseConfig config);
+
+    Rule110 getRule110(BaseConfig config);
+
+    GameOfLife getGameOfLife(WrappingConfig config);
 }

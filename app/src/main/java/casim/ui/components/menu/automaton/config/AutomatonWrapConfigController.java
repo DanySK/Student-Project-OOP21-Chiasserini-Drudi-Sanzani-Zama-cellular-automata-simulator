@@ -1,6 +1,6 @@
 package casim.ui.components.menu.automaton.config;
 
-import casim.controller.menu.MenuController;
+import casim.model.Automata;
 import casim.ui.components.page.PageContainer;
 import javafx.scene.control.CheckBox;
 
@@ -16,8 +16,8 @@ public class AutomatonWrapConfigController extends AutomatonConfigController {
      * @param container the container of the menu.
      * @param controller the controller.
      */
-    public AutomatonWrapConfigController(final PageContainer container, final MenuController controller) {
-        super(container, controller);
+    public AutomatonWrapConfigController(final PageContainer container, final Automata automata) {
+        super(container, automata);
         this.checkBox = new CheckBox("Wrapped Grid");
     }
 
@@ -26,10 +26,4 @@ public class AutomatonWrapConfigController extends AutomatonConfigController {
         super.initialize();
         this.addExtension(checkBox);
     }
-
-    @Override
-    protected void valuesToController() {
-
-    }
-
 }

@@ -3,60 +3,18 @@
  */
 package casim;
 
-import casim.controller.automaton.AutomatonControllerImpl;
-import casim.model.bryansbrain.BryansBrainCellState;
-import casim.ui.components.grid.CanvasGridBuilderImpl;
-import casim.ui.components.grid.CanvasGridImpl;
-import casim.ui.components.page.PageContainer;
-import casim.ui.utils.StateColorMapperFactory;
-import casim.ui.view.implementation.ConcurrentAutomatonViewController;
-import casim.utils.automaton.AutomatonFactoryImpl;
-import casim.utils.automaton.config.WrappingConfig;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import java.awt.GraphicsEnvironment;
-import java.io.IOException;
+
+import casim.ui.components.page.PageContainer;
+import casim.utils.AppManager;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  * Main project class.
  */
 public class App extends Application {
-
-    private static final int ROWS = 250;
-    private static final int COLS = 250;
-    private static final int DEPTH = 100;
-
-    private CanvasGridImpl getGrid() {
-        final var grid = new CanvasGridBuilderImpl().build(ROWS, COLS);
-        return (CanvasGridImpl) grid;
-    }
-
-    private void startBryansBrainFXML(final Stage primaryStage) throws IOException {
-        final var automaton = new AutomatonFactoryImpl().getBryansBrainRandom(new WrappingConfig(ROWS, COLS, true));
-        final var controller = new AutomatonControllerImpl<>(automaton);
-        final var root = new PageContainer(primaryStage);
-        final var loader = new FXMLLoader(getClass().getResource("/automatonView.fxml"));
-        final var viewController = new ConcurrentAutomatonViewController<BryansBrainCellState>(
-            root, controller, this.getGrid(), StateColorMapperFactory.getBryansBrainStateColorMapper());
-        loader.setController(viewController);
-        final var view = (VBox) loader.load();
-
-        final var graphics = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-        final var width = graphics.getDisplayMode().getWidth() / 2;
-        final var height = graphics.getDisplayMode().getHeight() / 2;
-
-        primaryStage.setWidth(width);
-        primaryStage.setHeight(height);
-
-        root.addPage(view);
-        final var scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
     /**
      * Entry point.
      * 
@@ -68,6 +26,17 @@ public class App extends Application {
 
     @Override
     public void start(final Stage primaryStage) throws Exception {
-        this.startBryansBrainFXML(primaryStage);
+        final var graphics = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        final var width = graphics.getDisplayMode().getWidth() / 2;
+        final var height = graphics.getDisplayMode().getHeight() / 2;
+
+        primaryStage.setWidth(width);
+        primaryStage.setHeight(height);
+
+        final var root = new PageContainer(primaryStage);
+        AppManager.showMainMenu(root);
+        final var scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 }
