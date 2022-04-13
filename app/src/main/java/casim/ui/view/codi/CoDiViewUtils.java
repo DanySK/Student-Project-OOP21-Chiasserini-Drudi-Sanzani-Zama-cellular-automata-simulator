@@ -8,9 +8,10 @@ import casim.ui.utils.AlertBuilderImpl;
  */
 public final class CoDiViewUtils {
 
+    private static final String NEWLINE = System.lineSeparator();
     private static final String LAYER_INFO = "Remember you can change layer! (Default 0)"
-            + "\nA -> go left (-1)"
-            + "\nD -> go right (+1)";
+            + NEWLINE + "A -> go left (-1)"
+            + NEWLINE + "D -> go right (+1)";
 
     private CoDiViewUtils() {
     }
