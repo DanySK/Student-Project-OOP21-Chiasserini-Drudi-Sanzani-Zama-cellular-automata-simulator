@@ -136,7 +136,6 @@ public class LangtonsAnt extends AbstractAutomaton<LangtonsAntCellState, Langton
     @Override
     public Grid2D<LangtonsAntCell> getGrid() {
         return this.state;
-        // TODO return unmodifiable copy
     }
 
 }

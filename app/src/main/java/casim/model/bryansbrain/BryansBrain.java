@@ -56,7 +56,6 @@ public class BryansBrain extends AbstractAutomaton<BryansBrainCellState, BryansB
 
     @Override
     public Grid2D<BryansBrainCell> getGrid() {
-        // TODO return unmodifiable copy
         return this.state;
     }
 }

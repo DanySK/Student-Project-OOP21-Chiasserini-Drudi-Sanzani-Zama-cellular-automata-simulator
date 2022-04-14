@@ -69,8 +69,7 @@ public class PageContainer extends AnchorPane {
      */
     public Result<Empty> popPage() {
         final var output = Result.ofEmpty()
-            .require(x -> !this.pages.isEmpty(), new IllegalStateException(NO_PREVIOUS_PAGE));
-        //TODO: CHECK LAST PAGE
+            .require(x -> this.pages.size() > 1, new IllegalStateException(NO_PREVIOUS_PAGE));
         output.ifPresent(x -> {
             this.pages.pop();
             this.showCurrentPage();

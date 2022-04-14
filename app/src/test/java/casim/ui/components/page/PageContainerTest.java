@@ -1,7 +1,6 @@
 package casim.ui.components.page;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -32,7 +31,6 @@ class PageContainerTest {
         container.addPage(this.testCanvas);
         container.addPage(this.testShape);
         assertTrue(container.popPage().isPresent());
-        assertDoesNotThrow(() -> container.popPage().getValue());
         assertThrows(NoSuchElementException.class, () -> container.popPage().getValue());
     }
 }

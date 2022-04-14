@@ -57,7 +57,8 @@ public final class AppManager {
      * @return {@link Result} holding {@link Empty} if there is no error, an exception otherwise.
      */
     public static Result<Empty> showConfigMenu(final Automata automata, final PageContainer container) {
-        final var loader = new FXMLLoader(AppManager.class.getResource(ViewEnum.AUTOMATON_CONFIG_MENU.getResourceName()));
+        final var loader = new FXMLLoader(
+            AppManager.class.getResource(ViewEnum.AUTOMATON_CONFIG_MENU.getResourceName()));
         final var controller = getConfigController(automata, container);
         loader.setController(controller);
         final Result<VBox> view = Result.executeSupplier(() -> (VBox) loader.load());
@@ -73,8 +74,10 @@ public final class AppManager {
      * @param config the configuration object.
      * @return {@link Result} holding {@link Empty} if there is no error, an exception otherwise.
      */
-    public static Result<Empty> showSimulation(final Automata automata, final PageContainer container, final BaseConfig config) {
-        final var loader = new FXMLLoader(AppManager.class.getResource(ViewEnum.AUTOMATON_VIEW.getResourceName()));
+    public static Result<Empty> showSimulation(
+            final Automata automata, final PageContainer container, final BaseConfig config) {
+        final var loader = new FXMLLoader(
+            AppManager.class.getResource(ViewEnum.AUTOMATON_VIEW.getResourceName()));
         final var viewController = getAutomatonViewControllerFromAutomata(automata, container, config);
         loader.setController(viewController);
         final Result<VBox> view = Result.executeSupplier(() -> (VBox) loader.load());
@@ -84,7 +87,8 @@ public final class AppManager {
 
     //TODO: ask
     @SuppressWarnings("unchecked")
-    private static <T extends AutomatonViewController<?>> T getAutomatonViewControllerFromAutomata(final Automata automata, final PageContainer container, final BaseConfig config) {
+    private static <T extends AutomatonViewController<?>> T getAutomatonViewControllerFromAutomata(
+            final Automata automata, final PageContainer container, final BaseConfig config) {
         switch (automata) {
             case CODI:
                 return (T) getCoDiViewController(container, (CoDiConfig) config);
@@ -103,7 +107,8 @@ public final class AppManager {
         }
     }
 
-    private static AutomatonViewController<BryansBrainCellState> getBryansBrainViewController(final PageContainer container, final WrappingConfig config) {
+    private static AutomatonViewController<BryansBrainCellState> getBryansBrainViewController(
+            final PageContainer container, final WrappingConfig config) {
         final var controller = new AutomatonControllerImpl<>(AUTOMATON_FACTORY.getBryansBrainRandom(config));
         return getAutomatonViewController(
             container,
@@ -113,7 +118,8 @@ public final class AppManager {
             config.isAutomatic());
     }
 
-    private static AutomatonViewController<CoDiCellState> getCoDiViewController(final PageContainer container, final CoDiConfig config) {
+    private static AutomatonViewController<CoDiCellState> getCoDiViewController(
+            final PageContainer container, final CoDiConfig config) {
         final var controller = new CoDiControllerImpl(AUTOMATON_FACTORY.getCoDi(config));
         return getAutomatonViewController(
             container,
@@ -123,7 +129,8 @@ public final class AppManager {
             config.isAutomatic());
     }
 
-    private static AutomatonViewController<WatorCellState> getWatorViewController(final PageContainer container, final BaseConfig config) {
+    private static AutomatonViewController<WatorCellState> getWatorViewController(
+            final PageContainer container, final BaseConfig config) {
         final var controller = new AutomatonControllerImpl<>(AUTOMATON_FACTORY.getWator(config));
         return getAutomatonViewController(
             container,
@@ -133,7 +140,8 @@ public final class AppManager {
             config.isAutomatic());
     }
 
-    private static AutomatonViewController<LangtonsAntCellState> getLangtonsAntViewController(final PageContainer container, final LangtonsAntConfig config) {
+    private static AutomatonViewController<LangtonsAntCellState> getLangtonsAntViewController(
+            final PageContainer container, final LangtonsAntConfig config) {
         final var controller = new AutomatonControllerImpl<>(AUTOMATON_FACTORY.getLangtonsAnt(config));
         return getAutomatonViewController(
             container,
@@ -143,7 +151,8 @@ public final class AppManager {
             config.isAutomatic());
     }
 
-    private static AutomatonViewController<Rule110CellState> getRule110ViewController(final PageContainer container, final BaseConfig config) {
+    private static AutomatonViewController<Rule110CellState> getRule110ViewController(
+            final PageContainer container, final BaseConfig config) {
         final var controller = new AutomatonControllerImpl<>(AUTOMATON_FACTORY.getRule110(config));
         return getAutomatonViewController(
             container,
@@ -153,7 +162,8 @@ public final class AppManager {
             config.isAutomatic());
     }
 
-    private static AutomatonViewController<GameOfLifeState> getGameOfLifeViewController(final PageContainer container, final WrappingConfig config) {
+    private static AutomatonViewController<GameOfLifeState> getGameOfLifeViewController(
+            final PageContainer container, final WrappingConfig config) {
         final var controller = new AutomatonControllerImpl<>(AUTOMATON_FACTORY.getGameOfLife(config));
         return getAutomatonViewController(
             container,
@@ -164,13 +174,15 @@ public final class AppManager {
     }
 
     private static <T, C extends AbstractCell<T>> AutomatonViewController<T> getAutomatonViewController(
-            final PageContainer container, final AutomatonController<T> controller, final CanvasGridImpl grid, final StateColorMapper<T> mapper, final boolean isAutomatic) {
+            final PageContainer container, final AutomatonController<T> controller, final CanvasGridImpl grid,
+            final StateColorMapper<T> mapper, final boolean isAutomatic) {
         return isAutomatic
             ? new ConcurrentAutomatonViewController<>(container, controller, grid, mapper)
             : new AutomatonViewController<>(container, controller, grid, mapper);
     } 
 
-    private static AutomatonConfigController getConfigController(final Automata automata, final PageContainer container) {
+    private static AutomatonConfigController getConfigController(
+            final Automata automata, final PageContainer container) {
         switch (automata) {
             case CODI:
             case RULE110:
