@@ -23,6 +23,7 @@ public abstract class AbstractMenu extends VBox {
     public AbstractMenu(final PageContainer container, final MenuController controller) {
         this.controller = controller;
         this.container = container;
+        this.setStyle("-fx-font-size: 20");
     }
 
     /**
