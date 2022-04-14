@@ -24,6 +24,9 @@ import casim.model.gameoflife.GameOfLifeState;
  * {@link AutomatonFactory} implementation.
  */
 public class AutomatonFactoryImpl implements AutomatonFactory {
+    private static final int MAX_CHANCE = 100;
+    private static final int PREY_CHANCE = 2;
+    private static final int PREDATOR_CHANCE = 3;
 
     @Override
     public BryansBrain getBryansBrainRandom(final WrappingConfig config) {
@@ -52,8 +55,13 @@ public class AutomatonFactoryImpl implements AutomatonFactory {
     public Wator getWator(final BaseConfig config) {
         final var rng = new Random();
         final var state = new Grid2DImpl<>(config.getRows(), config.getCols(), () -> {
-            final var val = rng.nextInt(WatorCellState.values().length);
-            return WatorCellState.values()[val];
+            final var val = rng.nextInt(MAX_CHANCE);
+            if (val <= PREY_CHANCE) {
+                return WatorCellState.PREY;
+            } else if (val <= PREDATOR_CHANCE + PREY_CHANCE) {
+                return WatorCellState.PREDATOR;
+            }
+            return WatorCellState.DEAD;
         });
         return new Wator(state);
     }

@@ -48,7 +48,7 @@ public final class AppManager {
         loader.setController(controller);
         final Result<VBox> view = Result.executeSupplier(() -> (VBox) loader.load());
         view.ifPresent(container::addPage);
-        return view.map(x -> new Empty() {});
+        return view.map(x -> new Empty() { });
     }
 
     public static Result<Empty> showSimulation(final Automata automata, final PageContainer container, final BaseConfig config) {
@@ -57,7 +57,7 @@ public final class AppManager {
         loader.setController(viewController);
         final Result<VBox> view = Result.executeSupplier(() -> (VBox) loader.load());
         view.ifPresent(container::addPage);
-        return view.map(x -> new Empty() {});
+        return view.map(x -> new Empty() { });
     }
 
     private static <T extends AutomatonViewController<?>> T getAutomatonViewControllerFromAutomata(final Automata automata, final PageContainer container, final BaseConfig config) {

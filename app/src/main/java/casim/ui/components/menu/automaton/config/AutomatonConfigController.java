@@ -5,7 +5,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import casim.model.Automata;
 import casim.model.codi.CoDiConfig;
 import casim.ui.components.page.PageContainer;
-import casim.utils.Alerts;
+import casim.ui.utils.AlertBuilderImpl;
 import casim.utils.AppManager;
 import casim.utils.ViewUtils;
 import casim.utils.automaton.config.BaseConfig;
@@ -123,7 +123,7 @@ public class AutomatonConfigController {
 
     @FXML
     private void onBackBtnClick(final ActionEvent event) {
-        this.getContainer().popPage().getValue(); //check for error
+        this.getContainer().popPage().getValue(); //check for error //TODO: to check if exist a previous page maybe it's a good thing add a method to page container 
     }
 
     @FXML
@@ -136,15 +136,18 @@ public class AutomatonConfigController {
     }
 
     private boolean showAlertAndCheck(final String gridSize) {
+        final var alertBuilder = new AlertBuilderImpl();
         if (this.modeSelector.getSelectionModel().isEmpty()) {
-            Alerts.ofShowAndWait(AlertType.ERROR, NO_MODES_SET);
+            alertBuilder.buildDefaultError(NO_MODES_SET, this.getContainer().getOwner())
+            .showAndWait();
             return false;
-        }
-        if (!NumberUtils.isCreatable(gridSize) || Integer.parseInt(gridSize) < 0) { //TODO: Better handling maybe Result.execute
-            Alerts.ofShowAndWait(AlertType.ERROR, WRONG_SIZE);
+        } else if (!NumberUtils.isCreatable(gridSize) || Integer.parseInt(gridSize) < 0) { //TODO: Better handling maybe Result.execute
+            alertBuilder.buildDefaultError(WRONG_SIZE, this.getContainer().getOwner())
+            .showAndWait();
             return false;
         } else {
-            Alerts.ofShowAndWait(AlertType.INFORMATION, SHOW_INFO + gridSize);
+            alertBuilder.buildDefaultInfo(SHOW_INFO + gridSize, this.getContainer().getOwner())
+            .showAndWait();
             return true;
         }
     }
