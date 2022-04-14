@@ -17,7 +17,7 @@ import javafx.scene.input.KeyEvent;
 public class CoDiViewController extends AutomatonViewController<CoDiCellState> {
 
     /**
-     * Construct a new {@link CodiViewController}.
+     * Construct a new {@link CoDiViewController}.
      * 
      * @param container the {@link PageContainer} holding the view.
      * @param controller the {@link AutomatonController} controlling the view.

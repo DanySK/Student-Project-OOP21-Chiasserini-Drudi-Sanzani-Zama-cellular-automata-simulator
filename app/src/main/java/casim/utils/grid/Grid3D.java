@@ -32,21 +32,17 @@ import casim.utils.coordinate.Coordinates3D;
     int getDepth();
 
     /**
-     * Return a {@link Result} containing:
-     *  - the value contained in {@link Grid} if row and column are valid.
-     *  - an {@link IndexOutOfBoundsException} otherwise.
-     * 
+     * Return the value at the given coordinate.
+     *
      * @param row of the element to get.
      * @param column of the element to get.
      * @param depth of the element to get.
-     * @return the value to at coord.
+     * @return the value at coord.
      */
     T get(int row, int column, int depth);
 
     /**
-     * Return a {@link Result} containing:
-     *  - {@link Empty} if row and column are valid;
-     *  - an {@link IndexOutOfBoundsException} otherwise.
+     * Sets a value at a given cell.
      * 
      * @param row of the element to set.
      * @param column of the element to set.

@@ -3,7 +3,7 @@ package casim.model.codi;
 import casim.utils.automaton.config.BaseConfig;
 
 /**
- * {@link casim.model.codi.CoDi} config class.
+ * CoDi config class.
  */
 public class CoDiConfig extends BaseConfig {
 

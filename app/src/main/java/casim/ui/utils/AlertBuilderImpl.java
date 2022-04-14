@@ -24,43 +24,17 @@ public class AlertBuilderImpl implements AlertBuilder {
     private String message;
     private Window owner;
 
-    /**
-     * Set the default values for an info alert.
-     *  - Type: {@link AlertType.INFORMATION}.
-     *  - Title: Info
-     * 
-     * @param message the message of the alert.
-     * @param owner the owner of the alert.
-     * @return {@link Alert}.
-     */
+    @Override
     public Alert buildDefaultInfo(final String message, final Window owner) {
         return this.buildCustom(AlertType.INFORMATION, DEFAULT_INFO_TITLE, message, owner);
     }
 
-    /**
-     * Set the default values for an error alert.
-     *  - Type: {@link AlertType.ERROR}.
-     *  - Title: Error
-     * 
-     * @param message the message of the alert.
-     * @param owner the owner of the alert.
-     * @return {@link Alert}.
-     */
+    @Override
     public Alert buildDefaultError(final String message, final Window owner) {
         return this.buildCustom(AlertType.ERROR, DEFAULT_ERROR_TITLE, message, owner);
     }
 
-    /**
-     * Sets the message and the owner of the {@link Alert}.
-     * 
-     * @throws {@link IllegalStateException} if some of the parameters are not set.
-     * 
-     * @param type the type of the alert.
-     * @param title the title of the alert.
-     * @param message the message of the alert.
-     * @param owner the owner of the alert.
-     * @return the built {@link Alert}.
-     */
+    @Override
     public Alert buildCustom(final AlertType type, final String title, final String message, final Window owner) {
         this.base.registerCall();
         this.type(type)

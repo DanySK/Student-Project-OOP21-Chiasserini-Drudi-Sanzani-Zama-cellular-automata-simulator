@@ -27,7 +27,7 @@ import casim.utils.grid.Grid3DImpl;
 import casim.utils.range.Ranges;
 
 /**
- * Implementation of CoDi {@link casim.model.abstraction.automaton.Automaton}.
+ * Implementation of CoDi Automaton.
  */
 public class CoDi extends AbstractAutomaton<CoDiCellState, CoDiCell> {
 

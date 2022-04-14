@@ -3,7 +3,7 @@ package casim.model.wator;
 import casim.model.abstraction.cell.AbstractCell;
 
 /**
- * A cell of the {@link casim.model.wator.Wator} Automaton.
+ * A cell of the Wator Automaton.
  */
 public class WatorCell extends AbstractCell<WatorCellState> {
 

@@ -10,7 +10,7 @@ import casim.utils.coordinate.Coordinates3D;
 import casim.utils.coordinate.CoordinatesUtil;
 
 /**
- * A static utility class for {@link casim.model.codi.CoDi} rules.
+ * A static utility class for CoDi rules.
  */
 public final class CodiUtils {
 

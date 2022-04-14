@@ -1,8 +1,7 @@
 package casim.model.codi.cell.attributes;
 
 /**
- * An enum for the growth signals for the {@link casim.model.codi.CoDi} growth phase 
- * (see in {@link casim.model.codi.rule.GrowthUpdateRule}).
+ * An enum for the growth signals for the CoDi growth phase (see in GrowthUpdateRule).
  */
 public enum Signal {
     /**

@@ -11,7 +11,7 @@ import casim.utils.grid.Grid3DImpl;
 /**
  * Implementation of {@link AutomatonGridFactory}.
  * 
- *  @param <T> the implementation of {@link AbstractCell} used as value for the {@link casim.utils.grid.Grid}.
+ *  @param <T> the implementation of {@link AbstractCell} used as value for the Grid.
  */
 public class AutomatonGridFactoryImpl<T extends AbstractCell<?>> implements AutomatonGridFactory<T> {
 

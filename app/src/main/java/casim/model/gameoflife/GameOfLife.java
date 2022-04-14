@@ -15,8 +15,8 @@ import casim.utils.range.Ranges;
 public class GameOfLife extends AbstractAutomaton<GameOfLifeState, GameOfLifeCell> {
 
     private Grid2D<GameOfLifeCell> state;
-    private final UpdateRule updateRule
-        = new UpdateRule(NeighborsFunctions::mooreNeighborsFunction);
+    private final GameOfLifeUpdateRule updateRule
+        = new GameOfLifeUpdateRule(NeighborsFunctions::mooreNeighborsFunction);
 
     /**
      * Constructor of the {@link Grid2D} filled with {@link GameOfLifeState}.

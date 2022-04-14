@@ -1,8 +1,7 @@
 package casim.utils.automaton.config;
 
 /**
- * Basic configuration class
- * for a {@link casim.model.abstraction.automaton.Automaton}.
+ * Basic configuration class Automaton.
  */
 public class BaseConfig {
 

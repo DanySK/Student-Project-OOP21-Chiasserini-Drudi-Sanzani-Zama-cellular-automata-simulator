@@ -38,9 +38,9 @@ public class CoDiCell extends AbstractCell<CoDiCellState> {
 
     /**
      * Return the gate of the {@link CoDiCell}, it's meaning depends from the {@link CoDiCellState} of the cell:
-     *  Neuron -> direction where the axon point to;
-     *  Axon -> direction where it receives the signal;
-     *  Dendrite -> direction where it transmits the signal.
+     *  Neuron: direction where the axon point to;
+     *  Axon: direction where it receives the signal;
+     *  Dendrite: direction where it transmits the signal.
      *
      * @return an {@link Optional} which contain the {@link Direction} of the gate,
      *  it's empty if it's not already defined.

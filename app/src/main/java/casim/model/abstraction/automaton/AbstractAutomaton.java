@@ -54,7 +54,7 @@ public abstract class AbstractAutomaton<S, T extends AbstractCell<S>> implements
     /**
      * Method used to build the map for the cell states stats.
      * 
-     * @return the map linking each {@link casim.model.abstraction.cell.Cell}'s state with it's frequency
+     * @return the map linking each Cell's state with it's frequency
      *  in the current {@link Automaton} state. 
      */
     protected Map<S, Integer> createStatesMap() {

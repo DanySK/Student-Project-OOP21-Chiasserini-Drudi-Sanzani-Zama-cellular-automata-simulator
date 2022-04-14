@@ -1,7 +1,7 @@
 package casim.model.langtonsant;
 
 /**
- * The state of a {@link casim.model.langtonsant.Ant}.
+ * The state of a Ant.
  */
 public enum LangtonsAntCellState {
     /**

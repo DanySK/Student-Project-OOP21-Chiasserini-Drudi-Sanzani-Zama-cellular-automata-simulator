@@ -3,7 +3,7 @@ package casim.model.langtonsant;
 import casim.model.abstraction.cell.AbstractCell;
 
 /**
- * A Cell of the {@link casim.model.langtonsant.LangtonsAnt} automaton.
+ * A Cell of the LangtonsAnt automaton.
  */
 public class LangtonsAntCell extends AbstractCell<LangtonsAntCellState> {
 

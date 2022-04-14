@@ -3,10 +3,9 @@ package casim.model.abstraction.utils.stats;
 import java.util.Map;
 
 /**
- * An interface used to describe stats about an {@link casim.model.abstraction.automaton.Automaton}.
+ * An interface used to describe stats about an Automaton.
  * 
- *  @param <T> the type of the finite states of the {@link casim.model.abstraction.automaton.Automaton}'s 
- *      {@link casim.model.abstraction.cell.Cell}.
+ * @param <T> the type of the finite states of the Automaton's Cell.
  */
 public interface Stats<T>   {
 
@@ -21,7 +20,7 @@ public interface Stats<T>   {
      * Get the number of cells alive for each types.
      * 
      * @return a map:
-     *   - Key: the states that a {@link casim.model.abstraction.cell.Cell} can assume;
+     *   - Key: the states that a Cell can assume;
      *   - Value: the number of cells of that type.
      */
     Map<T, Integer> getCellStats();

@@ -10,23 +10,23 @@ import casim.utils.coordinate.Coordinates2D;
 import casim.utils.grid.Grid;
 
 /**
- * The {@link casim.model.gameoflife.GameOfLife}'s rule used to update the {@link casim.model.gameoflife.GameOfLifeCell}'s state.
+ * The GameOfLife's rule used to update the GameOfLifeCell's state.
  * 
  */
-public class UpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, GameOfLifeCell> {
+public class GameOfLifeUpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, GameOfLifeCell> {
     /**
      * Rule for update the {@link GameOfLifeCell}.
      * @param neighborsFunction function for get the neighboring cells.
      */
-    public UpdateRule(final BiFunction<Pair<Coordinates2D<Integer>, GameOfLifeCell>, Grid<Coordinates2D<Integer>, GameOfLifeCell>, List<Pair<Coordinates2D<Integer>, GameOfLifeCell>>> neighborsFunction) {
+    public GameOfLifeUpdateRule(final BiFunction<Pair<Coordinates2D<Integer>, GameOfLifeCell>, Grid<Coordinates2D<Integer>, GameOfLifeCell>, List<Pair<Coordinates2D<Integer>, GameOfLifeCell>>> neighborsFunction) {
         super(neighborsFunction);
     }
 
     /**
-     * Function that analize the neighbors of the {@link Cell} and calculates his next state.
+     * Function that analize the neighbors of the {@link GameOfLifeCell} and calculates his next state.
      * 
      * @param cellPair a {@link Pair} that contains the {@link GameOfLifeCell} and his {@link Coordinates2D}.
-     * @param neighborsPairs a {@link List} of all the {@lonk GameOfLifeCell} neighbors and hsi {@link Coordinates2D}.
+     * @param neighborsPairs a {@link List} of all the {@link GameOfLifeCell} neighbors and hsi {@link Coordinates2D}.
      */
     @Override
     protected GameOfLifeCell nextCell(final Pair<Coordinates2D<Integer>, GameOfLifeCell> cellPair,

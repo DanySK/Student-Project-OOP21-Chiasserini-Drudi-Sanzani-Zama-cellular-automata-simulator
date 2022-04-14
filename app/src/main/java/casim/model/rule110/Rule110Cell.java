@@ -3,7 +3,7 @@ package casim.model.rule110;
 import casim.model.abstraction.cell.AbstractCell;
 
 /**
- * The cell of {@link casim.model.rule110.Rule110}.
+ * The cell of Rule110.
  */
 public class Rule110Cell extends AbstractCell<Rule110CellState> {
 

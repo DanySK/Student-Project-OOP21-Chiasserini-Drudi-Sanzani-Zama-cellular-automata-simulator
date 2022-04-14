@@ -16,7 +16,7 @@ public final class GridUtils {
      * 
      * @param rows number of rows of the grid.
      * @param columns number of columns of the grid.
-     * @return the stream of {@link Coordinate2D}.
+     * @return the stream of {@link Coordinates2D}.
      */
     public static Stream<Coordinates2D<Integer>> get2dCoordStream(final int rows, final int columns) {
         final var rangeRows = Ranges.of(0, rows);
@@ -31,7 +31,7 @@ public final class GridUtils {
      * @param rows number of rows of the grid.
      * @param columns number of columns of the grid.
      * @param depth depth of the grid.
-     * @return the stream of {@link Coordinate3D}.
+     * @return the stream of {@link Coordinates3D}.
      */
     public static Stream<Coordinates3D<Integer>> get3dCoordStream(final int rows, final int columns, final int depth) {
         final var rangeRows = Ranges.of(0, rows);

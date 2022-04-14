@@ -22,7 +22,7 @@ import casim.utils.coordinate.CoordinatesUtil;
 import casim.utils.grid.Grid;
 
 /**
- * Implementation of the {@link casim.model.abstraction.rule.UpdateRule} for {@link CoDi} growth phase.
+ * Implementation of the {@link AbstractUpdateRule} for CoDi growth phase.
  */
 public class GrowthUpdateRule extends AbstractUpdateRule<Coordinates3D<Integer>, CoDiCell> {
 

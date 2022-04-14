@@ -18,7 +18,7 @@ public interface AutomatonFactory {
     /**
      * Return a new {@link BryansBrain} automaton.
      * 
-     * @param config the {@link ByansBrainConfig} containing the automaton's configuration values.
+     * @param config the {@link WrappingConfig} containing the automaton's configuration values.
      * @return a new {@link BryansBrain} automaton.
      */
     BryansBrain getBryansBrainRandom(WrappingConfig config);

@@ -12,7 +12,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 /**
- * Implementation of CoDi's {@link AutomatonViewController}.
+ * Implementation of CoDi's {@link ConcurrentAutomatonViewController}.
  */
 public class ConcurrentCoDiViewController extends ConcurrentAutomatonViewController<CoDiCellState> {
 
@@ -20,7 +20,7 @@ public class ConcurrentCoDiViewController extends ConcurrentAutomatonViewControl
      * Construct a new {@link ConcurrentCoDiViewController}.
      * 
      * @param container the {@link PageContainer} holding the view.
-     * @param controller the {@link AutomatonController} controlling the view.
+     * @param controller the AutomatonController controlling the view.
      * @param grid the {@link CanvasGridImpl} to be drawn.
      * @param colorMapper the {@link StateColorMapper} that translates cell states to colors.
      */
