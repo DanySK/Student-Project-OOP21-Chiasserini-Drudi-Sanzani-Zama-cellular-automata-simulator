@@ -1,6 +1,6 @@
 package casim.ui.utils;
 
-import casim.utils.AbstractBuilder;
+import casim.utils.BaseBuilder;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Region;
@@ -9,13 +9,15 @@ import javafx.stage.Window;
 /**
  * Implementation for a builder of {@link Alert}.
  */
-public class AlertBuilderImpl extends AbstractBuilder implements AlertBuilder {
+public class AlertBuilderImpl implements AlertBuilder {
     private static final String ALERT_TYPE_NULL = "Alert type cannot be null.";
     private static final String TITLE_NULL = "Title cannot be null.";
     private static final String MESSAGE_NULL = "Message cannot be null.";
     private static final String OWNER_NULL = "Owner cannot be null.";
     private static final String DEFAULT_INFO_TITLE = "Info";
     private static final String DEFAULT_ERROR_TITLE = "Error";
+
+    private final BaseBuilder base = new BaseBuilder();
 
     private AlertType type;
     private String title;
@@ -60,7 +62,7 @@ public class AlertBuilderImpl extends AbstractBuilder implements AlertBuilder {
      * @return the built {@link Alert}.
      */
     public Alert buildCustom(final AlertType type, final String title, final String message, final Window owner) {
-        this.registerCall();
+        this.base.registerCall();
         this.type(type)
             .title(title)
             .owner(owner)
@@ -69,26 +71,26 @@ public class AlertBuilderImpl extends AbstractBuilder implements AlertBuilder {
     }
 
     private AlertBuilderImpl message(final String message) {
-        this.registerCall();
-        this.message = this.checkNonNullValue(message, MESSAGE_NULL);
+        this.base.registerCall();
+        this.message = this.base.checkNonNullValue(message, MESSAGE_NULL);
         return this;
     }
 
     private AlertBuilderImpl owner(final Window owner) {
-        this.registerCall();
-        this.owner = this.checkNonNullValue(owner, OWNER_NULL);
+        this.base.registerCall();
+        this.owner = this.base.checkNonNullValue(owner, OWNER_NULL);
         return this;
     }
 
     private AlertBuilderImpl type(final AlertType type) {
-        this.registerCall();
-        this.type = this.checkNonNullValue(type, ALERT_TYPE_NULL);
+        this.base.registerCall();
+        this.type = this.base.checkNonNullValue(type, ALERT_TYPE_NULL);
         return this;
     }
 
     private AlertBuilderImpl title(final String title) {
-        this.registerCall();
-        this.title = this.checkNonNullValue(title, TITLE_NULL);
+        this.base.registerCall();
+        this.title = this.base.checkNonNullValue(title, TITLE_NULL);
         return this;
     }
 
