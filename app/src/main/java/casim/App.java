@@ -15,6 +15,8 @@ import javafx.stage.Stage;
  * Main project class.
  */
 public class App extends Application {
+    private PageContainer root;
+
     /**
      * Entry point.
      * 
@@ -33,10 +35,15 @@ public class App extends Application {
         primaryStage.setWidth(width);
         primaryStage.setHeight(height);
 
-        final var root = new PageContainer(primaryStage);
+        root = new PageContainer(primaryStage);
         AppManager.showMainMenu(root);
         final var scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        root.close();
     }
 }

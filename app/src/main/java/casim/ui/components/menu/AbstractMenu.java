@@ -23,23 +23,26 @@ public abstract class AbstractMenu extends VBox {
     public AbstractMenu(final PageContainer container, final MenuController controller) {
         this.controller = controller;
         this.container = container;
+        this.setStyle("-fx-font-size: 20");
     }
 
     /**
      * Add a new node component to the menu.
      * 
+     * @param <T> The type of node to add.
      * @param node the node component that has to be added to the menu.
      */
-    public void addNode(final Node node) {
+    public <T extends Node> void addNode(final T node) {
         this.getChildren().add(node);
     }
 
     /**
      * Add new nodes components to the menu.
      * 
+     * @param <T> The type of node to add.
      * @param nodes the nodes components that have to be added to the menu.
      */
-    public void addNodes(final List<Node> nodes) {
+    public <T extends Node> void addNodes(final List<T> nodes) {
         nodes.forEach(this::addNode);
     }
 

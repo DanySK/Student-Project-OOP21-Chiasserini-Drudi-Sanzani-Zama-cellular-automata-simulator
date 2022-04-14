@@ -9,7 +9,7 @@ import java.util.function.Predicate;
  * Abstract class that describes a Builder.
  * Not thread safe.
  */
-public abstract class AbstractBuilder {
+public abstract class AbstractBuilder { //TODO: composition over inheritance
     private final Set<String> calledMethods = new HashSet<>();
 
     /**

@@ -25,6 +25,9 @@ import javafx.scene.layout.VBox;
  */
 public class AutomatonConfigController {
 
+    /**
+     * Wrong menu error message.
+     */
     protected static final String WRONG_MENU = "Wrong Configuration Menu.";
     private static final String NO_MODES_SET = "Please select a run mode";
     private static final String WRONG_SIZE = "Insert a valid integer number";
@@ -57,7 +60,7 @@ public class AutomatonConfigController {
      * Construct a new {@link AutomatonConfigController}.
      * 
      * @param container the container of the menu.
-     * @param controller the controller.
+     * @param automata the automata.
      */
     public AutomatonConfigController(final PageContainer container, final Automata automata) {
         this.container = container;
@@ -93,18 +96,38 @@ public class AutomatonConfigController {
         this.extension.getChildren().add(node);
     }
 
+    /**
+     * Return the automata.
+     * 
+     * @return the automata.
+     */
     protected Automata getAutomata() {
         return this.automata;
     }
 
+    /**
+     * Return the size on the input text field.
+     * 
+     * @return the size as string.
+     */
     protected String getSizeText() {
         return this.sizeField.getText();
     }
 
+    /**
+     * Returns whether the automatic mode is set or not.
+     * 
+     * @return true if the automatic mode is set, false otherwise.
+     */
     protected boolean isAutomatic() {
-        return this.modeSelector.getValue().equals(AUTOMATIC);
+        return AUTOMATIC.equals(this.modeSelector.getValue());
     }
 
+    /**
+     * Returns the config object of the automaton.
+     * 
+     * @return the config object.
+     */
     protected BaseConfig getConfig() {
         final var isAutomatic = this.isAutomatic();
         final int size = Integer.parseInt(this.getSizeText());

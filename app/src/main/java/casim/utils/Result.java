@@ -31,6 +31,7 @@ public final class Result<T> {
      * The execution may throw an exception.
      *
      * @param <T> the return type of the supplier.
+     * @param <E> the exception type.
      * @param function the supplier to be executed.
      * @return a {@link Result} holding the value.
      */

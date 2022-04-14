@@ -2,6 +2,7 @@ package casim.ui.components.page;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Optional;
 
 import casim.utils.Empty;
 import casim.utils.Result;
@@ -18,6 +19,7 @@ public class PageContainer extends AnchorPane {
 
     private final Deque<Node> pages;
     private final Window owner;
+    private Optional<Runnable> onClose;
 
     /**
      * Construct a {@link PageContainer}.
@@ -36,6 +38,15 @@ public class PageContainer extends AnchorPane {
      */
     public Window getOwner() {
         return this.owner;
+    }
+
+    /**
+     * Sets a runnable to be run when the application is closed.
+     * 
+     * @param function the runnable to run.
+     */
+    public void setOnClose(final Runnable function) {
+        this.onClose = Optional.of(function);
     }
 
     /**
@@ -59,13 +70,20 @@ public class PageContainer extends AnchorPane {
     public Result<Empty> popPage() {
         final var output = Result.ofEmpty()
             .require(x -> !this.pages.isEmpty(), new IllegalStateException(NO_PREVIOUS_PAGE));
-
+        //TODO: CHECK LAST PAGE
         output.ifPresent(x -> {
             this.pages.pop();
             this.showCurrentPage();
         });
 
         return output;
+    }
+
+    /**
+     * Method called on close.
+     */
+    public void close() {
+        this.onClose.ifPresent(x -> x.run());
     }
 
     private void showCurrentPage() {

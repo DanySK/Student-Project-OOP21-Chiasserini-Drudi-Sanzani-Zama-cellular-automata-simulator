@@ -14,7 +14,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -38,8 +39,9 @@ public class AutomatonViewController<T> {
     private Button exitBtn;
 
     @FXML
-    private Pane automatonPane;
+    private AnchorPane automatonPane;
 
+    private final StackPane root = new StackPane();
     private final CanvasGridImpl grid;
     private final PageContainer container;
     private final StateColorMapper<T> colorMapper;
@@ -84,12 +86,21 @@ public class AutomatonViewController<T> {
     }
 
     /**
+     * Allows to disable next button, used in automatic view controllers.
+     */
+    protected void disableNextBtn() {
+        this.nextBtn.setDisable(true);
+    }
+
+    /**
      * Initialize the view components.
      */
     @FXML
     protected void initialize() {
         ViewUtils.fitToAnchorPane(this.automatonView);
-        this.automatonPane.getChildren().add(this.grid);
+        this.automatonPane.getChildren().add(root);
+        root.getChildren().add(this.grid);
+        ViewUtils.fitToAnchorPane(root);
         this.automatonPane.widthProperty().addListener(this::onSizeChange);
         this.automatonPane.heightProperty().addListener(this::onSizeChange);
     }
@@ -130,7 +141,7 @@ public class AutomatonViewController<T> {
      * 
      * @param state the grid of state to map to a {@link CanvasGridImpl}.
      */
-    protected void setCellsDrawUpdateStats(final Grid2D<T> state) {
+    protected void updateView(final Grid2D<T> state) {
         this.setCellsAndDraw(state);
         this.updateStats();
     }
@@ -171,6 +182,7 @@ public class AutomatonViewController<T> {
      */
     protected void onSizeChange(final ObservableValue<? extends Number> obs, final Number oldVal, final Number newVal) {
         this.grid.handleSizeChange(this.automatonPane.getWidth(), this.automatonPane.getHeight());
+        final var sideX = this.grid.getCellSize() * this.grid.getColumns();
+        this.root.setTranslateX((this.automatonPane.getWidth() - sideX) / 2);
     }
-
 }

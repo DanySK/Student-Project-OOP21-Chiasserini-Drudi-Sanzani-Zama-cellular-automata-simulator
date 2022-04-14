@@ -16,6 +16,14 @@ import casim.utils.grid.WrappingGrid;
  * {@link LangtonsAntCell}s and a list of {@link Ant}.
  */
 public class LangtonsAnt extends AbstractAutomaton<LangtonsAntCellState, LangtonsAntCell> {
+    /**
+     * Minimum number of ants in the simulation.
+     */
+    public static final int MIN_ANTS = 10;
+    /**
+     * Maximum number of ants in the simulation.
+     */
+    public static final int MAX_ANTS = 20;
 
     private final List<Ant> ants = new ArrayList<>();
     private final Grid2D<LangtonsAntCell> state;
@@ -105,7 +113,7 @@ public class LangtonsAnt extends AbstractAutomaton<LangtonsAntCellState, Langton
      * @return True if the {@link Coordinates2D} given as argument are valid,
      * False otherwise.
      */
-    public boolean addAnt(final Direction direction, final Coordinates2D<Integer> position) {
+    private boolean addAnt(final Direction direction, final Coordinates2D<Integer> position) {
         if (this.state.isCoordValid(position)) {
             this.ants.add(new Ant(direction, position));
             return true;

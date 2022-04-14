@@ -43,11 +43,11 @@ public class CoDiViewController extends AutomatonViewController<CoDiCellState> {
                 if (event.getCode().equals(KeyCode.A)) {
                     final var state = 
                             ((CoDiControllerImpl) CoDiViewController.this.getController()).outputLayerLeftShift();
-                    CoDiViewController.this.setCellsDrawUpdateStats(state); 
+                    CoDiViewController.this.updateView(state); 
                 } else if (event.getCode().equals(KeyCode.D)) {
                     final var state = 
                             ((CoDiControllerImpl) CoDiViewController.this.getController()).outputLayerRightShift();
-                    CoDiViewController.this.setCellsDrawUpdateStats(state);
+                    CoDiViewController.this.updateView(state);
                }
             }
         };
