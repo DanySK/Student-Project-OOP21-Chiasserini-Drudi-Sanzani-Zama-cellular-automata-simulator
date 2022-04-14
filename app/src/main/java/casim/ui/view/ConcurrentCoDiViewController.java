@@ -14,21 +14,21 @@ import javafx.scene.input.KeyEvent;
 /**
  * Implementation of CoDi's {@link AutomatonViewController}.
  */
-public class CoDiViewController extends AutomatonViewController<CoDiCellState> {
+public class ConcurrentCoDiViewController extends ConcurrentAutomatonViewController<CoDiCellState> {
 
     private static final String LAYER_INFO = "Remember you can change layer! (Default 0)"
             + "\nA -> go left (-1)"
             + "\nD -> go right (+1)";
 
     /**
-     * Construct a new {@link CoDiViewController}.
+     * Construct a new {@link ConcurrentCoDiViewController}.
      * 
      * @param container the {@link PageContainer} holding the view.
      * @param controller the {@link AutomatonController} controlling the view.
      * @param grid the {@link CanvasGridImpl} to be drawn.
      * @param colorMapper the {@link StateColorMapper} that translates cell states to colors.
      */
-    public CoDiViewController(final PageContainer container, final CoDiControllerImpl controller,
+    public ConcurrentCoDiViewController(final PageContainer container, final CoDiControllerImpl controller,
             final CanvasGridImpl grid, final StateColorMapper<CoDiCellState> colorMapper) {
         super(container, controller, grid, colorMapper);
         Alerts.ofShowAndWait(AlertType.INFORMATION, LAYER_INFO);
@@ -45,11 +45,11 @@ public class CoDiViewController extends AutomatonViewController<CoDiCellState> {
             @Override
             public void handle(final KeyEvent event) {
                 if (event.getCode() == KeyCode.A) {
-                    final var state = ((CoDiControllerImpl) CoDiViewController.this.getController()).outputLayerLeftShift();
-                    CoDiViewController.this.updateView(state);
+                    final var state = ((CoDiControllerImpl) ConcurrentCoDiViewController.this.getController()).outputLayerLeftShift();
+                    ConcurrentCoDiViewController.this.updateView(state);
                 } else if (event.getCode() == KeyCode.D) {
-                    final var state = ((CoDiControllerImpl) CoDiViewController.this.getController()).outputLayerRightShift();
-                    CoDiViewController.this.updateView(state);
+                    final var state = ((CoDiControllerImpl) ConcurrentCoDiViewController.this.getController()).outputLayerRightShift();
+                    ConcurrentCoDiViewController.this.updateView(state);
                }
             }
         };

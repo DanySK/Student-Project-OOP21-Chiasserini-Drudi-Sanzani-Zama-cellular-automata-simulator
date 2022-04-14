@@ -130,7 +130,7 @@ public class AutomatonViewController<T> {
      * 
      * @param state the grid of state to map to a {@link CanvasGridImpl}.
      */
-    protected void setCellsDrawUpdateStats(final Grid2D<T> state) {
+    protected void updateView(final Grid2D<T> state) {
         this.setCellsAndDraw(state);
         this.updateStats();
     }
