@@ -107,7 +107,7 @@ public class LangtonsAnt extends AbstractAutomaton<LangtonsAntCellState, Langton
      * @return True if the {@link Coordinates2D} given as argument are valid,
      * False otherwise.
      */
-    public boolean addAnt(final Direction direction, final Coordinates2D<Integer> position) {
+    private boolean addAnt(final Direction direction, final Coordinates2D<Integer> position) {
         if (this.state.isCoordValid(position)) {
             this.ants.add(new Ant(direction, position));
             return true;
