@@ -15,7 +15,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -84,6 +83,10 @@ public class AutomatonViewController<T> {
     protected void onNextBtnClick(final ActionEvent event) {
         this.render();
         this.updateStats();
+    }
+
+    protected void disableNextBtn() {
+        this.nextBtn.setDisable(true);
     }
 
     /**
