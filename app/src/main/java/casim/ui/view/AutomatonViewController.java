@@ -85,6 +85,9 @@ public class AutomatonViewController<T> {
         this.updateStats();
     }
 
+    /**
+     * Allows to disable next button, used in automatic view controllers.
+     */
     protected void disableNextBtn() {
         this.nextBtn.setDisable(true);
     }

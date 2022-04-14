@@ -14,6 +14,7 @@ public class WrappingConfig extends BaseConfig {
      * 
      * @param rows the number of rows of the grid.
      * @param cols the number of columns of the grid.
+     * @param isAutomatic true if the automaton has to run in automatic configuration.
      * @param wrapping true if the grid is a wrapping grid.
      */
     public WrappingConfig(final int rows, final int cols, final boolean isAutomatic, final boolean wrapping) {

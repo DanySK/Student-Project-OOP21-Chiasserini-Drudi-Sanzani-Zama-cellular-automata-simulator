@@ -29,6 +29,7 @@ public abstract class AbstractMenu extends VBox {
     /**
      * Add a new node component to the menu.
      * 
+     * @param <T> The type of node to add.
      * @param node the node component that has to be added to the menu.
      */
     public <T extends Node> void addNode(final T node) {
@@ -38,6 +39,7 @@ public abstract class AbstractMenu extends VBox {
     /**
      * Add new nodes components to the menu.
      * 
+     * @param <T> The type of node to add.
      * @param nodes the nodes components that have to be added to the menu.
      */
     public <T extends Node> void addNodes(final List<T> nodes) {

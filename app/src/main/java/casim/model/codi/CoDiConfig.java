@@ -15,6 +15,7 @@ public class CoDiConfig extends BaseConfig {
      * @param rows the number of rows of the grid.
      * @param cols the number of columns of the grid.
      * @param depth the depth of the grid.
+     * @param isAutomatic true if the automaton has to run in automatic configuration.
      */
     public CoDiConfig(final int rows, final int cols, final int depth, final boolean isAutomatic) {
         super(rows, cols, isAutomatic);

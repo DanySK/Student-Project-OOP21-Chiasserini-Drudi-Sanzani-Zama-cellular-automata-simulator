@@ -20,13 +20,18 @@ public class AutomatonWrapConfigController extends AutomatonConfigController {
      * Construct a new {@link AutomatonWrapConfigController}.
      * 
      * @param container the container of the menu.
-     * @param controller the controller.
+     * @param automata the automata to simulate.
      */
     public AutomatonWrapConfigController(final PageContainer container, final Automata automata) {
         super(container, automata);
         this.checkBox = new CheckBox("Wrapped Grid");
     }
 
+    /**
+     * Returns true if the wrapped configuration is selected, false otherwise.
+     * 
+     * @return true if the automaton uses a wrapped grid, false otherwise.
+     */
     protected boolean isWrapped() {
         return this.checkBox.isSelected();
     }

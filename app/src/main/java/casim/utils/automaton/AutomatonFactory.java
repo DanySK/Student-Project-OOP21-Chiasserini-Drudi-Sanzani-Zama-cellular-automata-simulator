@@ -18,8 +18,7 @@ public interface AutomatonFactory {
     /**
      * Return a new {@link BryansBrain} automaton.
      * 
-     * @param config the {@link ByansBrainConfig} containing
-     *          the automaton's configuration values.
+     * @param config the {@link ByansBrainConfig} containing the automaton's configuration values.
      * @return a new {@link BryansBrain} automaton.
      */
     BryansBrain getBryansBrainRandom(WrappingConfig config);
@@ -27,8 +26,7 @@ public interface AutomatonFactory {
     /**
      * Return a new {@link CoDi} automaton.
      * 
-     * @param config a {@link CoDiConfig} containing
-     *          the automaton's configuration values.
+     * @param config a {@link CoDiConfig} containing the automaton's configuration values.
      * @return a new {@link CoDi} automaton.
      */
     CoDi getCoDi(CoDiConfig config);
@@ -36,8 +34,7 @@ public interface AutomatonFactory {
     /**
      * Returns a new {@link LangtonsAnt} automaton.
      * 
-     * @param config the {@link LangtonsAntConfig} containing
-     *          the automaton's configuration values.
+     * @param config the {@link LangtonsAntConfig} containing the automaton's configuration values.
      * @return a new {@link LangtonsAnt} automaton.
      */
     LangtonsAnt getLangtonsAnt(LangtonsAntConfig config);
@@ -45,13 +42,24 @@ public interface AutomatonFactory {
     /**
      * Returns a new {@link Wator} automaton.
      * 
-     * @param config the {@link BaseConfig} containing
-     *          the automaton's configuration values.
+     * @param config the {@link BaseConfig} containing the automaton's configuration values.
      * @return a new {@link Wator} automaton.
      */
     Wator getWator(BaseConfig config);
 
+    /**
+     * Returns a new {@link Rule110} automaton.
+     * 
+     * @param config the {@link BaseConfig} containing the automaton's configuration values.
+     * @return a new {@link Rule110} automaton.
+     */
     Rule110 getRule110(BaseConfig config);
 
+    /**
+     * Returns a new {@link GameOfLife} automaton.
+     * 
+     * @param config the {@link WrappingConfig} containing the automaton's configuration values.
+     * @return a new {@link GameOfLife} automaton.
+     */
     GameOfLife getGameOfLife(WrappingConfig config);
 }

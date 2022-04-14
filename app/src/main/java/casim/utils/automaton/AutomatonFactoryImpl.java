@@ -67,12 +67,12 @@ public class AutomatonFactoryImpl implements AutomatonFactory {
     }
 
     @Override
-    public Rule110 getRule110(BaseConfig config) {
+    public Rule110 getRule110(final BaseConfig config) {
         return new Rule110(Math.min(config.getRows(), config.getCols()));
     }
 
     @Override
-    public GameOfLife getGameOfLife(WrappingConfig config) {
+    public GameOfLife getGameOfLife(final WrappingConfig config) {
         final var rng = new Random();
         final var state = new Grid2DImpl<>(config.getRows(), config.getCols(), () -> {
             final var val = rng.nextInt(GameOfLifeState.values().length);

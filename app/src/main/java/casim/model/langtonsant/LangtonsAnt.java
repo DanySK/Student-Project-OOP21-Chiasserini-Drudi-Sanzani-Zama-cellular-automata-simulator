@@ -16,8 +16,14 @@ import casim.utils.grid.WrappingGrid;
  * {@link LangtonsAntCell}s and a list of {@link Ant}.
  */
 public class LangtonsAnt extends AbstractAutomaton<LangtonsAntCellState, LangtonsAntCell> {
-    public static final int MIN_ANTS = 5;
-    public static final int MAX_ANTS = 10;
+    /**
+     * Minimum number of ants in the simulation.
+     */
+    public static final int MIN_ANTS = 10;
+    /**
+     * Maximum number of ants in the simulation.
+     */
+    public static final int MAX_ANTS = 20;
 
     private final List<Ant> ants = new ArrayList<>();
     private final Grid2D<LangtonsAntCell> state;

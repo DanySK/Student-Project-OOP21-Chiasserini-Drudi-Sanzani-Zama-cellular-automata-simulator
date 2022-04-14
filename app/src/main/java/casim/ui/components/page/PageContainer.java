@@ -40,6 +40,11 @@ public class PageContainer extends AnchorPane {
         return this.owner;
     }
 
+    /**
+     * Sets a runnable to be run when the application is closed.
+     * 
+     * @param function the runnable to run.
+     */
     public void setOnClose(final Runnable function) {
         this.onClose = Optional.of(function);
     }
@@ -65,7 +70,7 @@ public class PageContainer extends AnchorPane {
     public Result<Empty> popPage() {
         final var output = Result.ofEmpty()
             .require(x -> !this.pages.isEmpty(), new IllegalStateException(NO_PREVIOUS_PAGE));
-
+        //TODO: CHECK LAST PAGE
         output.ifPresent(x -> {
             this.pages.pop();
             this.showCurrentPage();
@@ -74,6 +79,9 @@ public class PageContainer extends AnchorPane {
         return output;
     }
 
+    /**
+     * Method called on close.
+     */
     public void close() {
         this.onClose.ifPresent(x -> x.run());
     }

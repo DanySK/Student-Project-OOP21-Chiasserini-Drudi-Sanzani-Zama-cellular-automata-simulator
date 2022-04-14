@@ -11,11 +11,11 @@ public class BaseConfig {
     private final boolean automatic;
 
     /**
-     * Constructs a {@link BaseConfig} with the
-     * given values.
+     * Constructs a {@link BaseConfig} with the given values.
      * 
      * @param rows the number of rows of the grid.
      * @param cols the number of columns of the grid.
+     * @param automatic true if the automaton has to run on automatic simulation.
      */
     public BaseConfig(final int rows, final int cols, final boolean automatic) {
         this.rows = rows;
@@ -41,6 +41,11 @@ public class BaseConfig {
         return this.cols;
     }
 
+    /**
+     * Returns true if the automaton has to be run in automatic mode.
+     * 
+     * @return true if the simulation is automatic, false otherwise.
+     */
     public boolean isAutomatic() {
         return this.automatic;
     }

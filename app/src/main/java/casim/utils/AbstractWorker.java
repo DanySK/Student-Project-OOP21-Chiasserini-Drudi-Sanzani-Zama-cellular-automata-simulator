@@ -8,13 +8,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public abstract class AbstractWorker implements Runnable {
     private final AtomicBoolean running = new AtomicBoolean(false);
     private final AtomicBoolean stopped = new AtomicBoolean(false);
-    private Thread thread;
 
     /**
      * Start the {@link AbstractWorker}.
      */
     public void start() {
-        thread = new Thread(this);
+        final var thread = new Thread(this);
         this.running.set(true);
         thread.start();
     }

@@ -46,11 +46,21 @@ public final class StateColorMapperFactory {
             List.of(Colors.WHITE, Colors.BLACK));
     }
 
+    /**
+     * Returns the {@link StateColorMapper} for Wator automaton.
+     * 
+     * @return the {@link StateColorMapper} for Wator automaton.
+     */
     public static StateColorMapper<WatorCellState> getWatorStateColorMapper() {
         final var colorList = List.of(Colors.RED, Colors.GREEN, Colors.BLACK);
         return getColorMapperFromLists(Arrays.asList(WatorCellState.values()), colorList);
     }
 
+    /**
+     * Returns the {@link StateColorMapper} for Game of life automaton.
+     * 
+     * @return the {@link StateColorMapper} for Game of life automaton.
+     */
     public static StateColorMapper<GameOfLifeState> getGameOfLifeStateColorMapper() {
         final var colorList = List.of(Colors.WHITE, Colors.BLACK);
         return getColorMapperFromLists(Arrays.asList(GameOfLifeState.values()), colorList);
