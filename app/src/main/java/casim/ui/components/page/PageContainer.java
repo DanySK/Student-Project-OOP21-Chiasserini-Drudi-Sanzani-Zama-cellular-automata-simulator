@@ -2,6 +2,7 @@ package casim.ui.components.page;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Optional;
 
 import casim.utils.Empty;
 import casim.utils.Result;
@@ -18,6 +19,7 @@ public class PageContainer extends AnchorPane {
 
     private final Deque<Node> pages;
     private final Window owner;
+    private Optional<Runnable> onClose;
 
     /**
      * Construct a {@link PageContainer}.
@@ -36,6 +38,10 @@ public class PageContainer extends AnchorPane {
      */
     public Window getOwner() {
         return this.owner;
+    }
+
+    public void setOnClose(final Runnable function) {
+        this.onClose = Optional.of(function);
     }
 
     /**
@@ -66,6 +72,10 @@ public class PageContainer extends AnchorPane {
         });
 
         return output;
+    }
+
+    public void close() {
+        this.onClose.ifPresent(x -> x.run());
     }
 
     private void showCurrentPage() {

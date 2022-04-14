@@ -37,6 +37,7 @@ public class ConcurrentAutomatonViewController<T> extends AutomatonViewControlle
     protected void onExitBtnClick(final ActionEvent event) {
         synchronized (this) {
             this.automaticStepThread.stop();
+            this.getContainer().setOnClose(() -> {});
             super.onExitBtnClick(event);
         }
     }
@@ -52,6 +53,8 @@ public class ConcurrentAutomatonViewController<T> extends AutomatonViewControlle
     protected void initialize() {
         super.initialize();
         this.automaticStepThread.start();
+        this.getContainer().setOnClose(() -> this.automaticStepThread.stop());
+        this.disableNextBtn();
     }
 
     @Override
