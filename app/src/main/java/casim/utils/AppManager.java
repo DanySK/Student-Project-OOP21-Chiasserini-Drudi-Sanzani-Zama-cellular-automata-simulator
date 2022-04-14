@@ -60,6 +60,7 @@ public final class AppManager {
         return view.map(x -> new Empty() { });
     }
 
+    @SuppressWarnings("unchecked")
     private static <T extends AutomatonViewController<?>> T getAutomatonViewControllerFromAutomata(final Automata automata, final PageContainer container, final BaseConfig config) {
         switch (automata) {
             case CODI:
@@ -167,9 +168,8 @@ public final class AppManager {
                 return new AutomatonConfigController(container, automata);
             case BRYANS_BRAIN:
             case GAME_OF_LIFE:
-                return new AutomatonWrapConfigController(container, automata);
             case LANGTONS_ANT:
-                throw new UnsupportedOperationException();
+                return new AutomatonWrapConfigController(container, automata);
             default:
                 throw new IllegalArgumentException(UNKNOWN_AUTOMATON);
         }

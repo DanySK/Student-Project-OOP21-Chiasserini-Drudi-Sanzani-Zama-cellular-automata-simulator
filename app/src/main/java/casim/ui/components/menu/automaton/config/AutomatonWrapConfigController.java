@@ -1,6 +1,10 @@
 package casim.ui.components.menu.automaton.config;
 
+import java.util.Random;
+
 import casim.model.Automata;
+import casim.model.langtonsant.LangtonsAnt;
+import casim.model.langtonsant.LangtonsAntConfig;
 import casim.ui.components.page.PageContainer;
 import casim.utils.automaton.config.BaseConfig;
 import casim.utils.automaton.config.WrappingConfig;
@@ -23,6 +27,10 @@ public class AutomatonWrapConfigController extends AutomatonConfigController {
         this.checkBox = new CheckBox("Wrapped Grid");
     }
 
+    protected boolean isWrapped() {
+        return this.checkBox.isSelected();
+    }
+
     @Override
     protected void initialize() {
         super.initialize();
@@ -32,7 +40,7 @@ public class AutomatonWrapConfigController extends AutomatonConfigController {
     @Override
     protected BaseConfig getConfig() {
         final var isAutomatic = this.isAutomatic();
-        final var isWrapped = this.checkBox.isSelected();
+        final var isWrapped = this.isWrapped();
         final int size = Integer.parseInt(this.getSizeText());
 
         switch (this.getAutomata()) {
@@ -40,6 +48,9 @@ public class AutomatonWrapConfigController extends AutomatonConfigController {
             case GAME_OF_LIFE:
                 return (BaseConfig) new WrappingConfig(size, size, isAutomatic, isWrapped);
             case LANGTONS_ANT:
+                final var rng = new Random();
+                final var ants = LangtonsAnt.MIN_ANTS + rng.nextInt(LangtonsAnt.MAX_ANTS - LangtonsAnt.MIN_ANTS + 1);
+                return (BaseConfig) new LangtonsAntConfig(size, size, isAutomatic, isWrapped, ants);
             default:
                 throw new UnsupportedOperationException(WRONG_MENU);
         }

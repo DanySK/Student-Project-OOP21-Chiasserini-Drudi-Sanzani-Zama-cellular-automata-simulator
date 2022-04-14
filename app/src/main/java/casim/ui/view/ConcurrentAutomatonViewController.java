@@ -15,7 +15,7 @@ import javafx.event.ActionEvent;
  * @param <T> the type of the cell state that the view has to represent.
  */
 public class ConcurrentAutomatonViewController<T> extends AutomatonViewController<T> {
-    private static final int STEP_DELAY_MS = 200;
+    private static final int STEP_DELAY_MS = 100;
 
     private final AbstractWorker automaticStepThread;
 
