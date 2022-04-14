@@ -4,11 +4,10 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import casim.model.abstraction.automaton.AbstractAutomaton;
 import casim.model.abstraction.utils.NeighborsFunctions;
-import casim.utils.coordinate.CoordinatesUtil;
 import casim.utils.grid.Grid2D;
 import casim.utils.grid.Grid2DImpl;
+import casim.utils.grid.GridUtils;
 import casim.utils.grid.WrappingGrid;
-import casim.utils.range.Ranges;
 
 /**
  * Bryan's Brain automaton.
@@ -40,16 +39,12 @@ public class BryansBrain extends AbstractAutomaton<BryansBrainCellState, BryansB
 
     @Override
     protected Grid2D<BryansBrainCell> doStep() {
-        Grid2D<BryansBrainCell> newState = new Grid2DImpl<>(this.state.getHeight(), this.state.getWidth());
-        if (this.wrapping) {
-            newState = new WrappingGrid<>(newState);
-        }
-        for (final var x : Ranges.of(0, this.state.getHeight())) {
-            for (final var y : Ranges.of(0, this.state.getWidth())) {
-                final var coord = CoordinatesUtil.of(x, y);
-                newState.set(coord, this.updateRule.getNextCell(Pair.of(coord, this.state.get(coord)), this.state));
-            }
-        }
+        final var newState = this.getNextStateGrid();
+        GridUtils.get2dCoordStream(this.state.getHeight(), this.state.getWidth())
+                .forEach(coord -> newState.set(
+                    coord, 
+                    this.updateRule.getNextCell(Pair.of(coord, this.state.get(coord)), 
+                    this.state)));
         this.state = newState;
         return this.state;
     }
@@ -57,5 +52,13 @@ public class BryansBrain extends AbstractAutomaton<BryansBrainCellState, BryansB
     @Override
     public Grid2D<BryansBrainCell> getGrid() {
         return this.state;
+    }
+
+    private Grid2D<BryansBrainCell> getNextStateGrid() {
+        Grid2D<BryansBrainCell> newState = new Grid2DImpl<>(this.state.getHeight(), this.state.getWidth());
+        if (this.wrapping) {
+            newState = new WrappingGrid<>(newState);
+        }
+        return newState;
     }
 }
