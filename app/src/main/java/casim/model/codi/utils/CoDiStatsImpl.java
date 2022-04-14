@@ -1,7 +1,8 @@
-package casim.model.abstraction.utils.stats;
+package casim.model.codi.utils;
 
 import java.util.Map;
 
+import casim.model.abstraction.utils.stats.StatsImpl;
 import casim.model.codi.cell.attributes.CoDiCellState;
 
 /**

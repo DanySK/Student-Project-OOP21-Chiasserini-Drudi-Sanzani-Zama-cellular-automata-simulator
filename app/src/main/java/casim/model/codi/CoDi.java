@@ -8,7 +8,6 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import casim.model.abstraction.automaton.AbstractAutomaton;
 import casim.model.abstraction.utils.NeighborsFunctions;
-import casim.model.abstraction.utils.stats.CoDiStatsImpl;
 import casim.model.abstraction.utils.stats.Stats;
 import casim.model.codi.cell.CoDiCell;
 import casim.model.codi.cell.attributes.CoDiCellState;
@@ -18,6 +17,7 @@ import casim.model.codi.cell.builder.CoDiCellBuilderImpl;
 import casim.model.codi.cell.builder.utils.StateToCellFunction;
 import casim.model.codi.rule.GrowthUpdateRule;
 import casim.model.codi.rule.SignalingUpdateRule;
+import casim.model.codi.utils.CoDiStatsImpl;
 import casim.utils.coordinate.Coordinates3D;
 import casim.utils.coordinate.CoordinatesUtil;
 import casim.utils.grid.Grid2D;
