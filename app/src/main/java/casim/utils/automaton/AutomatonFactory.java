@@ -1,8 +1,5 @@
 package casim.utils.automaton;
 
-import casim.model.Automata;
-import casim.model.abstraction.automaton.AbstractAutomaton;
-import casim.model.abstraction.cell.AbstractCell;
 import casim.model.bryansbrain.BryansBrain;
 import casim.model.codi.CoDi;
 import casim.model.codi.CoDiConfig;
@@ -18,9 +15,6 @@ import casim.utils.automaton.config.WrappingConfig;
  * A factory for the automaton creation.
  */
 public interface AutomatonFactory {
-
-    <S, T extends AbstractCell<S>, C extends BaseConfig, O extends AbstractAutomaton<S, T>> O getAutomatonFromAutomataEnum(final Automata automata, final C config);
-
     /**
      * Return a new {@link BryansBrain} automaton.
      * 
