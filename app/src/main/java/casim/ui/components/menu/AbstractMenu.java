@@ -30,7 +30,7 @@ public abstract class AbstractMenu extends VBox {
      * 
      * @param node the node component that has to be added to the menu.
      */
-    public void addNode(final Node node) {
+    public <T extends Node> void addNode(final T node) {
         this.getChildren().add(node);
     }
 
@@ -39,7 +39,7 @@ public abstract class AbstractMenu extends VBox {
      * 
      * @param nodes the nodes components that have to be added to the menu.
      */
-    public void addNodes(final List<Node> nodes) {
+    public <T extends Node> void addNodes(final List<T> nodes) {
         nodes.forEach(this::addNode);
     }
 

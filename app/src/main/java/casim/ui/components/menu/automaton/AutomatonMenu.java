@@ -7,6 +7,7 @@ import casim.ui.components.menu.AbstractMenu;
 import casim.ui.components.page.PageContainer;
 import casim.utils.ViewUtils;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 
 /**
  * Main menu of the application.
@@ -29,10 +30,13 @@ public class AutomatonMenu extends AbstractMenu {
         this.setAlignment(Pos.CENTER);
         this.setSpacing(BUTTON_SPACING);
         ViewUtils.fitToAnchorPane(this);
-
-        this.addNodes(this.getMenuController().getMenuItems().stream()
+        final var buttons = this.getMenuController().getMenuItems().stream()
             .map(x -> new AutomatonMenuButton(x.getName(), x, this))
-            .collect(Collectors.toList())
-        );
+            .collect(Collectors.toList());
+        buttons.forEach(btn -> {
+            btn.setPrefSize(Button.USE_COMPUTED_SIZE, Button.USE_COMPUTED_SIZE);
+            btn.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        });
+        this.addNodes(buttons);
     }
 }
