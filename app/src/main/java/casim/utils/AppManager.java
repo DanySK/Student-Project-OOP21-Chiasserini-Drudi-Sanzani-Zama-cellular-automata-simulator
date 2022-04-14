@@ -82,6 +82,7 @@ public final class AppManager {
         return view.map(x -> new Empty() { });
     }
 
+    //TODO: ask
     @SuppressWarnings("unchecked")
     private static <T extends AutomatonViewController<?>> T getAutomatonViewControllerFromAutomata(final Automata automata, final PageContainer container, final BaseConfig config) {
         switch (automata) {

@@ -4,7 +4,7 @@ import casim.ui.components.page.PageContainer;
 import casim.ui.utils.AlertBuilderImpl;
 
 /**
- *  Utility class for CoDi view. //TODO: there's a better way to do that or a static class is good?
+ *  Utility class for CoDi view.
  */
 public final class CoDiViewUtils {
 

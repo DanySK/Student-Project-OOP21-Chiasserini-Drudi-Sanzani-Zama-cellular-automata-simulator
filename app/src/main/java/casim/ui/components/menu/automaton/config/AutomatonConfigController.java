@@ -1,12 +1,11 @@
 package casim.ui.components.menu.automaton.config;
 
-import org.apache.commons.lang3.math.NumberUtils;
-
 import casim.model.Automata;
 import casim.model.codi.CoDiConfig;
 import casim.ui.components.page.PageContainer;
 import casim.ui.utils.AlertBuilderImpl;
 import casim.utils.AppManager;
+import casim.utils.Result;
 import casim.utils.ViewUtils;
 import casim.utils.automaton.config.BaseConfig;
 import javafx.collections.FXCollections;
@@ -29,9 +28,9 @@ public class AutomatonConfigController {
      * Wrong menu error message.
      */
     protected static final String WRONG_MENU = "Wrong Configuration Menu.";
+    private static final String NO_PREVIOUS_PAGE = "Can't go back.";
     private static final String NO_MODES_SET = "Please select a run mode";
     private static final String WRONG_SIZE = "Insert a valid integer number";
-    private static final String SHOW_INFO = "The grid size is ";
     private static final String AUTOMATIC = "Automatic";
     private static final String MANUAL = "Manual";
 
@@ -145,33 +144,38 @@ public class AutomatonConfigController {
 
     @FXML
     private void onBackBtnClick(final ActionEvent event) {
-        this.getContainer().popPage().getValue(); //check for error //TODO: to check if exist a previous page maybe it's a good thing add a method to page container 
+        final var res = this.getContainer().popPage();
+        if (res.isError()) {
+            new AlertBuilderImpl().buildDefaultError(NO_PREVIOUS_PAGE, this.container.getOwner());
+        }
     }
 
     @FXML
     private void onNextBtnClick(final ActionEvent event) {
-        if (this.showAlertAndCheck(this.sizeField.getText())) {
-            //TODO: Check if is automatic && check type of automata for config type
+        if (this.checkInput()) {
             final var config = this.getConfig();
-            AppManager.showSimulation(this.getAutomata(), this.getContainer(), config);
+            final var res = AppManager.showSimulation(this.getAutomata(), this.getContainer(), config);
+            if (res.isError()) {
+                new AlertBuilderImpl().buildDefaultError(
+                    "Error starting the simulation.", this.getContainer().getOwner());
+            }
         }
     }
 
-    private boolean showAlertAndCheck(final String gridSize) {
+    private boolean checkInput() {
         final var alertBuilder = new AlertBuilderImpl();
+        final var size = Result.executeSupplier(() -> Integer.parseInt(this.sizeField.getText()));
+        if (size.isError()) {
+            alertBuilder.buildDefaultError(WRONG_SIZE, this.getContainer().getOwner())
+                .showAndWait();
+            return false;
+        }
         if (this.modeSelector.getSelectionModel().isEmpty()) {
             alertBuilder.buildDefaultError(NO_MODES_SET, this.getContainer().getOwner())
-            .showAndWait();
+                .showAndWait();
             return false;
-        } else if (!NumberUtils.isCreatable(gridSize) || Integer.parseInt(gridSize) < 0) { //TODO: Better handling maybe Result.execute
-            alertBuilder.buildDefaultError(WRONG_SIZE, this.getContainer().getOwner())
-            .showAndWait();
-            return false;
-        } else {
-            alertBuilder.buildDefaultInfo(SHOW_INFO + gridSize, this.getContainer().getOwner())
-            .showAndWait();
-            return true;
         }
+        return true;
     }
 
 }
