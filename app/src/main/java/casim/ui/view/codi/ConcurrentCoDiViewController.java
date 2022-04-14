@@ -35,10 +35,11 @@ public class ConcurrentCoDiViewController extends ConcurrentAutomatonViewControl
         super.initialize();
         this.getView().addEventFilter(KeyEvent.KEY_PRESSED, this.changeLayerHandler());
     }
+
     @Override
-    protected synchronized void setCellsDrawUpdateStats(final Grid2D<CoDiCellState> state) {
+    protected synchronized void updateView(final Grid2D<CoDiCellState> state) {
         synchronized (this) {
-            super.setCellsDrawUpdateStats(state);
+            super.updateView(state);
         }
     }
 
@@ -49,11 +50,11 @@ public class ConcurrentCoDiViewController extends ConcurrentAutomatonViewControl
                 if (event.getCode() == KeyCode.A) {
                     final var state = ((CoDiControllerImpl) ConcurrentCoDiViewController.this.getController())
                             .outputLayerLeftShift();
-                    ConcurrentCoDiViewController.this.setCellsDrawUpdateStats(state);
+                    ConcurrentCoDiViewController.this.updateView(state);
                 } else if (event.getCode() == KeyCode.D) {
                     final var state = ((CoDiControllerImpl) ConcurrentCoDiViewController.this.getController())
                             .outputLayerRightShift();
-                    ConcurrentCoDiViewController.this.setCellsDrawUpdateStats(state);
+                    ConcurrentCoDiViewController.this.updateView(state);
                }
             }
         };
