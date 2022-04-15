@@ -19,7 +19,7 @@ public class PageContainer extends AnchorPane {
 
     private final Deque<Node> pages;
     private final Window owner;
-    private Optional<Runnable> onClose;
+    private Optional<Runnable> onClose = Optional.empty();
 
     /**
      * Construct a {@link PageContainer}.

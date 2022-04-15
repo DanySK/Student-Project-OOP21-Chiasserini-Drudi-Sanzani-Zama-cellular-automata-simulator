@@ -20,7 +20,6 @@ import casim.ui.components.menu.automaton.AutomatonMenu;
 import casim.ui.components.menu.automaton.config.AutomatonConfigController;
 import casim.ui.components.menu.automaton.config.AutomatonWrapConfigController;
 import casim.ui.components.page.PageContainer;
-import casim.ui.utils.AlertBuilderImpl;
 import casim.ui.utils.StateColorMapper;
 import casim.ui.utils.StateColorMapperFactory;
 import casim.ui.utils.ViewEnum;
