@@ -84,8 +84,10 @@ public class AutomatonConfigController {
         ViewUtils.fitToAnchorPane(this.configView);
         final ObservableList<String> names = FXCollections.observableArrayList(AUTOMATIC, MANUAL);
         this.modeSelector.setItems(names);
-        new AlertBuilderImpl().buildDefaultInfo(CODI_SIZE, this.container.getOwner())
-        .show();
+        if (this.automata.equals(Automata.CODI)) {
+            new AlertBuilderImpl().buildDefaultInfo(CODI_SIZE, this.container.getOwner())
+            .showAndWait();
+        }
     }
 
     /**
