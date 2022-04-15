@@ -7,9 +7,9 @@ import casim.utils.grid.Grid2D;
 import casim.utils.grid.Grid3D;
 
 /**
- * A factory for {@link casim.model.abstraction.automaton.Automaton}'s {@link casim.utils.grid.Grid}.
+ * A factory for Automaton's Grid.
  * 
- *  @param <T> the implementation of {@link AbstractCell} used as value for the {@link casim.utils.grid.Grid}.
+ *  @param <T> the implementation of {@link AbstractCell} used as value for the Grid.
  */
 public interface AutomatonGridFactory<T extends AbstractCell<?>> {
 

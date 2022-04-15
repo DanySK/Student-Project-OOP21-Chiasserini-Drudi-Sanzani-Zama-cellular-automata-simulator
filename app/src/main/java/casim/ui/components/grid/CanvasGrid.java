@@ -55,8 +55,8 @@ public interface CanvasGrid {
 
     /**
      * Set the {@link CanvasGrid}'s grid.
-     * 
-     * @param cells a {@link casim.utils.grid.Grid} containing the cells.
+     *
+     * @param cells a Grid containing the cells.
      */
     void setCells(Grid2D<Color> cells);
 

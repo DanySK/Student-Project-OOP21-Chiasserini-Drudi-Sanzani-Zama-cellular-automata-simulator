@@ -4,9 +4,7 @@ import casim.utils.coordinate.Coordinates2D;
 import casim.utils.coordinate.CoordinatesUtil;
 
 /**
- * Enumeration representing the possible
- * directions a {@link casim.model.langtonsant.Ant}
- * can face.
+ * Enumeration representing the possible directions a Ant can face.
  */
 public enum Direction {
 
@@ -32,10 +30,8 @@ public enum Direction {
     /**
      * Constructs a new {@link Direction}.
      * 
-     * @param moveInfo a {@link Coordinates2D} representing
-     *          the incremental changes to be added
-     *          to the {@link casim.model.langtonsant.Ant}'s
-     *          position to move towards the current {@link Direction}.
+     * @param moveInfo a {@link Coordinates2D} representing 
+     * the incremental changes to be added to the Ant's position to move towards the current {@link Direction}.
      */
     Direction(final Coordinates2D<Integer> moveInfo) {
         this.moveInfo = moveInfo;
@@ -45,7 +41,7 @@ public enum Direction {
      * Returns the movement info of the {@link Direction}.
      * 
      * @return a {@link Coordinates2D} of {@link Integer} describing the changes to be made to the X and Y coordinates
-     * to move the {@link casim.model.langtonsant.Ant} in the correct {@link Direction}
+     * to move the Ant in the correct {@link Direction}
      */
     public Coordinates2D<Integer> getMoveInfo() {
         return this.moveInfo;

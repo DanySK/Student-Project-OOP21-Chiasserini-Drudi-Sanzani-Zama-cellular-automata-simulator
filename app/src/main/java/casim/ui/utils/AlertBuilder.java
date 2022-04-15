@@ -10,7 +10,7 @@ import javafx.stage.Window;
 public interface AlertBuilder {
     /**
      * Set the default values for an info alert.
-     *  - Type: {@link AlertType.INFORMATION}.
+     *  - Type: AlertType.INFORMATION.
      *  - Title: Info
      * 
      * @param message the message of the alert.
@@ -21,7 +21,7 @@ public interface AlertBuilder {
 
     /**
      * Set the default values for an error alert.
-     *  - Type: {@link AlertType.ERROR}.
+     *  - Type: AlertType.ERROR.
      *  - Title: Error
      * 
      * @param message the message of the alert.

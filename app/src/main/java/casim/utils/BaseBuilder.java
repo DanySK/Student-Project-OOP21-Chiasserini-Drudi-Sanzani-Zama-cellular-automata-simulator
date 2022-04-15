@@ -9,7 +9,7 @@ import java.util.function.Predicate;
  * Abstract class that describes a Builder.
  * Not thread safe.
  */
-public abstract class AbstractBuilder { //TODO: composition over inheritance
+public class BaseBuilder {
     private final Set<String> calledMethods = new HashSet<>();
 
     /**
@@ -17,7 +17,7 @@ public abstract class AbstractBuilder { //TODO: composition over inheritance
      * 
      * @exception IllegalStateException if the method that was called last was called twice.
      */
-    protected void registerCall() {
+    public void registerCall() {
         final var stackTrace = Thread.currentThread().getStackTrace();
         final var method = stackTrace[2].getMethodName();
         if (this.calledMethods.contains(method)) {
@@ -37,7 +37,7 @@ public abstract class AbstractBuilder { //TODO: composition over inheritance
      * @param errMsg Message displayed in case of failed test.
      * @return value if predicate returns true.
      */
-    protected <T> T checkValue(final T value, final Predicate<T> predicate, final String errMsg) {
+    public <T> T checkValue(final T value, final Predicate<T> predicate, final String errMsg) {
         if (!predicate.test(value)) {
             throw new IllegalArgumentException(errMsg);
         }
@@ -54,7 +54,7 @@ public abstract class AbstractBuilder { //TODO: composition over inheritance
      * @param errMsg The Message of the exception.
      * @return value if predicate returns true.
      */
-    protected <T> T checkNonNullValue(final T value, final String errMsg) {
+    public <T> T checkNonNullValue(final T value, final String errMsg) {
         return this.checkValue(value, Objects::nonNull, errMsg);
     }
 }

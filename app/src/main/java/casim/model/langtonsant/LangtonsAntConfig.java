@@ -3,8 +3,7 @@ package casim.model.langtonsant;
 import casim.utils.automaton.config.WrappingConfig;
 
 /**
- * {@link casim.model.langtonsant.LangtonsAnt}
- * configuration class.
+ * LangtonsAnt configuration class.
  */
 public class LangtonsAntConfig extends WrappingConfig {
 

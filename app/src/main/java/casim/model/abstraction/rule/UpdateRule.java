@@ -7,19 +7,19 @@ import casim.utils.coordinate.Coordinates;
 import casim.utils.grid.Grid;
 
 /**
- * The {@link casim.model.abstraction.automaton.Automaton}'s rule used to update the {@link casim.model.abstraction.cell.Cell}'s state.
+ * The Automaton's rule used to update the Cell's state.
  * 
- *  @param <T> the {@link AbstractCell} implementation to update.
- *  @param <C> the {@link Coordinates} implementation used by the cell (it can be 2D or 3D).
+ * @param <T> the {@link AbstractCell} implementation to update.
+ * @param <C> the {@link Coordinates} implementation used by the cell (it can be 2D or 3D).
  */
 public interface UpdateRule<C extends Coordinates<? extends Number>, T extends AbstractCell<?>> {
 
      /**
-     * Return the updated {@link casim.model.abstraction.cell.Cell}.
+     * Return the updated Cell.
      * 
-     * @param cellPair pair of {@link Coordinates} and {@link Cell} to update;
-     * @param grid the {@link Grid} representing the {@link Automaton}.
-     * @return the updated {@link Cell}.
+     * @param cellPair pair of {@link Coordinates} and a cell to update;
+     * @param grid the {@link Grid} representing the automaton.
+     * @return the updated cell.
      */
     T getNextCell(Pair<C, T> cellPair, Grid<C, T> grid);
 

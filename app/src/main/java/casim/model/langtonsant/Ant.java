@@ -4,7 +4,7 @@ import casim.utils.coordinate.Coordinates2D;
 import casim.utils.coordinate.CoordinatesUtil;
 
 /**
- * An ant contained in {@link casim.model.langtonsant.LangtonsAnt}.
+ * An ant contained in LangtonsAnt.
  */
 public class Ant {
 

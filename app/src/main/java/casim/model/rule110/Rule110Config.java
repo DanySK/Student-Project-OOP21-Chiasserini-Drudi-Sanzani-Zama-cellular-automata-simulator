@@ -1,8 +1,7 @@
 package casim.model.rule110;
 
 /**
- * {@link casim.model.rule110.Rule110}
- * configuration class.
+ * Rule110 configuration class.
  */
 public class Rule110Config {
     private final int maxRows;

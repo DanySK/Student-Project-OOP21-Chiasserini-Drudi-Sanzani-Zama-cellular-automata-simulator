@@ -47,7 +47,7 @@ public interface CoDiCellBuilder {
     /**
      * Set the {@link EnumMap} containing the values of the previous neighbors inputs.
      * 
-     * @param neighborsPreviousInput the {@link enumMap} top set as previous inputs.
+     * @param neighborsPreviousInput the enum map top set as previous inputs.
      * @return the current {@link CoDiCellBuilder}. 
      */
     CoDiCellBuilder neighborsPreviousInput(EnumMap<Direction, Integer> neighborsPreviousInput);
@@ -55,7 +55,7 @@ public interface CoDiCellBuilder {
     /**
      * Build the {@link CoDiCell}.
      * 
-     * @return the new {@link sCoDiCell}.
+     * @return the new {@link CoDiCell}.
      */
     CoDiCell build();
 

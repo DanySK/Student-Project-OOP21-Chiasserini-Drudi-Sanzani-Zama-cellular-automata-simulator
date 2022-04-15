@@ -16,7 +16,7 @@ import casim.utils.coordinate.Coordinates3D;
 import casim.utils.grid.Grid;
 
 /**
- * Implementation of the {@link casim.model.abstraction.rule.UpdateRule} for {@link CoDi} automaton.
+ * Implementation of the {@link AbstractUpdateRule} for CoDi automaton.
  */
 public class SignalingUpdateRule extends AbstractUpdateRule<Coordinates3D<Integer>, CoDiCell> {
 

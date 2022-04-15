@@ -21,7 +21,7 @@ public final class NeighborsFunctions {
     }
 
     /**
-     * Method to obtain all the neighbors of a 2D {@link casim.model.abstraction.cell.Cell}.
+     * Method to obtain all the neighbors of a 2D Cell.
      * 
      * @param cellPair a pair {@link Coordinates2D}+{@link AbstractCell} implementation 
      *      of the cell of which calculate the neighbors.
@@ -43,8 +43,7 @@ public final class NeighborsFunctions {
      * @param cellCoord the coordinates of the cell of which calculate the neighbors.
      * @param grid the grid where search for the neighbors.
      * @return an iterable containing all the neighbors of the cell.
-     * @param <T> the enumeration which contains the finite states of the 
- *          {@link casim.model.abstraction.automaton.Automaton}'s {@link casim.model.Cell}.
+     * @param <T> the enumeration which contains the finite states of the Automaton's Cell.
      */
     public static <T extends AbstractCell<?>> List<Pair<Coordinates2D<Integer>, T>> mooreNeighborsFunction(final Pair<Coordinates2D<Integer>, T> cellCoord, 
             final Grid<Coordinates2D<Integer>, T> grid) {

@@ -1,7 +1,7 @@
 package casim.model.rule110;
 
 /**
- * The state of {@link casim.model.rule110.Rule110Cell}.
+ * The state of Rule110Cell.
  */
 public enum Rule110CellState {
     /**

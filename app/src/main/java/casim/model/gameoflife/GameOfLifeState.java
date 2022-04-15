@@ -1,7 +1,7 @@
 package casim.model.gameoflife;
 
 /**
- * The enumeration which contains the finite states of this {@link Cell}.
+ * The enumeration which describes the state of a game of life cell.
  */
 public enum GameOfLifeState {
     /**
