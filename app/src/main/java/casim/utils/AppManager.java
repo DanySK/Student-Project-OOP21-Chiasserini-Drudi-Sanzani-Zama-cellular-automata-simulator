@@ -20,11 +20,14 @@ import casim.ui.components.menu.automaton.AutomatonMenu;
 import casim.ui.components.menu.automaton.config.AutomatonConfigController;
 import casim.ui.components.menu.automaton.config.AutomatonWrapConfigController;
 import casim.ui.components.page.PageContainer;
+import casim.ui.utils.AlertBuilderImpl;
 import casim.ui.utils.StateColorMapper;
 import casim.ui.utils.StateColorMapperFactory;
 import casim.ui.utils.ViewEnum;
 import casim.ui.view.AutomatonViewController;
 import casim.ui.view.ConcurrentAutomatonViewController;
+import casim.ui.view.codi.CoDiViewController;
+import casim.ui.view.codi.ConcurrentCoDiViewController;
 import casim.utils.automaton.AutomatonFactoryImpl;
 import casim.utils.automaton.config.BaseConfig;
 import casim.utils.automaton.config.WrappingConfig;
@@ -121,7 +124,7 @@ public final class AppManager {
     private static AutomatonViewController<CoDiCellState> getCoDiViewController(
             final PageContainer container, final CoDiConfig config) {
         final var controller = new CoDiControllerImpl(AUTOMATON_FACTORY.getCoDi(config));
-        return getAutomatonViewController(
+        return getCoDiViewController(
             container,
             controller,
             getGrid(config.getCols(), config.getRows()),
@@ -179,6 +182,14 @@ public final class AppManager {
         return isAutomatic
             ? new ConcurrentAutomatonViewController<>(container, controller, grid, mapper)
             : new AutomatonViewController<>(container, controller, grid, mapper);
+    } 
+
+    private static AutomatonViewController<CoDiCellState> getCoDiViewController(
+            final PageContainer container, final CoDiControllerImpl controller, final CanvasGridImpl grid,
+            final StateColorMapper<CoDiCellState> mapper, final boolean isAutomatic) {
+        return isAutomatic
+            ? new ConcurrentCoDiViewController(container, controller, grid, mapper)
+            : new CoDiViewController(container, controller, grid, mapper);
     } 
 
     private static AutomatonConfigController getConfigController(

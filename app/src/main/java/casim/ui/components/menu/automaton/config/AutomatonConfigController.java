@@ -33,6 +33,7 @@ public class AutomatonConfigController {
     private static final String WRONG_SIZE = "Insert a valid integer number";
     private static final String AUTOMATIC = "Automatic";
     private static final String MANUAL = "Manual";
+    private static final String CODI_SIZE = "To run codi and have good performance select a size <= 60";
 
     @FXML
     private VBox configView;
@@ -83,6 +84,8 @@ public class AutomatonConfigController {
         ViewUtils.fitToAnchorPane(this.configView);
         final ObservableList<String> names = FXCollections.observableArrayList(AUTOMATIC, MANUAL);
         this.modeSelector.setItems(names);
+        new AlertBuilderImpl().buildDefaultInfo(CODI_SIZE, this.container.getOwner())
+        .show();
     }
 
     /**

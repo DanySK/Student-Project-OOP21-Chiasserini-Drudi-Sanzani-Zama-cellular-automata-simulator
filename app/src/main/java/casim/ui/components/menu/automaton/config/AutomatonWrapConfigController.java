@@ -9,6 +9,7 @@ import casim.ui.components.page.PageContainer;
 import casim.utils.automaton.config.BaseConfig;
 import casim.utils.automaton.config.WrappingConfig;
 import javafx.scene.control.CheckBox;
+import javafx.scene.layout.Region;
 
 /**
  * Controller class for the fxml AutomatonConfigMenu with also the wrap configuration.
@@ -25,6 +26,8 @@ public class AutomatonWrapConfigController extends AutomatonConfigController {
     public AutomatonWrapConfigController(final PageContainer container, final Automata automata) {
         super(container, automata);
         this.checkBox = new CheckBox("Wrapped Grid");
+        this.checkBox.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+        this.checkBox.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
     }
 
     /**
