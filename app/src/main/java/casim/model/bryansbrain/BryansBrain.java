@@ -41,10 +41,10 @@ public class BryansBrain extends AbstractAutomaton<BryansBrainCellState, BryansB
     protected Grid2D<BryansBrainCell> doStep() {
         final var newState = this.getNextStateGrid();
         GridUtils.get2dCoordStream(this.state.getHeight(), this.state.getWidth())
-                .forEach(coord -> newState.set(
-                    coord, 
-                    this.updateRule.getNextCell(Pair.of(coord, this.state.get(coord)), 
-                    this.state)));
+            .forEach(coord -> newState.set(
+                coord, 
+                this.updateRule.getNextCell(Pair.of(coord, this.state.get(coord)), 
+                this.state)));
         this.state = newState;
         return this.state;
     }
