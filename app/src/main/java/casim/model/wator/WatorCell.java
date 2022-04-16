@@ -132,7 +132,7 @@ public class WatorCell extends AbstractCell<WatorCellState> {
     /**
      * Sets the moved state of the {@link WatorCell}.
      */
-    public void move() {
+    public void setMoved() {
         this.moved = true;
     }
 

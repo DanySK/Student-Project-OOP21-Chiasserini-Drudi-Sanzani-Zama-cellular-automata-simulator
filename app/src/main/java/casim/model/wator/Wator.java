@@ -53,8 +53,10 @@ public class Wator extends AbstractAutomaton<WatorCellState, WatorCell> {
                 switch (currCell.getState()) {
                     case PREY:
                         this.preyStep(currCell, neighborsList);
-                        currCell.heal();
-                        currCell.move();
+                        if (!currCell.hasMoved()) {
+                            currCell.heal();
+                            currCell.setMoved();
+                        }
                         break;
                     case PREDATOR:
                         final var preyNeighbors = this.getFilteredNeighbors(neighborsList, WatorCellState.PREY);
@@ -65,7 +67,7 @@ public class Wator extends AbstractAutomaton<WatorCellState, WatorCell> {
                             this.predatorStep(currCell, deadNeighbors, WatorCell::starve);
                         } else {
                             currCell.starve();
-                            currCell.move();
+                            currCell.setMoved();
                         }
                         this.applyDeath(currCell);
                         break;
@@ -94,10 +96,10 @@ public class Wator extends AbstractAutomaton<WatorCellState, WatorCell> {
         final var toChange = neighbors.get(rand.nextInt(neighbors.size()));
         toChange.clone(currentCell);
         movementAction.accept(toChange);
-        toChange.move();
+        toChange.setMoved();
         final var spawn = toChange.reproduce();
         currentCell.clone(spawn);
-        currentCell.move();
+        currentCell.setMoved();
     }
 
     private boolean applyDeath(final WatorCell currentCell) {
@@ -115,10 +117,11 @@ public class Wator extends AbstractAutomaton<WatorCellState, WatorCell> {
         final var chosenNeighbor = neighborsList.get(rand.nextInt(neighborsList.size()));
         if (chosenNeighbor.getState().equals(WatorCellState.DEAD)) {
             chosenNeighbor.clone(currentCell);
-            chosenNeighbor.move();
+            chosenNeighbor.setMoved();
             chosenNeighbor.heal();
             final var spawn = currentCell.reproduce();
             currentCell.clone(spawn);
+            currentCell.setMoved();
         }
     }
 
