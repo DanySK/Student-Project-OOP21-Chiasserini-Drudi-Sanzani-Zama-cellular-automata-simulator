@@ -3,7 +3,6 @@ package casim.model.langtonsant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import casim.model.abstraction.automaton.AbstractAutomaton;
 import casim.utils.coordinate.Coordinates2D;
@@ -68,15 +67,7 @@ public class LangtonsAnt extends AbstractAutomaton<LangtonsAntCellState, Langton
      */
     public LangtonsAnt(final Grid2D<LangtonsAntCellState> state, final int antNumber, final boolean wrapping) {
         this(state, wrapping);
-        final var randAntList = IntStream.range(0, antNumber)
-                .mapToObj(x -> {
-                    final var rand = new Random();
-                    final var position = CoordinatesUtil.random(state.getHeight(), state.getWidth());
-                    final var direction = Direction.values()[rand.nextInt(Direction.values().length)];
-                    return new Ant(direction, position);
-                })
-                .collect(Collectors.toList());
-        this.ants.addAll(randAntList);
+        IntStream.range(0, antNumber).forEach((x) -> this.addAnt());
     }
 
     @Override
@@ -123,14 +114,12 @@ public class LangtonsAnt extends AbstractAutomaton<LangtonsAntCellState, Langton
 
     /**
      * Adds an {@link Ant} at a random position with a random {@link Direction}.
-     * @return the {@link Coordinates2D} representig the position of the new {@link Ant}.
      */
-    public Coordinates2D<Integer> addAnt() {
+    private void addAnt() {
         final Random rand = new Random();
         final var position = CoordinatesUtil.random(state.getWidth(), state.getHeight());
         final var direction = Direction.values()[rand.nextInt(Direction.values().length)];
         this.addAnt(direction, position);
-        return position;
     }
 
     @Override
