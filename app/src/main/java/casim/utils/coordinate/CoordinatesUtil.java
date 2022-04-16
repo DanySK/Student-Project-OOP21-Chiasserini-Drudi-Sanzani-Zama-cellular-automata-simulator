@@ -42,29 +42,36 @@ public final class CoordinatesUtil {
     }
 
     /**
-     * Checks if the {@link Coordinates2D} given as argument is inside the rectangle formed by the {@link Coordinates2D} topLeft and bottomRight.
+     * Checks if the {@link Coordinates2D} given as argument is inside the rectangle formed
+     * by the {@link Coordinates2D} topLeft and bottomRight.
      * The check is inclusive for the topLeft {@link Coordinates2D} but not for bottomRight.
      * 
      * @param <T> type of the {@link Coordinates2D} involved.
      * @param coord the {@link Coordinates2D} to be checked against topLeft and bottomRight.
-     * @param topLeft the {@link Coordinates2D} representing the point at the top left of the rectangle that coord has to be inside of.
-     * @param bottomRight the {@link Coordinates2D} representing the point at the bottom right of the rectangle that coord has to be inside of.
+     * @param topLeft the {@link Coordinates2D} representing the point at the top left of
+     *          the rectangle that coord has to be inside of.
+     * @param bottomRight the {@link Coordinates2D} representing the point at the bottom
+     *          right of the rectangle that coord has to be inside of.
      * @return True if coord is inside the rectangle, false otherwise.
      */
-    public static <T extends Number & Comparable<T>> boolean  isValid(final Coordinates2D<T> coord, final Coordinates2D<T> topLeft, final Coordinates2D<T> bottomRight) {
+    public static <T extends Number & Comparable<T>> boolean  isValid(final Coordinates2D<T> coord,
+            final Coordinates2D<T> topLeft, final Coordinates2D<T> bottomRight) {
         return coord.getX().compareTo(topLeft.getX()) >= 0 && coord.getY().compareTo(topLeft.getY()) >= 0 
                 && coord.getX().compareTo(bottomRight.getX()) < 0 && coord.getY().compareTo(bottomRight.getY()) < 0;
     }
 
     /**
-     * Checks if the {@link Coordinates2D} given as argument is inside the rectangle formed by (0, 0) as topLeft and bottomRight.
+     * Checks if the {@link Coordinates2D} given as argument is inside the rectangle formed by
+     * (0, 0) as topLeft and bottomRight.
      * 
      * @param <T> type of the {@link Coordinates2D} involved.
      * @param coord the {@link Coordinates2D} to be checked against the rectangle.
-     * @param bottomRight the {@link Coordinates2D} representing the point at the bottom right of the rectangle that coord has to be inside of.
+     * @param bottomRight the {@link Coordinates2D} representing the point at the bottom right
+     *          of the rectangle that coord has to be inside of.
      * @return True if coord is inside the rectangle, false otherwise.
      */
-    public static <T extends Number & Comparable<T>> boolean isValid(final Coordinates2D<T> coord, final Coordinates2D<T> bottomRight) {
+    public static <T extends Number & Comparable<T>> boolean isValid(final Coordinates2D<T> coord,
+            final Coordinates2D<T> bottomRight) {
         final var coordI = CoordinatesUtil.of(coord.getX().intValue(), coord.getY().intValue());
         final var bottomRightI = CoordinatesUtil.of(bottomRight.getX().intValue(), bottomRight.getY().intValue());
         return isValid(coordI, CoordinatesUtil.of(0, 0), bottomRightI);
@@ -79,7 +86,8 @@ public final class CoordinatesUtil {
      * @param maxY the value that the Y coordinate of coord cannot be greator of.
      * @return True if both the X and Y values of coord are smaller than maxX and maxY respectively.
      */
-    public static <T extends Number & Comparable<T>> boolean isValid(final Coordinates2D<T> coord, final T maxX, final T maxY) {
+    public static <T extends Number & Comparable<T>> boolean isValid(final Coordinates2D<T> coord, final T maxX,
+            final T maxY) {
         return isValid(coord, CoordinatesUtil.of(maxX, maxY));
     }
 
@@ -90,7 +98,8 @@ public final class CoordinatesUtil {
      * @return a {@link List} of {@link Coordinates2D} composed of the neighbors of the argument coordinate.
      */
     public static List<Coordinates2D<Integer>> get2DNeighbors(final Coordinates2D<Integer> coord) {
-        return Stream.of(CoordinatesUtil.of(1, 0), CoordinatesUtil.of(0, 1), CoordinatesUtil.of(0, -1), CoordinatesUtil.of(-1, 0))
+        return Stream.of(CoordinatesUtil.of(1, 0), CoordinatesUtil.of(0, 1), CoordinatesUtil.of(0, -1),
+                CoordinatesUtil.of(-1, 0))
             .map(x -> CoordinatesUtil.sumInt(x, coord))
             .collect(Collectors.toList());
     }
@@ -135,32 +144,41 @@ public final class CoordinatesUtil {
     }
 
     /**
-     * Checks if the {@link Coordinates3D} given as argument is inside the rectangle formed by the {@link Coordinates3D} topLeft and bottomRight.
+     * Checks if the {@link Coordinates3D} given as argument is inside the rectangle formed by
+     * the {@link Coordinates3D} topLeft and bottomRight.
      * The check is inclusive for the topLeft {@link Coordinates3D} but not for bottomRight.
      * 
      * @param <T> type of the {@link Coordinates3D} involved.
      * @param coord the {@link Coordinates3D} to be checked against topLeft and bottomRight.
-     * @param topLeft the {@link Coordinates3D} representing the point at the top left of the rectangle that coord has to be inside of.
-     * @param bottomRight the {@link Coordinates3D} representing the point at the bottom right of the rectangle that coord has to be inside of.
+     * @param topLeft the {@link Coordinates3D} representing the point at the top left of the 
+     *          ectangle that coord has to be inside of.
+     * @param bottomRight the {@link Coordinates3D} representing the point at the bottom right
+     *          of the rectangle that coord has to be inside of.
      * @return True if coord is inside the rectangle, false otherwise.
      */
-    public static <T extends Number & Comparable<T>> boolean  isValid(final Coordinates3D<T> coord, final Coordinates3D<T> topLeft, final Coordinates3D<T> bottomRight) {
+    public static <T extends Number & Comparable<T>> boolean  isValid(final Coordinates3D<T> coord,
+            final Coordinates3D<T> topLeft, final Coordinates3D<T> bottomRight) {
         return coord.getX().compareTo(topLeft.getX()) >= 0 && coord.getY().compareTo(topLeft.getY()) >= 0 
                 &&  coord.getZ().compareTo(topLeft.getZ()) >= 0 && coord.getX().compareTo(bottomRight.getX()) < 0 
                 && coord.getY().compareTo(bottomRight.getY()) < 0 && coord.getZ().compareTo(bottomRight.getZ()) < 0;
     }
 
     /**
-     * Checks if the {@link Coordinates3D} given as argument is inside the rectangle formed by (0, 0, 0) as topLeft and bottomRight.
+     * Checks if the {@link Coordinates3D} given as argument is inside the rectangle formed
+     * by (0, 0, 0) as topLeft and bottomRight.
      * 
      * @param <T> type of the {@link Coordinates3D} involved.
      * @param coord the {@link Coordinates3D} to be checked against the rectangle.
-     * @param bottomRight the {@link Coordinates3D} representing the point at the bottom right of the rectangle that coord has to be inside of.
+     * @param bottomRight the {@link Coordinates3D} representing the point at the bottom
+     *          right of the rectangle that coord has to be inside of.
      * @return True if coord is inside the rectangle, false otherwise.
      */
-    public static <T extends Number & Comparable<T>> boolean isValid(final Coordinates3D<T> coord, final Coordinates3D<T> bottomRight) {
-        final var coordI = CoordinatesUtil.of(coord.getX().intValue(), coord.getY().intValue(), coord.getZ().intValue());
-        final var bottomRightI = CoordinatesUtil.of(bottomRight.getX().intValue(), bottomRight.getY().intValue(), bottomRight.getZ().intValue());
+    public static <T extends Number & Comparable<T>> boolean isValid(final Coordinates3D<T> coord,
+            final Coordinates3D<T> bottomRight) {
+        final var coordI = CoordinatesUtil.of(coord.getX().intValue(), coord.getY().intValue(),
+                coord.getZ().intValue());
+        final var bottomRightI = CoordinatesUtil.of(bottomRight.getX().intValue(), bottomRight.getY().intValue(),
+                bottomRight.getZ().intValue());
         return isValid(coordI, CoordinatesUtil.of(0, 0, 0), bottomRightI);
     }
 
@@ -174,7 +192,8 @@ public final class CoordinatesUtil {
      * @param maxZ the value that the Z coordinate of coord cannot be greater of.
      * @return True if both the X and Y values of coord are smaller than maxX and maxY respectively.
      */
-    public static <T extends Number & Comparable<T>> boolean isValid(final Coordinates3D<T> coord, final T maxX, final T maxY, final T maxZ) {
+    public static <T extends Number & Comparable<T>> boolean isValid(final Coordinates3D<T> coord, final T maxX,
+            final T maxY, final T maxZ) {
         return isValid(coord, CoordinatesUtil.of(maxX, maxY, maxZ));
     }
 
@@ -185,8 +204,9 @@ public final class CoordinatesUtil {
      * @return a {@link List} of {@link Coordinates3D} composed of the neighbors of the argument coordinate.
      */
     public static List<Coordinates3D<Integer>> get3DNeighbors(final Coordinates3D<Integer> coord) {
-        return Stream.of(CoordinatesUtil.of(1, 0, 0), CoordinatesUtil.of(-1, 0, 0), CoordinatesUtil.of(0, 1, 0),
-                CoordinatesUtil.of(0, -1, 0), CoordinatesUtil.of(0, 0, 1), CoordinatesUtil.of(0, 0, -1))
+        return Stream.of(CoordinatesUtil.of(1, 0, 0), CoordinatesUtil.of(-1, 0, 0),
+                CoordinatesUtil.of(0, 1, 0), CoordinatesUtil.of(0, -1, 0),
+                CoordinatesUtil.of(0, 0, 1), CoordinatesUtil.of(0, 0, -1))
             .map(x -> CoordinatesUtil.sumInt(x, coord))
             .collect(Collectors.toList());
     }
