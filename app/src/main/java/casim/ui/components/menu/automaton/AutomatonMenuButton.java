@@ -3,7 +3,6 @@ package casim.ui.components.menu.automaton;
 import casim.model.Automata;
 import casim.ui.components.menu.AbstractMenuButton;
 import casim.ui.utils.AlertBuilderImpl;
-import casim.utils.AppManager;
 
 /**
  * Bytton for the main menu.
@@ -22,7 +21,7 @@ public class AutomatonMenuButton extends AbstractMenuButton<Automata> {
 
     @Override
     public void onClick() {
-        final var res = AppManager.showConfigMenu(this.getData(), this.getMenu().getContainer());
+        final var res = this.getMenu().getAppManager().showConfigMenu(this.getData());
         if (res.isError()) {
             new AlertBuilderImpl().buildDefaultError(
                 "Error opening the config page.", this.getMenu().getContainer().getOwner());

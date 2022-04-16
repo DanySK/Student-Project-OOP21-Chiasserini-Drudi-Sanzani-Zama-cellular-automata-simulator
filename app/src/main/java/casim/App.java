@@ -5,8 +5,8 @@ package casim;
 
 import java.awt.GraphicsEnvironment;
 
+import casim.core.AppManagerImpl;
 import casim.ui.components.page.PageContainer;
-import casim.utils.AppManager;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -31,12 +31,12 @@ public class App extends Application {
         final var graphics = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         final var width = graphics.getDisplayMode().getWidth() / 2;
         final var height = graphics.getDisplayMode().getHeight() / 2;
-
         primaryStage.setWidth(width);
         primaryStage.setHeight(height);
 
         root = new PageContainer(primaryStage);
-        AppManager.showMainMenu(root);
+        final var appManager = new AppManagerImpl(root);
+        appManager.showMainMenu();
         final var scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();

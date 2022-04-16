@@ -1,9 +1,9 @@
 package casim.ui.view;
 
 import casim.controller.automaton.AutomatonController;
+import casim.core.AppManager;
 import casim.ui.components.grid.CanvasGridImpl;
-import casim.ui.components.page.PageContainer;
-import casim.ui.utils.StateColorMapper;
+import casim.ui.utils.statecolormapper.StateColorMapper;
 import casim.utils.AbstractWorker;
 import casim.utils.Result;
 import javafx.beans.value.ObservableValue;
@@ -22,14 +22,14 @@ public class ConcurrentAutomatonViewController<T> extends AutomatonViewControlle
     /**
      * Build a new {@link ConcurrentAutomatonViewController}.
      *
-     * @param container the {@link PageContainer} holding the view.
+     * @param appManager the {@link AppManager} holding the view.
      * @param controller the {@link AutomatonController} controlling the view.
      * @param grid the {@link CanvasGridImpl} to be drawn.
      * @param colorMapper the {@link StateColorMapper} that translates cell states to colors.
      */
-    public ConcurrentAutomatonViewController(final PageContainer container, final AutomatonController<T> controller,
+    public ConcurrentAutomatonViewController(final AppManager appManager, final AutomatonController<T> controller,
             final CanvasGridImpl grid, final StateColorMapper<T> colorMapper) {
-        super(container, controller, grid, colorMapper);
+        super(appManager, controller, grid, colorMapper);
         this.automaticStepThread = this.getAutomaticStepWorker();
     }
 

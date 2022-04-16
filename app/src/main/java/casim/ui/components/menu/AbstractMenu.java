@@ -3,6 +3,7 @@ package casim.ui.components.menu;
 import java.util.List;
 
 import casim.controller.menu.MenuController;
+import casim.core.AppManager;
 import casim.ui.components.page.PageContainer;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
@@ -12,17 +13,17 @@ import javafx.scene.layout.VBox;
  */
 public abstract class AbstractMenu extends VBox {
     private final MenuController controller;
-    private final PageContainer container;
+    private final AppManager appManager;
 
     /**
      * Build a new {@link AbstractMenu}.
      * 
-     * @param container the {@link PageContainer} holding the menu.
+     * @param appManager the {@link AppManager} of the application.
      * @param controller the {@link MenuController} controlling the menu.
      */
-    public AbstractMenu(final PageContainer container, final MenuController controller) {
+    public AbstractMenu(final AppManager appManager, final MenuController controller) {
         this.controller = controller;
-        this.container = container;
+        this.appManager = appManager;
         this.setStyle("-fx-font-size: 20");
     }
 
@@ -61,6 +62,15 @@ public abstract class AbstractMenu extends VBox {
      * @return the {@link PageContainer} holding the menu.
      */
     public PageContainer getContainer() {
-        return this.container;
+        return this.appManager.getContainer();
+    }
+
+    /**
+     * Get the {@link AppManager} where the menu is.
+     * 
+     * @return the {@link AppManager} holding the menu.
+     */
+    public AppManager getAppManager() {
+        return this.appManager;
     }
 }

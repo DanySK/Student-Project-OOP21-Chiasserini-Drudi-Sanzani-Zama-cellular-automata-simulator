@@ -1,10 +1,10 @@
 package casim.ui.components.menu.automaton.config;
 
+import casim.core.AppManager;
 import casim.model.Automata;
 import casim.model.codi.CoDiConfig;
 import casim.ui.components.page.PageContainer;
 import casim.ui.utils.AlertBuilderImpl;
-import casim.utils.AppManager;
 import casim.utils.Result;
 import casim.utils.ViewUtils;
 import casim.utils.automaton.config.BaseConfig;
@@ -53,17 +53,17 @@ public class AutomatonConfigController {
     @FXML
     private HBox extension;
 
-    private final PageContainer container;
+    private final AppManager appManager;
     private final Automata automata;
 
     /**
      * Construct a new {@link AutomatonConfigController}.
      * 
-     * @param container the container of the menu.
+     * @param appManager the application's manager.
      * @param automata the automata.
      */
-    public AutomatonConfigController(final PageContainer container, final Automata automata) {
-        this.container = container;
+    public AutomatonConfigController(final AppManager appManager, final Automata automata) {
+        this.appManager = appManager;
         this.automata = automata;
     }
 
@@ -73,7 +73,7 @@ public class AutomatonConfigController {
      * @return the {@link PageContainer} holding the menu.
      */
     public PageContainer getContainer() {
-        return this.container;
+        return this.appManager.getContainer();
     }
 
     /**
@@ -85,7 +85,7 @@ public class AutomatonConfigController {
         final ObservableList<String> names = FXCollections.observableArrayList(AUTOMATIC, MANUAL);
         this.modeSelector.setItems(names);
         if (this.automata.equals(Automata.CODI)) {
-            new AlertBuilderImpl().buildDefaultInfo(CODI_SIZE, this.container.getOwner())
+            new AlertBuilderImpl().buildDefaultInfo(CODI_SIZE, this.getContainer().getOwner())
             .showAndWait();
         }
     }
@@ -151,7 +151,7 @@ public class AutomatonConfigController {
     private void onBackBtnClick(final ActionEvent event) {
         final var res = this.getContainer().popPage();
         if (res.isError()) {
-            new AlertBuilderImpl().buildDefaultError(NO_PREVIOUS_PAGE, this.container.getOwner());
+            new AlertBuilderImpl().buildDefaultError(NO_PREVIOUS_PAGE, this.getContainer().getOwner());
         }
     }
 
@@ -159,7 +159,7 @@ public class AutomatonConfigController {
     private void onNextBtnClick(final ActionEvent event) {
         if (this.checkInput()) {
             final var config = this.getConfig();
-            final var res = AppManager.showSimulation(this.getAutomata(), this.getContainer(), config);
+            final var res = this.appManager.showSimulation(this.getAutomata(), config);
             if (res.isError()) {
                 new AlertBuilderImpl().buildDefaultError(
                     "Error starting the simulation.", this.getContainer().getOwner());

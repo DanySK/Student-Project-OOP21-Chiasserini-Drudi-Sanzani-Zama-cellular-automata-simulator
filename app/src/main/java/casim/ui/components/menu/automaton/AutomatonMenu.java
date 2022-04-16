@@ -3,8 +3,8 @@ package casim.ui.components.menu.automaton;
 import java.util.stream.Collectors;
 
 import casim.controller.menu.MenuController;
+import casim.core.AppManager;
 import casim.ui.components.menu.AbstractMenu;
-import casim.ui.components.page.PageContainer;
 import casim.utils.ViewUtils;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -18,11 +18,11 @@ public class AutomatonMenu extends AbstractMenu {
     /**
      * Construct a new menu.
      * 
-     * @param container the {@link PageContainer} holding the menu.
+     * @param appManager the {@link AppManager} app manager.
      * @param controller the {@link MenuController} controlling the menu.
      */
-    public AutomatonMenu(final PageContainer container, final MenuController controller) {
-        super(container, controller);
+    public AutomatonMenu(final AppManager appManager, final MenuController controller) {
+        super(appManager, controller);
         this.init();
     }
 

@@ -1,4 +1,4 @@
-package casim.ui.utils;
+package casim.ui.utils.statecolormapper;
 
 import javafx.scene.paint.Color;
 

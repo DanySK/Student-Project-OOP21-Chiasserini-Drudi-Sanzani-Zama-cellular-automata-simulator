@@ -2,10 +2,10 @@ package casim.ui.components.menu.automaton.config;
 
 import java.util.Random;
 
+import casim.core.AppManager;
 import casim.model.Automata;
 import casim.model.langtonsant.LangtonsAnt;
 import casim.model.langtonsant.LangtonsAntConfig;
-import casim.ui.components.page.PageContainer;
 import casim.utils.automaton.config.BaseConfig;
 import casim.utils.automaton.config.WrappingConfig;
 import javafx.scene.control.CheckBox;
@@ -20,11 +20,11 @@ public class AutomatonWrapConfigController extends AutomatonConfigController {
     /**
      * Construct a new {@link AutomatonWrapConfigController}.
      * 
-     * @param container the container of the menu.
+     * @param appManager the application's manager.
      * @param automata the automata to simulate.
      */
-    public AutomatonWrapConfigController(final PageContainer container, final Automata automata) {
-        super(container, automata);
+    public AutomatonWrapConfigController(final AppManager appManager, final Automata automata) {
+        super(appManager, automata);
         this.checkBox = new CheckBox("Wrapped Grid");
         this.checkBox.setPrefSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
         this.checkBox.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);

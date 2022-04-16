@@ -1,10 +1,10 @@
 package casim.ui.view.codi;
 
 import casim.controller.automaton.CoDiControllerImpl;
+import casim.core.AppManager;
 import casim.model.codi.cell.attributes.CoDiCellState;
 import casim.ui.components.grid.CanvasGridImpl;
-import casim.ui.components.page.PageContainer;
-import casim.ui.utils.StateColorMapper;
+import casim.ui.utils.statecolormapper.StateColorMapper;
 import casim.ui.view.ConcurrentAutomatonViewController;
 import casim.utils.grid.Grid2D;
 import javafx.event.EventHandler;
@@ -19,15 +19,15 @@ public class ConcurrentCoDiViewController extends ConcurrentAutomatonViewControl
     /**
      * Construct a new {@link ConcurrentCoDiViewController}.
      * 
-     * @param container the {@link PageContainer} holding the view.
+     * @param appManager the {@link AppManager} holding the view.
      * @param controller the AutomatonController controlling the view.
      * @param grid the {@link CanvasGridImpl} to be drawn.
      * @param colorMapper the {@link StateColorMapper} that translates cell states to colors.
      */
-    public ConcurrentCoDiViewController(final PageContainer container, final CoDiControllerImpl controller,
+    public ConcurrentCoDiViewController(final AppManager appManager, final CoDiControllerImpl controller,
             final CanvasGridImpl grid, final StateColorMapper<CoDiCellState> colorMapper) {
-        super(container, controller, grid, colorMapper);
-        CoDiViewUtils.showStartAlert(container);
+        super(appManager, controller, grid, colorMapper);
+        CoDiViewUtils.showStartAlert(appManager.getContainer());
     }
 
     @Override

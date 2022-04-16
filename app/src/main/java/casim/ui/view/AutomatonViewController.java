@@ -1,10 +1,11 @@
 package casim.ui.view;
 
 import casim.controller.automaton.AutomatonController;
+import casim.core.AppManager;
 import casim.ui.components.grid.CanvasGridImpl;
 import casim.ui.components.page.PageContainer;
 import casim.ui.utils.AlertBuilderImpl;
-import casim.ui.utils.StateColorMapper;
+import casim.ui.utils.statecolormapper.StateColorMapper;
 import casim.utils.ViewUtils;
 import casim.utils.grid.Grid2D;
 import javafx.application.Platform;
@@ -43,21 +44,21 @@ public class AutomatonViewController<T> {
 
     private final StackPane root = new StackPane();
     private final CanvasGridImpl grid;
-    private final PageContainer container;
+    private final AppManager appManager;
     private final StateColorMapper<T> colorMapper;
     private final AutomatonController<T> controller;
 
     /**
      * Build a new {@link AutomatonViewController}.
      *
-     * @param container the {@link PageContainer} holding the view.
+     * @param appManager the {@link AppManger} of the application.
      * @param controller the {@link AutomatonController} controlling the view.
      * @param grid the {@link CanvasGridImpl} to be drawn.
      * @param colorMapper the {@link StateColorMapper} that translates cell states to colors.
      */
-    public AutomatonViewController(final PageContainer container, final AutomatonController<T> controller,
+    public AutomatonViewController(final AppManager appManager, final AutomatonController<T> controller,
             final CanvasGridImpl grid, final StateColorMapper<T> colorMapper) {
-        this.container = container;
+        this.appManager = appManager;
         this.controller = controller;
         this.grid = grid;
         this.colorMapper = colorMapper;
@@ -113,7 +114,7 @@ public class AutomatonViewController<T> {
             this.updateGrid();
         } else {
             new AlertBuilderImpl()
-            .buildDefaultInfo(NO_NEXT_STEP, this.container.getOwner())
+            .buildDefaultInfo(NO_NEXT_STEP, this.getContainer().getOwner())
             .show();
         }
     }
@@ -152,7 +153,7 @@ public class AutomatonViewController<T> {
      * @return the {@link PageContainer}.
      */
     protected PageContainer getContainer() {
-        return this.container;
+        return this.appManager.getContainer();
     }
 
     /**
