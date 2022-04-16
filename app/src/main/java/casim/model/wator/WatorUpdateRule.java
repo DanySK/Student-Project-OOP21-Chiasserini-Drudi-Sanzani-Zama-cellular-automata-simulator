@@ -12,11 +12,20 @@ import casim.model.abstraction.rule.AbstractUpdateRule;
 import casim.utils.coordinate.Coordinates2D;
 import casim.utils.grid.Grid;
 
-public class WatorUpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, WatorCell>{
+/**
+ * Predators and Preys {@link AbstractUpdateRule} implementation.
+ */
+public class WatorUpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, WatorCell> {
 
     private static final int DEAD_HEALTH = 0;
     private static final String UNKNOWN_STATE = "Unknown state.";
 
+    /**
+     * Constucts a {@link WatorUpdateRule}.
+     * 
+     * @param neighborsFunction the function used to
+     *          obtain the neighbors of a cell.
+     */
     public WatorUpdateRule(
             final BiFunction<
                 Pair<Coordinates2D<Integer>, WatorCell>,
@@ -26,8 +35,8 @@ public class WatorUpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, 
     }
 
     @Override
-    protected WatorCell nextCell(Pair<Coordinates2D<Integer>, WatorCell> cellPair,
-            List<Pair<Coordinates2D<Integer>, WatorCell>> neighborsPairs) {
+    protected WatorCell nextCell(final Pair<Coordinates2D<Integer>, WatorCell> cellPair,
+            final List<Pair<Coordinates2D<Integer>, WatorCell>> neighborsPairs) {
         final var currCell = cellPair.getValue();
         final List<WatorCell> neighborsList = neighborsPairs.stream()
                 .map(Pair::getRight)
