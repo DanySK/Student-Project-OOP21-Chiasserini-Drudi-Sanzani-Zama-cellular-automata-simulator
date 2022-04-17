@@ -19,7 +19,7 @@ public enum CoDiCellState {
     /**
      * An activated axon.
      */
-    ACTIVATED_AXON,
+    ACTIVATE_AXON,
     /**
      * Dendritic cells, they collect data and eventually pass it to the neuron body.
      */
@@ -27,5 +27,5 @@ public enum CoDiCellState {
     /**
      * An activated dendrite. 
      */
-    ACTIVATED_DENDRITE;
+    ACTIVATE_DENDRITE;
 }

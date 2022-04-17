@@ -71,13 +71,11 @@ public class GrowthUpdateRule extends AbstractUpdateRule<Coordinates3D<Integer>,
         if (this.isNeuronSeed(cellCoord)) {
             return this.blankToNeuron(cellCoord, neighborsPairs);
         }
-        final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
-        final EnumMap<Direction, Integer> neighborsPreviousInput = cell.getNeighborsPreviousInput();
         int inputSum = CodiUtils.sumEnumMapValues(cell.getNeighborsPreviousInput());
         if (inputSum == 0) {
-            builder.state(CoDiCellState.BLANK);
-            return builder.neighborsPreviousInput(neighborsPreviousInput);
+            return this.blankCell();
         }
+        final EnumMap<Direction, Integer> neighborsPreviousInput = cell.getNeighborsPreviousInput();
         inputSum = CodiUtils.sumEnumMapSpecificValues(neighborsPreviousInput, Signal.AXON_SIGNAL.getValue());
         if (inputSum == Signal.AXON_SIGNAL.getValue()) {
             return this.blankToAxon(cell);
@@ -111,7 +109,7 @@ public class GrowthUpdateRule extends AbstractUpdateRule<Coordinates3D<Integer>,
         final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
         final Direction direction = this.findSignalDirection(cell, Signal.AXON_SIGNAL).get();
         final EnumMap<Direction, Integer> neighborsPreviousInput =
-                CodiUtils.conditionalFillNeighborsPreviosInput(cell, Signal.DENDRITE_SIGNAL.getValue(), 0);
+                CodiUtils.conditionalFillNeighborsPreviosInput(cell, Signal.AXON_SIGNAL.getValue(), 0);
         return builder.neighborsPreviousInput(neighborsPreviousInput)
                 .state(CoDiCellState.AXON)
                 .gate(Optional.of(direction));
