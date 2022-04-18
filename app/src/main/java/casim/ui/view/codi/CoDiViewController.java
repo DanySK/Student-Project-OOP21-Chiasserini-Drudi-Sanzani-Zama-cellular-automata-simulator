@@ -14,7 +14,7 @@ import javafx.scene.input.KeyEvent;
 /**
  * Implementation of CoDi's {@link AutomatonViewController}.
  */
-public class CoDiViewController extends AutomatonViewController<CoDiCellState> {
+public class CoDiViewController extends AutomatonViewController<CoDiCellState> implements CoDiLayerHandler {
 
     /**
      * Construct a new {@link CoDiViewController}.
@@ -36,7 +36,8 @@ public class CoDiViewController extends AutomatonViewController<CoDiCellState> {
         this.getView().addEventFilter(KeyEvent.KEY_PRESSED, this.changeLayerHandler());
     }
 
-    private EventHandler<KeyEvent> changeLayerHandler() {
+    @Override
+    public EventHandler<KeyEvent> changeLayerHandler() {
         return new EventHandler<KeyEvent>() {
             @Override
             public void handle(final KeyEvent event) {
