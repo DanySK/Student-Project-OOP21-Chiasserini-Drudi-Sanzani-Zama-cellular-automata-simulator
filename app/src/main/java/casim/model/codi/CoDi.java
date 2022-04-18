@@ -1,9 +1,10 @@
 package casim.model.codi;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+
 import org.apache.commons.lang3.tuple.Pair;
 
 import casim.model.abstraction.automaton.AbstractAutomaton;
@@ -24,6 +25,7 @@ import casim.utils.grid.Grid2D;
 import casim.utils.grid.Grid2DImpl;
 import casim.utils.grid.Grid3D;
 import casim.utils.grid.Grid3DImpl;
+import casim.utils.grid.GridUtils;
 import casim.utils.range.Ranges;
 
 /**
@@ -33,6 +35,7 @@ public class CoDi extends AbstractAutomaton<CoDiCellState, CoDiCell> {
 
     private static final int RIGHT_SLIDE = 1;
     private static final int LEFT_SLIDE = -1;
+    private static final int RANDOM_ACTIVATION_COUNTER = 32;
 
     private int outputLayer;
     private boolean changed; 
@@ -86,9 +89,7 @@ public class CoDi extends AbstractAutomaton<CoDiCellState, CoDiCell> {
             }
             newState.set(coord, cell);
         }
-        this.state = newState;
-        this.kicking();
-        return this.getGrid();
+        return this.computeNewState(newState);
     }
 
     private Grid2D<CoDiCell> signalStep() {
@@ -97,6 +98,10 @@ public class CoDi extends AbstractAutomaton<CoDiCellState, CoDiCell> {
             final CoDiCell cell = this.signalingUpdateRule.getNextCell(Pair.of(coord, this.state.get(coord)), this.state);
             newState.set(coord, cell);
         }
+        return this.computeNewState(newState);
+    }
+
+    private Grid2D<CoDiCell> computeNewState(final Grid3D<CoDiCell> newState) {
         this.state = newState;
         this.kicking();
         return this.getGrid();
@@ -107,8 +112,8 @@ public class CoDi extends AbstractAutomaton<CoDiCellState, CoDiCell> {
         this.hasSetupSignaling = true;
         for (final var coord: this.visitGrid()) {
             final CoDiCell cell = this.state.get(coord);
-            if (cell.getState() == CoDiCellState.NEURON) { 
-                cell.setActivationCounter(random.nextInt(32));
+            if (cell.getState().equals(CoDiCellState.NEURON)) { 
+                cell.setActivationCounter(random.nextInt(RANDOM_ACTIVATION_COUNTER));
             } else {
                 cell.setActivationCounter(0);
             }
@@ -116,16 +121,8 @@ public class CoDi extends AbstractAutomaton<CoDiCellState, CoDiCell> {
     }
 
     private List<Coordinates3D<Integer>> visitGrid() {
-        final List<Coordinates3D<Integer>> coordList = new ArrayList<>();
-        for (final var z: Ranges.of(0, this.state.getDepth())) {
-            for (final var y: Ranges.of(0, this.state.getHeight())) {
-                for (final var x: Ranges.of(0, this.state.getWidth())) {
-                    final var coord = CoordinatesUtil.of(x, y, z);
-                    coordList.add(coord);
-                }
-            }
-        }
-        return coordList;
+        return GridUtils.get3dCoordStream(this.state.getWidth(), this.state.getHeight(), this.state.getDepth())
+                .collect(Collectors.toList());
     }
 
     /**
@@ -184,7 +181,7 @@ public class CoDi extends AbstractAutomaton<CoDiCellState, CoDiCell> {
                       .activationCounter(cell.getActivationCounter())
                       .chromosome(cell.getChromosome())
                       .neighborsPreviousInput(cell.getNeighborsPreviousInput())
-                      .state((cell.getState() == CoDiCellState.AXON) ? CoDiCellState.ACTIVATED_AXON : CoDiCellState.ACTIVATED_DENDRITE)
+                      .state((cell.getState() == CoDiCellState.AXON) ? CoDiCellState.ACTIVATE_AXON : CoDiCellState.ACTIVATE_DENDRITE)
                       .build();
     }
 

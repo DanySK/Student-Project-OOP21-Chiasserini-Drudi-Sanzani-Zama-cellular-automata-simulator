@@ -74,8 +74,7 @@ public class WatorUpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, 
         toChange.clone(currentCell);
         movementAction.accept(toChange);
         toChange.setMoved();
-        final var spawn = toChange.reproduce();
-        return spawn;
+        return toChange.reproduce();
     }
 
     private boolean applyDeath(final WatorCell currentCell) {
@@ -99,8 +98,7 @@ public class WatorUpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, 
             chosenNeighbor.clone(currentCell);
             chosenNeighbor.setMoved();
             chosenNeighbor.heal();
-            final var spawn = currentCell.reproduce();
-            return spawn;
+            return currentCell.reproduce();
         }
         return currentCell;
     }

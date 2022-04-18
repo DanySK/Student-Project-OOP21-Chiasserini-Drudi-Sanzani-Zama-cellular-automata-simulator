@@ -21,6 +21,7 @@ import casim.utils.grid.Grid;
 public class SignalingUpdateRule extends AbstractUpdateRule<Coordinates3D<Integer>, CoDiCell> {
 
     private static final int NEURON_ACTIVATION_VALUE = 31;
+    private static final int SIGNAL_LIMIT = 2;
 
     /**
      * Constructor of {@link SignalingUpdateRule}.
@@ -82,9 +83,10 @@ public class SignalingUpdateRule extends AbstractUpdateRule<Coordinates3D<Intege
 
     private CoDiCellBuilder axonSignal(final CoDiCell cell) {
         final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
+        final int gateValue = cell.getNeighborsPreviousInput().get(cell.getGate().get());
         final EnumMap<Direction, Integer> neighborsPreviousInput =
-                CodiUtils.newFilledEnumMap(() -> cell.getActivationCounter());
-        builder.activationCounter((cell.getNeighborsPreviousInput().get(cell.getGate().get()) != 0) ? 1 : 0);
+                CodiUtils.newFilledEnumMap(() -> gateValue);
+        builder.activationCounter((gateValue != 0) ? 1 : 0);
         return builder.neighborsPreviousInput(neighborsPreviousInput);
     }
 
@@ -92,7 +94,7 @@ public class SignalingUpdateRule extends AbstractUpdateRule<Coordinates3D<Intege
         final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
         final EnumMap<Direction, Integer> neighborsPreviousInput = CodiUtils.newFilledEnumMap(() -> 0);
         int inputSum = CodiUtils.sumEnumMapValues(cell.getNeighborsPreviousInput());
-        inputSum = inputSum > 2 ? 2 : inputSum; 
+        inputSum = inputSum > SIGNAL_LIMIT ? SIGNAL_LIMIT : inputSum; 
         neighborsPreviousInput.put(cell.getGate().get(), inputSum);
         builder.activationCounter((inputSum != 0) ? 1 : 0);
         return builder.neighborsPreviousInput(neighborsPreviousInput);
