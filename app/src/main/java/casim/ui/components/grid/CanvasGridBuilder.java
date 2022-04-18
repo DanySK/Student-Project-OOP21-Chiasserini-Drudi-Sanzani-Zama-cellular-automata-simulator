@@ -12,7 +12,7 @@ public interface CanvasGridBuilder {
      * @param separatorWidth the separator width.
      * @return a {@link CanvasGridBuilderImpl}.
      */
-    CanvasGridBuilderImpl separatorWidth(double separatorWidth);
+    CanvasGridBuilder separatorWidth(double separatorWidth);
 
     /**
      * Set the {@link CanvasGrid} separator color.
@@ -20,7 +20,7 @@ public interface CanvasGridBuilder {
      * @param separatorColor {@link Color} to be set as separator color
      * @return a {@link CanvasGridBuilderImpl}.
      */
-    CanvasGridBuilderImpl separatorColor(Color separatorColor);
+    CanvasGridBuilder separatorColor(Color separatorColor);
 
     /**
      * Build the {@link CanvasGrid} object, setting the mandatory fields.
