@@ -3,7 +3,7 @@ package casim.ui.view.codi;
 import casim.controller.automaton.AutomatonController;
 import casim.controller.automaton.CoDiControllerImpl;
 import casim.core.AppManager;
-import casim.model.codi.cell.attributes.CoDiCellState;
+import casim.model.codi.cell.CoDiCellState;
 import casim.ui.components.grid.CanvasGridImpl;
 import casim.ui.utils.statecolormapper.StateColorMapper;
 import casim.ui.view.AutomatonViewController;

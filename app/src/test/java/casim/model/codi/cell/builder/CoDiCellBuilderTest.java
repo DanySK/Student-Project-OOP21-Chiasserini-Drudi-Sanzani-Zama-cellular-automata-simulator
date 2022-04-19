@@ -6,9 +6,9 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import casim.model.codi.cell.CoDiCell;
-import casim.model.codi.cell.attributes.CoDiCellState;
-import casim.model.codi.cell.attributes.Direction;
-import casim.model.codi.utils.CodiUtils;
+import casim.model.codi.cell.CoDiCellState;
+import casim.model.codi.utils.CoDiUtils;
+import casim.model.codi.utils.Direction;
 
 /**
  * Test class for {@link CoDiCellBuilder}.
@@ -25,9 +25,9 @@ class CoDiCellBuilderTest {
     void testBuild() {
         final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
         Assert.assertThrows(IllegalStateException.class, () -> builder.build());
-        final EnumMap<Direction, Integer> neighborsPreviousInput = CodiUtils.newFilledEnumMap(() -> 0);
+        final EnumMap<Direction, Integer> neighborsPreviousInput = CoDiUtils.newFilledEnumMap(() -> 0);
         final EnumMap<Direction, Boolean> chromosome =
-                CodiUtils.newFilledEnumMap(() -> CodiUtils.booleanWithSpecificProbability(CHROMOSOME_PROBABILITY));
+                CoDiUtils.newFilledEnumMap(() -> CoDiUtils.booleanWithSpecificProbability(CHROMOSOME_PROBABILITY));
         builder.state(STATE)
                .activationCounter(0)
                .chromosome(chromosome)

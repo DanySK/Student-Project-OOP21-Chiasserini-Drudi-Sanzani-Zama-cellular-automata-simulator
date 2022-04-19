@@ -4,8 +4,8 @@ import java.util.EnumMap;
 import java.util.Optional;
 
 import casim.model.codi.cell.CoDiCell;
-import casim.model.codi.cell.attributes.CoDiCellState;
-import casim.model.codi.cell.attributes.Direction;
+import casim.model.codi.cell.CoDiCellState;
+import casim.model.codi.utils.Direction;
 
 /**
  * A builder for {@link CoDiCell}.

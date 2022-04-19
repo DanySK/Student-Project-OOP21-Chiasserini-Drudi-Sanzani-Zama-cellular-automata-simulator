@@ -1,7 +1,7 @@
 package casim.ui.utils.statecolormapper;
 
 import casim.model.bryansbrain.BryansBrainCellState;
-import casim.model.codi.cell.attributes.CoDiCellState;
+import casim.model.codi.cell.CoDiCellState;
 import casim.model.gameoflife.GameOfLifeState;
 import casim.model.langtonsant.LangtonsAntCellState;
 import casim.model.rule110.Rule110CellState;

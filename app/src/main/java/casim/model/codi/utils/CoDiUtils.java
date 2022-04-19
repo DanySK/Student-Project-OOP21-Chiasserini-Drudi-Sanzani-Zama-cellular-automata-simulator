@@ -5,18 +5,17 @@ import java.util.Random;
 import java.util.function.Supplier;
 
 import casim.model.codi.cell.CoDiCell;
-import casim.model.codi.cell.attributes.Direction;
 import casim.utils.coordinate.Coordinates3D;
 import casim.utils.coordinate.CoordinatesUtil;
 
 /**
  * A static utility class for CoDi rules.
  */
-public final class CodiUtils {
+public final class CoDiUtils {
 
     private static final int MAX_PERCENTAGE = 101; 
 
-    private CodiUtils() {
+    private CoDiUtils() {
     }
 
     /**
@@ -108,6 +107,16 @@ public final class CodiUtils {
         }
         final Random random = new Random();
         return random.nextInt(MAX_PERCENTAGE) < probability;
+    }
+
+    /**
+     * Return a random {@link Direction}.
+     * 
+     * @return a random {@link Direction}.
+     */
+    public static Direction getRandomDirection() {
+        final Random random = new Random();
+        return Direction.values()[random.nextInt(Direction.values().length)];
     }
 
 }

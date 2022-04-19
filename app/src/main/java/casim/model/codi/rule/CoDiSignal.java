@@ -1,13 +1,10 @@
-package casim.model.codi.cell.attributes;
+package casim.model.codi.rule;
 
 /**
  * An enum for the growth signals for the CoDi growth phase (see in GrowthUpdateRule).
  */
-public enum Signal {
-    /**
-     * An empty signal.
-     */
-    EMPTY(0),
+public enum CoDiSignal {
+
     /**
      * An axon signal.
      */
@@ -19,7 +16,7 @@ public enum Signal {
 
     private final int value;
 
-    Signal(final int value) {
+    CoDiSignal(final int value) {
         this.value = value;
     }
 

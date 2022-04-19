@@ -1,4 +1,4 @@
-package casim.model.codi.cell.attributes;
+package casim.model.codi.cell;
 
 /** 
  * The states a cell of CoDi Automaton can have.
