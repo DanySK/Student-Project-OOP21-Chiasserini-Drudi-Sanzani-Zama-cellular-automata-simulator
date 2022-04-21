@@ -22,10 +22,10 @@ The following features will be implemented:
 - [ ] Zoom
 
 This software is developed by:
-- @RaulChiasso
-- @LorenzoDrudi
-- @FiloSanza
-- @TorioCrema
+- [Raul Chiasserini](https://github.com/RaulChiasso) 
+- [Lorenzo Drudi](https://github.com/LorenzoDrudi)
+- [Filippo Sanzani](https://github.com/FiloSanza)
+- [Simone Zama](https://github.com/TorioCrema) 
 
 For the university course in OOP.
 
@@ -55,12 +55,12 @@ The gradle scripts automatically executes additional checks using PMD, SpotBugs 
 
 ```bash
 ./gradle build -x check       #to disable all the checks
-./gradle build -x [checkName] #checkName can be checkstyle[Main|Test] pmd[Main|Test] spotbugs[Main|Test]
+./gradle build -x [checkName] #checkName can be checkstyle[Main|Test] spotbugs[Main|Test]
 ```
 
 If you are on Windows you can use:
 
 ```ps
 gradlew.bat build -x check       #to disable all the checks
-gradlew.bat build -x [checkName] #checkName can be checkstyle[Main|Test] pmd[Main|Test] spotbugs[Main|Test]
+gradlew.bat build -x [checkName] #checkName can be checkstyle[Main|Test] spotbugs[Main|Test]
 ```

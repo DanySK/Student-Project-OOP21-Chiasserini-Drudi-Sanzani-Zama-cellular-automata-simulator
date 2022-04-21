@@ -2,6 +2,7 @@ package casim.utils;
 
 import java.util.Optional;
 import java.util.stream.Stream;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.Predicate;
@@ -15,12 +16,47 @@ import java.util.function.Predicate;
  * @param <T> Result type.
  */
 public final class Result<T> {
+    private static final Empty EMPTY_VALUE = new Empty() { }; 
+
     private final Optional<T> value;
     private final Optional<Exception> exception; 
 
     private Result(final Optional<T> value, final Optional<Exception> exception) {
         this.value = value;
         this.exception = exception;
+    }
+
+    /**
+     * Execute a supplier of T and return a {@link Result} holding the value.
+     * The execution may throw an exception.
+     *
+     * @param <T> the return type of the supplier.
+     * @param <E> the exception type.
+     * @param function the supplier to be executed.
+     * @return a {@link Result} holding the value.
+     */
+    public static <T, E extends Exception> Result<T> executeSupplier(final FailableSupplier<T, E> function) {
+        try {
+            return Result.of(function.run());
+        } catch (Exception ex) {
+            return Result.error(ex);
+        }
+    }
+
+    /**
+     * Execute a task that may thow an exception and return a {@link Result} holding the value.
+     *
+     * @param <E> the exception that the task may throw.
+     * @param function the supplier to be executed.
+     * @return a {@link Result} holding {@link Empty} if the task is completed successfully.
+     */
+    public static <E extends Exception> Result<Empty> executeTask(final Task<E> function) {
+        try {
+            function.execute();
+            return Result.ofEmpty();
+        } catch (Exception ex) {
+            return Result.error(ex);
+        }
     }
 
     /** 
@@ -51,7 +87,7 @@ public final class Result<T> {
      * @return An empty {@link Result}.
      */
     public static Result<Empty> ofEmpty() {
-        return Result.of(new Empty() { });
+        return Result.of(EMPTY_VALUE);
     }
 
     /** 
@@ -88,6 +124,15 @@ public final class Result<T> {
      */
     public Exception getError() {
         return this.exception.get();
+    }
+
+    /**
+     * If the value is present call consumer with value as parameter, otherwise do nothing.
+     * 
+     * @param consumer function to call with value as parameter.
+     */
+    public void ifPresent(final Consumer<? super T> consumer) {
+        this.value.ifPresent(consumer);
     }
 
     /** 

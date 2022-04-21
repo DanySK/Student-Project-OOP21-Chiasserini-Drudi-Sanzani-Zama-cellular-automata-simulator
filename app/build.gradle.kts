@@ -7,14 +7,15 @@
  */
 
 plugins {
+    java
     // Apply the application plugin to add support for building a CLI application in Java.
     application
-    pmd
     checkstyle
     id("com.github.spotbugs") version "5.0.5"
     // Adds task 'shadowJar ' to export a runnable jar .
     // The runnable jar will be found in build / libs / projectname - all . jar
     id ("com.github.johnrengelman.shadow") version "7.1.2"
+    id("org.openjfx.javafxplugin") version "0.0.11"
 }
 
 repositories {
@@ -22,44 +23,34 @@ repositories {
     mavenCentral()
 }
 
-val javaFXModules = listOf("base", "controls", "fxml", "swing", "graphics")
-val supportedPlatforms = listOf("linux", "mac", "win")
-val javaFXVersion = 15
-
 dependencies {
     spotbugs("com.github.spotbugs:spotbugs:4.5.3")
     spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.11.0")
-    
-    for (platform in supportedPlatforms) {
-        for (module in javaFXModules) {
-            implementation("org.openjfx:javafx-$module:$javaFXVersion:$platform")
-        }
-    }
 
+    val junitVer = "5.8.2"
+    val platformVer = "1.8.2"
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
-    testImplementation("org.junit.platform:junit-platform-runner:1.8.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVer")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVer")
+    testImplementation("org.junit.platform:junit-platform-runner:$platformVer")
     // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-commons
-    implementation("org.junit.platform:junit-platform-commons:1.8.2")
+    implementation("org.junit.platform:junit-platform-commons:$platformVer")
     // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher
-    testImplementation("org.junit.platform:junit-platform-launcher:1.8.2")
+    testImplementation("org.junit.platform:junit-platform-launcher:$platformVer")
 
-    // This dependency is used by the application.
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    implementation("org.apache.commons:commons-lang3:3.12.0")
+
     implementation("com.google.guava:guava:30.1.1-jre")
+
+    // https://mvnrepository.com/artifact/org.reflections/reflections
+    implementation("org.reflections:reflections:0.10.2")
+
 }
 
 application {
     // Define the main class for the application.
     mainClass.set("casim.App")
-}
-
-pmd {
-    isConsoleOutput = true
-    toolVersion = "6.21.0"
-    rulesMinimumPriority.set(5)
-    ruleSetFiles = files("../config/pmd/pmd.xml") //load the rules from the config file
-    ruleSets = listOf() //do not add other rules
 }
 
 checkstyle {
@@ -84,21 +75,23 @@ tasks.spotbugsMain {
     }
 }
 
-//Java version
 java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(11))
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+tasks {
+    withType<JavaCompile> {
+        options.encoding = "UTF-8"
+    }
+
+    withType<Test> {
+        // Enables JUnit 5 Jupiter module
+        useJUnitPlatform()
     }
 }
 
-//Configure JUnit
-tasks.named<Test>("test") {
-    useJUnitPlatform()
-    testLogging {
-		events("skipped", "failed")
-	}
-}
-
-tasks.named("check") {
-    dependsOn("javadoc")
+javafx {
+    version = "15"
+    modules("javafx.base", "javafx.controls", "javafx.fxml", "javafx.swing", "javafx.graphics")
 }

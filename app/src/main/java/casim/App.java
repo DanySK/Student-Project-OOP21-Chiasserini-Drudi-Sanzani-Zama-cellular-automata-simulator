@@ -3,25 +3,22 @@
  */
 package casim;
 
+import casim.core.Launcher;
+import javafx.application.Application;
 /**
- * App class.
+ * Main project class.
  */
-public class App {
-    /**
-     * Greetings function.
+public final class App {
+        /**
+     * Entry point.
      * 
-     * @return greetings
-     */
-    public String getGreeting() {
-        return "Hello World!";
-    }
-
-    /**
-     * Entry Point.
-     * 
-     * @param args args
+     * @param args command line args.
      */
     public static void main(final String[] args) {
-        System.out.println(new App().getGreeting());
+        Application.launch(Launcher.class, args);
+    }
+
+    private App() {
+
     }
 }
