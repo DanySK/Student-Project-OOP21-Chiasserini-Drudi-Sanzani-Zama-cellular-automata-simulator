@@ -3,47 +3,22 @@
  */
 package casim;
 
-import java.awt.GraphicsEnvironment;
-
-import casim.core.AppManagerImpl;
-import casim.ui.components.page.PageContainer;
+import casim.core.Launcher;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
 /**
  * Main project class.
  */
-public class App extends Application {
-    private PageContainer root;
-
-    /**
+public final class App {
+        /**
      * Entry point.
      * 
      * @param args command line args.
      */
     public static void main(final String[] args) {
-        launch(args);
+        Application.launch(Launcher.class, args);
     }
 
-    @Override
-    public void start(final Stage primaryStage) throws Exception {
-        final var graphics = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-        final var width = graphics.getDisplayMode().getWidth() / 2;
-        final var height = graphics.getDisplayMode().getHeight() / 2;
-        primaryStage.setWidth(width);
-        primaryStage.setHeight(height);
+    private App() {
 
-        root = new PageContainer(primaryStage);
-        final var appManager = new AppManagerImpl(root);
-        appManager.showMainMenu();
-        final var scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-    }
-
-    @Override
-    public void stop() throws Exception {
-        root.close();
     }
 }
