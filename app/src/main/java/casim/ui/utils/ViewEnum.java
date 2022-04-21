@@ -1,5 +1,7 @@
 package casim.ui.utils;
 
+import java.util.Locale;
+
 /**
  * View types enumeration.
  */
@@ -21,6 +23,6 @@ public enum ViewEnum {
      * @return the resource name string.
      */
     public String getResourceName() {
-        return "/" + this.name().toLowerCase() + EXT;
+        return "/" + this.name().toLowerCase(Locale.ENGLISH) + EXT;
     }
 }

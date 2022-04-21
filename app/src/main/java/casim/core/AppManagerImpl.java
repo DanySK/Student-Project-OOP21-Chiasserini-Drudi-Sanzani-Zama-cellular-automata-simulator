@@ -71,7 +71,7 @@ public final class AppManagerImpl implements AppManager {
     @Override
     public Result<Empty> showConfigMenu(final Automata automata) {
         final var loader = new FXMLLoader(
-            AppManagerImpl.class.getResource(ViewEnum.AUTOMATON_CONFIG_MENU.getResourceName()));
+            getClass().getResource(ViewEnum.AUTOMATON_CONFIG_MENU.getResourceName()));
         final var controller = this.getConfigController(automata);
         loader.setController(controller);
         final Result<VBox> view = Result.executeSupplier(() -> (VBox) loader.load());
@@ -82,7 +82,7 @@ public final class AppManagerImpl implements AppManager {
     @Override
     public Result<Empty> showSimulation(final Automata automata, final BaseConfig config) {
         final var loader = new FXMLLoader(
-            AppManagerImpl.class.getResource(ViewEnum.AUTOMATON_VIEW.getResourceName()));
+            getClass().getResource(ViewEnum.AUTOMATON_VIEW.getResourceName()));
         final var viewController = this.getAutomatonViewControllerFromAutomata(automata, config);
         loader.setController(viewController);
         final Result<VBox> view = Result.executeSupplier(() -> (VBox) loader.load());

@@ -17,8 +17,8 @@ public class Launcher extends Application {
     @Override
     public void start(final Stage primaryStage) throws Exception {
         final var graphics = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-        final var width = graphics.getDisplayMode().getWidth() / 2;
-        final var height = graphics.getDisplayMode().getHeight() / 2;
+        final var width = Math.max(800, graphics.getDisplayMode().getWidth() / 2);
+        final var height = Math.max(700, graphics.getDisplayMode().getHeight() / 2);
         primaryStage.setWidth(width);
         primaryStage.setHeight(height);
 
