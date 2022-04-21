@@ -5,10 +5,10 @@ import java.util.Optional;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
-import casim.model.codi.cell.attributes.Direction;
 import casim.model.codi.cell.builder.CoDiCellBuilder;
 import casim.model.codi.cell.builder.CoDiCellBuilderImpl;
 import casim.model.codi.cell.builder.utils.CoDiCellSupplier;
+import casim.model.codi.utils.Direction;
 
 /**
  * Test class for {@link CoDiCell}.

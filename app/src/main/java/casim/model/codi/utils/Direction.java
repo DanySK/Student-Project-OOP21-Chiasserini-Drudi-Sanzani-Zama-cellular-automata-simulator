@@ -1,8 +1,7 @@
-package casim.model.codi.cell.attributes;
+package casim.model.codi.utils;
 
 import java.util.EnumMap;
 import java.util.Map;
-import java.util.Random;
 
 import casim.utils.coordinate.Coordinates3D;
 import casim.utils.coordinate.CoordinatesUtil;
@@ -60,16 +59,6 @@ public enum Direction {
      */
     public Direction getOpposite() { 
         return OPPOSITE_DIRECTION.get(this);
-    }
-
-    /**
-     * Return a random {@link Direction}.
-     * 
-     * @return a random {@link Direction}.
-     */
-    public static Direction getRandomDirection() {
-        final Random random = new Random();
-        return values()[random.nextInt(values().length)];
     }
 
     /**

@@ -3,7 +3,7 @@ package casim.controller.automaton;
 import casim.model.abstraction.cell.AbstractCell;
 import casim.model.codi.CoDi;
 import casim.model.codi.cell.CoDiCell;
-import casim.model.codi.cell.attributes.CoDiCellState;
+import casim.model.codi.cell.CoDiCellState;
 import casim.utils.grid.Grid2D;
 
 /**

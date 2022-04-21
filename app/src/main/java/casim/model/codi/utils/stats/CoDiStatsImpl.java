@@ -1,14 +1,15 @@
-package casim.model.codi.utils;
+package casim.model.codi.utils.stats;
 
 import java.util.Map;
 
 import casim.model.abstraction.utils.stats.StatsImpl;
-import casim.model.codi.cell.attributes.CoDiCellState;
+import casim.model.codi.cell.CoDiCellState;
 
 /**
  * Stats implementation for CoDi automaton.
+ * It implements {@link CoDiStats}.
  */
-public class CoDiStatsImpl extends StatsImpl<CoDiCellState> {
+public class CoDiStatsImpl extends StatsImpl<CoDiCellState> implements CoDiStats {
 
     private final int outputLayer;
 
@@ -24,11 +25,7 @@ public class CoDiStatsImpl extends StatsImpl<CoDiCellState> {
         this.outputLayer = outputlayer;
     }
 
-    /**
-     * Return the current output layer.
-     * 
-     * @return the current output layer.
-     */
+    @Override
     public int getOutputLayer() {
         return this.outputLayer;
     }

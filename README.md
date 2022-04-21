@@ -22,10 +22,10 @@ The following features will be implemented:
 - [ ] Zoom
 
 This software is developed by:
-- @RaulChiasso
-- @LorenzoDrudi
-- @FiloSanza
-- @TorioCrema
+- [Raul Chiasserini](https://github.com/RaulChiasso) 
+- [Lorenzo Drudi](https://github.com/LorenzoDrudi)
+- [Filippo Sanzani](https://github.com/FiloSanza)
+- [Simone Zama](https://github.com/TorioCrema) 
 
 For the university course in OOP.
 

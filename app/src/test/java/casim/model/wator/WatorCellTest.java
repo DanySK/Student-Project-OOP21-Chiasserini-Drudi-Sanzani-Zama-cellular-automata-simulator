@@ -1,8 +1,6 @@
-package casim.wator;
+package casim.model.wator;
 
 import org.junit.jupiter.api.Test;
-import casim.model.wator.WatorCell;
-import casim.model.wator.WatorCellState;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;

@@ -8,7 +8,7 @@ import casim.model.Automata;
 import casim.model.abstraction.cell.AbstractCell;
 import casim.model.bryansbrain.BryansBrainCellState;
 import casim.model.codi.CoDiConfig;
-import casim.model.codi.cell.attributes.CoDiCellState;
+import casim.model.codi.cell.CoDiCellState;
 import casim.model.gameoflife.GameOfLifeState;
 import casim.model.langtonsant.LangtonsAntCellState;
 import casim.model.langtonsant.LangtonsAntConfig;

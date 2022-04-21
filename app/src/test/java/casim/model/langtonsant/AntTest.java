@@ -1,10 +1,7 @@
-package casim.langtonsant;
+package casim.model.langtonsant;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import casim.model.langtonsant.Ant;
-import casim.model.langtonsant.LangtonsAntCellState;
-import casim.model.langtonsant.Direction;
 import casim.utils.coordinate.Coordinates2D;
 import casim.utils.coordinate.CoordinatesUtil;
 
