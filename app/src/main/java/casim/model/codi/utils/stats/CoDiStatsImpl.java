@@ -11,6 +11,8 @@ import casim.model.codi.cell.CoDiCellState;
  */
 public class CoDiStatsImpl extends StatsImpl<CoDiCellState> implements CoDiStats {
 
+    private static final String NEWLINE = System.lineSeparator();
+
     private final int outputLayer;
 
     /**
@@ -32,8 +34,9 @@ public class CoDiStatsImpl extends StatsImpl<CoDiCellState> implements CoDiStats
 
     @Override
     public String toString() {
-        return "CoDiStatsImpl [outputLayer=" + outputLayer + ", getIteration()=" + getIteration() + ", getCellStats()="
-                + getCellStats() + "]";
+        return "OutputLayer: " + this.outputLayer + NEWLINE
+                + "Iteration: " + this.getIteration() + NEWLINE 
+                + "States: " + this.getCellStats();
     }
 
 }

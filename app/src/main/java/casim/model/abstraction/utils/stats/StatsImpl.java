@@ -10,6 +10,8 @@ import java.util.Map;
  */
 public class StatsImpl<T> implements Stats<T> {
 
+    private static final String NEWLINE = System.lineSeparator();
+
     private final int iterationCounter;
     private final Map<T, Integer> statesMap;
 
@@ -36,7 +38,7 @@ public class StatsImpl<T> implements Stats<T> {
 
     @Override
     public String toString() {
-        return "Iterations: " + this.iterationCounter + "\nStates: " + statesMap;
+        return "Iterations: " + this.iterationCounter + NEWLINE + "States: " + statesMap;
     }
 
 }
