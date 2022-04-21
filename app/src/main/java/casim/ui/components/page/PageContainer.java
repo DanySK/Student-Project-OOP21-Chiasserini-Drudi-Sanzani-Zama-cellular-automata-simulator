@@ -21,7 +21,7 @@ public class PageContainer extends AnchorPane {
     private static final int MAX_FONT_SIZE = 40;
     //We want the pixel size to be ~20 at 1080p and it should change as: fontSize(pixels) = RATIO * pixels
     //With fontSize(1080 * 1920) = 20 we get RATIO ~= 0.00000964506
-    private static final double PIXEL_FONT_RATIO = 0.00000964506;
+    private static final double PIXEL_FONT_RATIO = 0.000_009_645_06;
 
     private final Deque<Node> pages;
     private final Window owner;
