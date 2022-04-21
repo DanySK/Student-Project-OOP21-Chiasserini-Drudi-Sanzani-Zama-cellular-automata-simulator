@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import casim.utils.Empty;
 import casim.utils.Result;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Window;
@@ -16,6 +17,11 @@ import javafx.stage.Window;
 public class PageContainer extends AnchorPane {
 
     private static final String NO_PREVIOUS_PAGE = "There is no previous page"; 
+    private static final int MIN_FONT_SIZE = 15;
+    private static final int MAX_FONT_SIZE = 40;
+    //We want the pixel size to be ~20 at 1080p and it should change as: fontSize(pixels) = RATIO * pixels
+    //With fontSize(1080 * 1920) = 20 we get RATIO ~= 0.00000964506
+    private static final double PIXEL_FONT_RATIO = 0.00000964506;
 
     private final Deque<Node> pages;
     private final Window owner;
@@ -29,6 +35,8 @@ public class PageContainer extends AnchorPane {
     public PageContainer(final Window owner) {
         this.pages = new ArrayDeque<>();
         this.owner = owner;
+        this.widthProperty().addListener(this::onSizeChange);
+        this.heightProperty().addListener(this::onSizeChange);
     }
 
     /**
@@ -90,5 +98,15 @@ public class PageContainer extends AnchorPane {
         if (!this.pages.isEmpty()) {
             this.getChildren().add(this.pages.peek());
         }
+    }
+
+    private void onSizeChange(final ObservableValue<? extends Number> obs, final Number oldVal, final Number newVal) {
+        final var fontSize = this.getFontSize(this.getWidth() * this.getHeight());
+        this.setStyle("-fx-font-size: " + fontSize);
+    }
+
+    private int getFontSize(final double pixels) {
+        final var fontSize = Math.max(MIN_FONT_SIZE, Math.min(MAX_FONT_SIZE, pixels * PIXEL_FONT_RATIO));
+        return (int) Math.round(fontSize);
     }
 }
