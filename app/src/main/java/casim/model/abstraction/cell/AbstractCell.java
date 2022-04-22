@@ -25,7 +25,7 @@ public abstract class AbstractCell<T> implements Cell<T> {
 
     /**
      * Sets the state of the cell.
-     * @param state
+     * @param state the state to be set in the {@link Cell}.
      */
     protected void setState(final T state) {
         this.state = state;

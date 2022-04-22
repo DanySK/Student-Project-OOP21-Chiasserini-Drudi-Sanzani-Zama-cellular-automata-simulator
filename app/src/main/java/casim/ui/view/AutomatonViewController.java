@@ -51,7 +51,7 @@ public class AutomatonViewController<T> {
     /**
      * Build a new {@link AutomatonViewController}.
      *
-     * @param appManager the {@link AppManger} of the application.
+     * @param appManager the {@link AppManager} of the application.
      * @param controller the {@link AutomatonController} controlling the view.
      * @param grid the {@link CanvasGridImpl} to be drawn.
      * @param colorMapper the {@link StateColorMapper} that translates cell states to colors.
