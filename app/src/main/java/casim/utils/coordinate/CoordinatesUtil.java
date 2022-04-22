@@ -108,11 +108,15 @@ public final class CoordinatesUtil {
      * Returns a {@link Coordinates2D} of type {@link Integer} with random values between 0 (inclusive)
      * and the specified values (exclusive).
      * 
+     * @throws IllegalArgumentException if one or more arguments are not positive.
      * @param maxX the upper limit of the X coordinate. Must be positive.
      * @param maxY the upper limit of the Y coordinate. Must be positive.
      * @return {@link Coordinates2D} with random values between 0 and arguments.
      */
     public static Coordinates2D<Integer> random(final int maxX, final int maxY) {
+        if (maxX < 0 || maxY < 0) {
+            throw new IllegalArgumentException("All arguments must be positive integers.");
+        }
         final var rand = new Random();
         return CoordinatesUtil.of(rand.nextInt(maxX), rand.nextInt(maxY));
     }
@@ -215,12 +219,16 @@ public final class CoordinatesUtil {
      * Returns a {@link Coordinates3D} of type {@link Integer} with
      * random values between 0 (inclusive) and arguments (exclusive).
      * 
+     * @throws IllegalArgumentException if one or more arguments are not positive.
      * @param maxX the upper limit of the X coordinate. Must be positive.
      * @param maxY the upper limit of the Y coordinate. Must be positive.
      * @param maxZ the upper limit of the Z coordinate. Must be positive.
      * @return a {@link Coordinates3D} with random values between 0 and arguments.
      */
     public static Coordinates3D<Integer> random(final int maxX, final int maxY, final int maxZ) {
+        if (maxX < 0 || maxY < 0 || maxZ < 0) {
+            throw new IllegalArgumentException("All arguments must be positive integers.");
+        }
         final var rand = new Random();
         return CoordinatesUtil.of(rand.nextInt(maxX), rand.nextInt(maxY), rand.nextInt(maxZ));
     }
