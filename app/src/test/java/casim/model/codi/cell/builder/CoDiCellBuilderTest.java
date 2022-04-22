@@ -19,12 +19,21 @@ class CoDiCellBuilderTest {
     private static final CoDiCellState STATE = CoDiCellState.BLANK;
 
     /**
+     * Test for {@link CoDiCellBuilder#build()} to check if {@link CoDiCellBuilderImpl}
+     * build without the right arguments.
+     */
+    @Test
+    void testBuildWithoutArguments() {
+        final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
+        Assert.assertThrows(IllegalArgumentException.class, () -> builder.build());
+    }
+
+    /**
      * Test for {@link CoDiCellBuilder#build()}.
      */
     @Test
     void testBuild() {
         final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
-        Assert.assertThrows(IllegalStateException.class, () -> builder.build());
         final EnumMap<Direction, Integer> neighborsPreviousInput = CoDiUtils.newFilledEnumMap(() -> 0);
         final EnumMap<Direction, Boolean> chromosome =
                 CoDiUtils.newFilledEnumMap(() -> CoDiUtils.booleanWithSpecificProbability(CHROMOSOME_PROBABILITY));
@@ -34,6 +43,7 @@ class CoDiCellBuilderTest {
                .neighborsPreviousInput(neighborsPreviousInput);
         final CoDiCell cell = builder.build();
         Assert.assertTrue(cell.getGate().isEmpty());
-        Assert.assertThrows(IllegalStateException.class, () -> builder.build());
+        Assert.assertThrows(IllegalArgumentException.class, () -> builder.build());
     }
+
 }
