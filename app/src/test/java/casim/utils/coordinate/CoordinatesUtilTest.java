@@ -120,9 +120,11 @@ class CoordinatesUtilTest {
      */
     @Test
     void testGet2DNeighbors() {
-        assertEquals(CoordinatesUtil.get2DNeighbors(INTCOORD01), List.of(CoordinatesUtil.sumInt(INTCOORD01, CoordinatesUtil.of(1, 0)), 
-            CoordinatesUtil.sumInt(INTCOORD01, CoordinatesUtil.of(0, 1)), CoordinatesUtil.sumInt(INTCOORD01, CoordinatesUtil.of(0, -1)),
-            CoordinatesUtil.sumInt(INTCOORD01, CoordinatesUtil.of(-1, 0))));
+        assertEquals(List.of(CoordinatesUtil.sumInt(INTCOORD01, CoordinatesUtil.of(1, 0)),
+                CoordinatesUtil.sumInt(INTCOORD01, CoordinatesUtil.of(0, 1)),
+                CoordinatesUtil.sumInt(INTCOORD01, CoordinatesUtil.of(0, -1)),
+                CoordinatesUtil.sumInt(INTCOORD01, CoordinatesUtil.of(-1, 0))),
+                CoordinatesUtil.get2DNeighbors(INTCOORD01));
     }
 
     /**
@@ -131,8 +133,11 @@ class CoordinatesUtilTest {
     @Test
     void testGet3DNeighbors() {
         assertEquals(List.of(CoordinatesUtil.sumInt(INTCOORD05, CoordinatesUtil.of(1, 0, 0)),
-        CoordinatesUtil.sumInt(INTCOORD05, CoordinatesUtil.of(-1, 0, 0)), CoordinatesUtil.sumInt(INTCOORD05, CoordinatesUtil.of(0, 1, 0)),
-        CoordinatesUtil.sumInt(INTCOORD05, CoordinatesUtil.of(0, -1, 0)), CoordinatesUtil.sumInt(INTCOORD05, CoordinatesUtil.of(0, 0, 1)),
-        CoordinatesUtil.sumInt(INTCOORD05, CoordinatesUtil.of(0, 0, -1))), CoordinatesUtil.get3DNeighbors(INTCOORD05));
+                CoordinatesUtil.sumInt(INTCOORD05, CoordinatesUtil.of(-1, 0, 0)),
+                CoordinatesUtil.sumInt(INTCOORD05, CoordinatesUtil.of(0, 1, 0)),
+                CoordinatesUtil.sumInt(INTCOORD05, CoordinatesUtil.of(0, -1, 0)),
+                CoordinatesUtil.sumInt(INTCOORD05, CoordinatesUtil.of(0, 0, 1)),
+                CoordinatesUtil.sumInt(INTCOORD05, CoordinatesUtil.of(0, 0, -1))),
+                CoordinatesUtil.get3DNeighbors(INTCOORD05));
     }
 }
