@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import casim.model.codi.cell.CoDiCell;
 import casim.model.codi.cell.CoDiCellState;
-import casim.model.codi.utils.Direction;
+import casim.model.codi.utils.CoDiDirection;
 
 /**
  * A builder for {@link CoDiCell}.
@@ -26,7 +26,7 @@ public interface CoDiCellBuilder {
      * @param gate the gate to set.
      * @return the current {@link CoDiCellBuilder}. 
      */
-    CoDiCellBuilder gate(Optional<Direction> gate);
+    CoDiCellBuilder gate(Optional<CoDiDirection> gate);
 
     /**
      * Set the chromosome.
@@ -34,7 +34,7 @@ public interface CoDiCellBuilder {
      * @param chromosome the value so set.
      * @return the current {@link CoDiCellBuilder}. 
      */
-    CoDiCellBuilder chromosome(EnumMap<Direction, Boolean> chromosome);
+    CoDiCellBuilder chromosome(EnumMap<CoDiDirection, Boolean> chromosome);
 
     /**
      * Set the activation counter.
@@ -50,7 +50,7 @@ public interface CoDiCellBuilder {
      * @param neighborsPreviousInput the enum map top set as previous inputs.
      * @return the current {@link CoDiCellBuilder}. 
      */
-    CoDiCellBuilder neighborsPreviousInput(EnumMap<Direction, Integer> neighborsPreviousInput);
+    CoDiCellBuilder neighborsPreviousInput(EnumMap<CoDiDirection, Integer> neighborsPreviousInput);
 
     /**
      * Build the {@link CoDiCell}.

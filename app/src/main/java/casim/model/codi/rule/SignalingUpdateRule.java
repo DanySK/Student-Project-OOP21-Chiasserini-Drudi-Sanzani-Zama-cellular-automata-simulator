@@ -11,7 +11,7 @@ import casim.model.codi.cell.CoDiCell;
 import casim.model.codi.cell.builder.CoDiCellBuilder;
 import casim.model.codi.cell.builder.CoDiCellBuilderImpl;
 import casim.model.codi.utils.CoDiUtils;
-import casim.model.codi.utils.Direction;
+import casim.model.codi.utils.CoDiDirection;
 import casim.utils.coordinate.Coordinates3D;
 import casim.utils.grid.Grid;
 
@@ -65,7 +65,7 @@ public class SignalingUpdateRule extends AbstractUpdateRule<Coordinates3D<Intege
 
     private CoDiCellBuilder neuronSignal(final CoDiCell cell) {
         final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
-        final EnumMap<Direction, Integer> neighborsPreviousInput = CoDiUtils.newFilledEnumMap(() -> 0);
+        final EnumMap<CoDiDirection, Integer> neighborsPreviousInput = CoDiUtils.newFilledEnumMap(() -> 0);
         int inputSum = 1 + CoDiUtils.sumEnumMapValues(cell.getNeighborsPreviousInput())
             - cell.getNeighborsPreviousInput().get(cell.getGate().get());
         if (cell.getNeighborsPreviousInput().containsKey(cell.getOppositeToGate().get())) {
@@ -84,7 +84,7 @@ public class SignalingUpdateRule extends AbstractUpdateRule<Coordinates3D<Intege
     private CoDiCellBuilder axonSignal(final CoDiCell cell) {
         final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
         final int gateValue = cell.getNeighborsPreviousInput().get(cell.getGate().get());
-        final EnumMap<Direction, Integer> neighborsPreviousInput =
+        final EnumMap<CoDiDirection, Integer> neighborsPreviousInput =
                 CoDiUtils.newFilledEnumMap(() -> gateValue);
         builder.activationCounter((gateValue != 0) ? 1 : 0);
         return builder.neighborsPreviousInput(neighborsPreviousInput);
@@ -92,7 +92,7 @@ public class SignalingUpdateRule extends AbstractUpdateRule<Coordinates3D<Intege
 
     private CoDiCellBuilder dendriteSignal(final CoDiCell cell) {
         final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
-        final EnumMap<Direction, Integer> neighborsPreviousInput = CoDiUtils.newFilledEnumMap(() -> 0);
+        final EnumMap<CoDiDirection, Integer> neighborsPreviousInput = CoDiUtils.newFilledEnumMap(() -> 0);
         int inputSum = CoDiUtils.sumEnumMapValues(cell.getNeighborsPreviousInput());
         inputSum = inputSum > SIGNAL_LIMIT ? SIGNAL_LIMIT : inputSum; 
         neighborsPreviousInput.put(cell.getGate().get(), inputSum);

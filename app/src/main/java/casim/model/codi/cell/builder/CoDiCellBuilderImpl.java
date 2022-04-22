@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import casim.model.codi.cell.CoDiCell;
 import casim.model.codi.cell.CoDiCellState;
-import casim.model.codi.utils.Direction;
+import casim.model.codi.utils.CoDiDirection;
 import casim.utils.BaseBuilder;
 
 /**
@@ -21,10 +21,10 @@ public class CoDiCellBuilderImpl implements CoDiCellBuilder {
 
     private boolean built;
     private CoDiCellState state;
-    private Optional<Direction> gate;
+    private Optional<CoDiDirection> gate;
     private Integer activationCounter;
-    private EnumMap<Direction, Boolean> chromosome;
-    private EnumMap<Direction, Integer> neighborsPreviousInput;
+    private EnumMap<CoDiDirection, Boolean> chromosome;
+    private EnumMap<CoDiDirection, Integer> neighborsPreviousInput;
 
     private final BaseBuilder base = new BaseBuilder();
 
@@ -41,7 +41,7 @@ public class CoDiCellBuilderImpl implements CoDiCellBuilder {
     }
 
     @Override
-    public CoDiCellBuilder gate(final Optional<Direction> gate) {
+    public CoDiCellBuilder gate(final Optional<CoDiDirection> gate) {
         this.alreadyBuiltCheck();
         this.gate = gate;
         return this;
@@ -55,7 +55,7 @@ public class CoDiCellBuilderImpl implements CoDiCellBuilder {
     }
 
     @Override
-    public CoDiCellBuilder chromosome(final EnumMap<Direction, Boolean> chromosome) {
+    public CoDiCellBuilder chromosome(final EnumMap<CoDiDirection, Boolean> chromosome) {
         this.alreadyBuiltCheck();
         this.chromosome = chromosome;
         return this;
@@ -69,7 +69,7 @@ public class CoDiCellBuilderImpl implements CoDiCellBuilder {
     }
 
     @Override
-    public CoDiCellBuilder neighborsPreviousInput(final EnumMap<Direction, Integer> neighborsPreviousInput) {
+    public CoDiCellBuilder neighborsPreviousInput(final EnumMap<CoDiDirection, Integer> neighborsPreviousInput) {
         this.alreadyBuiltCheck();
         this.neighborsPreviousInput = neighborsPreviousInput;
         return this;

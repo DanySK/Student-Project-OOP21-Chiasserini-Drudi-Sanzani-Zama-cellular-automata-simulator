@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import casim.model.codi.cell.builder.CoDiCellBuilder;
 import casim.model.codi.cell.builder.CoDiCellBuilderImpl;
 import casim.model.codi.cell.builder.utils.CoDiCellSupplier;
-import casim.model.codi.utils.Direction;
+import casim.model.codi.utils.CoDiDirection;
 
 /**
  * Test class for {@link CoDiCell}.
@@ -16,7 +16,7 @@ import casim.model.codi.utils.Direction;
 class CoDiCellTest {
 
     private static final int TEST_VALUE = 10;
-    private static final Direction DIRECTION = Direction.NORTH;
+    private static final CoDiDirection DIRECTION = CoDiDirection.NORTH;
 
     private final CoDiCellSupplier supplier = new CoDiCellSupplier();
     private final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
@@ -50,7 +50,7 @@ class CoDiCellTest {
     }
 
     /**
-     * Test for {@link CoDiCell#getSpecificNeighborsPreviousInput(Direction)}.
+     * Test for {@link CoDiCell#getSpecificNeighborsPreviousInput(CoDiDirection)}.
      */
     @Test
     void testSetSpecificNeighborsDirection() {
@@ -60,7 +60,7 @@ class CoDiCellTest {
     }
 
     /**
-     * Test for {@link CoDiCell#getSpecificNeighborsPreviousInput(Direction)}.
+     * Test for {@link CoDiCell#getSpecificNeighborsPreviousInput(CoDiDirection)}.
      */
     @Test
     void testGetSpecificNeighborsDirection() {

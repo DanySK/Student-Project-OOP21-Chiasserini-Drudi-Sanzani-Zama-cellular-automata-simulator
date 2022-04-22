@@ -9,7 +9,7 @@ import casim.utils.coordinate.CoordinatesUtil;
 /**
  * Enum containing all the neighbors directions.
  */
-public enum Direction {
+public enum CoDiDirection {
     /**
      * The north direction.
      */
@@ -35,10 +35,10 @@ public enum Direction {
      */
     BOTTOM(CoordinatesUtil.of(0, -1, 0));
 
-    private static final Map<Direction, Direction> OPPOSITE_DIRECTION = new EnumMap<>(Direction.class);
+    private static final Map<CoDiDirection, CoDiDirection> OPPOSITE_DIRECTION = new EnumMap<>(CoDiDirection.class);
     private final Coordinates3D<Integer> offset;
 
-    Direction(final Coordinates3D<Integer> offset) {
+    CoDiDirection(final Coordinates3D<Integer> offset) {
         this.offset = offset;
     }
 
@@ -53,16 +53,16 @@ public enum Direction {
     }
 
     /**
-     * Return the opposite {@link Direction} to the current one.
+     * Return the opposite {@link CoDiDirection} to the current one.
      * 
-     * @return the opposite {@link Direction}.
+     * @return the opposite {@link CoDiDirection}.
      */
-    public Direction getOpposite() { 
+    public CoDiDirection getOpposite() { 
         return OPPOSITE_DIRECTION.get(this);
     }
 
     /**
-     * Return the {@link Coordinates3D} offset of the {@link Direction}.
+     * Return the {@link Coordinates3D} offset of the {@link CoDiDirection}.
      * 
      * @return the offset of the direction.
      */

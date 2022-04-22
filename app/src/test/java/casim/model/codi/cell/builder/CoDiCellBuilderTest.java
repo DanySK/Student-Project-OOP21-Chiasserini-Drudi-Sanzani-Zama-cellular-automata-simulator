@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import casim.model.codi.cell.CoDiCell;
 import casim.model.codi.cell.CoDiCellState;
 import casim.model.codi.utils.CoDiUtils;
-import casim.model.codi.utils.Direction;
+import casim.model.codi.utils.CoDiDirection;
 
 /**
  * Test class for {@link CoDiCellBuilder}.
@@ -34,8 +34,8 @@ class CoDiCellBuilderTest {
     @Test
     void testBuild() {
         final CoDiCellBuilder builder = new CoDiCellBuilderImpl();
-        final EnumMap<Direction, Integer> neighborsPreviousInput = CoDiUtils.newFilledEnumMap(() -> 0);
-        final EnumMap<Direction, Boolean> chromosome =
+        final EnumMap<CoDiDirection, Integer> neighborsPreviousInput = CoDiUtils.newFilledEnumMap(() -> 0);
+        final EnumMap<CoDiDirection, Boolean> chromosome =
                 CoDiUtils.newFilledEnumMap(() -> CoDiUtils.booleanWithSpecificProbability(CHROMOSOME_PROBABILITY));
         builder.state(STATE)
                .activationCounter(0)

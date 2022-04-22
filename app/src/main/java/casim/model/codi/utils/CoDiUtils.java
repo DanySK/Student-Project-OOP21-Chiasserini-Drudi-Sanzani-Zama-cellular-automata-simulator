@@ -25,9 +25,9 @@ public final class CoDiUtils {
      * @param valuesSupplier the supplier which gives the values to put in each { @link Direction}.
      * @return the new {@link EnumMap}.
      */
-    public static <T> EnumMap<Direction, T> newFilledEnumMap(final Supplier<T> valuesSupplier) {
-        final EnumMap<Direction, T> map = new EnumMap<>(Direction.class);
-        for (final var d: Direction.values()) {
+    public static <T> EnumMap<CoDiDirection, T> newFilledEnumMap(final Supplier<T> valuesSupplier) {
+        final EnumMap<CoDiDirection, T> map = new EnumMap<>(CoDiDirection.class);
+        for (final var d: CoDiDirection.values()) {
             map.put(d, valuesSupplier.get());
         }
         return map;
@@ -39,7 +39,7 @@ public final class CoDiUtils {
      * @param enumMap the enumMap of which the method calculates the sum.
      * @return the sum of all the values.
      */
-    public static int sumEnumMapValues(final EnumMap<Direction, Integer> enumMap) {
+    public static int sumEnumMapValues(final EnumMap<CoDiDirection, Integer> enumMap) {
         return enumMap.values().stream().reduce((n1, n2) -> n1 + n2).get();
     }
 
@@ -50,7 +50,7 @@ public final class CoDiUtils {
      * @param value the specific value used by the method.
      * @return the sum of the values.
      */
-    public static int sumEnumMapSpecificValues(final EnumMap<Direction, Integer> enumMap, final int value) {
+    public static int sumEnumMapSpecificValues(final EnumMap<CoDiDirection, Integer> enumMap, final int value) {
         return enumMap.values().stream().filter(v -> v == value).reduce((n1, n2) -> n1 + n2).orElse(0);
 
     }
@@ -62,7 +62,7 @@ public final class CoDiUtils {
      * @param map the map to copy
      * @return the new {@link EnumMap}
      */
-    public static <T> EnumMap<Direction, T> enumMapCopy(final EnumMap<Direction, T> map) {
+    public static <T> EnumMap<CoDiDirection, T> enumMapCopy(final EnumMap<CoDiDirection, T> map) {
         return new EnumMap<>(map);
     }
 
@@ -74,24 +74,24 @@ public final class CoDiUtils {
      * @param valueB the value put in the map if chromosome direction is false.
      * @return the filled {@link EnumMap}.
      */
-    public static EnumMap<Direction, Integer> conditionalFillNeighborsPreviosInput(final CoDiCell cell,
+    public static EnumMap<CoDiDirection, Integer> conditionalFillNeighborsPreviosInput(final CoDiCell cell,
             final int valueA, final int valueB) {
-        final EnumMap<Direction, Integer> map = new EnumMap<>(Direction.class);
-        for (final var d: Direction.values()) {
+        final EnumMap<CoDiDirection, Integer> map = new EnumMap<>(CoDiDirection.class);
+        for (final var d: CoDiDirection.values()) {
             map.put(d, cell.getChromosome().get(d) ? valueA : valueB);
         }
         return map;
     }
 
     /**
-     * Return the {@link Coordinates3D} of the neighbours of a cell in a specific {@link Direction}. 
+     * Return the {@link Coordinates3D} of the neighbours of a cell in a specific {@link CoDiDirection}. 
      * 
      * @param coord the {@link Coordinates3D} of the current cell.
      * @param direction the direction of the neighbour.
      * @return the resultant {@link Coordinates3D}.
      */
     public static Coordinates3D<Integer> getNeighbourCoordinates(final Coordinates3D<Integer> coord,
-            final Direction direction) {
+            final CoDiDirection direction) {
         return CoordinatesUtil.sumInt(coord, direction.getDirectionOffset());
     }
 
@@ -110,13 +110,13 @@ public final class CoDiUtils {
     }
 
     /**
-     * Return a random {@link Direction}.
+     * Return a random {@link CoDiDirection}.
      * 
-     * @return a random {@link Direction}.
+     * @return a random {@link CoDiDirection}.
      */
-    public static Direction getRandomDirection() {
+    public static CoDiDirection getRandomDirection() {
         final Random random = new Random();
-        return Direction.values()[random.nextInt(Direction.values().length)];
+        return CoDiDirection.values()[random.nextInt(CoDiDirection.values().length)];
     }
 
 }
