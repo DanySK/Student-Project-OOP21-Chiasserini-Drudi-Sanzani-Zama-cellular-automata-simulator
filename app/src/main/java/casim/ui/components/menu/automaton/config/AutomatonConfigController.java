@@ -148,7 +148,7 @@ public class AutomatonConfigController {
     }
 
     @FXML
-    private void onBackBtnClick(final ActionEvent event) {
+    private void onBackBtnClick(final ActionEvent event) { // NOPMD: called by JavaFX
         final var res = this.getContainer().popPage();
         if (res.isError()) {
             new AlertBuilderImpl().buildDefaultError(NO_PREVIOUS_PAGE, this.getContainer().getOwner());
@@ -156,7 +156,7 @@ public class AutomatonConfigController {
     }
 
     @FXML
-    private void onNextBtnClick(final ActionEvent event) {
+    private void onNextBtnClick(final ActionEvent event) { // NOPMD: called by JavaFX
         if (this.checkInput()) {
             final var config = this.getConfig();
             final var res = this.appManager.showSimulation(this.getAutomata(), config);
