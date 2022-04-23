@@ -10,8 +10,8 @@ import java.util.stream.Stream;
  */
 public final class CoordinatesUtil {
 
-	private static final Random RNG = new Random();
-	
+    private static final Random RNG = new Random();
+    
     private CoordinatesUtil() {
 
     }
