@@ -5,7 +5,8 @@ import casim.model.abstraction.cell.AbstractCell;
 /**
  * Cell of Game Of Life.
  */
-public class GameOfLifeCell extends AbstractCell<GameOfLifeState> {
+//package-private
+ class GameOfLifeCell extends AbstractCell<GameOfLifeState> {
 
      /**
      * Construct a new {@link GameOfLifeCell}.

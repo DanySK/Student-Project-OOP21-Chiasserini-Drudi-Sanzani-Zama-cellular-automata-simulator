@@ -11,14 +11,11 @@ import casim.utils.grid.Grid;
 
 /**
  * The GameOfLife's rule used to update the GameOfLifeCell's state.
- * 
  */
-public class GameOfLifeUpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, GameOfLifeCell> {
-    /**
-     * Rule for update the {@link GameOfLifeCell}.
-     * @param neighborsFunction function for get the neighboring cells.
-     */
-    public GameOfLifeUpdateRule(final BiFunction<Pair<Coordinates2D<Integer>, GameOfLifeCell>, Grid<Coordinates2D<Integer>, GameOfLifeCell>, List<Pair<Coordinates2D<Integer>, GameOfLifeCell>>> neighborsFunction) {
+//package-private
+class GameOfLifeUpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, GameOfLifeCell> {
+    //package-private
+    GameOfLifeUpdateRule(final BiFunction<Pair<Coordinates2D<Integer>, GameOfLifeCell>, Grid<Coordinates2D<Integer>, GameOfLifeCell>, List<Pair<Coordinates2D<Integer>, GameOfLifeCell>>> neighborsFunction) {
         super(neighborsFunction);
     }
 

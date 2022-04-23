@@ -12,18 +12,14 @@ import casim.utils.grid.Grid;
 /**
  * Bryan's Brain's {@link BryansBrainUpdateRule} implementation.
  */
-public class BryansBrainUpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, BryansBrainCell> {
+//package-private
+class BryansBrainUpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, BryansBrainCell> {
 
     private static final String UNKNOWN_STATE = "Unknown state.";
     private static final int ALIVE_NEIGHBOUR_BIRTH_VALUE = 2;
 
-    /**
-     * Create the update rule.
-     * 
-     * @param neighborsFunction the {@link casim.model.abstraction.utils.NeighborsFunctions}
-     *          to be used in the rule.
-     */
-    public BryansBrainUpdateRule(
+    //package-private
+    BryansBrainUpdateRule(
         final BiFunction<
             Pair<Coordinates2D<Integer>, BryansBrainCell>, 
             Grid<Coordinates2D<Integer>, BryansBrainCell>, 

@@ -9,15 +9,12 @@ import javafx.scene.input.MouseEvent;
 /**
  * Abstract mouse event handler for {@link CanvasGrid}.
  */
-public abstract class AbstractMouseEventHandler implements EventHandler<MouseEvent> {
+//package-private
+abstract class AbstractMouseEventHandler implements EventHandler<MouseEvent> {
 
     private final CanvasGrid grid;
 
-    /**
-     * Construct a new {@link AbstractMouseEventHandler} for {@link CanvasGrid}.
-     * 
-     * @param grid the {@link CanvasGrid} the event has to work on.
-     */
+    //package-private
     public AbstractMouseEventHandler(final CanvasGrid grid) {
         this.grid = grid;
     }

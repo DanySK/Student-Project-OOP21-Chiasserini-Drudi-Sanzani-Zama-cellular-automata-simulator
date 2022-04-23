@@ -6,20 +6,15 @@ import javafx.scene.paint.Color;
 /**
  * A {@link CanvasGridCell} implementation.
  */
-public class CanvasGridCellImpl implements CanvasGridCell {
+//package-private
+class CanvasGridCellImpl implements CanvasGridCell {
 
     private final Coordinates2D<Integer> topLeft;
     private final double size;
     private Color color;
 
-    /**
-     * Construct a {@link CanvasGridCellImpl}.
-     * 
-     * @param color the color of the cell.
-     * @param topLeft the top left corner of the cell.
-     * @param size the size of the cell.
-     */
-    public CanvasGridCellImpl(final Color color, final Coordinates2D<Integer> topLeft, final double size) {
+    //package-private
+    CanvasGridCellImpl(final Color color, final Coordinates2D<Integer> topLeft, final double size) {
         this.color = color;
         this.topLeft = topLeft;
         this.size = size;
