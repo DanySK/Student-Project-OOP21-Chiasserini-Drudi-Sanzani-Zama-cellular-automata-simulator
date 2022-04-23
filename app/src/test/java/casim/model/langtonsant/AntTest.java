@@ -2,6 +2,8 @@ package casim.model.langtonsant;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import casim.utils.Direction;
 import casim.utils.coordinate.Coordinates2D;
 import casim.utils.coordinate.CoordinatesUtil;
 

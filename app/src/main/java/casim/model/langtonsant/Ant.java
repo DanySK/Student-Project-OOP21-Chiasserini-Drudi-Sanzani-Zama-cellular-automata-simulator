@@ -1,5 +1,6 @@
 package casim.model.langtonsant;
 
+import casim.utils.Direction;
 import casim.utils.coordinate.Coordinates2D;
 import casim.utils.coordinate.CoordinatesUtil;
 

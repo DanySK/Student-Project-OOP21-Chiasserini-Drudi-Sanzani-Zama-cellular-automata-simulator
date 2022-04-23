@@ -1,4 +1,4 @@
-package casim.model.langtonsant;
+package casim.utils;
 
 import casim.utils.coordinate.Coordinates2D;
 import casim.utils.coordinate.CoordinatesUtil;
