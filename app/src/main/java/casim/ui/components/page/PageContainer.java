@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import casim.utils.Empty;
 import casim.utils.Result;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
@@ -35,8 +36,8 @@ public class PageContainer extends AnchorPane {
     public PageContainer(final Window owner) {
         this.pages = new ArrayDeque<>();
         this.owner = owner;
-        this.widthProperty().addListener(this::onSizeChange);
-        this.heightProperty().addListener(this::onSizeChange);
+        this.widthProperty().addListener(this.getSizeChangeHandler());
+        this.heightProperty().addListener(this.getSizeChangeHandler());
     }
 
     /**
@@ -100,9 +101,11 @@ public class PageContainer extends AnchorPane {
         }
     }
 
-    private void onSizeChange(final ObservableValue<? extends Number> obs, final Number oldVal, final Number newVal) {
-        final var fontSize = this.getFontSize(this.getWidth() * this.getHeight());
-        this.setStyle("-fx-font-size: " + fontSize);
+    private <T> ChangeListener<T> getSizeChangeHandler() {
+        return (final ObservableValue<? extends T> observable, final T oldValue, final T newValue) -> {
+            final var fontSize = this.getFontSize(this.getWidth() * this.getHeight());
+            this.setStyle("-fx-font-size: " + fontSize);
+        };
     }
 
     private int getFontSize(final double pixels) {
