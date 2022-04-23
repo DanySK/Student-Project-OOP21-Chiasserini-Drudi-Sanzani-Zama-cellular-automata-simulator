@@ -27,6 +27,7 @@ public class LangtonsAnt extends AbstractAutomaton<LangtonsAntCellState, Langton
 
     private final List<Ant> ants = new ArrayList<>();
     private final Grid2D<LangtonsAntCell> state;
+    private final Random rng = new Random();
 
     /**
      * Constructs a new Langont's Ant automaton.
@@ -117,9 +118,8 @@ public class LangtonsAnt extends AbstractAutomaton<LangtonsAntCellState, Langton
      * Adds an {@link Ant} at a random position with a random {@link Direction}.
      */
     private void addAnt() {
-        final Random rand = new Random();
         final var position = CoordinatesUtil.random(state.getWidth(), state.getHeight());
-        final var direction = Direction.values()[rand.nextInt(Direction.values().length)];
+        final var direction = Direction.values()[this.rng.nextInt(Direction.values().length)];
         this.addAnt(direction, position);
     }
 

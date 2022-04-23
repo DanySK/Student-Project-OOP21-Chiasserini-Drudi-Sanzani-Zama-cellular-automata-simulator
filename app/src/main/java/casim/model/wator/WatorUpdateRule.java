@@ -21,6 +21,8 @@ class WatorUpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, WatorCe
     private static final int DEAD_HEALTH = 0;
     private static final String UNKNOWN_STATE = "Unknown state.";
 
+    private final Random rng = new Random();
+
     //Package-private
     WatorUpdateRule(
             final BiFunction<
@@ -65,8 +67,7 @@ class WatorUpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, WatorCe
             return currentCell;
         }
         currentCell.setMoved();
-        final var rand = new Random();
-        final var toChange = neighbors.get(rand.nextInt(neighbors.size()));
+        final var toChange = neighbors.get(this.rng.nextInt(neighbors.size()));
         toChange.clone(currentCell);
         movementAction.accept(toChange);
         toChange.setMoved();
@@ -88,8 +89,7 @@ class WatorUpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, WatorCe
             return currentCell;
         }
         currentCell.setMoved();
-        final var rand = new Random();
-        final var chosenNeighbor = neighborsList.get(rand.nextInt(neighborsList.size()));
+        final var chosenNeighbor = neighborsList.get(this.rng.nextInt(neighborsList.size()));
         if (chosenNeighbor.getState().equals(WatorCellState.DEAD)) {
             chosenNeighbor.clone(currentCell);
             chosenNeighbor.setMoved();

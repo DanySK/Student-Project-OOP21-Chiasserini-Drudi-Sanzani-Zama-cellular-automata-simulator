@@ -16,6 +16,7 @@ import javafx.scene.layout.Region;
  */
 public class AutomatonWrapConfigController extends AutomatonConfigController {
     private final CheckBox checkBox;
+    private final Random rng = new Random();
 
     /**
      * Construct a new {@link AutomatonWrapConfigController}.
@@ -56,8 +57,7 @@ public class AutomatonWrapConfigController extends AutomatonConfigController {
             case GAME_OF_LIFE:
                 return (BaseConfig) new WrappingConfig(size, size, isAutomatic, isWrapped);
             case LANGTONS_ANT:
-                final var rng = new Random();
-                final var ants = LangtonsAnt.MIN_ANTS + rng.nextInt(LangtonsAnt.MAX_ANTS - LangtonsAnt.MIN_ANTS + 1);
+                final var ants = LangtonsAnt.MIN_ANTS + this.rng.nextInt(LangtonsAnt.MAX_ANTS - LangtonsAnt.MIN_ANTS + 1);
                 return (BaseConfig) new LangtonsAntConfig(size, size, isAutomatic, isWrapped, ants);
             default:
                 throw new UnsupportedOperationException(WRONG_MENU);

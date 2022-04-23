@@ -10,6 +10,8 @@ import java.util.stream.Stream;
  */
 public final class CoordinatesUtil {
 
+	private static final Random RNG = new Random();
+	
     private CoordinatesUtil() {
 
     }
@@ -113,8 +115,7 @@ public final class CoordinatesUtil {
      * @return {@link Coordinates2D} with random values between 0 and arguments.
      */
     public static Coordinates2D<Integer> random(final int maxX, final int maxY) {
-        final var rand = new Random();
-        return CoordinatesUtil.of(rand.nextInt(maxX), rand.nextInt(maxY));
+        return CoordinatesUtil.of(RNG.nextInt(maxX), RNG.nextInt(maxY));
     }
 
     /**
@@ -221,7 +222,6 @@ public final class CoordinatesUtil {
      * @return a {@link Coordinates3D} with random values between 0 and arguments.
      */
     public static Coordinates3D<Integer> random(final int maxX, final int maxY, final int maxZ) {
-        final var rand = new Random();
-        return CoordinatesUtil.of(rand.nextInt(maxX), rand.nextInt(maxY), rand.nextInt(maxZ));
+        return CoordinatesUtil.of(RNG.nextInt(maxX), RNG.nextInt(maxY), RNG.nextInt(maxZ));
     }
 }

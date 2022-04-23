@@ -41,6 +41,7 @@ public class CoDi extends AbstractAutomaton<CoDiCellState, CoDiCell> {
     private boolean changed; 
     private Grid3D<CoDiCell> state;
     private boolean hasSetupSignaling;
+    private final Random rng = new Random();
     private final GrowthUpdateRule growthUpdateRule;
     private final SignalingUpdateRule signalingUpdateRule;
 
@@ -108,12 +109,11 @@ public class CoDi extends AbstractAutomaton<CoDiCellState, CoDiCell> {
     }
 
     private void signalingSetup() {
-        final Random random = new Random(); 
         this.hasSetupSignaling = true;
         for (final var coord: this.visitGrid()) {
             final CoDiCell cell = this.state.get(coord);
             if (cell.getState().equals(CoDiCellState.NEURON)) { 
-                cell.setActivationCounter(random.nextInt(RANDOM_ACTIVATION_COUNTER));
+                cell.setActivationCounter(this.rng.nextInt(RANDOM_ACTIVATION_COUNTER));
             } else {
                 cell.setActivationCounter(0);
             }

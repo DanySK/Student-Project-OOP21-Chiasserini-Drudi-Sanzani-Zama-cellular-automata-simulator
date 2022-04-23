@@ -14,6 +14,7 @@ import casim.utils.coordinate.CoordinatesUtil;
 public final class CoDiUtils {
 
     private static final int MAX_PERCENTAGE = 101; 
+    private static final Random RNG = new Random();
 
     private CoDiUtils() {
     }
@@ -105,8 +106,7 @@ public final class CoDiUtils {
         if (probability < 0 || probability > 100) {
             throw new IllegalArgumentException();
         }
-        final Random random = new Random();
-        return random.nextInt(MAX_PERCENTAGE) < probability;
+        return RNG.nextInt(MAX_PERCENTAGE) < probability;
     }
 
     /**
@@ -115,8 +115,7 @@ public final class CoDiUtils {
      * @return a random {@link CoDiDirection}.
      */
     public static CoDiDirection getRandomDirection() {
-        final Random random = new Random();
-        return CoDiDirection.values()[random.nextInt(CoDiDirection.values().length)];
+        return CoDiDirection.values()[RNG.nextInt(CoDiDirection.values().length)];
     }
 
 }
