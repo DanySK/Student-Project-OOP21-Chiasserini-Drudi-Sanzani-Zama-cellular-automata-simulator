@@ -4,19 +4,20 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ca-sim is a cellular automaton simulator, it supports:
-- [ ] [Conway's Game Of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
-- [ ] [Rule 110](https://en.wikipedia.org/wiki/Rule_110)
-- [ ] [CoDi](https://en.wikipedia.org/wiki/CoDi)
-- [ ] [Langton's Ant](https://en.wikipedia.org/wiki/Langton%27s_ant)
-- [ ] [Predators and Prey](https://en.wikipedia.org/wiki/Wa-Tor)
+- [x] [Brian's Brain](https://en.wikipedia.org/wiki/Brian's_Brain)
+- [x] [CoDi](https://en.wikipedia.org/wiki/CoDi)
+- [x] [Conway's Game Of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
+- [x] [Langton's Ant](https://en.wikipedia.org/wiki/Langton%27s_ant)
+- [x] [Predators and Prey](https://en.wikipedia.org/wiki/Wa-Tor)
+- [x] [Rule 110](https://en.wikipedia.org/wiki/Rule_110)
 - [ ] [Empire](https://github.com/Hopson97/Empire)
 - [ ] [WireWorld](https://en.wikipedia.org/wiki/Wireworld)
 
 The following features will be implemented:
-- [ ] Automatic simulation
-- [ ] Manual simulation (the user will decide when to show the next iteration)
-- [ ] Stats about the simulation (i.e. FPS, number of iterations)
-- [ ] Random generated initial grid
+- [x] Automatic simulation
+- [x] Manual simulation (the user will decide when to show the next iteration)
+- [x] Stats about the simulation (i.e. States, number of iterations)
+- [x] Random generated initial grid
 - [ ] User generated initial grid
 - [ ] Save/Load initial state from file
 - [ ] Zoom
