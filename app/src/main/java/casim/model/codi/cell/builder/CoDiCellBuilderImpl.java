@@ -5,19 +5,28 @@ import java.util.Optional;
 
 import casim.model.codi.cell.CoDiCell;
 import casim.model.codi.cell.CoDiCellState;
-import casim.model.codi.utils.Direction;
+import casim.model.codi.utils.CoDiDirection;
+import casim.utils.BaseBuilder;
 
 /**
  * Implementation of {@link CoDiCellBuilder}.
  */
 public class CoDiCellBuilderImpl implements CoDiCellBuilder {
 
+    private static final String NULL_STATE = "The state cannot be null";
+    private static final String NULL_CHROMOSOME = "The chromosome cannot be null";
+    private static final String ACTIVATIONCOUNTER_VALUE = "The activation counter value must be greater or equal to zero";
+    private static final String NULL_NEIGHBORSPREVIOUSINPUT = "The neighbors previous input cannot be null";
+    private static final String ALREADY_BUILT = "Cannot build two times";
+
     private boolean built;
-    private Optional<CoDiCellState> state;
-    private Optional<Direction> gate;
-    private Optional<Integer> activationCounter;
-    private Optional<EnumMap<Direction, Boolean>> chromosome;
-    private Optional<EnumMap<Direction, Integer>> neighborsPreviousInput;
+    private CoDiCellState state;
+    private Optional<CoDiDirection> gate;
+    private Integer activationCounter;
+    private EnumMap<CoDiDirection, Boolean> chromosome;
+    private EnumMap<CoDiDirection, Integer> neighborsPreviousInput;
+
+    private final BaseBuilder base = new BaseBuilder();
 
     /**
      * Construct a {@link CoDiCellBuilder} with initial values.
@@ -25,61 +34,57 @@ public class CoDiCellBuilderImpl implements CoDiCellBuilder {
     public CoDiCellBuilderImpl() {
         this.built = false;
         this.gate = Optional.empty();
-        this.state = Optional.empty();
-        this.activationCounter = Optional.empty();
-        this.neighborsPreviousInput = Optional.empty();
     }
 
-    private void check(final boolean value) {
-        if (!value) {
-            throw new IllegalStateException();
-        }
+    private void alreadyBuiltCheck() {
+        this.base.checkValue(this.built, b -> !b, ALREADY_BUILT);
     }
 
     @Override
-    public CoDiCellBuilder gate(final Optional<Direction> gate) {
-        this.check(!built);
+    public CoDiCellBuilder gate(final Optional<CoDiDirection> gate) {
+        this.alreadyBuiltCheck();
         this.gate = gate;
         return this;
     }
 
     @Override
     public CoDiCellBuilder state(final CoDiCellState state) {
-        this.check(!built);
-        this.state = Optional.of(state);
+        this.alreadyBuiltCheck();
+        this.state = state;
         return this;
     }
 
     @Override
-    public CoDiCellBuilder chromosome(final EnumMap<Direction, Boolean> chromosome) {
-        this.chromosome = Optional.of(chromosome);
+    public CoDiCellBuilder chromosome(final EnumMap<CoDiDirection, Boolean> chromosome) {
+        this.alreadyBuiltCheck();
+        this.chromosome = chromosome;
         return this;
     }
 
     @Override
     public CoDiCellBuilder activationCounter(final int activationCounter) {
-        this.check(!built);
-        this.activationCounter = Optional.of(activationCounter);
+        this.alreadyBuiltCheck();
+        this.activationCounter = this.base.checkValue(activationCounter, v -> v >= 0, ACTIVATIONCOUNTER_VALUE);
         return this;
     }
 
     @Override
-    public CoDiCellBuilder neighborsPreviousInput(final EnumMap<Direction, Integer> neighborsPreviousInput) {
-        this.check(!built);
-        this.neighborsPreviousInput = Optional.of(neighborsPreviousInput);
+    public CoDiCellBuilder neighborsPreviousInput(final EnumMap<CoDiDirection, Integer> neighborsPreviousInput) {
+        this.alreadyBuiltCheck();
+        this.neighborsPreviousInput = neighborsPreviousInput;
         return this;
     }
 
     @Override
     public CoDiCell build() { 
-        this.check(!built);
-        this.check(this.state.isPresent());
-        this.check(this.chromosome.isPresent());
-        this.check(this.activationCounter.isPresent());
-        this.check(this.neighborsPreviousInput.isPresent());
+        this.alreadyBuiltCheck();
         this.built = true;
-        return new CoDiCell(this.state.get(), this.activationCounter.get(), this.gate,
-                                this.neighborsPreviousInput.get(), this.chromosome.get());
+        return new CoDiCell(
+                this.base.checkNonNullValue(this.state, NULL_STATE), 
+                this.activationCounter, 
+                this.gate,
+                this.base.checkNonNullValue(this.neighborsPreviousInput, NULL_NEIGHBORSPREVIOUSINPUT), 
+                this.base.checkNonNullValue(this.chromosome, NULL_CHROMOSOME));
     }
 
 }

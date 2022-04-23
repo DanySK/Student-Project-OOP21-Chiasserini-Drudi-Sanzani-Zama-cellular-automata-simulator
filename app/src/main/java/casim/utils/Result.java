@@ -278,7 +278,7 @@ public final class Result<T> {
      *  - it is a {@link Result}, and:
      *  - the value contained in "obj" compares equal to the value contained in "this" via equals().
      * 
-     * @param obj
+     * @param obj the object to be compared to the calling {@link Result}.
      * @return boolean
      */
     @Override

@@ -17,7 +17,7 @@ import casim.model.codi.cell.builder.CoDiCellBuilderImpl;
 import casim.model.codi.cell.builder.utils.StateToCellFunction;
 import casim.model.codi.rule.GrowthUpdateRule;
 import casim.model.codi.rule.SignalingUpdateRule;
-import casim.model.codi.utils.Direction;
+import casim.model.codi.utils.CoDiDirection;
 import casim.model.codi.utils.stats.CoDiStatsImpl;
 import casim.utils.coordinate.Coordinates3D;
 import casim.utils.coordinate.CoordinatesUtil;
@@ -195,9 +195,9 @@ public class CoDi extends AbstractAutomaton<CoDiCellState, CoDiCell> {
             for (int y = 0; y < this.state.getHeight(); y++) {
                 for (int x = 0; x < this.state.getWidth(); x++) {
                     final Coordinates3D<Integer> coord = CoordinatesUtil.of(x, y, z);
-                    this.setStateValueWithCheck(coord, CoordinatesUtil.of(x, y, z + 1), Direction.NORTH);
-                    this.setStateValueWithCheck(coord, CoordinatesUtil.of(x, y + 1, z), Direction.TOP);
-                    this.setStateValueWithCheck(coord, CoordinatesUtil.of(x + 1, y, z), Direction.EAST);
+                    this.setStateValueWithCheck(coord, CoordinatesUtil.of(x, y, z + 1), CoDiDirection.NORTH);
+                    this.setStateValueWithCheck(coord, CoordinatesUtil.of(x, y + 1, z), CoDiDirection.TOP);
+                    this.setStateValueWithCheck(coord, CoordinatesUtil.of(x + 1, y, z), CoDiDirection.EAST);
                 }
             }
         }
@@ -208,16 +208,16 @@ public class CoDi extends AbstractAutomaton<CoDiCellState, CoDiCell> {
             for (int y = this.state.getHeight() - 1; y >= 0; y--) {
                 for (int x = this.state.getWidth() - 1; x >= 0; x--) {
                     final Coordinates3D<Integer> coord = CoordinatesUtil.of(x, y, z);
-                    this.setStateValueWithCheck(coord, CoordinatesUtil.of(x, y, z - 1), Direction.SOUTH);
-                    this.setStateValueWithCheck(coord, CoordinatesUtil.of(x, y - 1, z), Direction.BOTTOM);
-                    this.setStateValueWithCheck(coord, CoordinatesUtil.of(x - 1, y, z), Direction.WEST);
+                    this.setStateValueWithCheck(coord, CoordinatesUtil.of(x, y, z - 1), CoDiDirection.SOUTH);
+                    this.setStateValueWithCheck(coord, CoordinatesUtil.of(x, y - 1, z), CoDiDirection.BOTTOM);
+                    this.setStateValueWithCheck(coord, CoordinatesUtil.of(x - 1, y, z), CoDiDirection.WEST);
                 }
             }
         }
     }
 
     private void setStateValueWithCheck(final Coordinates3D<Integer> coord, final Coordinates3D<Integer> neighbourCoord,
-            final Direction direction) {
+            final CoDiDirection direction) {
         if (this.state.isCoordValid(neighbourCoord) 
                 &&  this.state.get(coord).getNeighborsPreviousInput().containsKey(direction)) {
             this.state.get(coord).setNeighborsPreviousInputDirection(direction,

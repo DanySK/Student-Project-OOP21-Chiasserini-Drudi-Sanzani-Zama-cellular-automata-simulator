@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import casim.model.abstraction.cell.AbstractCell;
 import casim.model.codi.utils.CoDiUtils;
-import casim.model.codi.utils.Direction;
+import casim.model.codi.utils.CoDiDirection;
 
 /**
  * The CoDi cells.
@@ -13,9 +13,9 @@ import casim.model.codi.utils.Direction;
 public class CoDiCell extends AbstractCell<CoDiCellState> {
 
     private int activationCounter;
-    private final Optional<Direction> gate;
-    private final EnumMap<Direction, Boolean> chromosome; 
-    private final EnumMap<Direction, Integer> neighborsPreviousInput;
+    private final Optional<CoDiDirection> gate;
+    private final EnumMap<CoDiDirection, Boolean> chromosome; 
+    private final EnumMap<CoDiDirection, Integer> neighborsPreviousInput;
 
     /**
      * Construct a new  {@link CoDiCell} with specific initial values.
@@ -26,8 +26,8 @@ public class CoDiCell extends AbstractCell<CoDiCellState> {
      * @param neighborsPreviousInput the {@link EnumMap} containing the values of the prior inputs.
      * @param chromosome the {@link EnumMap} containing the growth instruction.
      */
-    public CoDiCell(final CoDiCellState state, final int activationCounter, final Optional<Direction> gate, 
-            final EnumMap<Direction, Integer> neighborsPreviousInput, final EnumMap<Direction, Boolean> chromosome) {
+    public CoDiCell(final CoDiCellState state, final int activationCounter, final Optional<CoDiDirection> gate, 
+            final EnumMap<CoDiDirection, Integer> neighborsPreviousInput, final EnumMap<CoDiDirection, Boolean> chromosome) {
         super(state);
         this.gate = gate;
         this.chromosome = chromosome;
@@ -41,19 +41,19 @@ public class CoDiCell extends AbstractCell<CoDiCellState> {
      *  Axon: direction where it receives the signal;
      *  Dendrite: direction where it transmits the signal.
      *
-     * @return an {@link Optional} which contain the {@link Direction} of the gate,
+     * @return an {@link Optional} which contain the {@link CoDiDirection} of the gate,
      *  it's empty if it's not already defined.
      */
-    public Optional<Direction> getGate() {
+    public Optional<CoDiDirection> getGate() {
         return gate;
     }
 
     /**
-     * Return the opposite {@link Direction} to the one of the gate.
+     * Return the opposite {@link CoDiDirection} to the one of the gate.
      * 
-     * @return the gate's opposite {@link Direction}, an empty optional if the gate isn't defined.
+     * @return the gate's opposite {@link CoDiDirection}, an empty optional if the gate isn't defined.
      */
-    public Optional<Direction> getOppositeToGate() {
+    public Optional<CoDiDirection> getOppositeToGate() {
         return this.gate.isPresent() ? Optional.of(this.gate.get().getOpposite()) : Optional.empty();
     }
 
@@ -77,36 +77,36 @@ public class CoDiCell extends AbstractCell<CoDiCellState> {
     }
 
     /**
-     * Return an {@link EnumMap} containing the previous output for each {@link Direction}.
+     * Return an {@link EnumMap} containing the previous output for each {@link CoDiDirection}.
      * 
-     * @return Return an {@link EnumMap} containing the previous output for each {@link Direction}.
+     * @return Return an {@link EnumMap} containing the previous output for each {@link CoDiDirection}.
      */
-    public EnumMap<Direction, Integer> getNeighborsPreviousInput() {
+    public EnumMap<CoDiDirection, Integer> getNeighborsPreviousInput() {
         return CoDiUtils.enumMapCopy(this.neighborsPreviousInput);
     }
 
     /**
-     * Set the value in the {@link Direction} take as input,
+     * Set the value in the {@link CoDiDirection} take as input,
      * if the {@link EnumMap} doesn't contains the direction it does nothing.
      * 
      * @param direction the direction where set the value.
      * @param value the value to set.
      */
-    public void setNeighborsPreviousInputDirection(final Direction direction, final int value) {
+    public void setNeighborsPreviousInputDirection(final CoDiDirection direction, final int value) {
         if (this.neighborsPreviousInput.containsKey(direction)) {
             this.neighborsPreviousInput.put(direction, value);
         }
     }
 
     /**
-     * Return an {@link Optional} containing the value in the {@link Direction} take as input,
+     * Return an {@link Optional} containing the value in the {@link CoDiDirection} take as input,
      * an empty optional if the direction is not present.
      * 
      * @param direction the direction of the value to return.
      * @return an {@link Optional} containing the value in the direction take as input,
      * an empty optional if it's not present.
      */
-    public Optional<Integer> getSpecificNeighborsPreviousInput(final Direction direction) {
+    public Optional<Integer> getSpecificNeighborsPreviousInput(final CoDiDirection direction) {
         return this.neighborsPreviousInput.containsKey(direction) 
                 ? Optional.of(this.neighborsPreviousInput.get(direction)) : Optional.empty();
     }
@@ -117,7 +117,7 @@ public class CoDiCell extends AbstractCell<CoDiCellState> {
      * 
      * @return Return a {@link EnumMap} representing the chromosome of the cell.
      */
-    public EnumMap<Direction, Boolean> getChromosome() {
+    public EnumMap<CoDiDirection, Boolean> getChromosome() {
         return CoDiUtils.enumMapCopy(this.chromosome);
     }
 

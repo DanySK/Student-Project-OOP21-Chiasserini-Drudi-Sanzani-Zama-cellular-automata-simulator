@@ -20,7 +20,8 @@ public class BryansBrainUpdateRule extends AbstractUpdateRule<Coordinates2D<Inte
     /**
      * Create the update rule.
      * 
-     * @param neighborsFunction
+     * @param neighborsFunction the {@link casim.model.abstraction.utils.NeighborsFunctions}
+     *          to be used in the rule.
      */
     public BryansBrainUpdateRule(
         final BiFunction<

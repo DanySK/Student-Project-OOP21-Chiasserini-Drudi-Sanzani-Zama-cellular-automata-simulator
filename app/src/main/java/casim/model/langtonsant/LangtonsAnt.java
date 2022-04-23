@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 import casim.model.abstraction.automaton.AbstractAutomaton;
+import casim.utils.Direction;
 import casim.utils.coordinate.Coordinates2D;
 import casim.utils.coordinate.CoordinatesUtil;
 import casim.utils.grid.Grid2D;

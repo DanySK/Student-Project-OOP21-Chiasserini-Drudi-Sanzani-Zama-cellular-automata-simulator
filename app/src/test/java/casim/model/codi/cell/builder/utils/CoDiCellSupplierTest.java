@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import casim.model.codi.cell.CoDiCell;
 import casim.model.codi.cell.CoDiCellState;
 import casim.model.codi.utils.CoDiUtils;
-import casim.model.codi.utils.Direction;
+import casim.model.codi.utils.CoDiDirection;
 
 /**
  * Test class for {@link CoDiCellSupplier}.
@@ -16,7 +16,7 @@ import casim.model.codi.utils.Direction;
 class CoDiCellSupplierTest {
 
     private static final int ACTIVATION_COUNTER = 0;
-    private static final EnumMap<Direction, Integer> ENUMMAP = 
+    private static final EnumMap<CoDiDirection, Integer> ENUMMAP = 
             CoDiUtils.newFilledEnumMap(() -> 0);
     private static final CoDiCellState STATE = CoDiCellState.BLANK;
 
