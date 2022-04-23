@@ -38,7 +38,7 @@ public final class Result<T> {
     public static <T, E extends Exception> Result<T> executeSupplier(final FailableSupplier<T, E> function) {
         try {
             return Result.of(function.run());
-        } catch (Exception ex) {
+        } catch (Exception ex) { //NOPMD:should catch every exceptions
             return Result.error(ex);
         }
     }
@@ -54,7 +54,7 @@ public final class Result<T> {
         try {
             function.execute();
             return Result.ofEmpty();
-        } catch (Exception ex) {
+        } catch (Exception ex) { //NOPMD:should catch every exceptions
             return Result.error(ex);
         }
     }
