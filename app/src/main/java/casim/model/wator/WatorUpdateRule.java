@@ -15,18 +15,14 @@ import casim.utils.grid.Grid;
 /**
  * Predators and Preys {@link AbstractUpdateRule} implementation.
  */
-public class WatorUpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, WatorCell> {
+//Package-private
+class WatorUpdateRule extends AbstractUpdateRule<Coordinates2D<Integer>, WatorCell> {
 
     private static final int DEAD_HEALTH = 0;
     private static final String UNKNOWN_STATE = "Unknown state.";
 
-    /**
-     * Constucts a {@link WatorUpdateRule}.
-     * 
-     * @param neighborsFunction the function used to
-     *          obtain the neighbors of a cell.
-     */
-    public WatorUpdateRule(
+    //Package-private
+    WatorUpdateRule(
             final BiFunction<
                 Pair<Coordinates2D<Integer>, WatorCell>,
                 Grid<Coordinates2D<Integer>, WatorCell>,

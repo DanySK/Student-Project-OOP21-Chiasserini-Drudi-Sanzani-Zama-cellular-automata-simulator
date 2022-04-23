@@ -6,14 +6,11 @@ import javafx.scene.input.MouseEvent;
 /**
  * The event listener used for the mouse hover event on the {@link CanvasGrid}.
  */
-public class GridCellHoverListener extends AbstractMouseEventHandler {
+//package-private
+class GridCellHoverListener extends AbstractMouseEventHandler {
 
-    /**
-     * Construct a new {@link GridCellHoverListener}.
-     * 
-     * @param grid the {@link CanvasGrid} the event has to work on.
-     */
-    public GridCellHoverListener(final CanvasGrid grid) {
+    //package-private
+    GridCellHoverListener(final CanvasGrid grid) {
         super(grid);
     }
 

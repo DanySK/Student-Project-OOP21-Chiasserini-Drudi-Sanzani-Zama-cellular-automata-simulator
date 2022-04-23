@@ -5,7 +5,8 @@ import casim.model.abstraction.cell.AbstractCell;
 /**
  * A cell of the Wator Automaton.
  */
-public class WatorCell extends AbstractCell<WatorCellState> {
+//Package-private
+class WatorCell extends AbstractCell<WatorCellState> {
 
     private static final int MIN_HEALTH = 0;
     private static final int MAX_HEALTH = 10;
@@ -15,13 +16,8 @@ public class WatorCell extends AbstractCell<WatorCellState> {
     private int health;
     private boolean moved;
 
-    /**
-     * Constructs a new {@link WatorCell}.
-     * 
-     * @param state the {@link WatorCellState} of the cell.
-     * @param health the int value representing the health of the cell.
-     */
-    public WatorCell(final WatorCellState state, final int health) {
+    //Package-private
+    WatorCell(final WatorCellState state, final int health) {
         super(state);
         this.health = health;
     }

@@ -7,20 +7,14 @@ import casim.utils.coordinate.CoordinatesUtil;
 /**
  * An ant contained in LangtonsAnt.
  */
-public class Ant {
+//Package-private
+class Ant {
 
     private Coordinates2D<Integer> position;
     private Direction direction;
 
-    /**
-     * Constructs a new {@link Ant} with given {@link Direction}
-     * and position.
-     * 
-     * @param direction the {@link Direction} of the {@link Ant}.
-     * @param position {@link Coordinates2D} representing the
-     *          position of the {@link Ant}.
-     */
-    public Ant(final Direction direction, final Coordinates2D<Integer> position) {
+    //Package-private
+    Ant(final Direction direction, final Coordinates2D<Integer> position) {
         this.direction = direction;
         this.position = position;
     }

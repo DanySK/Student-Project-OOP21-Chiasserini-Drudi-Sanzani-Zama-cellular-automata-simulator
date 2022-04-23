@@ -5,14 +5,15 @@ import casim.model.abstraction.cell.AbstractCell;
 /**
  * Cell of Game Of Life.
  */
-public class GameOfLifeCell extends AbstractCell<GameOfLifeState> {
+//package-private
+ class GameOfLifeCell extends AbstractCell<GameOfLifeState> {
 
      /**
      * Construct a new {@link GameOfLifeCell}.
      * 
      * @param state the current state of the {@link GameOfLifeCell}.
      */
-    public GameOfLifeCell(final GameOfLifeState state) {
+    GameOfLifeCell(final GameOfLifeState state) {
         super(state);
     }
 

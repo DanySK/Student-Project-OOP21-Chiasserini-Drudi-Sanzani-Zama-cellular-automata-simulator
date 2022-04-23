@@ -6,7 +6,8 @@ import javafx.scene.paint.Color;
 /**
  * Defines the {@link CanvasGrid} cell elements.
  */
-public interface CanvasGridCell {
+//package-private
+interface CanvasGridCell {
 
     /**
      * Return the {@link CanvasGridCell}'s color.
