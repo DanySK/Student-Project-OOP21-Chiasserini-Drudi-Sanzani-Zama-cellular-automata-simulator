@@ -13,7 +13,7 @@ import casim.model.abstraction.cell.AbstractCell;
      * 
      * @param state the current state of the {@link GameOfLifeCell}.
      */
-    public GameOfLifeCell(final GameOfLifeState state) {
+    GameOfLifeCell(final GameOfLifeState state) {
         super(state);
     }
 

@@ -15,7 +15,7 @@ abstract class AbstractMouseEventHandler implements EventHandler<MouseEvent> {
     private final CanvasGrid grid;
 
     //package-private
-    public AbstractMouseEventHandler(final CanvasGrid grid) {
+    AbstractMouseEventHandler(final CanvasGrid grid) {
         this.grid = grid;
     }
 

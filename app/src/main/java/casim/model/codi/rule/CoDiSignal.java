@@ -3,7 +3,8 @@ package casim.model.codi.rule;
 /**
  * An enum for the growth signals for the CoDi growth phase (see in GrowthUpdateRule).
  */
-public enum CoDiSignal {
+//Package-private
+enum CoDiSignal {
 
     /**
      * An axon signal.
