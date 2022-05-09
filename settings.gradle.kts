@@ -7,5 +7,26 @@
  * in the user manual at https://docs.gradle.org/7.3.1/userguide/multi_project_builds.html
  */
 
+ import org.danilopianini.VersionAliases.justAdditionalAliases
+
+ plugins {
+     id("de.fayard.refreshVersions") version "0.40.1"
+ }
+
+ refreshVersions {
+     extraArtifactVersionKeyRules = justAdditionalAliases
+ }
+
+ buildscript {
+     repositories {
+         gradlePluginPortal()
+         mavenCentral()
+     }
+     dependencies {
+         classpath("org.danilopianini:refreshversions-aliases:+")
+     }
+ }
+
+
 rootProject.name = "OOP21-ca-sim"
 include("app")
