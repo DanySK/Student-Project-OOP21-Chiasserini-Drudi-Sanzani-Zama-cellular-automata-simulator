@@ -1,3 +1,4 @@
+import com.github.spotbugs.snom.SpotBugsTask
 import de.aaschmid.gradle.plugins.cpd.Cpd
 
 /*
@@ -29,9 +30,6 @@ repositories {
 }
 
 dependencies {
-    spotbugs("com.github.spotbugs:spotbugs:4.5.3")
-    spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.11.0")
-
     val junitVer = "5.8.2"
     val platformVer = "1.8.2"
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
@@ -73,14 +71,6 @@ spotbugs {
     excludeFilter.set(file("../config/spotbugs/excludes.xml"))
 }
 */
-
-//Configure Spotbugs Report
-tasks.spotbugsMain {
-    reports.create("xml") {
-        required.set(true)
-        outputLocation.set(file("$buildDir/reports/spotbugs/spotbugs.xml"))
-    }
-}
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11
